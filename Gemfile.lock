@@ -169,6 +169,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    cookies_eu (1.6.3)
+      js_cookie_rails
     countries (2.1.2)
       i18n_data (~> 0.8.0)
       money (~> 6.9)
@@ -251,6 +253,8 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
+    js_cookie_rails (2.1.4)
+      railties (>= 3.1)
     json (2.1.0)
     jwt (1.5.6)
     kaminari (1.1.1)
@@ -479,6 +483,7 @@ DEPENDENCIES
   carrierwave_backgrounder!
   chosen-rails
   ckeditor!
+  cookies_eu
   country_select
   delayed_job_active_record
   devise

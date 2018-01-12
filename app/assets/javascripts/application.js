@@ -18,6 +18,7 @@
 //= require jquery.mentionable
 //= require jquery.scrollTo.min
 //= require readmore.min
+//= require cookies_eu
 //= require_tree .
 
 function getContent(id){

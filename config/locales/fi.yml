@@ -1,5 +1,9 @@
 ---
 fi:
+  cookies_eu:
+    cookies_text: "Käytämme Kuusi Palaan sivustoilla evästeitä. Jatkamalla hyväksyt evästeiden käytön."
+    learn_more: "Lisätietoja."
+    ok: "Selvä"
   locale_name: 'Suomi'
   activerecord:
     errors:

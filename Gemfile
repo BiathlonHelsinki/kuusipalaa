@@ -86,6 +86,7 @@ gem 'carrierwave-aws'
 
 gem 'chosen-rails'
 gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'cookies_eu'
 gem 'country_select'
 gem 'delayed_job_active_record'
 gem 'devise'
