@@ -1,0 +1,114 @@
+!!! 5
+%html{ :lang => "en"}
+  %head
+    %meta{ :charset => "utf-8" }
+
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
+    %link{:href => "https://fonts.googleapis.com/css?family=Montserrat|Source+Code+Pro", :rel => "stylesheet"}/
+    %title= content_for?(:title) ? yield(:title) : "Kuusi Palaa planning & design"
+    %link{:href => "/icons/apple-touch-icon.png", :rel => "apple-touch-icon", :sizes => "180x180"}/
+    %link{:href => "/icons/favicon-32x32.png", :rel => "icon", :sizes => "32x32", :type => "image/png"}/
+    %link{:href => "/icons/favicon-16x16.png", :rel => "icon", :sizes => "16x16", :type => "image/png"}/
+    %link{:href => "/icons/manifest.json", :rel => "manifest"}/
+    %meta{:content => "#ffffff", :name => "theme-color"}/
+    = javascript_include_tag "application"
+    = stylesheet_link_tag "application"
+    = csrf_meta_tag
+
+  %body.frontpage
+    - if flash
+      - flash.each do |key, value|
+        .alert.text-center{ :class => "alert-#{key}" }
+          %strong= raw value
+
+    %header
+      .row
+        .small-12.column.hr
+          %hr
+      .row
+        .small-8.large-3.medium-5.columns.text-left
+          = link_to "[" + t(:about_kuusi_palaa) + "]", page_path('what-is-kuusi-palaa')
+        .medium-2.large-6.hide-for-small-only.columns &nbsp;
+        .small-4.large-3.medium-5.columns.text-right
+          - if I18n.locale.to_s != 'fi'
+            = link_to '[FIN]', :controller => controller.controller_name, :action => controller.action_name, :id => params[:id], :locale => 'fi'
+          - else
+            %strong FIN
+          |
+          - if I18n.locale.to_s != 'en'
+            = link_to '[ENG]', :controller => controller.controller_name, :action => controller.action_name, :id => params[:id], :locale => 'en'
+          - else
+            %strong ENG
+      .row
+        .small-8.large-3.medium-5.columns.dashed.text-left
+          = link_to "[" + t(:whats_next) + "]", page_path('what-happens-next')
+        .medium-2.large-6.hide-for-small-only.columns &nbsp;
+        .small-12.large-3.medium-5.columns.dashed.text-right
+          - if user_signed_in?
+            = link_to current_user.username, current_user
+            = link_to "[" + t(:sign_out) + "]", destroy_user_session_path, :method => :delete
+          - else
+            = link_to "[" + t(:sign_in) + "]", '/users/sign_in'
+
+      .row
+        .small-8.large-3.medium-5.columns.text-left{class: controller.controller_name != 'home' ? :third : false}
+          - unless controller.controller_name == 'home'
+            = link_to  t(:home) , '/'
+        .medium-2.large-6.hide-for-small-only.columns &nbsp;
+        .small-4.large-3.medium-5.columns.text-right{class: user_signed_in? ? :third : false}
+          - if user_signed_in?
+            = link_to t(:member_servics), '/members'
+
+    %article#banner
+      .row
+        .small-12.columns.small-centered.text-center
+          %h1 Kuusi Palaa
+          %br/
+          .banner_blurb= t :banner_blurb
+      .row
+        .small-12.columns.small-centered.text-center
+          .season_preparing= t :preparing_for_season_x, season: @next_season.number.to_s
+          .stake_status= t :percentage_to_season, collected: @stakes.paid.count, needed: @next_season.stake_count, percent:  ((@stakes.paid.count.to_f / @next_season.stake_count.to_f) * 100).to_i
+      .row
+        .small-12.medium-9.columns.small-centered
+          .row
+            .small-12.medium-6.columns.text-center
+              = link_to t(:book_stake_bang), new_season_stake_path(@next_season), class: [:button]
+            .small-12.medium-6.columns.text-center
+              = link_to t(:more_info), page_path('what-is-kuusi-palaa'), class: [:button]
+
+    %article#banner2
+      .row.header
+        .small-12.columns.small-centered.text-center
+          %h3= t(:open_event_space_blah)
+          %h4= t :available_all_times
+      .row
+        .small-12.large-4.medium-2.columns
+          .banner2_title= t :no_central_curation
+          .banner2_blurb= t :proposal_system_blurb
+        .small-12.large-4.medium-2.columns
+          .banner2_title= t :participation_is_the_currency
+          .banner2_blurb= t :participation_front_blurb
+        .small-12.large-4.medium-2.columns
+          .banner2_title= t :always_open_title
+          .banner2_blurb= t :always_open_blurb
+    %article#stakeholder_banner
+      .row
+        .small-12.medium-5.columns
+          %h1= t :become_a_stakeholder
+    %article#main
+
+      = yield
+
+    %footer
+      .row
+        .small-6.columns.small-centered.text-center
+          = t :footer_blurb
+          %span.divider |
+          = link_to fa_icon('github'), 'https://github.com/BiathlonHelsinki/experiment2'
+          %br/
+          = t :footer_contact
+    :javascript
+          $(document).ready(function() {
+            #{yield :jquery}
+          });

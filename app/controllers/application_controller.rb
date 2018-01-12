@@ -5,16 +5,15 @@ class ApplicationController < ActionController::Base
   before_action :get_locale
   before_action :get_era
   before_action :get_current_season
+  before_action :store_user_location!, if: :storable_location?
 
   protected
 
-   def after_sign_in_path_for(resource)
-     if session[:return_to]
-       return session.delete(:return_to)
-     else
-       return '/'
-     end
-   end
+  def after_sign_in_path_for(resource)
+    
+    stored_location_for(resource) || request.env['omniauth.origin'] ||  root_path
+  end
+
 
   def configure_permitted_parameters
     added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
@@ -29,10 +28,11 @@ class ApplicationController < ActionController::Base
 
   def get_current_season
     @current_season = Season.order(start_at: :desc).last
+    @next_season = Season.count == 1 ? @current_season : 2
   end
-  
+
   def get_era
-    @era = Era.find(2)
+    @era = Era.find(3)
   end
 
   def get_locale
@@ -48,6 +48,19 @@ class ApplicationController < ActionController::Base
     else
       I18n.locale = session[:locale]
     end
+
+  end
+
+  private
+
+  def storable_location?
+
+    request.get? && is_navigational_format? && !devise_controller? && !request.xhr? && request.path !~ /callback$/
+  end
+
+  def store_user_location!
+    # :user is the scope we are authenticating
+    store_location_for(:user, request.fullpath)
 
   end
 

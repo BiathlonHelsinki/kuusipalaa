@@ -607,7 +607,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   post_topic: 'Post topic!'
   planning_to_attend: ' planning to attend' # as in "3 people are planning to attend" or "1 person is planning to attend"
   watching: ' watching' # as in "3 people watching"
-  footer_blurb: 'Kuusi Palaa will be powered by Biathlon.'
+  footer_blurb: 'Kuusi Palaa is powered by Biathlon.'
   footer_contact: 'admin {at} temporary dotfi to contact us in the meantime'
   comment_in_main_thread: 'Comment in main thread'
   comment_this_subthread: 'Comment in this sub-thread'
@@ -700,3 +700,16 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   about_kuusi_palaa: 'About Kuusi Palaa'
   planning_metings: '[Meetings]'
   member_servics: '[Member services]'
+  banner_blurb: 'a decentralised cultural space in Helsinki, Finland'
+  preparing_for_season_x: 'Currently preparing for season %{season}!'
+  percentage_to_season: "Status: %{collected} of %{needed} stakes sold so far (%{percent}%)"
+  book_stake_bang: 'Buy a stake in Kuusi Palaa!'
+  open_event_space_blah: 'A collectively operated space for events and activities'
+  available_all_times: '... and open at all other times as a general working and meeting place!'
+  no_central_curation: 'Everyone curates and produces'
+  proposal_system_blurb: 'Kuusi Palaa is not centrally curated, produced or administered. All members are free to propose ideas for events and other public activities.'
+  proposal_system_blurb2: 'You also select what happens by pledging your support to these proposals. If a proposal gets enough support, it is automatically added to the calendar and the person or organisation who proposed it is responsible for showing up and producing the event.'
+  participation_is_the_currency: 'A space that runs on participation'
+  participation_front_blurb: 'Kuusi Palaa values participation and engagement. When you come to an event at Kuusi Palaa, you earn points. These points are used to programme and operate the space.'
+  always_open_title: 'Always open, always welcoming!'
+  always_open_blurb: "If there's nothing on the calendar, Kuusi Palaa is open as a general meeting/working place. And you still get points for showing up. Stakeholders get a key and can open the space if no one else is there, 24/7."

@@ -121,3 +121,4 @@ gem "recaptcha", require: "recaptcha/rails"
 gem 'rolify'
 gem 'simple_token_authentication', git: 'https://github.com/gonzalo-bulnes/simple_token_authentication.git', branch: 'master'
 gem 'truncate_html'
+gem 'wicked_pdf'
