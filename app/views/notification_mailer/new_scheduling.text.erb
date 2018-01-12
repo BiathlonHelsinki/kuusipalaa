@@ -1,0 +1,17 @@
+Hello,
+
+A new meeting of <%= @item.experiment.name %> has been scheduled.
+
+Details:
+
+<%= @item.name %>
+<%= l @item.start_at , format: :short %>
+- 
+<%= l @item.end_at , format: :short %>
+You will receive <%= @item.cost_bb.to_s %> for participating.
+  
+For more information or to comment on this meeting, please visit the page for <%= link_to @item.experiment.name, @item.experiment %>. You can also disable email notifications for the experiment here.
+
+If you don't want to receive any emails from Temporary at all, you can unsubscribe from notifications from your <%= link_to 'user profile page', edit_user_url(@user) %>. If you do want to receive these emails, make sure admin@temporary.fi is whitelisted in your email client.
+  
+Thank you for your interest in Temporary/Biathlon. 

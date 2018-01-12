@@ -1,0 +1,48 @@
+%article.meetings_index
+  .row
+
+    .small-12.discussions
+      .header.text-center= t :planning_meetings
+  - @meetings.each do |meeting|
+    %br/
+    %br/
+    .row
+      .small-12.columns
+        .meeting
+          .heading
+            = meeting.name
+          .info_box
+            .date
+              = l meeting.start_at, format: :short
+              = " - "
+              = meeting.end_at.strftime("%H:%M")
+              %br/
+              = "(Ex-)" + meeting.place.name + ", "
+              = meeting.place.address1 + ", "
+              = meeting.place.city
+            .description
+              = raw meeting.description
+          .meta
+            = pluralize(meeting.rsvps.size, t(:person, count: meeting.rsvps.size)) + t(:planning_to_attend)
+            %span.light= " | "
+            - if user_signed_in?
+              - if meeting.rsvps.map(&:user).include?(current_user)
+                = link_to "[" + t(:cancel_rsvp) + "]", cancel_rsvp_meeting_path(meeting), method: :post
+              - else
+                = link_to "[" + t(:i_plan_to_attend) + "]", rsvp_meeting_path(meeting), method: :post
+            - else
+              = link_to "[" + t(:rsvp) + "]", '/users/sign_in'
+
+
+          .row
+            .small-12.columns
+              - unless meeting.posts.empty?
+                .linked_topics
+                  %strong= t :this_meeting_is_discussed_in_these_topics
+                %ul
+                  - meeting.posts.each do |post|
+                    %li= link_to post.name, post
+
+= content_for :jquery do
+  :plain
+    $('.comment_content').readmore({lessLink: '<a class="button readmore" href="#">[#{t(:close)}]</a>', moreLink: '<a class="button readmore" href="#">[#{t(:read_more)}]</a>'});

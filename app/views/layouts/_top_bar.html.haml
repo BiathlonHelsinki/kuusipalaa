@@ -1,0 +1,7 @@
+- if user_signed_in?
+  = t :signed_in_as
+  = link_to current_user do
+    %strong= current_user.display_name
+  %small= link_to "[" + t(:sign_out) +"]",  destroy_user_session_path, :method => :delete
+- else
+  = link_to t(:log_in_join), new_session_path(:user)

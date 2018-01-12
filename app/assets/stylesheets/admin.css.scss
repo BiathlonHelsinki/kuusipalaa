@@ -1,0 +1,204 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require foundation_and_overrides
+ *= require variables
+ *= require chosen
+ *= require font-awesome
+
+ */
+
+
+
+@import 'foundation-datetimepicker';
+
+
+
+// formtastic overrides
+
+form {
+  li {
+    list-style-type: none;
+  }
+  input[type=submit] {
+    margin-top: 2rem;
+  }
+}
+label.label {
+  background-color: transparent;
+  color: black;
+}
+
+
+
+a.button {
+  background-color: green;
+  &:hover {
+    color: green;
+  }
+}
+header.admin {
+
+  nav#nav-menu {
+    &.top-bar {
+      ul li a {
+        color: green;
+      }
+    }
+    .logo-wrapper {
+      width: 100%;
+      clear: right;
+      float: left;
+      .logo {
+        float: left;
+      }
+      .status_bar {
+        float: right;
+        div{
+          float: left;
+          padding: 0.4rem;
+          margin: 0 0.4rem;
+          &.unreachable {
+            background-color: red;
+            color: white;
+          }
+          &.ok {
+            background-color: green;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+.datetimepicker .switch, .datetimepicker th i {
+  color: black !important;
+}
+.datetimepicker {
+  i.fi-arrow-left, i.fi-arrow-right {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+  i.fi-arrow-left:before {
+   content: "\f060";
+  }
+  i.fi-arrow-right:before {
+    content: "\f061";
+  }
+}
+form {
+  label.label {
+    padding: 0.3333rem 0.5rem 0.3333rem 0;
+    font-size: 1rem;
+  }
+  a {
+    color: green;
+  }
+
+
+  input.datetimepicker {
+    width: inherit;
+    position: relative;
+  }
+  textarea {
+    height: 250px;
+    &.hidden {
+      display: none;
+    }
+  }
+  p.inline-hints {
+    font-size: 0.74rem;
+    color: #666;
+    font-weight: italic;
+  }
+  input[type=submit] {
+    background-color: green;
+    color: yellow;
+  }
+}
+
+.credits_interface {
+  padding: 2.5rem 0;
+}
+table {
+  td {
+    a {
+      color: green;
+    }
+  }
+}
+
+table.experiments {
+  tr:nth-child(even) {
+    td {
+      border-bottom: 3px solid black;
+    }
+  }
+  tr.instance {
+    border: none;
+    table.instances {
+      thead {
+        font-size: 0.8em;
+        th {
+          font-size: 0.7rem;
+        }
+      }
+      tr{
+        border: none;
+        td {
+          border-bottom: none;
+        }
+      }
+    }
+    td {
+      padding: 0;
+      font-size: 0.9em;
+    }
+  }
+}
+
+nav.pagination {
+  span {
+    float: left;
+  }
+}
+
+.stats {
+  a {
+    color: green;
+  }
+  ol {
+    li {
+      a {
+        color: green;
+      }
+      span.stats {
+        font-size: 0.8em;
+        color: #666;
+      }
+    }
+  }
+}
+
+.admin_survey {
+  padding: 2rem 0;
+  a {
+    color: #3888B9;
+  }
+  a.button {
+    color: #fded57;
+  }
+}

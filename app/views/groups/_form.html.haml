@@ -1,0 +1,8 @@
+= semantic_form_for @group,  html: {multipart: true, 'data-abide': ''} do |f|
+  = f.input :name,  hint: t(:keep_it_short), input_html: {'required': ''}
+  = f.input :long_name, label: t(:long_name), hint: t(:longer_name_hint), input_html: {'required': ''}
+  = f.input :description, hint: t(:group_description), input_html: {'required': ''}
+  = f.input :avatar, hint: t(:optional_group_image)
+  = f.input :website, hint: t(:group_website)
+  = f.input :twitter_name, hint: t(:group_twitter)
+  = f.submit t(:save)

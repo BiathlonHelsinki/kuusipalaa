@@ -1,0 +1,52 @@
+.member_services_index
+  .row
+    .small-12.columns
+      %h2.text-center= t :member_services
+      %br/
+      %br/
+
+  .row
+    .small-12.columns.medium-8.large-6
+      %h3.text-center= t :edit_a_group
+      %p= t :group_stakes_blurb
+
+
+
+      = semantic_form_for @group,  html: {multipart: true, 'data-abide': ''} do |f|
+        = f.input :name, label: "<label class='label'>#{t(:group_name)}</label><div class='validation_error'></div>".html_safe,  hint: t(:cannot_change_group), input_html: {'required': '', disabled: 'disabled'}
+        = f.input :long_name, label: t(:long_name), hint: t(:longer_name_hint), input_html: {'required': ''}
+        = f.input :description, hint: t(:group_description), input_html: {'required': ''}
+        - if f.object.avatar?
+          = image_tag f.object.avatar.url
+        = f.input :avatar, hint: t(:optional_group_image)
+        = f.input :website, hint: t(:group_website)
+        = f.input :twitter_name, hint: t(:group_twitter)
+        = f.submit t(:save)
+
+= content_for :jquery do
+  :plain
+
+
+    $('#group_name').on('valid.zf.abide',function (ev,elem) {
+
+      $.ajax({
+          url: '/users/check_unique',
+          data : {
+              action : "validate.username",
+              username : $(ev.target).val()
+          },
+          success : function(data) {
+            $('.validation_error').html();
+            $('.validation_error').fadeOut();
+            $(ev.target).removeClass('is-invalid-input');
+
+          },
+          error: function(data, errorThrown) {
+
+            $('.validation_error').html(data.responseJSON.message);
+            $('.validation_error').fadeIn();
+            $(ev.target).addClass('is-invalid-input');
+            // $(ev.target).markInvalid(data.messages.join('<br>'));
+          }
+      });
+    });

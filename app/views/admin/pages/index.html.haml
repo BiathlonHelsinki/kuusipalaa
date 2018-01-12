@@ -1,0 +1,27 @@
+.page_index
+  .row.expanded
+    .small-12.columns
+      %h1 Pages
+  .row.expanded
+    .small-10.columns
+      %table
+        %thead
+          %tr
+            %th Title
+            %th Excerpt
+            %th Published?
+            %th Actions
+        %tbody
+          - @pages.each do |page|
+            %tr
+              %td= page.title
+              %td= truncate_html(page.body, length: 150)
+              %td= page.published == true ? 'yes' : 'no'
+              %td
+                = link_to 'View', page, target: :_blank, class: [:button, :small]
+                - if can? :edit, page
+                  = link_to 'Edit',  edit_admin_page_path(page), class: [:button, :small]
+                - if can? :destroy,  page
+                  = link_to 'Delete', [:admin, page], method: :delete, class: [:button, :small, :alert]
+  .row.expanded
+    .small-12.columns= link_to 'New page', new_admin_page_path, class: [:button]

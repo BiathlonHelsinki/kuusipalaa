@@ -1,0 +1,24 @@
+.row
+  .small-12.columns
+    = link_to 'Create new post', new_admin_post_path, class: [:button]
+
+.row
+  .small-10.columns
+    %table
+      %thead
+        %th Date
+        %th Title
+        %th status
+        %th
+      %tbody
+        - @posts.each do |post|
+          %tr
+            %td= l (post.published == true ? post.published_at : post.updated_at )
+            %td= post.title
+            %td= post.published == true ? 'published' : 'not'
+            %td
+              - if can? :edit, post
+                = link_to 'Edit', edit_admin_post_path(post), class: [:button, :small]
+              - if can? :destroy, post  
+                = link_to 'Delete', [:admin, post], method: :delete, class: [:button, :alert, :small], data: {confirm: 'Are you sure?'}
+          

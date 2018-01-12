@@ -1,0 +1,753 @@
+---
+fi:
+  locale_name: 'Suomi'
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'Validointi epäonnistui: %{errors}'
+  date:
+    abbr_day_names:
+    - su
+    - ma
+    - ti
+    - ke
+    - to
+    - pe
+    - la
+    abbr_month_names:
+    -
+    - tammi
+    - helmi
+    - maalis
+    - huhti
+    - touko
+    - kesä
+    - heinä
+    - elo
+    - syys
+    - loka
+    - marras
+    - joulu
+    day_names:
+    - sunnuntai
+    - maanantai
+    - tiistai
+    - keskiviikko
+    - torstai
+    - perjantai
+    - lauantai
+    formats:
+      default: "%-d.%-m.%Y"
+      long: "%A %e. %Bta %Y"
+      short: "%d. %b"
+    month_names:
+    -
+    - tammikuu
+    - helmikuu
+    - maaliskuu
+    - huhtikuu
+    - toukokuu
+    - kesäkuu
+    - heinäkuu
+    - elokuu
+    - syyskuu
+    - lokakuu
+    - marraskuu
+    - joulukuu
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: noin tunti
+        other: noin %{count} tuntia
+      about_x_months:
+        one: noin kuukausi
+        other: noin %{count} kuukautta
+      about_x_years:
+        one: vuosi
+        other: noin %{count} vuotta
+      almost_x_years:
+        one: melkein yksi vuosi
+        other: melkein %{count} vuotta
+      half_a_minute: puoli minuuttia
+      less_than_x_minutes:
+        one: alle minuutti
+        other: alle %{count} minuuttia
+      less_than_x_seconds:
+        one: alle sekunti
+        other: alle %{count} sekuntia
+      over_x_years:
+        one: yli vuosi
+        other: yli %{count} vuotta
+      x_days:
+        one: päivä
+        other: "%{count} päivää"
+      x_minutes:
+        one: minuutti
+        other: "%{count} minuuttia"
+      x_months:
+        one: kuukausi
+        other: "%{count} kuukautta"
+      x_seconds:
+        one: sekunti
+        other: "%{count} sekuntia"
+    prompts:
+      day: päivä
+      hour: tunti
+      minute: minuutti
+      month: kuukausi
+      second: sekunti
+      year: vuosi
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: täytyy olla hyväksytty
+      blank: ei voi olla sisällötön
+      confirmation: ei vastaa varmennusta
+      empty: ei voi olla tyhjä
+      equal_to: täytyy olla yhtä suuri kuin %{count}
+      even: täytyy olla parillinen
+      exclusion: on varattu
+      greater_than: täytyy olla suurempi kuin %{count}
+      greater_than_or_equal_to: täytyy olla suurempi tai yhtä suuri kuin %{count}
+      inclusion: ei löydy listasta
+      invalid: on kelvoton
+      less_than: täytyy olla pienempi kuin %{count}
+      less_than_or_equal_to: täytyy olla pienempi tai yhtä suuri kuin %{count}
+      not_a_number: ei ole luku
+      not_an_integer: ei ole kokonaisluku
+      odd: täytyy olla pariton
+      taken: on jo käytössä
+      too_long: on liian pitkä (saa olla enintään %{count} merkkiä)
+      too_short: on liian lyhyt (oltava vähintään %{count} merkkiä)
+      wrong_length: on väärän pituinen (täytyy olla täsmälleen %{count} merkkiä)
+    template:
+      body: 'Seuraavat kentät aiheuttivat ongelmia:'
+      header:
+        one: Virhe syötteessä esti mallin %{model} tallentamisen
+        other: "%{count} virhettä esti mallin %{model} tallentamisen"
+  helpers:
+    select:
+      prompt: Valitse
+    submit:
+      create: Luo %{model}
+      submit: Tallenna %{model}
+      update: Päivitä %{model}
+  number:
+    currency:
+      format:
+        delimiter: " "
+        format: "%n %u"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "€"
+    format:
+      delimiter: " "
+      precision: 3
+      separator: ","
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          thousand: tuhatta
+          million: miljoonaa
+          billion: miljardia
+          trillion: biljoonaa
+          quadrillion: tuhatta biljoonaa
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: tavu
+            other: tavua
+          gb: Gt
+          kb: kt
+          mb: Mt
+          tb: Tt
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: " ja "
+      two_words_connector: " ja "
+      words_connector: ", "
+  time:
+    am: aamupäivä
+    formats:
+      default: "%A %e. %Bta %Y %H:%M:%S %z"
+      long: "%e. %Bta %Y %H.%M"
+      short: "%e.%m. %H.%M"
+    pm: iltapäivä
+  what_do_you_think_about_this: 'Mitä mieltä olet tästä?'
+  discussion: 'Keskustelu:'
+  user_says: '%{user} sanoo....'
+  save: 'Tallenna!'
+  room_bookings: 'Takahuoneen varaukset'
+  leave_comment: 'Lähetä kommentti'
+  register: 'Rekisteröidy!'
+  your_comment_was_added: 'Kommenttisi on lisätty.'
+  your_comment_was_not_added: 'Kommenttisi lähettämisessä tapahtui virhe'
+  has_pledged: '%{user} on tukenut %{amount} tähän ehdotukseen.'
+  experiments: 'Kokeilut'
+  sign_in: 'Kirjaudu sisään'
+  sign_in_with_none: 'Vaihtoehtoisesti voit liittyä sähköpostillasi.'
+  sign_up_with_email: '(rekisteröidy tästä!)'
+  forgot_your_password: 'Unohditko salasanasi?'
+  in_the_past: 'Menneet tapahtumat'
+  questions_and_answers: 'Kysymykset ja vastaukset'
+  what_is_temporary: 'Mikä on Temporary?'
+  how_does_it_work: 'Kuinka se toimii?'
+  where_is_it: 'Missä se on?'
+  when_is_it_open: 'Milloin Temporary on auki?'
+  whats_the_t_mean: "Mitä ovat %{tsign}:t ja mikä on niiden tarkoitus?"
+  how_do_i_get_temps: 'Kuinka saan Tempsejä?'
+  news: 'Uutiset'
+  experiments: 'Kokeilut'
+  activity_feed: 'Toiminta'
+  proposals: 'Ehdotukset'
+  proposal: 'Ehdotus'
+  activity: 'Toiminta'
+  activities: 'Toiminnat'
+  visit_us: 'Tule käymään'
+  book_the_back_room: 'Varaa takahuone'
+  your_details: 'Toimintasi'
+  your_profile: 'Muokkaa profiiliasi'
+  redeem_guest_ticket: 'Lunasta vieraslippu'
+  sign_out: 'Kirjaudu ulos'
+  log_in_join: 'Kirjaudu/Liity'
+  sign_in: 'Liity'
+  why_join: 'Miksi liittyä?'
+  temporary_is_open_blurb: "Temporary on aina avoinna oleva luova tila leikkimiseen, työskentelyyn, tapaamisiin tai mihin tahansa muuhun."
+  come_and_visit: 'Tervetuloa!'
+  evenings_and_weekends: 'Me autamme sinua järjestämään %{event_link} yhteisöllisesti ehdotuksesta käytännön toteutukseen'
+  experimental_event:
+    zero: 'kokeellisia tapahtumia'
+    one: 'kokeellinen tapahtuma'
+    other: 'kokeellisia tapahtumia'
+  find_out_more: 'Lisätietoa...'
+  calendar: 'Kalenteri'
+  view_full_calendar: 'Tarkastele koko kalenteria'
+  announcements: 'Ilmoitukset'
+  person_says: '%{link} kirjoittaa'
+  you_must_register_for_this_experiment: 'Sinun täytyy rekisteröityä tätä kokeilua varten!'
+  rsvp: 'RSVP!'
+  proposed_by_person: "Ehdottanut %{link}"
+  currently_pledged: "Tuen määrä nyt:"
+  scheduled: 'Sovittu!'
+  will_be_reviewed: "Sovitaan seuraavassa tapaamisessa."
+  view: 'Näytä'
+  still_needed: '%{amount} puuttuu'
+  pledge_verb: 'Tue!'
+  must_enter_valid_email: 'Sinun täytyy syöttää sähköpostiosoitteesi, jotta voit ehdottaa tai tukea kokeiluita.'
+  propose_experiment: 'Ehdota kokeilua!'
+  who: 'Kuka'
+  subject: 'Aihe'
+  info: 'Info'
+  the_date: "Päivämäärä"
+  showing_all_activity_for_user: 'Näytetään kaikki aktiviteetti käyttäjälle %{user}'
+  filter_by: 'Suodata:'
+  is_currently_open: 'on auki!'
+  is_not_currently_open: 'ei ole auki.'
+  current: 'Tämänhetkinen'
+  next: 'Seuraava'
+  read_more: 'Lue lisää ...'
+  temporary_biathlon_is_powered_by: 'Temporary/Biathlon hyödyntää:'
+  no_comments_yet: 'Tällä hetkellä ei kommentteja.'
+  last_pledge_by: 'Viimeksi tukenut %{user}'
+  accepting_more_pledges_now: 'LISÄÄ TUKEA VOI ANTAA:'
+  ready_to_schedule: 'VALMIS TOTEUTETTAVAKSI:'
+  attended: 'osallistui'
+  attended_anonymously: 'osallistui nimettömästi'
+  booked_the_back_room_on: 'varasi takahuoneen '
+  changed_the_status_of: 'muutti statusta '
+  commented_on: 'kommentoi'
+  edited: 'muokkasi'
+  edited_their_pledge_to: 'muutti tuenmäärän'
+  had_blockchain_balance_adjusted_by: 'blockchain saldoa muutettiin %{numerical_value}Ŧ'
+  is_no_longer_planning_to_attend: 'ei enää aio osallistua'
+  joined: 'littyi!'
+  linked: 'linkitti'
+  plans_to_attend: 'aikoo osallistua'
+  pledged: 'tuki'
+  pledged_to: 'tuki %{numerical_value}Ŧ'
+  proposed: 'ehdotti'
+  received_from: 'vastaanotti Ŧ'
+  registered_for: 'rekisteröityi'
+  spent_a_pledge_on: 'käytti %{numerical_value}Ŧ seuraavaan'
+  was_credited_for: 'sai tunnustusta'
+  was_mentioned_by: 'mainittiin'
+  withdrew_a_pledge: 'veti takasin tukensa'
+  pledge_verb: 'tue'
+  anonymous person: 'nimetön henkilö'
+  in_a_comment_on: 'kommentissa'
+  unregistered: 'Kiitos, että kerroit meille. Harmi, että et pääse paikalle tällä kertaa.'
+  rsvp_thanks: 'Kiitos vastauksesta.'
+  registration_thanks: 'Kiitos ilmoittautumisesta.'
+  updated_proposal: 'Ehdotuksen tietoja päivitety.'
+  proposal_update_error: 'Ehdotusta päivitettäessä tapahtui virhe'
+  which_was_scheduled_as: 'joka oli aikataulutettu'
+  was_decredited_for: 'was de-credited for'
+  donate_to_temporary: 'Lahjoita Temporarylle!'
+  ongoing: 'Kesken'
+  pledged_in_support_of_this_proposal: '%{user} antoi tukea tälle ehdotukselle!'
+  you_pledged: 'Annoit %{amount}'
+  you_pledged_date: 'Annoit %{amount} %{date}'
+  your_pledges_to_this_proposal: 'Sinun tukihistoriasi koskien tätä ehdotusta:'
+  scheduling: 'hyväksynnässä'
+  completed: 'Valmis!'
+  but_still_taking_pledges: 'mutta ottaa vielä vastaan tukea...'
+  pending_scheduluing: 'Odottaa aikatauluttamista!'
+  see_comments_for_reason: 'Katso perustelut kommenteista'
+  full_pledged_by: "%{amount} antoi käyttäjä"
+  pledge_temps: 'Tue Ŧ!'
+  pledge_more_temps: 'Tue lisää Ŧ!'
+  meeting: 'tapaaminen'
+
+  meetings_took_place_past: "%{count} %{amount} tapahtui:"
+  recurring_experiment_meetings: 'Toistuva kokeilu. Tapaamiset:'
+  this_proposal_needs_at_least_one_other_user_to_pledge_to_it: 'Tämä ehdotus tarvitsee vähintään yhden toisen käyttäjän tuen.'
+  needed_to_be_considered_for_scheduling: 'Puuttuu vielä hyväksymistä varten:'
+  needed_total_from_users: '%{amount} yhteensä, vähintään kahdelta käyttäjältä'
+  review_at_next_meeting: "Tämä ehdotus käsitellään Temporaryn seuraavassa tapaamisessa:"
+  none_currently_scheduled: 'Tällä hetkellä ei mitään sovittu.'
+  come_to_this_experiment: 'Tule mukaan kokeiluun:'
+  see_all: 'Katso kaikki...'
+  already_happened: 'Tapahtui aiemmin:'
+  description: 'Kuvaus'
+  goals: 'Tavoitteet'
+  timeframe: 'Aikataulu'
+  how_often: 'Kuinka usein tämä tapahtuu?'
+  happens_only_once: 'Tapahtuu vain kerran'
+  multiple_meetings_proposed: 'Useita tapaamisia ehdotettu'
+  happens_regularly: 'Tapahtuu sännöllisesti'
+  x_meetings_proposed: '%{amount} tapaamisia ehdotettu'
+  intended_participants: 'Alustavat osallistujat'
+  edit_proposal: 'Muokkaa ehdotusta'
+  this_proposal_has_x_comments: 'Tällä ehdotuksella on %{comments}.'
+  this_proposal_had_x_comments: 'Tällä ehdotuksella oli %{comments}.'
+  delete_this_comment: 'Poista kommentti'
+  are_you_sure_delete_comment: 'Oletko varma? Jos joku on vastannut kommenttiin ja poistat sen, saattaa tulla sekaannuksia.'
+  edit_your_pledge: 'Muuta tukesi määrää'
+  tagging: 'Tägätaan'
+  tagging_people: "Ihmiset: kirjoita '@' ja sen jälkeen käyttäjänimi [esim: @Jussi, @PsychoDog]"
+  tagging_experiments: "Kokeilut: kirjoita '#' ja sen jälkeen kokeilun nimi [esim: #Open]"
+  attach_image_to_comment: 'Liitä kuva kommenttiin'
+  attach_attachment_to_comment: 'Lisää liitetiedosto kommenttiin'
+  edit_profile: 'Muokkaa profiilia'
+  if_you_want_to_register: 'Jos haluat ilmoittautua tähän kokeiluun, %{sign_in}.'
+  rsvp_explanation: 'Ilmoittauminen (osallistuu):'
+  experiment_instigator_brackets: '(& kokeilun aloittaja)'
+  organiser: '(järjestäjä)'
+  cancel_rsvp: 'Peru ilmoittautuminen'
+  confirm_cancel_rsvp: 'Oletko varma, että haluat perua ilmottautumisesi?'
+  when_is_temporary_open: 'Milloin Temporary on auki?'
+  pending_scheduling: 'Odottaa hyväksyntää'
+  edit_pledge: 'Muokkaa tukesi määrää'
+  cancelled: 'peruutettu'
+  experiment_has_been_cancelled: 'Tämä kokeilu on peruutettu.'
+  reschedule_info: 'Tarkista myöhemmin tapahtuman uusi mahdollinen ajankohta.'
+  cancelled_it: 'peruutti kokeilun'
+  your_email: 'Sähköpostiosoitteesi:'
+  password: 'Salasana:'
+  all_active_proposals: 'Kaikki aktiiviset ehdotukset'
+  needs_more_t: 'Tarvitsee lisää Ŧ:tä'
+  needs_more_t_to_continue: 'Tarvitsee lisää Ŧ:tä jatkuakseen'
+  awaiting_review: 'Odottaa arviota'
+  archived: 'Arkistoitu'
+  search_results_for: 'Etsi tuloksia:'
+  search_ellipses: "Etsi ..."
+  t_needed_for_an_experiment_to_begin: 'Ŧ:tä tarvitaan, jotta kokeilu voidaan toteuttaa:'
+  log_in_or_join_to_propose: 'Kirjaudu sisään (tai luo tunnus!) ehdottaaksesi kokeilua'
+  why: '(miksi?)'
+  name: 'Nimi'
+  proposed_by: 'Ehdotuksen teki'
+  when: 'Milloin?'
+  status: 'Status'
+  multiple_meetings_proposed: 'Useita tapaamisia ehdotettu'
+  x_total_needed_for_complete: "%{number}Ŧ tarvitaan jotta kokeilu voidaan toteuttaa kokonaisuudessaan"
+  happens_regularly: 'Tapahtuu säännölliseti'
+  experiment_completed: 'Kokeilu toteutettu'
+  none_currently_upcoming: 'Ei uusia tulossa'
+  x_upcoming_next_at: "%{number} uutta tulossa, paikka:"
+  last_meeting: 'Viimeisin tapaaminen:'
+  participant:
+    zero: 'osallistujaa'
+    one: 'osallistuja'
+    other: 'osallistujaa'
+  out_of_y: '%{y}:stä'
+  person:
+    zero: 'henkilöä'
+    one: 'henkilö'
+    other: 'henkilöä'
+  you_spent: 'Käytit %{amount}'
+  pledge_more_t: 'Lahjoita lisää Ŧ:tä!'
+  ready_to_schedule_but_accepting_more_pledges: 'Valmis toteutettavaksi mutta vastaanottaa edelleen lahjoituksia'
+  pledging_completed: 'Lahjoitukset annettu'
+  error: 'Virhe'
+  but_accepting_more_pledges: 'mutta vastaanottaa lisää lahjoituksia'
+  x_needed_to_schedule_next: "%{amount} lisää Ŧ:tä tarvitaan seuraavan tapaamisen toteuttamiseksi (#%{meeting_number})"
+  enough_temps_to_schedule_x_more: "Tarpeksi Ŧ:tä on lahjoitettu %{number}:n tapahtuman toteuttamiseksi"
+  all_required_pledged_or_spent: 'Tarvittava määrä Ŧ:tä on lahjoitettu tai käytetty.'
+  more_than_enough: 'Enemmän kuin tarvittava määrä Ŧ:tä kaikkien ehdotettujen tapaamisten toteuttamiseksi lahjoitettu.'
+  x_total_needed_for_y: "%{number} lisää Ŧ:tä tarvitaan kaikkien %{proposed}:n tapaamisen toteuttamiseksi."
+  and_accepting_more_pledges: 'ja vastaanottaa lisää lahjoituksia'
+  first_session: 'ensimmäinen tapaaminen'
+  next_session: 'seuraava tapaaminen'
+  it: 'se'
+  x_needed_for_first_or_next: "%{amount} lisää Ŧ:tä tarvitaan ennen %{first_or_next} voidaan toteuttaa"
+  enough_to_schedule_complete: "Tarvittava määrä Ŧ:tä on lahjoitettu koko kokeilun toteuttamiseksi"
+  meeting:
+    zero: 'tapaamista'
+    one: 'tapaaminen'
+    other: 'tapaamista'
+  enough_temps_to_schedule_x_more_of: "Riittävästi Ŧ:tä on lahjoitettu %{number}:n %{meeting} %{proposed}"
+  of_proposed: '%{number}:stä ehdotetusta'
+  needs_more_people: 'Riittävästi Tempsejä on lahjoitettu, mutta vain yhdeltä henkilöltä. Toisen henkilön täytyy lahjoittaa ainakin 1 Ŧ ennen kuin kokeilu voidaan toteuttaa.'
+  complete_experiment: 'Koko kokeilu'
+  proposal_has_no_fixed_end: 'Kokeilu on jatkuva, joten lahjoituksia (Ŧ:tä) tarvitaan toistuvasti sen toteuttamiseksi!'
+  no_comments_or_pledges_yet: 'Ei kommentteja tai lahjoituksia tähän mennessä.'
+  comment:
+    zero: 'kommenttia'
+    one: 'kommentti'
+    other: 'kommenttia'
+  comments_on_proposal: "%{number} %{comment} ehdotukseen liittyen"
+  last_pledge_or_comment_by: 'viimeisimmän %{item_type} teki %{person}'
+  needs_more_support: 'Tarvitsee lisää tukea'
+  ago: 'sitten'
+  each_recurrent_event_explanation: 'Jokainen toistuva tapaaminen/tapahtuma saa 10 %:n alennuksen (Tempseissä mitattuna) verratuna edelliseen tapaamiseen. Tapaamisen toteuttamiseen tarvitaan kuitenkin aina vähintään 20Ŧ.'
+  cost_rose: 'HUOM: Kokeen peruskustannus nousi 70:tä 100Ŧ:aan 15.3.2017.'
+  number_of_meetings_proposed: 'Ehdotetujen tapaamisten määrä:'
+  unknown_indefinite: 'tuntematon/määrittelemätön'
+  nothing_scheduled: 'Ei mitään aikataulutettu'
+  took_place_on: 'järjestettiin %{date}'
+  x_must_be_pledged_before: '%{amount}Ŧ:tä täytyy saada lahjoituksina ennen kuin tämä ehdotus voidaan nostaa pöydälle ja toteuttaa.'
+  pending_pledges: 'Lahjoituksia odotellaan:'
+  waiting_to_be_scheduled: 'Aikataulusta odotetaan'
+  total: 'Yhteensä'
+  pledges_spent: 'Lahjotettuja Tempsejä käytetty'
+  download: 'Lataus'
+  view_as_calendar: 'Katso kalenterissa'
+  is_no_longer_registered_for: 'ei ole enää rekistöröitynyt'
+  experiment:
+    zero: 'Kokeilu'
+    one: 'kokeilu'
+    other: 'kokeilua'
+  view_as_list: 'Katso listana'
+  no_id_cards_yet: 'Ei ID-kortteja vielä'
+  ethereum_accounts: 'Ethereum tilit'
+  id_cards: 'ID kortit'
+  address: 'osoite'
+  created: 'luotu'
+  last_used: 'viimeksi käytetty?'
+  authentications: 'Autentikaatiot'
+  balance: 'Saldo'
+  participated_in: 'Osallistui'
+  send_t_to_user: 'Lähetä Ŧ:tä %{username}:lle'
+  user_since: 'Käyttäjä %{when} lähtien'
+  no_proposals_made: 'Ei tehtyjä ehdotuksia'
+  no_pledges_made: 'Ei annettu tukea'
+  no_comments: 'Ei kommentoitu.'
+  spent: 'Käytetty'
+  number_earned: '%{number} tienattu'
+  number_spent: '%{number} käytetty'
+  number_transferred_from: '%{number} siirretty muilta käyttäjiltä'
+  number_transferred_to: "%{number} siirretty toisille käyttäjille"
+  number_pledged: "%{number} lahjoitettu"
+  number_held_in_pledges: "%{number} pidetään varattuna, koska ne on annettu tukena tapahtumille, jotka eivät ole vielä varmistuneet"
+  totals: 'Yhteensä'
+  website: 'Webbisivut'
+  number_available: '%{number}Ŧ käytettävissä'
+  number_in_total: '%{number} yhteensä'
+  email: 'Email'
+  experiments_instigated: 'Kokeiluja aloitettu'
+  pledges: 'Tukia'
+  commented_on_item: 'kommentoi %{item}'
+  comments: 'Kommentit'
+  pending: 'Vireillä'
+  pledged_or_withdrawn: 'luvattu tukena/otettu'
+  transferred: 'siirretty'
+  meeting:
+    zero: 'tapaaminenta'
+    one: 'tapaaminen'
+    other: 'tapaaminenta'
+  pledging_support_for: 'Lahjoitetaan tukea:'
+  amount_available_to_pledge: 'Sinulla on %{number}Ŧ käytettävissäsi.'
+  multiday_experiments: 'Tähän kokeiluun liittyen on ehdotettu useita tapaamisia. Temporaryllä usean päivän kokeilut maksavat Tempsejä jokainen tapaamispäivä siten, että seuraavat päivät saavat edeltävään verrattuna 10 % alennuksen (kunnes päästään 20Ŧ:hen joka on minimimaksu).'
+  indefinite_proposal: 'Tässä ehdotuksessa ei ole määritetty kuinka monta tapaamista siihen liittyy, joten se jatkuu toistaiseksi.'
+
+  # used in the phrase  'this experiment has happened 6 times'
+  meeting_time_instance:
+    zero: 'kertaa'
+    one: 'kerta'
+    other: 'kertaa'
+  experiment_scheduled_to_happen_x_times: 'Tämä kokeilu on toteutunut jo (tai on sovittu toteutuvaksi) %{number_of_times}.'
+  more_meetings:
+    zero: 'tapaamisia'
+    one: 'jatkotapaaminen'
+    other: 'jatkotapaamisia'
+  currently_enough_temps: "Riittävä määrrä Tempsejä on annettu (%{number_of_temps}Ŧ), jotta voidaan toteuttaa %{number} %{possible_meetings}."
+  needs_to_happen_again: 'Tämä kokeilu tarvitsee %{number}Ŧ lisää, jotta se voisi toteutua%{again}.'
+  biathlon_api_offline: "Pahoittelut. Biathlon API on tällä hetkellä offline. Pyydämme kokeilemaan uudelleen myöhemmin."
+  no_temps_to_pledge: 'Sinulla ei ole tällä hetkellä yhtään Tempsiä käytettävänä.'
+  delete_your_pledge: 'Poista antamasi tuki!'
+  confirm_pledge_withdrawal: "Oletko varma? Temps saldosi palautetaan entiselleen."
+  how_many_to_pledge: 'Kuinka monta %{currency} (Ŧ) haluaisit antaa tukena?'
+  your_pledge_with_max: 'Sinun tukimääräsi (max. %{max}):'
+  comments_on_pledge: 'Halautko liittää antamaasi tukeen kommentin?'
+  tagging: 'Tagaaminen:'
+  people_tagging: "Käyttäjät: kirjoita '@' ja sen jälkeen jonkun käyttäjänimi [esim: @Jussi, @CucumberHead]"
+  experiment_tagging: "Kokeilut: kirjoita '#' ja sen jälkeen kokeilun nimi [esim: #Open]"
+  proposal_form: 'Kokeilun muoto'
+  name_of_your_experiment: 'Kokeilun nimi'
+  short_description: 'Lyhyt kuvaus'
+  how_often_will_this_occur: 'Kuinka usein kokeilun on suuniteltu tapahtuvan?'
+  once: 'kerran'
+  show: 'näytä'
+  how_many_days_of_calendar: 'Kuinka monena päivänä (kalenterissa) tämä tapahtuma järjestetään?'
+  how_many_estimated_total: "Kuinka monta tapaamista yhteensä (arviosi)? (Kirjoita '0' luodaksesi päättymättömän kokeilun)"
+  can_be_changed_give_commitment: "Voit muuttaa tätä myöhemmin, mutta on jo tässä vaiheessa hyvä antaa muille joku käsitys sitoutumisestasi"
+  one_time_only: 'Vain yhden kerran'
+  multiple_times_over_fixed_period: 'Useita kertoja määräaikaisen jakson aikana'
+  recurring_regularly: 'Toistuu säännöllisesti (esim. kerran kuussa, joka toinen kuukausi, jne.)'
+  should_we_wait: 'Pitäisikö odottaa että tukea on annettu niin paljon, että kokeilu voidaan toteuttaa kokonaisuudessaan?'
+  should_we_wait_explanation: 'Esimerkiksi jos ehdotuksesi kattaa kolme peräkkäistä päivää, kaikkia kolmea päivää kohden pitää saada riittävästi tukea ennen kuin kokeilu voidaan aikatauluttaa kokonaisuudessaan (eikä vain esim. ensimmäinen päivä)'
+  total_t_needed: 'Yhteensä Ŧ tarvitaan'
+  proposed_times_and_duration: 'Ehdotetut ajat ja kesto'
+  if_you_suggest_exact_date: 'Jos ehdotat tarkkaa aikaa, teemme parhaamme, kun pohdimme aikataulutusta, jotta se sopisi muiden kokeilujen kanssa yhteen. Suosittelemme kokeilujen ehdottamista ja suunnittelua vähintää pari viikkoa ennen suunniteltua tapahtuma-aikaa, jotta jää enemmän aikaa kerätä tarvittava määr tukea ja jotta sinulla jää enemmän aikaa suunnitteluun ja kokeilun markkinointiin sitten, kun kokeilun tarkka aika on varmistunut.'
+  goals_of_experiment: 'Mitkä ovat tämän kokeilun tavoitteet?'
+  intended_participants: 'Suunnitellut osallistujat'
+  add_an_image: 'Lisää kuva tähän ehdotukseen +'
+  image: 'Kuva'
+  change_this_image: 'Muuta kuvaa'
+  remove_this_image: 'Poista kuva'
+  propose_it: 'Hyväksy ehdotus!'
+  cancel_registration: 'Peruuta ilmoittautuminen'
+  registration_cancel_blurb: 'Jos luulet, että et pysty osallistumaan, pyydämme peruuttamaan ilmoittautumisen (jotta tieto välittyy tapahtumaan osallistuville ja järkkärille).'
+  coming_up: 'Tulossa'
+  are_you_sure_you_want_to_cancel: 'Oletko varma, että halaut peruutaa ilmoittautumisesi?'
+  experiment_instigator: '(kokeilun aloittaja)'
+  waiting_list: 'odotuslista'
+  registered_you_must_register: 'Ilmoittautuneet osallistujat (sinun täyty ilmoittautua osallistuaksesi):'
+  yes_i_plan_to_attend: 'Kyllä, aion osallistua'
+  organiser_requested_rsvp: 'Kokeilun järjestäjä on pyytänyt, että ilmoittaudut, jos suunnittelet osallistuvasi.'
+  you_have_rsvpd: 'Olet ilmoittautunut tähän tapahtuman. Kiitos, nähdään siellä!'
+  registration_is_closed: 'Pahoittelut, ilmoittatuminen on tällä hetkellä suljettu.'
+  experiment_already_took_place: 'Tämä kokeilu tapahtui jo.'
+  registration_phone: 'Pyydämme antamaan puhelinnumeron, jotta kokeilun järkkääjä voi tarvittaessa olla sinuun yhteydessä, jos tulee jotain ongelmia tai viime hetken muutoksia'
+  phone_is_optional: 'Puhelinnumeron antamnen on vapaaehtoista.'
+  registration_form: 'Ilmoittautumislomake'
+  registration_is_full_waiting_list: 'Ilmoittautuminen on tällä hetkellä täynnä. Voit halutessasi ilmoittautu odotuslistale. Saat viestiä, jos tapahtumaan vapautuu paikkoja.'
+  you_will_earn_x_for_participating: "Saat %{number}Ŧ osallistumisesta!"
+  for_the_waiting_list: ' odotuslistalle'
+  register_x: 'Ilmoittaudu%{waiting_list_option}'
+  i_plan_to_attend: 'Aion osallistua!'
+  scheduled_from_proposal: 'Liittyy ehdotukseen:'
+  supported_by: 'Tätä tukee:'
+  download_to_calendar: ' Lataa kalenteriisi'
+  registrations: 'Ilmoittautumiset'
+  you_have_registered_see_you: 'Olet rekisteröitynyt tähän tapaamiseen. Kiitos, nähdään siellä!'
+  there_are_x_places_left: "Tapaamisessa on %{is_number_place} paikkaa jäljellä."
+  place_in_registration:
+    zero: 'ei ole paikkoja'
+    one: 'on yksi paikka'
+    other: 'on %{count} paikkaa'
+  register_me: 'Ilmoittaudu'
+  x_meetings_scheduled: '%{meeting_instance} toteutettu.'
+  meeting_instance:
+    zero: 'Ei tapaamisia'
+    one: 'Yksi tapaaminen'
+    other: '%{count} tapaamista'
+  x_people_participated: '%{count} %{people} osallistui'
+  x_people_participated_earning_x: '%{count} %{people} osallistui, saaden %{temps_total}Ŧ.'
+  x_people_have_checked_in: "%{count} %{people} osallistuu (%{distinct_count} %{distinct_people}), and %{guest_ticket_count} %{guest_tickets}."
+  distinct_person:
+    zero: 'henkilöä'
+    one: 'henkilö'
+    other: 'henkilöä'
+  guest_tickets:
+    zero: 'vieraslippua'
+    one: 'vieraslippu'
+    other: 'vieraslippua'
+  original_proposal: 'Alkuperäinen ehdotus:'
+  past_occurrences: 'Aiemmat toteutukset:'
+  earn_x_per_day_for_participating: 'Tienaa %{number}Ŧ%{per_day} osallistumisesta!'
+  per_day: ' per päivä'
+  sorry_no_more_space_left: 'Pahoittelut, tapahtuma on täynä.'
+  you_must_register_in_advance: 'Rekisteröityminen täytyy tehdä ennakkoon!'
+  also_meets: 'Myös tapaa:'
+  x_earned: "%{number} Ŧ tienattu"
+  anonymous_person_who_arrived_at_x: 'Anonyymi henkilö, joka saapui %{time_of_arrival}'
+  small_back_room_blurb: 'Temporaryn takahahuoneen voi varata kuka tahansa rekisteröitynyt jäsen hintaan 25Ŧ per day.'
+  room_specs: 'Tätä huonetta (koko noin 18m%{squared}) voi käyttää mihin tahansa luoviin tarkoituksiin, kokouksiin, jne. Varaamalla huoneen saat sen käyttöösi 24 tunniksi. Jos päähuoneessa on meneillään muita aktiviteetteja pyydämme, että otat molemminpuolisesti toisenne huomioon'
+
+  room_blurb_2: 'Kuka tahansa jäsen voi varata huoneen maksimissaan kolmeksi päiväksi viikossa. Varataksesi huoneen, klikkaa kalenterista haluamaasi päivää ja katso onko huone vapaana'
+  are_you_going: 'Aitko osallistua?'
+  you_are_going: 'Aiot osallistua'
+  x_person_has_rsvpd: "%{number} %{people} on ilmoittautunut"
+  experiment_news: 'Uutisia koskien kokeiluja'
+  pledge_verb: 'Lahjoita'
+  make_organiser: 'Tee järjestäjä!'
+  related_experiments: 'Tähän liittyvät kokeilut'
+  past: 'menneet'
+  future: 'tulevat'
+  viewpoint:
+    zero: 'näkökulmaa'
+    one: 'näkökulma'
+    other: 'näkökulmaa'
+  no_viewpoints_yet: 'Kukaan osallistujista ei ole vielä jakanut näkökulmia koskien tätä kokeilua.'
+  add_a_viewpoint: 'Lisää näkökulmasi'
+  upload: 'Lataa'
+  upload_an_image: 'Lataa kuva'
+  caption: 'Kuvaile tätä kuvaa'
+  max_100_chars: 'max. 100 merkkiä'
+  credit_form: 'Kuvan krediitit (jos et itse ottanut)'
+  are_you_sure: 'Oletko varma?'
+  x_photo_upload_slots_remaining: 'Voit kadata kuvan kokeilusta. Voit ladata maksimissaan %{count} %{photo}.'
+  additional_slots_cost_1_temp: 'Maksamalla 1Ŧ per kuva, voit halutessasi ladata lisää kuvia'
+  photo:
+    zero: 'kuvaa'
+    one: 'kuva'
+    other: 'kuvaa'
+  no_photo_slots_left: 'Olet jo ladannut kaksi kuvaa, mikä on maksimimäärä.'
+  contributed_by: '%{username} lisäsi %{when}'
+  edit_captions: 'Muuta kuvatekstiä'
+  remove_this_photo: 'Poista tämä kuva'
+  shared_an_image_from: 'jakoi kuvan'
+  removed_a_shared_image: 'poisti jaetun kuvan'
+  buy_extra_photo_slot: 'Osta lisäpaikka kuvalle'
+  confirm_buy_photo_slot: 'Oletko varma, että haluat ostaa lisämahdollisuuden ladata kuva? Se maksaa 1Ŧ eikä sitä voi jälkikäteen perua.'
+  you_need_at_least_1_temp: 'Tarvitset ainakin 1Ŧ saldoa, jotta voit ostaa lisäpaikan kuvalle.'
+  bought_a_photo_upload_slot: 'osti lisäpaikan kuvalle'
+  extra_documentation_slots: 'Lisää paikkoja kuvaustekstille'
+  x_unused: "(%{count} käyttämättä)"
+  used_on_experiment: 'käytetty %{instance}:lle'
+  no_caption: 'Ei kuvatekstiä tai kuvausta'
+  no_photo_credit: 'Kuvaa ei ole kreditoitu kenelläkkään'
+  like_this_tip: 'Pidätkö tästä? Jätä tippiä! '
+  how_many_temps_to_tip: 'Kuinka monta Ŧ:tä haluaisit lähettää käyttäjälle %{user}?'
+  in_appreciation_for_a_photo: 'osoittaaksesi arvostusta kuvasta %{instance}'
+  your_tip_was_sent: 'Tippisi kilahti käyttäjälle!'
+  transfer_t: 'Lähetä Ŧ:tä'
+  reason_for_transfer: 'Anna syy miksi lähetät niitä? (vapaaehtoinen)'
+  send: 'Lähetetty!'
+  you_can_transfer_up_to: 'Voit lähettää enintään %{number}Ŧ:tä.'
+  scheduled_meeting: 'meeting added to the calendar'
+  pledge:
+    zero: 'tukea'
+    one: 'tuki'
+    other: 'tukea'
+  number_currently_pledged: "%{number} lahjoitettu"
+  thanks_for_survey: 'Thank you for completing Temporary\''s survey. '
+  thanks_for_survey_after_september: 'Thank you for completing Temporary\''s survey. Your feedback is very important.'
+  temporary_closing_survey: 'Temporary Closing Survey'
+  temporary_survey_explanation_future: 'Temporary will close its doors on 2 September 2017, making the entire experiment exactly one year in length. But this is only a beginning, not the end. The next experiment will be collectively designed by a larger working group and will hopefully launch in January 2018.'
+
+  temporary_survey_explanation_past: 'Temporary ran from September 2016 to September 2017. There are plans to continue the core ideas of an open 24/7 workspace, decentralised programming and a participation-based model beginning in 2018. This next experiment will be collectively designed by a larger working group and will be designed with longevity in mind.'
+
+  why_this_survey: 'To assist in this design, Temporary has designed this short questionnaire. We are very curious to hear your feedback: how you felt about Temporary (whether you participated zero, once or 200 times), what you are seeking from culture, and other factors. Please answer as honestly and as detailed as possible. Positive feedback is nice, but we are really interested in different perspectives and ideas, so write as much as you would like!'
+
+  never_visited: 'Et ole koskaan käynyt tai osallistunut mihinkään Temporaryssä.'
+  what_could_have_brought_you: 'Mitä Temporary olisi voinut tehdä toisin, että olisit osallistunut sen toimintaan, joko osallistujana tai tuottajana?'
+
+  you_participated_in_x_experiments: 'Osallistuit %{number} %{experiment}.'
+  experiment_mihin:
+    zero: 'kokeiluun'
+    one: 'kokeiluun'
+    other: 'kokeiluun'
+  you_organised_x: 'Järjestit %{number}.'
+  wanted_to_contribute_differently: 'Olisitko halunnut osallistua Temporaryn toimintaan toisella tavalla kuin millä osallistuit. Jos kyllä, miten?'
+  why_experiments_at_temporary: 'Miksi halusit kokeilusi/tapahtumasi Temporaryyn?'
+  offer_other_benefits: 'Tarjosiko Temporary alustana minkäänlaisia hyötyjä projektillesi, joita muut paikat eivät olisi voineet tarjota?'
+  welcoming_concept: 'Tuntuiko sinusta, että Temporaryn idea oli kutsuva, pelottava, ärsyttävä, innostava, typerä tai jotain muuta?'
+  physical_environment: 'Mistä pidit ja mistä et pitänyt Temporaryn fyysisessä ympäristössä?'
+  website_feedback: 'Mitä mieltä olet verkkosivusta, ehdotusjärjestelmästä, Temporaries-valuutasta, check-in-automaatista ja henkilökorteista?'
+  other_helsinki: 'Tuntuiko Temporaryn toimintaan osallistuminen erilaiselta kuin muihin helsinkiläisiin kohteisiin? Jos kyllä, miten?'
+  your_space_and_relationship: "Tuntuiko, Temporary 'sinun' tilaltasi? Täsmennä suhdettasi Temporaryyn."
+  platform_benefits: 'Millä tavalla, jos millään, Temporaryn toiminnot (alusta omalla luovalle toiminnalle, Open Time 24/7 jaettuna työ-/sosiaalisena tilana, mahdollisuus vuokrata takahuone jne.)  hyödyttivät sinua?'
+  what_could_be_better: 'Mikä olisi voinut olla paremmin?'
+  what_the_mission_was: "Temporary:n missio oli testata toisenlaista rakennetta osallistumiseen perustuvien kulttuuristen aktiviteettien luomiseksi - jotta yleensa keskitetyssä asemassa olevat roolit, kuten kuraattori, tuottaja ja valvoja jakautuisivat kaikkien tilan käyttäjien kesken."
+  mission_clear: "Tuliko tämä lähestymistapa selväksi sinulle osallistumisesi aikana? Millä tavalla tämä heijastui kokemuksissasi Temporary:ssä, tai asenteissasi ja vastuuntunnossasi Temporary:ä kohtaan?"
+  want_from_culture: "Mitä haluat kulttuurilta? Mihin olet tyytyväinen jo olemassaolevissa kulttuuri-instituutioissa ja mitä haluaisit enemmän?"
+  must_complete_survey: 'You must complete the survey to attend.'
+  survey_explanation: 'Temporary''s last event is a party for members only. Admission is free if you complete a short survey about your feelings and experiences at Temporary. Even if you have never been to Temporary before, you are welcome to complete the survey and attend the party. No one will be admitted who does not complete this survey.'
+  take_the_survey: 'Take the survey...'
+  temporary_ends_1_september: 'Temporary ends on 1 September 2017.'
+  more_info: 'Lue lisää ...'
+  you_should_join_to_pledge: 'To participate in and support this experiment, join the Temporary website now!'
+  join: 'Join!'
+  temporary_closed: 'Temporary is closing on 1 September 2017. No further experiments will be scheduled, though you can still pledge Temps as supported experiments may form a starting programme for the post-Temporary project.'
+  thanks_for_taking_survey: 'Thank you for completing the survey.'
+  experiment_is_inactive: 'This experiment is not active.'
+  inactive_explanation: 'There has been no activity towards this experiment during the past %{timeframe}. The experiment is assumed to be completed or abandoned.'
+  saved_answers: 'Your survey answers have been saved. Be sure to click "Send completed survey" when finished.'
+  please_take_our_survey: 'Take the Temporary closing survey and help plan the future!'
+  allow_survey_excerpt: 'Is it OK to quote your answers (anonymously) in anything that might be published?'
+  allow_survey_identity: 'Is it OK to quote your answers not-anonymously? We will contact you if this is going to happen.'
+  save_answers: 'Save answers to finish later'
+  complete: 'Send completed survey'
+  you_have_started_the_survey: 'You have started the survey. Please complete it before the closing party!'
+  answers_were_saved: 'Your answers have been saved. You can go back to finish up until the party starts.'
+  you_can_save_answers: 'You can save your answers at any time to go back later. When you are finished, click SEND COMPLETED SURVEY to finish.'
+  save_answers: 'Save answers to finish later'
+  temporary_one_year: 'Temporary operated for one year, from September 2016-2017.'
+  temporary_the_future: 'It is now closed, but a venture continuing much of the concept is planned for 2018.'
+  become_part_of_it: 'Come and be part of it!'
+  where_was_it: 'Where was it?'
+  posted_by: 'Posted by %{user}'
+  user_says_on: 'At %{date}, %{user} said...'
+  reply_to_this: 'Reply to this...'
+  add_a_comment_to_this_discussion: 'Add a comment to this discussion ...'
+  this_post_regards_a_meeting: 'This discussion refers to a meeting:'
+  current_discussions: '[Active discussions]'
+  next_general_meeting: 'Next general meeting'
+  existing_temporary_logins_work: '(Your account from temporary.fi has been transfered over. Use the same method as before to sign in.)'
+  connect_via: 'Connect via:'
+  this_meeting_is_discussed_in_these_topics: 'This meeting is discussed in the following topics:'
+  this_meeting_has_x_comments: 'This meeting has %{count} %{comment}.'
+  general_meeting_discussion: 'You can discuss general things relating to the meeting here. More specific topics may be found in the list above.'
+  signed_in_as: 'Signed in as: '
+  about_experiment_2: 'About Experiment #2'
+  whats_next: 'What happens next?'
+  discussion: '[Discussion]'
+  home: '[Home]'
+  start_a_new_topic: 'Start a new topic'
+  start_topic_disclaimer: 'You can start a new topic for discussion here. This can be simply an online forum or a way to organise a working group to approach a design topic for Kuusi Palaa. '
+  topic_description: 'Description of this topic:'
+  description_blurb: 'canIf you are organising a working group, please state clearly the goals and intentions of it.'
+  topic_meeting:  'Does this topic refer to a specific meeting?'
+  can_add_later: 'You can always add this later.'
+  post_topic: 'Post topic!'
+  planning_to_attend: ' planning to attend' # as in "3 people are planning to attend" or "1 person is planning to attend"
+  watching: ' watching' # as in "3 people watching"
+  footer_blurb: 'Kuusi Palaa will be powered by Biathlon.'
+  footer_contact: 'admin {at} temporary dotfi to contact us in the meantime'
+  comment_in_main_thread: 'Comment in main thread'
+  comment_this_subthread: 'Comment in this sub-thread'
+  start_new_thread: 'Start a sub-thread'
+  show_x_comments: 'Show %{count} comments...'
+  receive_email_notifications_question: 'Would you like to receive email notifications when this experiment is updated?'
+  receive_email_notifications_question_proposal: 'Would you like to receive email notifications when this proposal has new activity?'
+  receive_email_notifications_question_post: 'Would you like to receive email notifications when this topic is updated?'
+  send_me_an_email_when_there_is_a_new: 'Send an email to %{email_address} when there is a new: '
+  scheduled_meeting: 'meeting added to the calendar'
+  join_experiment_2: 'Join Kuusi Palaa!'
+  no_social_spiel: 'While Kuusi Palaa encourages independence from corporate Internet overlords, we still encourage you to use your existing accounts with either <a href="/users/auth/facebook">Facebook</a>, <a href="/users/auth/twitter">Twitter</a>, <a href="/users/auth/github">GitHub</a> or <a href="/users/auth/google_oauth2">Google</a> for the simple reason that it makes our lives much easier to outsource your identity verification.'
+  social_spiel2: 'Yet if you do not use any of the above services - and again, we not only respect that but support it!! - then we offer this means to create an account directly with Kuusi Palaa below.'
+  close: 'Close'

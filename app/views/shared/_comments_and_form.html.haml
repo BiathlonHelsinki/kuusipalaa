@@ -1,0 +1,52 @@
+
+- if user_signed_in?
+
+  - if can? :create, Comment
+    = content_for :jquery do
+      :plain
+        $('#ci_#{commentable.class.to_s}_#{commentable.id.to_s}').one('click', function() {
+
+          $('#ci_#{commentable.class.to_s}_#{commentable.id.to_s}').mentionable("/users/mentions", {id: 'mi_#{commentable.class.to_s}_#{commentable.id.to_s}', position: 'flush'});
+        });
+
+
+    .row.expanded
+      .small-12.columns
+
+        .comment_form
+          .row
+            .small-12.medium-8.columns.end
+              .row
+                .small-2.columns.user_comment_box
+                  = image_tag current_user.avatar.url(:box).gsub(/development/, 'production')
+
+                  -#%p.small= link_to t(:edit_profile), edit_user_path(current_user), class: [:button, :tiny, :secondary, :round]
+                .small-10.columns
+                  -# %h6
+                  -#   = t :what_do_you_think_about_this
+                  -# - if commentable.class == Post
+                  -#   %p.small
+                  -#     %u= t(:tagging)
+                  -#     %br/
+                  -#     %em= t(:people_tagging)
+                  -#     %br/
+                      -#%em= t(:experiment_tagging)
+                  = semantic_form_for [ commentable,  Comment.new ], html: {id: "new_comment_" + commentable.id.to_s, onSubmit: "return getContent('" + commentable.class.to_s + '_' + commentable.id.to_s + "');", multipart: true, :"data-abide" => '' } do |f|
+                    = f.input :user_id, as: :hidden, input_html: {value: current_user.id}
+
+                    .comment_wrapper
+                      = t :add_a_comment_to_this_discussion
+                      .comment_input{id: "ci_#{commentable.class.to_s}_#{commentable.id.to_s}", contenteditable: true}
+
+                    = f.input :content, :label => false, input_html: {:required => '', class: :comment_input_textarea, id: "cit_#{commentable.class.to_s}_#{commentable.id.to_s}" }
+                    = f.input :image, :label => t(:attach_image_to_comment)
+                    = f.input :attachment, :label => t(:attach_attachment_to_comment)
+                    -# if current_user == commentable.primary_sponsor || current_user == commentable.secondary_sponsor
+                    -#  = f.input :frontpage, label: "Is this frontpage news?", hint: 'Tick this box and the comment will appear on Temporary\'s frontpage in the newsfeed.'
+                    = f.submit t(:leave_comment), :class => [:button, :round]
+- else
+  .row.expanded
+    .small-12.columns
+      %h3
+        = link_to 'Log in', '/users/sign_in'
+        to comment on this.

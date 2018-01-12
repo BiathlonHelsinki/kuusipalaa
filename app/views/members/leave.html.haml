@@ -1,0 +1,18 @@
+.member_services_index
+  .row
+    .small-12.columns
+      %h2.text-center= t :groups
+      %br/
+      %h3.text-center= link_to @group.name, @group, target: :_blank
+      %br/
+  .row
+    .small-12.large-5.columns
+      %h4= t(:leave_group)
+      %p= t(:leave_group_disclaimer)
+      = form_tag remove_group_member_path, method: :post do
+        %label.label= t :why_leave
+        = text_field_tag :leaving_reason
+        = check_box_tag :private_leaving
+        = t(:make_leaving_private)
+        %br{clear: :all}
+        = submit_tag t(:leave_group)

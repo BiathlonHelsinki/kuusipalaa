@@ -1,0 +1,30 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Inconsolata|PT+Sans", :rel => "stylesheet"}/
+    = display_meta_tags site: 'Experiment 2 staff'
+    = stylesheet_link_tag 'admin'
+    = javascript_include_tag "application"
+    = javascript_include_tag "admin"
+
+    %script{:src => "//cdn.quilljs.com/1.0.2/quill.min.js", :type => "text/javascript"}
+    %link{:href => "//cdn.quilljs.com/1.0.2/quill.snow.css", :rel => "stylesheet"}/
+    = csrf_meta_tag
+  %body
+    - if flash
+      - flash.each do |key, value|
+        .alert.text-center{ :class => "alert-#{key}" }
+          %strong= raw value
+    %header.admin= render partial: 'layouts/adminbar'
+    %section.main_container= yield
+
+
+    :javascript
+      $(document).ready(function() {
+        #{yield :jquery}
+
+
+      });

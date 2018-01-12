@@ -1,0 +1,29 @@
+%p Hello,
+
+%p
+  You have been added to the group
+  = "'#{@group.display_name}'"
+  on the Experiment #2 planning site.
+
+- unless @group.description.blank?
+  %p
+    Group description:
+    %br/
+    = @group.description
+%p
+  Groups are a new feature that allows users to group together to represent projects, organisations or other matter. Groups will be able to collectively own stakes in Experiment 2 as well as other things we are still figuring out.
+
+%p
+  If you have been added to this group against your will, you may leave via the
+  = link_to 'membership page', 'https://experiment2.biathlon.io/members'
+  = "."
+
+
+
+%p
+  If you don't want to receive any emails from Experiment #2 at all, you can unsubscribe from notifications from your
+  = link_to 'user profile page', edit_user_url(@user)
+  = "."
+  If you do want to receive these emails, make sure admin@temporary.fi is whitelisted in your email client.
+
+%p Thank you for your interest in Experiment #2.

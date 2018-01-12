@@ -1,0 +1,19 @@
+Hello,
+
+A new pledge was made to the proposal <%= @item.name %>:
+
+Details:
+
+Pledge by user: <%= link_to @pledge.user.display_name, @pledge.user %>
+Amount: <%= @pledge.pledge.to_s %>Ŧ
+<% unless @pledge.comment.blank? %>
+Comment: "<%= sanitize @pledge.comment %>"
+<% end %>
+
+Current status of the proposal: <%= @item.pledged.to_s%>Ŧ pledged
+  
+For more information or to comment on this proposal, please visit the page for <%= link_to @item.name, @item %>. You can also disable email notifications for the proposal here.
+
+If you don't want to receive any emails from Temporary at all, you can unsubscribe from notifications from your <%= link_to 'user profile page', edit_user_url(@user) %>. If you do want to receive these emails, make sure admin@temporary.fi is whitelisted in your email client.
+  
+Thank you for your interest in Temporary/Biathlon. 

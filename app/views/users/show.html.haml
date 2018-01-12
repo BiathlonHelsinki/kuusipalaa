@@ -1,0 +1,78 @@
+%article.post_single
+  .row
+    .small-12.medium-9.large-7.columns.medium-centered
+      .post
+        .title
+          = @user.display_name
+          - unless @user.authentications.empty?
+            - unless @user.authentications.select{|x| x.provider == 'facebook' }.empty?
+              - if @user.show_facebook_link
+                = link_to fa_icon('facebook'), "http://facebook.com/#{@user.authentications.select{|x| x.provider == 'facebook'}.first.uid}", target: :_blank
+            - unless @user.authentications.select{|x| x.provider == 'twitter' }.empty?
+              - if @user.show_twitter_link
+                = link_to fa_icon('twitter'), "http://twitter.com/#{@user.authentications.select{|x| x.provider == 'twitter'}.first.username}", target: :_blank
+          %br/
+          .since
+            = t(:user_since, when: l(@user.created_at.to_date, format: :long))
+            = " (#{time_ago_in_words(@user.created_at)})"
+        .info_box.has_form
+
+          .row.expanded
+            .small-10.medium-4.columns
+              - if @user.avatar?
+                = image_tag @user.avatar.url(:medium)
+
+              -else
+                = image_tag '/icons/user_missing.png'
+              %br/
+              - if @user == current_user
+                = semantic_form_for @user, html: {multipart: true } do |f|
+                  = f.input :avatar, label: t(:change_this_image)
+            .small-10.medium-8.columns
+              - unless @user.website.blank?
+                %div
+                  %strong= t(:website) + ":"
+                  = link_to @user.website, @user.website, target: :_blank
+                  %br/
+                  %br/
+              %strong= t(:balance) + ":"
+              = raw "#{@user.latest_balance}#{tsign}"
+              %br/
+              -# - if user_signed_in?
+              -#   - if current_user != @user && current_user.latest_balance > 0
+              -#     %br/
+              -#     = link_to raw(t(:send_t_to_user, username: @user.username)), send_temps_user_transfers_path(@user), class: [:button]
+              -# - unless @user.instances_users.empty?
+              -#   %br
+              -#   .ethereum
+              -#     %strong= t(:participated_in)
+              -#     = @user.instances.size.to_s
+              -#     = t(:experiment, count: @user.instances.size)
+              - unless @user.accounts.empty?
+                %br/
+                .ethereum
+                  %strong= t :ethereum_accounts
+                  - @user.accounts.each do |account|
+                    %p= link_to account.address, "https://#{Rails.env.development? ? 'testnet.' : ''}etherscan.io/token/#{Figaro.env.contract_address}?a=#{account.address}", target: :_blank
+
+
+              - if user_signed_in?
+                - if current_user.has_role? :admin
+                  %br/
+                  .ethereum
+                    %strong= t :email
+                    = @user.email
+                    %br/
+                    %br/
+                    %strong= t :authentications
+                    - @user.authentications.each do |auth|
+                      %p= "provider: #{auth.provider}, username: #{auth.username}, uid: #{auth.uid}"
+
+
+- if @user == current_user
+  = content_for :jquery do
+    :plain
+      $('#user_avatar').change(function() {
+
+        $('#edit_user_#{@user.id.to_s}').submit();
+      });

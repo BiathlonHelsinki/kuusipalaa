@@ -1,0 +1,18 @@
+%article.posts_index
+  - unless @posts.empty?
+    .row
+
+      .small-12.discussions
+        .header.text-center= t :current_discussions
+
+    .row.expanded.small-up-1.large-up-3.medium-up-2
+      - @posts.each do |post|
+        .column
+          .post
+            .title= link_to post.title, post
+            .blurb
+              = raw truncate_html(post.body, length: 300)
+            .meta
+              = pluralize(post.total_comment_count, t(:comment, count: post.total_comment_count))
+              %span.light= "| "
+              = pluralize(post.notifications.size, t(:person, count: post.notifications.size)) + ' watching'

@@ -1,0 +1,14 @@
+%article.post_single
+  .row
+    .small-12.columns
+      %h2= t(:book_a_stake)
+  .row
+    .large-6.columns.small-12
+      %p= t(:stake_booking_blurb)
+      %p
+        = t(:stakes_as_individuals_or_groups)
+        %br/
+        = link_to t(:create_a_group), new_group_path, class: [:button]
+  .row
+    .large-6.columns.small-12
+      = render partial: 'form'

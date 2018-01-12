@@ -1,0 +1,74 @@
+%article.meeting_single
+  .row
+    .small-12.columns
+      .meeting
+        .heading
+          = t :next_general_meeting
+        .info_box
+          .meeting_title= @meeting.name
+          .date
+            = l @meeting.start_at, format: :short
+            = " - "
+            = @meeting.end_at.strftime("%H:%M")
+            %br/
+            = "(Ex-)" + @meeting.place.name + ", "
+            = @meeting.place.address1 + ", "
+            = @meeting.place.city
+          .description
+            = raw @meeting.description
+        .meta
+          = pluralize(@meeting.rsvps.size, t(:person, count: @meeting.rsvps.size)) + t(:planning_to_attend)
+          %span.light= " | "
+          - if user_signed_in?
+            - if @meeting.rsvps.map(&:user).include?(current_user)
+              = link_to "[" + t(:cancel_rsvp) + "]", cancel_rsvp_meeting_path(@meeting), method: :post
+            - else
+              = link_to "[" + t(:i_plan_to_attend) + "]", rsvp_meeting_path(@meeting), method: :post
+          - else
+            = link_to "[" + t(:rsvp) + "]", '/users/sign_in'
+
+        .row.small-up-2.medium-up-4.large-up-6
+          - @meeting.rsvps.map(&:user).each do |attended|
+            .column
+              .participant_grid
+                .image
+                  - if attended.avatar?
+                    = image_tag attended.avatar.url(:box)
+                  - else
+                    = image_tag '/icons/user_missing.png'
+                .participant_overlay.text-center
+                  = link_to attended.display_name, attended, target: :_blank
+                -# if current_user == attended
+                -#  = link_to t(:cancel_rsvp), cancel_rsvp_meeting_path(@meeting), method: :post, class: [:button, :alert, :small]
+        .row
+          .small-12.columns
+            - if user_signed_in?
+              - if !@meeting.rsvps.map(&:user).include?(current_user)
+                = link_to t(:i_plan_to_attend), rsvp_meeting_path(@meeting), method: :post, class: [:button]
+            - else
+              = link_to t(:rsvp), '/users/sign_in', class: [:button, :tiny]
+        .row
+          .small-12.columns
+            - unless @meeting.posts.empty?
+              .linked_topics
+                %strong= t :this_meeting_is_discussed_in_these_topics
+              %ul
+                - @meeting.posts.each do |post|
+                  %li= link_to post.name, post
+        #comments_list
+          .row
+            .small-12.columns
+              %h3= t :discussion
+              %p= t :general_meeting_discussion
+            - if @meeting.total_comment_count > 0
+              .small-12.columns
+                .comment_count
+                  = t(:this_meeting_has_x_comments, count: @meeting.discussion.size, comment: t(:comment, count: @meeting.discussion.size) )
+
+
+          %ul.first= render(partial: 'shared/comment', collection: @meeting.comments.order(:created_at), locals: {depth: 0, last: @meeting.comments.last})
+          #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @meeting, depth: 0}
+
+= content_for :jquery do
+  :plain
+    $('.comment_content').readmore({lessLink: '<a class="button readmore" href="#">[#{t(:close)}]</a>', moreLink: '<a class="button readmore" href="#">[#{t(:read_more)}]</a>'});

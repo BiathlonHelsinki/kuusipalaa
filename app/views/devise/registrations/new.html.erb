@@ -1,0 +1,46 @@
+<article class="post_single">
+<div class="row expanded">
+  <div class="small-10 columns medium-6 small-centered">
+   <div class="devise_new_session post">
+    <div class="title"><%= t :join_experiment_2 %></div>
+    <div class="info_box">
+      <p class="spiel"><%= raw t(:no_social_spiel) %></p>
+      <p class="spiel"><%= t :social_spiel2 %></p>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
+
+
+
+        <div class="field">
+          <%= f.label :username %>
+          <%= f.text_field :username %><br />
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password %>
+          <% if @minimum_password_length %>
+          <p class="inline-hints">(<%= @minimum_password_length %> characters minimum)</p>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        </div>
+        <div class="field">
+          <%= flash[:recaptcha_error] %>
+          <%= recaptcha_tags  %>
+        </div>
+        <div class="actions">
+          <%= f.submit "Sign up", class: [:button] %>
+        </div>
+      <% end %>
+
+      <%-#= render "devise/shared/links" %>
+    </div>
+   </div>
+ </div>
+</div>

@@ -1,0 +1,35 @@
+.season_index
+  .row.expanded
+    .small-12.columns
+      %h1 Seasons
+  .row.expanded
+    .small-10.columns
+      %table
+        %thead
+          %tr
+            %th Number
+            %th Stake Count
+            %th Stakes paid/booked
+            %th €€€
+            %th Actions
+        %tbody
+          - @seasons.each do |season|
+            %tr
+              %td= season.number
+              %td= season.stake_count
+              %td
+                = season.stakes.paid.size
+                = " / "
+                = season.stakes.size
+              %td
+                = season.stakes.paid.size * Experiment2::Stakes::STAKE_PRICE
+                = " / "
+                = number_to_currency((season.stake_count * Experiment2::Stakes::STAKE_PRICE).to_i, unit: raw("&euro;"), format: "%n%u")
+              %td
+                = link_to 'View', [:admin, season], target: :_blank, class: [:button, :small]
+                - if can? :edit, season
+                  = link_to 'Edit',  edit_admin_season_path(season), class: [:button, :small]
+                - if can? :destroy,  season
+                  = link_to 'Delete', [:admin, season], method: :delete, class: [:button, :small, :alert]
+  .row.expanded
+    .small-12.columns= link_to 'New season', new_admin_season_path, class: [:button]

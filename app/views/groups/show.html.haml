@@ -1,0 +1,68 @@
+%article.post_single
+  .row
+    .small-12.medium-9.large-7.columns.medium-centered
+      .post
+        .title
+          = @group.long_name
+          %small= "[#{@group.name}]"
+
+          - if @group.twitter_name
+            = link_to fa_icon('twitter'), "http://twitter.com/#{@group.twitter_name}", target: :_blank
+          - if user_signed_in?
+            - me = @group.members.find_by(user: current_user)
+            - unless me.nil?
+              - if me.access_level.to_i >= Experiment2::Access::ADMIN
+                = link_to fa_icon('pencil'), edit_group_path(@group)
+
+          %br/
+          .since
+            = t(:group_since, when: l(@group.created_at.to_date, format: :long))
+            = " (#{time_ago_in_words(@group.created_at)})"
+        .info_box.has_form
+
+          .row.expanded
+            .small-10.medium-4.columns
+              - if @group.avatar?
+                = image_tag @group.avatar.url(:medium)
+
+              -else
+                = image_tag '/icons/user_missing.png'
+              %br/
+              - if @group == current_user
+                = semantic_form_for @group, html: {multipart: true } do |f|
+                  = f.input :avatar, label: t(:change_this_image)
+            .small-10.medium-8.columns
+              - unless @group.website.blank?
+                %div
+                  %strong= t(:website) + ":"
+                  = link_to @group.website, @group.website, target: :_blank
+                  %br/
+                  %br/
+              - unless @group.description.blank?
+                .description= simple_format(@group.description)
+              = pluralize(@group.members.size, t(:member, count: @group.members.size)) + ":"
+              - if user_signed_in?
+                - unless me.nil?
+                  - if me.access_level.to_i >= Experiment2::Access::ADMIN
+                    = link_to fa_icon('pencil'), new_group_member_path(@group)
+              .row.group_profile_member_list.large-up-5.medium-up-4.small-up-2
+                - @group.members.each do |member|
+                  .member.columns
+                    - if member.user.avatar?
+                      = image_tag member.user.avatar.url(:box)
+                    - else
+                      = image_tag '/icons/user_missing.png'
+                    .participant_overlay.text-center
+                      = link_to member.user.display_name, member.user, target: :_blank
+
+
+
+
+
+- if @group == current_user
+  = content_for :jquery do
+    :plain
+      $('#user_avatar').change(function() {
+
+        $('#edit_user_#{@group.id.to_s}').submit();
+      });

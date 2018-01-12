@@ -1,0 +1,10 @@
+- if I18n.locale.to_s != 'fi'
+  = link_to 'FIN', :controller => controller.controller_name, :action => controller.action_name, :id => params[:id], :locale => 'fi'
+- else
+  %strong FIN
+|
+
+- if I18n.locale.to_s != 'en'
+  = link_to 'ENG', :controller => controller.controller_name, :action => controller.action_name, :id => params[:id], :locale => 'en'
+- else
+  %strong ENG

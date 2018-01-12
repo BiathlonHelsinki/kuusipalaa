@@ -1,0 +1,793 @@
+body {
+  padding: 0.3rem;
+}
+@import 'variables';
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $sourcecode;
+}
+
+li.ui-menu-item {
+  list-style-type: none;
+  font-family: $sourcecode;
+}
+form {
+  border: none;
+  li#member_username_input {
+    float: left;
+  }
+  #clear_click {
+    float: left;
+    clear: none;
+    display: none;
+    padding-top: 2rem;
+    margin-left: 0.5rem;
+  }
+  li {
+    list-style-type: none;
+  }
+  input, textarea , select {
+    background-color: white;
+    border: 2px solid $black;
+    font-weight: bold;
+    &.is-invalid-input {
+      outline: 1px solid red;
+    }
+  }
+  textarea {
+    height: 250px;
+  }
+  input[type=submit] {
+    cursor:pointer;
+    padding: 0.8rem;
+    font-size: 1rem;
+    &:hover {
+      background-color: $black;
+      color: white;
+    }
+    &[disabled] {
+      color: #888;
+      border-color: #888;
+      &:hover {
+        background-color: #888;
+        color: #444;
+      }
+    }
+  }
+  abbr[title=required] {
+    display: none;
+  }
+  .validation_error {
+    color: red;
+    font-size: 1rem;
+    margin: 0.4rem 0;
+
+  }
+  p.inline-hints {
+    font-size: 0.8rem;
+    margin-bottom: 2rem;
+  }
+  p.error_name {
+    display: none;
+  }
+  label.label {
+    padding: 0; margin: 0;
+    font-family: $sourcecode;
+    color: $black;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background-color: white;
+  }
+}
+
+
+
+.comment_wrapper {
+  position: relative;
+}
+
+.comment_input {
+  background-color: $grey;
+  white-space: pre-wrap;
+  height: 250px;
+  img {
+    max-height: 25px;
+    margin-left: 0.4rem;
+  }
+}
+.comment_input_textarea {
+  display: none;
+}
+
+.comment_input {
+  overflow-y: scroll;
+  background-color: $grey;
+  white-space: pre-wrap;
+  height: 250px;
+  max-width: 500px;
+  img {
+    max-height: 25px;
+    margin-left: 0.4rem;
+  }
+}
+
+.mentioned-user-list {
+  div.occluded {
+    display: none;
+  }
+}
+
+article.single_page {
+  margin: 4rem 0;
+  .page {
+    border: 2px solid $black;
+    position: relative;
+    background-color: white;
+    padding: 0; margin: 0;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: -10px;
+      right: 10px;
+      bottom: -10px;
+      background: white;
+      z-index: -1;
+      outline: 2px solid $black;
+    }
+    .heading {
+      font-family: $sourcecode;
+      font-size: 1.25rem;
+      border-bottom: 2px solid $black;
+      padding: 0.8rem 1rem;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    .body {
+      font-family: $montserrat;
+      p, ul, ol {
+        clear: both;
+      }
+      h3 {
+        font-family: $sourcecode;
+        font-size: 1.25rem;
+        border-bottom: 2px solid $black;
+        padding: 1rem 0 0 0;float: left;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+      h4 {
+        font-family: $sourcecode;
+        font-size: 1.25rem;
+        border-top: 2px dashed $black;
+        border-bottom: 2px dashed $black;
+        padding: 0.8rem 0;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+      a {
+        font-weight: bold;
+        text-decoration: underline !important;
+      }
+      padding: 1rem;
+    }
+  }
+}
+article.post_single, article.meeting_single {
+  margin: 4rem 0;
+  .post, .meeting {
+    border: 2px solid $black;
+    position: relative;
+    background-color: white;
+    padding: 0; margin: 0;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: -10px;
+      right: 10px;
+      bottom: -10px;
+      background: white;
+      z-index: -1;
+      outline: 2px solid $black;
+    }
+
+    .image {
+      margin: 1rem 0;
+    }
+    .heading {
+      font-family: $sourcecode;
+      font-size: 1.25rem;
+      border-bottom: 2px solid $black;
+      padding: 0.8rem 1rem;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    .info_box {
+      padding: 1rem;
+
+      border-bottom: 2px solid $black;
+      font-weight: bold;
+      &.has_form {
+        border-bottom: none;
+      }
+      .meeting_title {
+        margin-bottom: 2rem;
+        color: $black;
+        font-family: $sourcecode;
+        font-size: 1.25rem;
+        font-weight: bold;
+
+      }
+      .date {
+        font-family: $sourcecode;
+        margin-bottom: 2rem;
+      }
+
+      .description {
+        font-family: $montserrat;
+        font-weight: bold;
+      }
+    }
+    .participant_grid {
+      margin: 1rem;
+      border: 2px solid $black;
+      .image {
+        margin: 0;
+      }
+      .participant_overlay {
+        padding: 0.5rem 0;
+      }
+    }
+    .linked_topics {
+      margin: 1rem 0;
+      font-family: $sourcecode;
+      font-size: 1.0rem;
+      border-top: 2px solid $black;
+      padding: 0.8rem 1rem 0 1rem;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    ul {
+      margin: 0;
+      border-bottom: 2px solid $black;
+      padding-bottom: 1.5rem;
+      li {
+        margin-left: 5rem;
+        list-style-type: disc;
+        a {
+          text-decoration: underline;
+        }
+      }
+    }
+    .meta {
+      font-family: $sourcecode;
+      padding: 0.8rem 1rem;
+      font-weight: bold;
+      a {
+        text-transform: uppercase;
+        text-decoration: underline;
+        &:hover {
+          background-color: $black;
+          color: white;
+        }
+      }
+      .posted_by {
+        img {
+          height: 40px;
+        }
+      }
+    }
+    h3 {
+      font-family: $sourcecode;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .title {
+      font-family: $sourcecode;
+      font-size: 1.8rem;
+      font-weight: bold;
+      border-bottom: 2px solid black;
+      padding: 1rem;
+      .since {
+        font-size: 0.8rem;
+      }
+    }
+    .body {
+      padding: 1rem;
+      .description {
+
+        font-size: 1rem;
+        color: $black;
+        font-family: $montserrat;
+
+      }
+      .notification_form {
+        font-weight: bold;
+        font-family: $sourcecode;
+        border: 2px solid $black;
+        float: right;
+        padding: 1rem;
+
+        button {
+          font-family: $sourcecode;
+        }
+        .notification_form:after {
+          content: '';
+          position: absolute;
+          top: 10px;
+          left: -10px;
+          right: 10px;
+          bottom: -10px;
+          background: white;
+          z-index: -1;
+          outline: 2px solid $black;
+        }
+        .notification_question{
+
+        }
+        #notifications_result {
+
+        }
+      }
+    }
+
+    #comments_list {
+      padding: 1rem;
+      .comment_count {
+        display: none;
+      }
+
+
+      ul {
+        border-bottom: none;
+        &.hidden {
+          display: none;
+        }
+        margin-left: 6.25rem;
+        padding-left: 0.2rem;
+
+        &.first {
+          margin-top: 5px;
+          margin-left: 0;
+          border-left: none;
+        }
+        li {
+          margin-left: 0;
+
+          &.top-level {
+            border-left: none;
+            // border-bottom: 1px solid $black;
+            padding: 0;
+
+          }
+          .row {
+            margin-left: 0 !important;
+            .column, .columns {
+              margin-left: 0 !important;
+              padding-left: 0 !important;
+            }
+          }
+          list-style-type: none;
+
+          .entry {
+            border-top: 2px solid black;
+            border-left: 2px solid black;
+            border-bottom: 2px solid black;
+            border-right: 2px solid $black;
+            padding: 1rem;
+            margin-top: -2px;
+            &.last .divided {
+              border-bottom: none;
+            }
+
+            .horizontal_line {
+
+              hr {
+                display: block;
+                height: 1px;
+                border: 0;
+                border-top: 1px solid #666;
+                margin: 0;
+                padding: 0;
+              }
+            }
+            .occluded_form {
+              padding: 1rem 0;
+              display: none;
+              &.top {
+                display: block;
+              }
+              .comment_form {
+                .user_comment_box {
+                  img {
+                    float: right;
+                    height: 40px;
+                  }
+                }
+                form {
+                  .comment_wrapper {
+                    .comment_input {
+                      height: 150px !important;
+                    }
+                  }
+                  li {
+                    border: none;
+                    list-style-type: none;
+                    input[type=file] {
+                      font-size: 0.7rem;
+
+                    }
+                  }
+                }
+              }
+            }
+            .user_box {
+              img {
+                // height: 80px;
+              }
+            }
+            .comment_type {
+              font-family: $sourcecode;
+              font-size: 0.8rem;
+              font-weight: bold;
+
+            }
+            .comment_content {
+              &[data-readmore] {
+                overflow-y: hidden;
+              }
+              font-size: 0.9rem;
+              color: #444;
+              padding: 0.9rem 1.8rem;
+              p {
+                font-size: 1rem;
+                line-height: 1.8;
+                font-family: $montserrat;
+              }
+              p img {
+                max-height: 30px;
+                margin-left: 0.4rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fieldset {
+  border: 1px dotted #333;
+  padding: 0.7rem;
+}
+
+.home, article.posts_index, article.meetings_index {
+  padding: 3rem 0;
+  .meeting {
+    margin-bottom: 3rem;
+    position: relative;
+    background-color: white;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: -10px;
+      right: 10px;
+      bottom: -10px;
+      background: white;
+      z-index: -1;
+      outline: 2px solid $black;
+    }
+    .heading {
+      font-family: $sourcecode;
+      font-size: 1.25rem;
+      border: 2px solid $black;
+      padding: 0.8rem 1rem;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    .info_box {
+      padding: 1rem;
+      border-left: 2px solid $black;
+      border-right: 2px solid $black;
+      border-bottom: 2px solid $black;
+      font-weight: bold;
+      .title {
+        a {
+          color: $black;
+          font-family: $sourcecode;
+          font-size: 1.25rem;
+          font-weight: bold;
+        }
+        margin-bottom: 1.5rem;
+      }
+      .description {
+        font-family: $montserrat;
+        margin: 2rem 0;
+        font-weight: bold;
+      }
+    }
+    .meta {
+      font-family: $sourcecode;
+      border-left: 2px solid $black;
+      border-right: 2px solid $black;
+      border-bottom: 2px solid $black;
+      font-weight: bold;
+      padding: 0.8rem 1rem;
+      a {
+        text-transform: uppercase;
+        text-decoration: underline;
+        &:hover {
+          background-color: $black;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .discussions {
+    margin: 2.5rem 0;
+    .header {
+      font-family: $sourcecode;
+      font-weight: bold;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+  }
+  .column {
+    position: relative;
+  }
+  .add_post {
+    border: 2px solid $black;
+    margin: 6rem 0;
+    padding: 0.5rem;
+    background-color: white;
+    width: 50%;
+    font-family: $sourcecode;
+    font-weight: bold;
+    font-size: 1.25rem;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 108px;
+      left: 7px;
+      right: 231px;
+      bottom: 89px;
+      background: white;
+      z-index: -1;
+      outline: 2px solid $black;
+    }
+    &:hover {
+      background-color: $black;
+      a { color: white; }
+    }
+  }
+  .post {
+    margin-bottom: 4rem;
+    border: 2px solid $black;
+    position: relative;
+    background-color: white;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: -10px;
+      right: 10px;
+      bottom: -10px;
+      background: white;
+      z-index: -1;
+      outline: 2px solid $black;
+    }
+    .title {
+      font-size: 1.25rem;
+      border-bottom: 2px solid $black;
+      padding: 0.8rem 1rem;
+      text-transform: uppercase;
+      font-weight: bold;
+      height: 90px;
+      background-color: white;
+      overflow-y: hidden;
+    }
+    .blurb {
+      border-bottom: 2px solid $black;
+      font-family: $montserrat;
+      padding: 1rem;
+      height: 250px;
+      font-weight: bold;
+      overflow-y: hidden;
+    }
+    .meta {
+      font-family: $sourcecode;
+
+      font-weight: bold;
+      padding: 0.8rem 1rem;
+      a {
+        text-transform: uppercase;
+        text-decoration: underline;
+        &:hover {
+          background-color: $black;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+span.light {
+  color: #999;
+}
+
+
+header {
+  font-family: $sourcecode;
+  font-weight: bold;
+  .columns {
+    padding: 0.8rem 0;
+  }
+  .hr {
+    padding: 0;
+    margin: 0;
+    height: 1rem;
+  }
+  .dashed {
+
+    border-top: 2px dashed $black;
+    border-bottom: 2px dashed $black;
+  }
+  .third {
+    border-bottom: 2px dashed $black;
+  }
+}
+
+footer {
+  margin: 2rem 0;
+  padding: 2rem 0;
+  border-top: 2px dashed $black;
+  font-family: $sourcecode;
+
+}
+.devise_new_session {
+  padding: 2.5rem 0;
+  .login_form {
+    margin-bottom: 4rem;
+    border: 2px solid $black;
+    position: relative;
+    background-color: white;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: -10px;
+      right: 10px;
+      bottom: -10px;
+      background: white;
+      z-index: -1;
+      outline: 2px solid $black;
+    }
+    .title {
+      font-size: 1.25rem;
+      border-bottom: 2px solid $black;
+      padding: 0.8rem 1rem;
+      text-transform: uppercase;
+      font-weight: bold;
+
+    }
+    .form_stuff {
+      padding: 1rem;
+      i {
+        font-size: 4.6rem;
+      }
+      p {
+        font-family: $montserrat;
+        font-weight: bold;
+      }
+      #manual_login {
+        margin: 2rem 0;
+      }
+      form {
+        label.label, .field label {
+          font-family: $sourcecode;
+          background-color: white;
+          color: $black;
+          font-weight: bold;
+          text-transform: lowercase;
+          padding: 0; margin: 0;
+        }
+
+        input {
+          border: 2px solid $black;
+        }
+
+      }
+    }
+  }
+}
+
+a.button, button.button, input[type=submit] {
+  border: 2px solid $black;
+  font-family: $sourcecode;
+  background-color: white;
+  color: $black;
+  padding: 0.5rem;
+  &.readmore {
+    text-decoration: none !important;
+    margin-left: 15px;
+    background-color: $black;
+    color: white;
+    &:hover {
+      background-color: white;
+      color: $black;
+      text-decoration: underline;
+    }
+  }
+  &:hover {
+    background-color: $black;
+    color: white;
+    text-decoration: underline;
+  }
+}
+
+@media screen and (max-width: 39.9375em) {
+  header {
+    .dashed {
+      border-bottom: none;
+    }
+  }
+  .home .post .title, article.posts_index .post .title {
+    font-size: 1.15rem;
+  }
+}
+
+.member_services_index {
+  padding: 3rem 0;
+  .group {
+    padding: 1rem 0;
+  }
+}
+
+.group_profile_member_list {
+  .member {
+    .participant_overlay {
+      font-size: 0.7rem;
+    }
+  }
+}
+
+.stakes_grid {
+  .stake_box {
+    float: left;
+    width: 65px;
+    height: 65px;
+    cursor: pointer;
+    margin: 2px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    .overlay {
+      display: none;
+      background-color: white;
+      font-size: 0.7rem;
+      font-family: Source Code Pro;
+
+    }
+    &:hover {
+      .overlay {
+        display: block;
+      }
+    }
+  }
+
+  .green {
+    background: green;
+  }
+
+  .yellow {
+    background: yellow;
+  }
+
+  .grey {
+    background: #777;
+
+  }
+}

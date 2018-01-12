@@ -1,0 +1,14 @@
+Hello,
+
+A new comment has been left on:
+<%= @item.name %>
+
+This comment was left at <%= l @comment.created_at, format: :short %> by <%= @comment.user.display_name %>:
+
+  "<%= sanitize @comment.content %>"
+
+To reply to this comment, please visit the page for <%= link_to @item.name, @item %>. You can also disable email notifications for this <%= @item.class.to_s.downcase %> here.
+
+If you don't want to receive any emails from Experiment #2 at all, you can unsubscribe from notifications from your <%= link_to 'user profile page', edit_user_url(@user) %>. If you do want to receive these emails, make sure admin@temporary.fi is whitelisted in your email client.
+
+Thank you for your interest in Experiment #2.

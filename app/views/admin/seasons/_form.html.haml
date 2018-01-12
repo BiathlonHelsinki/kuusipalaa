@@ -1,0 +1,6 @@
+= semantic_form_for [:admin, @season] do |f|
+  = f.input :number
+  = f.input :stake_count
+  = f.input :start_at, as: :string
+  = f.input :end_at, as: :string
+  = f.submit 'Save'

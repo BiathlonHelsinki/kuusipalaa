@@ -1,0 +1,23 @@
+.row
+  .small-12.columns
+    = link_to 'Create new meeting', new_admin_meeting_path, class: [:button]
+
+.row
+  .small-10.columns
+    %table
+      %thead
+        %th Date
+        %th Title
+        %th status
+        %th
+      %tbody
+        - @meetings.each do |meeting|
+          %tr
+            %td= l meeting.start_at
+            %td= meeting.name
+            %td= meeting.published == true ? 'published' : 'not'
+            %td
+              - if can? :edit, meeting
+                = link_to 'Edit', edit_admin_meeting_path(meeting), class: [:button, :small]
+              - if can? :destroy, meeting
+                = link_to 'Delete', [:admin, meeting], method: :delete, class: [:button, :alert, :small], data: {confirm: 'Are you sure?'}

@@ -1,0 +1,39 @@
+%article.post_single
+  .row
+    .small-12.columns.large-7
+      %h2.text-center
+        = t(:season_x, number: @season.number.to_s)
+  .row
+    .small-12.columns.large-7
+      %p= t(:seasons_are)
+      %p= t(:first_season)
+  .row
+    .small-12.columns.large-7
+      %h5
+        = t(:required_for_season)
+        = @season.stake_count
+        = t(:stake, count: @season.stake_count)
+        = " (#{50 * @season.stake_count}€)"
+
+
+
+  .row
+    .small-12.columns.stakes_grid
+      - @season.stakes.paid.each do |s|
+        - s.amount.times do
+          .stake_box.green
+            .overlay
+              = t(:owned_by, who: s.owner.name)
+      - @season.stakes.booked_unpaid.each do |s|
+        - s.amount.times do
+          .stake_box.yellow
+            .overlay
+              = t(:booked_by, who: s.owner.name)
+      - (@season.stake_count - @season.stakes.paid.sum(&:amount) - @season.stakes.booked_unpaid.sum(&:amount)).times do
+        = link_to new_season_stake_path(@current_season) do
+          .stake_box.grey
+            .overlay= t(:book_stake)
+  .row
+    .small-12.columns.large-7
+      %p
+        %small= t(:requirement_justification)

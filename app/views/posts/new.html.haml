@@ -1,0 +1,20 @@
+%article.post_single
+  .row
+    .small-12.medium-10.large-9.columns
+      .post
+        .title= t(:start_a_new_topic)
+        .info_box.has_form
+
+          %p= t(:start_topic_disclaimer)
+          = semantic_form_for @post, html: {'data-abide' => ''} do |f|
+
+            = f.input :user_id, as: :hidden,  input_html: {value: current_user.id}
+            = f.input :era_id, as: :hidden,  input_html: {value: @era.id}
+            = f.globalize_fields_for :en do |ff|
+              %label.label= t :title
+              = ff.text_field :title, 'required' => ''
+              %label.label= t :topic_description
+              = ff.text_area :body,  'required' => ''
+              %p.inline-hints= t(:description_blurb)
+            = f.input :meeting, as: :select, label: t(:topic_meeting), hint: t(:can_add_later)
+            = f.submit t(:post_topic)

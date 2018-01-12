@@ -1,0 +1,18 @@
+%p= t(:no_bank_yet)
+= semantic_form_for [@season, @stake], html: {'data-abide':  ''} do |f|
+  = f.input :bookedby_id, as: :hidden, input_html: {'required' => ''}
+  = f.input :season_id, as: :hidden, input_html: {'required' => ''}
+  - if current_user.groups.empty?
+    = f.input :owner_type, as: :hidden, input_html: {value: 'User'}
+    = f.input :owner_id, as: :hidden, input_html: {value: current_user.id }
+  - else
+    = f.input :owner_type, as: :hidden, input_html: {'required' => ''}
+    = f.input :owner, as: :select, label: t(:who_will_own_this_stake), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], {'rel' => x[2], 'disabled'=> x[3]}] }), input_html: {'required'  => ''}
+  = f.input :amount, label: t(:how_many_stakes_to_book), hint: t(:stakes_cost_50), input_html: {type: :number, value: 1, required: ''}
+  = f.submit t(:book_stakes)
+
+= content_for :jquery do
+  :plain
+    $('#stake_owner_input').on('change', function() {
+      $('#stake_owner_type').val($('#stake_owner_id option:selected').attr('rel'));
+    });

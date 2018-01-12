@@ -1,0 +1,45 @@
+= semantic_form_for [:admin, @meeting], html: {multipart: true} do |f|
+  .row
+    .small-10.medium-8.columns= f.semantic_errors :base
+  .row
+    .small-10= f.input :era_id, as: :hidden,  input_html: {value: @era.id}
+  .row
+    .small-10.medium-4.columns= f.input :place, input_html: {required: ''}
+  .row
+    .small-10.medium-6.columns= f.input :start_at, :as => :string,  :input_html => {required: '', class: 'datetimepicker', value: f.object.new_record? ? '' : (f.object.start_at.nil? ? '' : f.object.start_at.strftime('%Y-%m-%d %H:%M'))}, label: 'Starting date and time. '
+  .row
+    .small-10.medium-6.columns= f.input :end_at, :as => :string, :input_html => {required: '', :class => 'datetimepicker', value: f.object.new_record? ? '' : (f.object.end_at.nil? ? '' : f.object.end_at.strftime('%Y-%m-%d %H:%M'))}, :label => "Ending date and time of meeting."
+    .row
+    %ul.tabs#post_tabs{"data-tabs" => ""}
+      - I18n.available_locales.each_with_index do |locale, i|
+        %li.tabs-title{:class => (i == 0 ? "is-active" : false)}
+          = link_to t(:locale_name, :locale => locale), "##{locale}"
+    .tabs-content{:'data-tabs-content' => 'post_tabs'}
+      - I18n.available_locales.each_with_index do |locale, i|
+        .tabs-panel{:class => (i == 0 ? "is-active" : false), :id => "#{locale}"}
+          = f.globalize_fields_for locale do |en|
+            .row
+              .small-10.medium-8.columns
+                %b= "Name of meeting in #{t :locale_name, :locale => locale}"
+                = en.text_field :name
+            .row
+              .small-10.medium-8.columns
+                %b= "Description in #{t :locale_name, :locale => locale}"
+                = en.cktext_area :description
+
+  .row
+    .small-6.columns
+      - if f.object.image?
+        = image_tag f.object.image.url(:thumb)
+      = f.input :image, :hint => 'An image/icon for this meeting.'
+
+    .row
+      .small-10.medium-8.columns= f.input :published
+    .row
+      .small-10.medium-8.columns= f.input :cancelled
+  .row
+    .small-10.medium-8.columns= f.submit 'Save', :class => [:button, :round]
+
+= content_for :jquery do
+  :plain
+    $('.datetimepicker').fdatetimepicker({ weekStart: 1 })

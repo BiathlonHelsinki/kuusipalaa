@@ -1,0 +1,18 @@
+$yellow: #692222;
+$crimson: #692222;
+$black: #000000;
+$grey: #c9c9c9;
+$white: white;
+$blue: #3888B9;
+
+// Adjust width accordingly (use even #'s)
+$logo-width: 118px;
+// Reduce px value to increase space between logo and menu text
+$logo-padding: $logo-width - 32px;
+// Leave alone
+$logo-margin: - ($logo-width / 2);
+// $ptsans: 'Noto Sans', sans-serif;
+// $inconsolata: 'Inconsolata', monospace;
+// $heebo: 'Heebo Black', sans-serif;
+$montserrat: 'Montserrat', sans-serif;
+$sourcecode: 'Source Code Pro', monospace;
