@@ -4,7 +4,7 @@ class AddDueToStakes < ActiveRecord::Migration[5.1]
     add_column :stakes, :paidconfirmation, :string
     add_column :stakes, :paidconfirmation_content_type, :string
     add_column :stakes, :paidconfirmation_size, :integer, length: 8
-    add_column :stakes, :includes_share, :boolean
-    add_column :stakes, :includes_membership_fee, :boolean
+    add_column :stakes, :includes_share, :boolean, default: false, null: false
+    add_column :stakes, :includes_membership_fee, :boolean, default: false, null: false
   end
 end

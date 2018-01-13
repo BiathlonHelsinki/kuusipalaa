@@ -48,6 +48,12 @@ class UsersController < ApplicationController
     set_meta_tags title: 'Edit your profile'
   end
 
+  def get_membership_details
+    @user = User.friendly.find(params[:id])
+  end
+
+
+
   def make_organiser
     @event = Event.friendly.find(params[:event_id])
     @instance = @event.instances.friendly.find(params[:id])
@@ -59,6 +65,11 @@ class UsersController < ApplicationController
     else
       @success = false
     end
+  end
+
+  def members_agreement
+    # @members_agreement = Page.friendly.find('members-agreement')
+    @members_agreement = 'membership agreement coming soon'
   end
 
   def mentions
@@ -100,12 +111,16 @@ class UsersController < ApplicationController
   def update
     @user = User.friendly.find(params[:id])
     if can? :update, @user
-      if @user.update_attributes(user_params)
+      if @user.update_attributes(user_params.except(:buy_stakes_after_edit))
         flash[:error] = ''
         flash[:warning] = ''
-    
+
         flash[:notice] = 'Profile info saved.'
-        redirect_to @user
+        if params[:user][:buy_stakes_after_edit]
+          redirect_to for_self_season_stakes_path(@current_season.id, accepted_agreement: true)
+        else
+          redirect_to @user
+        end
       else
         flash[:error] = @user.errors.full_messages.join('. ')
         render template: 'users/edit'
@@ -120,7 +135,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :name, :username, :show_name,  :avatar,  :opt_in, :website, :twitter_name,
-    :address, :postcode, :city, :country, :show_twitter_link, :show_facebook_link,
+    :address, :postcode, :city, :country, :accepted_agreement, :show_twitter_link, :contact_phone, :show_facebook_link, :buy_stakes_after_edit,
                       accounts_attributes: [:address, :primary_account, :external])
   end
 end

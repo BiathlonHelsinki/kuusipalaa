@@ -1,0 +1,26 @@
+* {
+
+  font-family: 'Verdana', 'Arial', sans-serif;
+}
+
+h1 {
+  font-size: 60px;
+}
+h2 {
+  font-size: 48px;
+}
+.content .row {
+  margin-bottom: 1.5rem;
+  clear: BOTH;
+  }
+
+.content .row .heading { color: #555; width: 18%; text-align: left; float: left;
+  font-size: 24px;}
+
+.content .row .value {
+    color: #000;
+    width: 82%;
+    float: left;
+    font-size: 24px;
+    text-align: left;
+  }

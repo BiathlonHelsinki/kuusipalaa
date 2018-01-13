@@ -1,0 +1,34 @@
+.membership_pages
+  .row
+    .small-12.columns
+      %h1= t :members_agreement
+  .row
+    .small-12.columns
+      %p= t :becoming_a_member
+
+  .row
+    .small-12.columns= raw @members_agreement
+
+  .row
+    .small-12.columns
+      %br/
+      %br/
+      %h4
+        = check_box_tag :agreed
+        = t :accepts_members_agreement
+
+  .row
+    .small-12.columns= link_to t(:continue), for_self_season_stakes_path(@current_season.id, accepted_agreement: true), id: :continuebutton, class: [:'not-active', :disabled, :button]
+
+
+= content_for :jquery do
+  :plain
+    $('#agreed').click(function() {
+        if ($(this).is(':checked')) {
+          $('#continuebutton').removeClass('disabled');
+          $('#continuebutton').removeClass('not-active');
+        } else {
+          $('#continuebutton').addClass('disabled');
+          $('#continuebutton').addClass('not-active');
+        }
+    });

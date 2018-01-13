@@ -61,8 +61,7 @@ group :development do
   gem 'letter_opener'
   gem 'ruby_parser', '>= 3.0.1'
   gem 'thin'
-  gem 'pry-rails' # use pry when running `rails console`
-  gem 'pry-byebug'
+  
 
 end
 
@@ -122,4 +121,5 @@ gem "recaptcha", require: "recaptcha/rails"
 gem 'rolify'
 gem 'simple_token_authentication', git: 'https://github.com/gonzalo-bulnes/simple_token_authentication.git', branch: 'master'
 gem 'truncate_html'
+gem 'viitenumero', github: 'bittisiirto/viitenumero', branch: :master
 gem 'wicked_pdf'

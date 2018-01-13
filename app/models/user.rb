@@ -55,6 +55,15 @@ class User < ActiveRecord::Base
     self.errors.add(:username, 'is already taken') if Group.where(name: self.username).exists?
   end
 
+
+  def is_member?
+    !stakes.where(includes_share: true).empty?
+  end
+
+  def has_membership_details?
+    !address.blank? && !contact_phone.blank? && !city.blank? && !postcode.blank? && !country.blank? && !name.blank?
+  end
+
   def as_mentionable
     {
       created_at: self.created_at,

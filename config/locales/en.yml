@@ -680,7 +680,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   who_will_own_this_stake: 'Who will own this stake?'
   only_owners_can_buy: ' (only group admins/owners can buy stakes)'
   stake_booked_invoice_later: 'Your stake(s) have been booked in the system! Thank you for supporting Kuusi Palaa. You will receive payment information when it is available.'
-  error_booking_stake: 'There was an error booking your stake. Please try again.'
+  error_booking_stake: 'There was an error booking your stake: '
   you_have_x_paid_this_season: 'You own %{count} paid %{stake} this season.'
   you_have_x_booked_this_season: 'You have booked %{count} %{stake} this season, which are waiting to be paid.'
   stake:
@@ -713,3 +713,28 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   participation_front_blurb: 'Kuusi Palaa values participation and engagement. When you come to an event at Kuusi Palaa, you earn points. These points are used to programme and operate the space.'
   always_open_title: 'Always open, always welcoming!'
   always_open_blurb: "If there's nothing on the calendar, Kuusi Palaa is open as a general meeting/working place. And you still get points for showing up. Stakeholders get a key and can open the space if no one else is there, 24/7."
+  buy_a_stake: 'Buy a stake'
+  buy_for_self: 'Buy stake(s) as an individual'
+  buy_for_group: 'Buy stake(s) for a group'
+  thank_you_for_booking_stake: 'Thank you for buying a stake in Kuusi Palaa. Please pay the following invoice via bank transfer.'
+  invoice_email_or_download: 'Your stake will be activated when payment is received. This invoice has been emailed to %{email} and can be downloaded as a %{pdf_link}.'
+  stake_booked: 'Stakes are booked!'
+  members_agreement: 'Membership Terms'
+  becoming_a_member: 'Thank you for your support of Kuusi Palaa! Buying a stake in Kuusi Palaa is also buying a share in the cooperative; you become a member and co-owner of Kuusi Palaa. Please review the terms of membership below before continuing.'
+  accepts_members_agreement: 'I accept these terms and conditions!'
+  continue: 'Continue'
+  membership_details: 'Membership details'
+  we_need_your_details: "Because you are becoming a member of the cooperative Kuusi Palaa, we need to know your basic contact details for the registry of members. Don't worry, we won't give this information out to anyone else; we will only use it to notify you of the annual general meeting or emergencies."
+  read_privacy_policy: "Read Kuusi Palaa's privacy policy."
+  show_name_on_site: 'Show your real name on the site next to your username'
+  your_real_name: 'Your real name'
+  postal_address: 'Your postal address'
+  contact_phone: 'Contact phone #'
+  we_wont_call_you: "Don't worry, we are extremely unlikely to phone you."
+  activerecord:
+    errors:
+      models:
+        stake:
+          attributes:
+            amount:
+              can_only_have_15_percent: 'You can only buy a maximum of 15% of the stakes for an entire season.'

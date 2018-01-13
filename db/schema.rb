@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180112131635) do
+ActiveRecord::Schema.define(version: 20180113201221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -273,6 +273,9 @@ ActiveRecord::Schema.define(version: 20180112131635) do
     t.datetime "updated_at", null: false
     t.string "long_name"
     t.string "avatar_tmp"
+    t.string "taxid"
+    t.boolean "is_member", default: false, null: false
+    t.string "contact_phone"
   end
 
   create_table "hardwares", id: :serial, force: :cascade do |t|
@@ -752,8 +755,8 @@ ActiveRecord::Schema.define(version: 20180112131635) do
     t.string "paidconfirmation"
     t.string "paidconfirmation_content_type"
     t.integer "paidconfirmation_size"
-    t.boolean "includes_share"
-    t.boolean "includes_membership_fee"
+    t.boolean "includes_share", default: false, null: false
+    t.boolean "includes_membership_fee", default: false, null: false
     t.index ["owner_type", "owner_id"], name: "index_stakes_on_owner_type_and_owner_id"
     t.index ["season_id"], name: "index_stakes_on_season_id"
   end
@@ -871,6 +874,8 @@ ActiveRecord::Schema.define(version: 20180112131635) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "avatar_tmp"
+    t.string "contact_phone"
+    t.boolean "accepted_agreement", default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -7,20 +7,42 @@ class StakesController < ApplicationController
     @stake = Stake.new(stake_params)
     if @stake.save
       flash[:notice] = t(:stake_booked_invoice_later)
-      redirect_to '/members'
+      redirect_to season_stake_path(@season, @stake)
     else
-      flash[:error] = t(:error_booking_stake) + " : " + @stake.errors.full_messages
+
+      flash[:error] = t(:error_booking_stake) + " : " + @stake.errors.messages.values.join('; ')
       fill_collection
       render template: 'stakes/new'
     end
+  end
+
+
+  def for_self
+
+    @season = Season.find(params[:season_id])
+    @stake = Stake.new(season: @season, bookedby: current_user)
+    if !current_user.is_member? &&  params[:accepted_agreement] != 'true'
+      redirect_to members_agreement_users_path
+    elsif !current_user.has_membership_details?
+      redirect_to get_membership_details_user_path(current_user)
+    end
+  end
+
+  def for_group
+    @season = Season.find(params[:season_id])
+    @stake = Stake.new(season: @season, bookedby: current_user)
+    fill_collection
   end
 
   def new
     @season = Season.find(params[:season_id])
     @stake = Stake.new(season: @season, bookedby: current_user)
     fill_collection
+  end
 
-
+  def show
+    @season = Season.find(params[:season_id])
+    @stake = Stake.find(params[:id])
   end
 
   def fill_collection

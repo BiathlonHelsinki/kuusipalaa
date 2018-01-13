@@ -1,0 +1,10 @@
+.stake_view
+  .row
+    .small-12.columns
+      %h2= t :stake_booked
+      %p= t :thank_you_for_booking_stake
+      %p= raw t(:invoice_email_or_download, email: @stake.bookedby.email, pdf_link: link_to('PDF', @stake.invoice.url))
+
+
+  .row
+    .small-12.columns#invoice_screen= render partial: 'invoice', locals: {stake: @stake}

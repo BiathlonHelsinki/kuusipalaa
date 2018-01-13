@@ -52,13 +52,22 @@ Rails.application.routes.draw do
   end
 
   resources :seasons do
-    resources :stakes
+    resources :stakes do
+      collection do
+        get :for_self
+        get :for_group
+      end
+    end
   end
-  
+
   resources :users do
     collection do
       get :check_unique
       get :mentions
+      get :members_agreement
+    end
+    member do
+      get :get_membership_details
     end
   end
 

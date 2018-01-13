@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+
+  </head>
+  <body onload='number_pages'>
+    <div id="header">
+      <h1>Kuusi Palaa osk</h1>
+      <h2>Invoice</h2>
+    </div>
+    <div class="content">
+      <div class="row">
+        <div class="heading">Invoice for:</div>
+        <div class="value"><%= stake.owner.name %></div>
+      </div>
+
+      <div class="row">
+        <div class="heading">Date:</div>
+        <div class="value"><%= Time.now.utc.strftime("%Y.%m.%d") %></div>
+      </div>
+
+      <div class="row">
+        <table>
+          <thead>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </thead>
+          <tbody>
+            <% if stake.includes_share %>
+              <tr>
+                <td>Share/osuus in Kuusi Palaa osk</td>
+                <td><%= number_to_currency(10, unit: raw('&euro;'), format: "%n %u") %></td>
+                <td>1</td>
+                <td><%= number_to_currency(10, unit: raw('&euro;'), format: "%n %u") %></td>
+              </tr>
+            <% end %>
+            <% if stake.includes_membership_fee %>
+              <tr>
+                <td>Membership fee for <%= stake.created_at.strftime("%Y") %></td>
+                <td><%= number_to_currency(40, unit: raw('&euro;'), format: "%n %u") %></td>
+                <td>1</td>
+                <td><%= number_to_currency(40, unit: raw('&euro;'), format: "%n %u") %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td>Kuusi Palaa 'stake' service for season #<%= stake.season.number.to_s %></td>
+
+              <% if stake.amount == 1 || stake.includes_membership_fee %>
+                <% if stake.includes_share && stake.includes_membership_fee %>
+                  <% sa = 0 %>
+                  <td><%= number_to_currency(0, unit: raw('&euro;'), format: "%n %u") %></td>
+                <% elsif !stake.includes_share && stake.includes_membership_fee %>
+                  <% sa = 10 %>
+                  <td><%= number_to_currency(10, unit: raw('&euro;'), format: "%n %u") %></td>
+                <% else %>
+                  <% sa = 50 %>
+                  <td><%= number_to_currency(50, unit: raw('&euro;'), format: "%n %u") %></td>
+                <% end %>
+                <td><%= stake.amount.to_s %></td>
+                <td><%= number_to_currency(sa, unit: raw('&euro;'), format: "%n %u") %></td>
+              <% else %>
+                <td><%= number_to_currency(50, unit: raw('&euro;'), format: "%n %u") %></td>
+                <td><%= stake.amount.to_s %></td>
+                <td><%= number_to_currency(stake.amount * 50, unit: raw('&euro;'), format: "%n %u") %></td>
+              <% end %>
+            </tr>
+            <% if stake.amount > 1 && stake.includes_membership_fee %>
+              <tr>
+                <td>Kuusi Palaa 'stake' service for season #<%= stake.season.number.to_s %></td>
+                <td><%= number_to_currency(50, unit: raw('&euro;'), format: "%n %u") %></td>
+                <td><%= (stake.amount - 1).to_s %></td>
+                <td><%= number_to_currency((stake.amount - 1) * 50, unit: raw('&euro;'), format: "%n %u") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row">
+        <div class="heading">Payment to:</div>
+        <div class="value">Kuusi Palaa oski</div>
+      </div>
+
+      <div class="row">
+        <div class="heading">Account number:</div>
+        <div class="value"><%= ENV['iban'] %></div>
+      </div>
+
+      <div class="row">
+        <div class="heading">BIC/SWIFT:</div>
+        <div class="value"><%= ENV['swift'] %></div>
+      </div>
+
+      <div class="row">
+        <div class="heading">Reference #:</div>
+        <div class="value"><%= stake.viitenumero.paper_format %></div>
+      </div>
+
+      <div class="row">
+        <div class="heading">Due date:</div>
+        <div class="value"><%= (stake.created_at.to_date + 14).strftime("%Y.%m.%d") %></div>
+      </div>
+    </div>
+  </body>
+</html>
