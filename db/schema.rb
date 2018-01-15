@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180113201221) do
+ActiveRecord::Schema.define(version: 20180114113027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -276,6 +276,11 @@ ActiveRecord::Schema.define(version: 20180113201221) do
     t.string "taxid"
     t.boolean "is_member", default: false, null: false
     t.string "contact_phone"
+    t.boolean "accepted_agreement", default: false, null: false
+    t.string "address"
+    t.string "city"
+    t.string "postcode"
+    t.string "country"
   end
 
   create_table "hardwares", id: :serial, force: :cascade do |t|
@@ -757,6 +762,7 @@ ActiveRecord::Schema.define(version: 20180113201221) do
     t.integer "paidconfirmation_size"
     t.boolean "includes_share", default: false, null: false
     t.boolean "includes_membership_fee", default: false, null: false
+    t.float "price", default: 50.0, null: false
     t.index ["owner_type", "owner_id"], name: "index_stakes_on_owner_type_and_owner_id"
     t.index ["season_id"], name: "index_stakes_on_season_id"
   end

@@ -41,11 +41,11 @@
 
 
             .small-12.columns.large-2
-              = group.members.find_by(user: current_user).access_level == Experiment2::Access::OWNER ? t(:owner) : t(:member, count: 1)
+              = group.members.find_by(user: current_user).access_level == KuusiPalaa::Access::OWNER ? t(:owner) : t(:member, count: 1)
 
             .small-12.columns.large-5
               = t(:x_members, count: group.members.size, members: t(:member, count:group.members.size))
-              - if group.members.find_by(user: current_user).access_level > Experiment2::Access::REGULAR_MEMBER
+              - if group.members.find_by(user: current_user).access_level > KuusiPalaa::Access::REGULAR_MEMBER
                 %br/
                 = link_to t(:edit_group), edit_group_path(group), class: [:button]
                 %br/

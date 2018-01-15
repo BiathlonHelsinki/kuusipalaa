@@ -11,7 +11,7 @@
           - if user_signed_in?
             - me = @group.members.find_by(user: current_user)
             - unless me.nil?
-              - if me.access_level.to_i >= Experiment2::Access::ADMIN
+              - if me.access_level.to_i >= KuusiPalaa::Access::ADMIN
                 = link_to fa_icon('pencil'), edit_group_path(@group)
 
           %br/
@@ -43,7 +43,7 @@
               = pluralize(@group.members.size, t(:member, count: @group.members.size)) + ":"
               - if user_signed_in?
                 - unless me.nil?
-                  - if me.access_level.to_i >= Experiment2::Access::ADMIN
+                  - if me.access_level.to_i >= KuusiPalaa::Access::ADMIN
                     = link_to fa_icon('pencil'), new_group_member_path(@group)
               .row.group_profile_member_list.large-up-5.medium-up-4.small-up-2
                 - @group.members.each do |member|

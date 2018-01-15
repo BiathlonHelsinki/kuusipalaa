@@ -1,4 +1,4 @@
-module Experiment2
+module KuusiPalaa
   module Access
     AccessDeniedError = Class.new(StandardError)
 

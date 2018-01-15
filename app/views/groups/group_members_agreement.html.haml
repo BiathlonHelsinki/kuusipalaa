@@ -1,0 +1,38 @@
+.membership_pages
+  .row
+    .small-12.columns
+      %h1= t :members_agreement_groups
+  .row
+    .small-12.columns
+      %p= t :becoming_a_member_group
+
+  .row
+    .small-12.columns= raw @members_agreement
+
+  .row
+    .small-12.columns
+      %br/
+      %br/
+      %h4
+        = check_box_tag :agreed
+        = t :accepts_members_agreement
+
+  .row
+    .small-12.columns
+      = form_tag '/groups/member_details' do
+        = hidden_field_tag :group_type, @followup
+        = submit_tag t(:continue), disabled: true, class: :disabled, id: :continuebutton
+
+
+
+= content_for :jquery do
+  :plain
+    $('#agreed').click(function() {
+        if ($(this).is(':checked')) {
+          $('#continuebutton').removeAttr('disabled');
+          $('#continuebutton').removeClass('disabled');
+        } else {
+          $('#continuebutton').attr('disabled', 'disabled');
+          $('#continuebutton').addClass('disabled');
+        }
+    });

@@ -56,3 +56,20 @@ a.not-active {
     }
 
 }
+
+form {
+  p.group_type {
+    font-size: 0.85rem;
+    font-weight: 300;
+    font-style: italic;
+    color: #666;
+  }
+  li.error input[type=text] {
+    border: 2px solid red;
+  }
+  p.inline-errors {
+    color: red;
+    font-weight: bold;
+    margin: 0;
+  }
+}

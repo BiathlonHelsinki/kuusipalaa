@@ -17,6 +17,17 @@ Rails.application.routes.draw do
   end
 
   resources :groups do
+    collection do
+      post :group_members_agreement
+      post :group_nonmember_agreement
+      post :member_details
+      post :new_unregistered
+      post :new_nonmember
+    end
+    member do
+      get :buy_stakes
+      get :basic_details
+    end
     resources :members do
       member do
         get :leave
@@ -52,6 +63,10 @@ Rails.application.routes.draw do
   end
 
   resources :seasons do
+    resources :groups do
+      resources :stakes
+
+    end
     resources :stakes do
       collection do
         get :for_self

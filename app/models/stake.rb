@@ -18,7 +18,11 @@ class Stake < ApplicationRecord
 
 
   def check_max_stakes
-    errors.add(:amount, :can_only_have_15_percent) if (season.stake_count * 0.15).to_i <  (amount + owner.stakes.by_season(season.id).sum(&:amount))
+    if owner.stakes.empty?
+      errors.add(:amount, :can_only_have_15_percent) if (season.stake_count * 0.15).to_i <  amount
+    else
+      errors.add(:amount, :can_only_have_15_percent) if (season.stake_count * 0.15).to_i <  (amount + owner.stakes.by_season(season.id).sum(&:amount))
+    end
   end
 
   def figure_special_fees

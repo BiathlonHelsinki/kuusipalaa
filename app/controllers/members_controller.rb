@@ -19,7 +19,7 @@ class MembersController < ApplicationController
     if me.nil?
       flash[:error] = t(:you_are_not_authorised_for_this_group)
       redirect_to '/members'
-    elsif me.access_level < Experiment2::Access::ADMIN
+    elsif me.access_level < KuusiPalaa::Access::ADMIN
       flash[:error] = t(:you_are_not_authorised_for_this_group)
       redirect_to '/members'
     end
@@ -27,7 +27,7 @@ class MembersController < ApplicationController
 
   def create
 
-    @member = Member.new(source: @group, access_level: Experiment2::Access::REGULAR_MEMBER, user: User.friendly.find_by(username: member_params[:username]))
+    @member = Member.new(source: @group, access_level: KuusiPalaa::Access::REGULAR_MEMBER, user: User.friendly.find_by(username: member_params[:username]))
 
 
     if @member.save

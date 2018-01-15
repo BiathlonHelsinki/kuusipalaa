@@ -1,50 +1,40 @@
 .member_services_index
-  .row
-    .small-12.columns
-      %h2.text-center= t :member_services
-      %br/
-      %br/
 
   .row
-    .small-12.columns.medium-8.large-6
+    .small-12.columns.medium-8.large-9
       %h3.text-center= t :create_a_group
       %p= t :group_stakes_blurb
-      %p= t :create_group_members_later
 
+  .row
+    .small-12.columns.medium-8.large-9
+      %h4= t :choose_group_type
 
-      = semantic_form_for @group,  html: {multipart: true, 'data-abide': ''} do |f|
-        = f.input :name, label: "<label class='label'>#{t(:group_name)}</label><div class='validation_error'></div>".html_safe,  hint: t(:keep_it_short), input_html: {'required': ''}
-        = f.input :long_name, label: t(:long_name), hint: t(:longer_name_hint), input_html: {'required': ''}
-        = f.input :description, hint: t(:group_description), input_html: {'required': ''}
-        = f.input :avatar, hint: t(:optional_group_image)
-        = f.input :website, hint: t(:group_website)
-        = f.input :twitter_name, hint: t(:group_twitter)
-        = f.submit t(:create)
+      %p= t :three_types_of_groups
+
+      = form_tag '/groups/new_unregistered', id: :new_group_form do
+        = radio_button_tag :group_type, 1, true
+        = t(:unregistered_group)
+        %p.group_type= t :unregistered_group_explanation
+        = radio_button_tag :group_type, 2, false
+        = t(:registered_organisation_joins_kp)
+        %p.group_type= t :registered_organisation_joins_kp_explanation
+        = radio_button_tag :group_type, 3, false
+        = t(:registered_organisation_nonmember)
+        %p.group_type= t(:registered_organisation_nonmember_explanation)
+        = submit_tag t(:next_step)
 
 = content_for :jquery do
   :plain
+    $('input[name="group_type"]').change(function() {
+      if ($(this).val() == 2) {
+        $('#new_group_form').attr('action', "/groups/group_members_agreement");
+        $('#new_group_form').attr('method', "post");
+      } else if ($(this).val() == 3) {
+        $('#new_group_form').attr('action', '/groups/new_nonmember');
+        $('#new_group_form').attr('method', "post");
+      } else if ($(this).val() == 1) {
+        $('#new_group_form').attr('action', '/groups/new_unregistered');
+        $('#new_group_form').attr('method', "post");
+      }
 
-
-    $('#group_name').on('valid.zf.abide',function (ev,elem) {
-
-      $.ajax({
-          url: '/users/check_unique',
-          data : {
-              action : "validate.username",
-              username : $(ev.target).val()
-          },
-          success : function(data) {
-            $('.validation_error').html();
-            $('.validation_error').fadeOut();
-            $(ev.target).removeClass('is-invalid-input');
-
-          },
-          error: function(data, errorThrown) {
-
-            $('.validation_error').html(data.responseJSON.message);
-            $('.validation_error').fadeIn();
-            $(ev.target).addClass('is-invalid-input');
-            // $(ev.target).markInvalid(data.messages.join('<br>'));
-          }
-      });
     });

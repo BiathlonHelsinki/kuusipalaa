@@ -4,15 +4,31 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    @group.members << Member.new(user: current_user, source: @group, access_level: Experiment2::Access::OWNER)
+    @group.members << Member.new(user: current_user, source: @group, access_level: KuusiPalaa::Access::OWNER)
 
     if @group.save
       flash[:notice] = t(:your_group_has_been_created)
-      redirect_to '/members'
+      if @group.is_member
+        redirect_to basic_details_group_path(@group)
+      else
+        redirect_to '/members'
+      end
     else
       flash[:error] = @group.errors.full_messages
-      render template: 'groups/new'
+      if @group.is_member
+        render template: 'groups/member_details'
+      else
+        render template: 'groups/new'
+      end
     end
+
+  end
+
+  def basic_details
+    @group = Group.friendly.find(params[:id])
+    @group.members <<  Member.new(user: current_user, source: @group, access_level: KuusiPalaa::Access::OWNER)
+    flash[:notice] = t(:one_more_step)
+
 
   end
 
@@ -22,6 +38,35 @@ class GroupsController < ApplicationController
 
   def new
     @group = Group.new
+  end
+
+  def group_members_agreement
+    @followup = params[:group_type]
+    @members_agreement = 'membership agreement coming soon'
+  end
+
+  def group_nonmember_agreement
+    @followup = params[:group_type]
+    @members_agreement = 'non-member agreement coming soon'
+  end
+
+  def member_details
+    @group = Group.new(is_member: true)
+
+  end
+
+  def new_nonmember
+    @group = Group.new(is_member: false)
+  
+  end
+
+  def new_registered
+
+  end
+
+  def new_unregistered
+    @group = Group.new(is_member: false)
+    render template: 'groups/basic_details'
   end
 
   def show
@@ -43,7 +88,8 @@ class GroupsController < ApplicationController
   protected
 
   def group_params
-    params.require(:group).permit(:name, :long_name, :description, :avatar, :website, :twitter_name)
+    params.require(:group).permit(:name, :long_name, :description, :avatar, :website, :twitter_name, :contact_phone,
+    :address, :city, :postcode, :country, :taxid, :accepted_agreement, :is_member)
   end
 
 end

@@ -1,0 +1,54 @@
+.membership_pages
+  .row
+    .small-12.columns
+      %h1= t :group_details
+
+  .row
+    .small-12.columns
+      %p
+        = t :nonmember_details_blurb
+        = link_to t(:read_privacy_policy), page_path('privacy-policy'), target: :_blank, class: [:button, :tiny]
+
+  .row
+    .small-12.large-7.columns
+      = semantic_form_for @group, html: {:'data-abide' => '' } do |f|
+        = f.input :name, label: "<label class='label'>#{t(:organisation_name)}</label><div class='validation_error'></div>".html_safe,  hint: t(:keep_it_short), input_html: {'required': ''}
+        = f.input :long_name, label: t(:legal_name), hint: t(:enter_full_legal_name), input_html: {'required': ''}
+        = f.input :is_member, as: :hidden
+
+        = f.input :address, label: t(:postal_address), input_html: {required: ''}
+        = f.input :city, label: t(:city), input_html: {required: ''}
+        = f.input :postcode, label: t(:postcode), input_html: {required: ''}
+        = f.input :country, label: t(:country), input_html: {required: ''}
+        = f.input :contact_phone, label: t(:contact_phone), hint: t(:we_wont_call_you), input_html: {required: ''}
+        = f.input :taxid, label: 'Tax ID', hint: t(:tax_id_hint), input_html: {required: ''}
+        = f.input :accepted_agreement, as: :hidden, input_html: {value: true}
+        = f.submit t(:save)
+
+= content_for :jquery do
+  :plain
+
+
+    $('#group_name').on('valid.zf.abide',function (ev,elem) {
+
+      $.ajax({
+          url: '/users/check_unique',
+          data : {
+              action : "validate.username",
+              username : $(ev.target).val()
+          },
+          success : function(data) {
+            $('.validation_error').html();
+            $('.validation_error').fadeOut();
+            $(ev.target).removeClass('is-invalid-input');
+
+          },
+          error: function(data, errorThrown) {
+
+            $('.validation_error').html(data.responseJSON.message);
+            $('.validation_error').fadeIn();
+            $(ev.target).addClass('is-invalid-input');
+            // $(ev.target).markInvalid(data.messages.join('<br>'));
+          }
+      });
+    });

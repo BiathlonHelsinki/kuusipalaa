@@ -1,20 +1,31 @@
-%p= t(:no_bank_yet)
+%p= t(:how_to_buy)
+%p= t :only_accept_sepa
 = semantic_form_for [@season, @stake], html: {'data-abide':  ''} do |f|
-  = f.input :bookedby_id, as: :hidden, input_html: {'required' => ''}
-  = f.input :season_id, as: :hidden, input_html: {'required' => ''}
-  - if current_user.groups.empty?
-    = f.input :owner_type, as: :hidden, input_html: {value: 'User'}
-    = f.input :owner_id, as: :hidden, input_html: {value: current_user.id }
-  - else
-    = f.input :owner_type, as: :hidden, input_html: {value: 'User'}
-    = f.input :owner_id, as: :hidden, input_html: {'required' => '', value: current_user.id }
-    - if @collection_options
-      = f.input :owner, as: :select, label: t(:who_will_own_this_stake), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], {'rel' => x[2], 'disabled'=> x[3]}] }), input_html: {'required'  => ''}
-  = f.input :amount, label: t(:how_many_stakes_to_book), hint: t(:stakes_cost_50), input_html: {type: :number, value: 1, required: ''}
-  = f.submit t(:book_stakes)
+  .row
+    .small-10.large-4.columns
+
+      = f.input :bookedby_id, as: :hidden, input_html: {'required' => ''}
+      = f.input :season_id, as: :hidden, input_html: {'required' => ''}
+
+      - if @group
+        = f.input :owner_type, as: :hidden, input_html: {'required' => '',value: 'Group'}
+        = f.input :owner_id, as: :hidden, input_html: {'required' => '', value: @group.id }
+        - if @collection_options
+          = f.input :owner, as: :select, label: t(:who_will_own_this_stake), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], {'rel' => x[2], 'disabled'=> x[3]}] }), include_blank: false #  input_html: {required: ''}
+      - else
+        = f.input :owner_type, as: :hidden, input_html: {'required' => '', value: 'User'}
+        = f.input :owner_id, as: :hidden, input_html: {value: current_user.id }
+      = f.input :amount, label: t(:how_many_stakes_to_book), hint: t(:stakes_cost_x, x: @stake.price.to_i), input_html: {type: :number, value: 1, required: ''}
+      .total_due
+        = t :total_due
+  .row
+    .small-12.columns
+      %p= t :receive_points_for_stakes, count: 500, stake: t(:stake, count: 1)
+      %p= t :points_awarded_later
+      = f.submit t(:book_stakes)
 
 = content_for :jquery do
   :plain
     $('#stake_owner_input').on('change', function() {
-      $('#stake_owner_type').val($('#stake_owner_id option:selected').attr('rel'));
+      $('#stake_owner_type').val($('#stake_owner_id option').filter(":selected").attr('rel'));
     });

@@ -31,13 +31,31 @@ class StakesController < ApplicationController
   def for_group
     @season = Season.find(params[:season_id])
     @stake = Stake.new(season: @season, bookedby: current_user)
-    fill_collection
+
   end
 
   def new
+
     @season = Season.find(params[:season_id])
     @stake = Stake.new(season: @season, bookedby: current_user)
-    fill_collection
+
+    if params[:group_id]
+      @group = Group.friendly.find(params[:group_id])
+      fill_collection
+      if @group.members.map(&:user).include?(current_user)
+        if @group.members.find_by(user: current_user).access_level > KuusiPalaa::Access::REGULAR_MEMBER
+          @stake.price = @group.is_member ? 75 : 100
+          render template: 'stakes/group_stakes'
+        else
+          flash[:error] = t(:must_be_admin_to_buy_stakes)
+        end
+      else
+        flash[:error] = t(:must_be_admin_to_buy_stakes)
+      end
+    else
+      fill_collection
+      render template: 'stakes/new'
+    end
   end
 
   def show
@@ -48,14 +66,25 @@ class StakesController < ApplicationController
   def fill_collection
     @collection_options = []
     @collection_options << [current_user.name, current_user.id, 'User', nil]
+    last = ''
     unless current_user.members.empty?
       current_user.members.each do |m|
-        if m.access_level > Experiment2::Access::ADMIN
-          @collection_options << [m.source.name, m.source.id, 'Group', nil]
+        if m.access_level > KuusiPalaa::Access::ADMIN
+          if @group
+            if m.source == @group
+              last = [m.source.long_name.blank? ? m.source.name : m.source.long_name, m.source.id, 'Group', nil]
+            else
+              @collection_options << [m.source.long_name.blank? ? m.source.name : m.source.long_name, m.source.id, 'Group', nil]
+            end
+          end
+
         else
           @collection_options << [m.source.name + t(:only_owners_can_buy), m.source.id, 'Group', 'disabled']
         end
       end
+    end
+    unless last.blank?
+      @collection_options.unshift(last)
     end
   end
 

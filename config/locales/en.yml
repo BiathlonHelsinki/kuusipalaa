@@ -21,6 +21,14 @@
 
 en:
   locale_name: 'English'
+  activerecord:
+    errors:
+      models:
+        stake:
+          attributes:
+            amount:
+              can_only_have_15_percent: 'You can only buy a maximum of 15% of the stakes for an entire season.'
+
   date_range:
     long:
       same_day: "%{from_day} %{from_month} %{year} %{start_time} %{sep} %{end_time}"
@@ -650,7 +658,17 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
     zero: 'members'
     one: 'member'
     other: 'members'
+  stake:
+    zero: 'stakes'
+    one: 'stake'
+    other: 'stakes'
+  paid_stake:
+    zero: 'paid stakes'
+    one: 'paid stake'
+    other: 'paid stakes'
+  x_booked: '%{count} booked'
   x_members: '%{count} %{members}'
+  x_stakes: '%{count} %{stakes}'
   edit_group: 'Edit group details'
   edit_members: 'Edit members'
   member_has_been_removed: 'The member has been removed from the group.'
@@ -671,7 +689,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   member_access_level_has_been_updated: 'Member access level has been updated.'
   change: 'Change'
   how_many_stakes_to_book: 'How many stakes do you want to book?'
-  stakes_cost_50: 'Stakes are priced at 50€ each.'
+  stakes_cost_x: 'Stakes are priced at %{x}€ each.'
   book_stakes: "Book these stakes!"
   stake_booking_blurb: 'By buying stakes in Kuusi Palaa, you ensure the operation of the project while becoming a co-owner of the cooperative that runs it.'
   stakes_as_individuals_or_groups: 'Stakes can be purchased by individuals, or shared among multiple people in a group.'
@@ -683,6 +701,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   error_booking_stake: 'There was an error booking your stake: '
   you_have_x_paid_this_season: 'You own %{count} paid %{stake} this season.'
   you_have_x_booked_this_season: 'You have booked %{count} %{stake} this season, which are waiting to be paid.'
+  total_due: 'Total amount due: '
   stake:
     zero: 'stakes'
     one: 'stake'
@@ -731,10 +750,31 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   postal_address: 'Your postal address'
   contact_phone: 'Contact phone #'
   we_wont_call_you: "Don't worry, we are extremely unlikely to phone you."
-  activerecord:
-    errors:
-      models:
-        stake:
-          attributes:
-            amount:
-              can_only_have_15_percent: 'You can only buy a maximum of 15% of the stakes for an entire season.'
+  buy_a_stake_for_a_group: 'Buy a stake for a group or organisation'
+  group_explanation: 'You can start or join a group to share stakes across multiple people. Additionally, a legally registered organisation such as a company or association can become a member of the cooperative itself.'
+  buy_stakes_for_group: 'Buy stake(s) for %{group}'
+  receive_points_for_stakes: "You will receive %{count} points per %{stake}. Points are the main engine of Kuusi Palaa and are used to collectively share the space."
+  choose_group_type: 'What type of group are you creating?'
+  three_types_of_groups: 'There are three different types of groups you can create at Kuusi Palaa.'
+  unregistered_group: 'Unregistered group'
+  unregistered_group_explanation: 'An unregistered group is not an official legal entity such as a company, foundation, or association. Choose this option to form groups at Kuusi Palaa based on projects or interests, or to share a stake across multiple people. If an unregistered group buys stakes, at least one of its people must become a member of the Kuusi Palaa cooperative. Stakes for unregistered groups cost 50€ each, the same as for individuals, but the points received with the stake may by shared among any or all of the members.'
+  registered_organisation_joins_kp: 'Registered organisation becoming KP member'
+  registered_organisation_joins_kp_explanation: 'A legally registered organisation in any country can choose this option if the organisation itself wishes to become a member of Kuusi Palaa. You will need to provide a tax ID or VAT #. Stakes cost 75€ each for registered member organisations.'
+  registered_organisation_nonmember: 'Registered organisation, not a KP member'
+  registered_organisation_nonmember_explanation: 'If you are a legally registered organisation who wishes to buy stakes but does not wish to join the cooperative, choose this option. Stakes will cost 100€ each + 24% VAT.'
+  next_step: 'Next step'
+  members_agreement_groups: 'Members agreement for registered organisations'
+  becoming_a_member_group: 'A registered organisation can become a member of the Kuusi Palaa cooperative just like a person. Please agree to the following terms of membership for organisation before continuing.'
+  organisation_name: 'Organisation name'
+  legal_name: 'Full name of organisation'
+  enter_full_legal_name: 'Enter the full, legal name of the organisation here.'
+  tax_id_hint: 'Enter the registration/tax ID # for your organisation here. In Finland, this should be a y-tunnus; for other EU countries, you can enter your VAT ID here.'
+  one_more_step: 'We are almost done....'
+  more_group_details: 'Group description and other details'
+  few_more_details: 'Just a few more details, for your group''s profile page on the website.'
+  group_details: 'Group details'
+  nonmember_details_blurb: 'Your legally registered organisation wishes to buy stakes in Kuusi Palaa. As you are not becoming a member of the cooperative, we are required to charge you a higher rate and (if you are Finnish-based) VAT. We still need the following information about your organisation in order to create an invoice.'
+  how_to_buy: 'Stakes are booked here online, and paid for via bank transfer. When your payment is received, your stake(s) is active and your membership in the cooperative begins.'
+  only_accept_sepa: 'At the moment, Kuusi Palaa only accepts bank transfers made within the SEPA area of the European Union.'
+  points_awarded_later: 'Points will be awarded to all stakeholders a few weeks from now. If not enough stakes are sold to fund Kuusi Palaa for one season, your money will be returned to you in April 2018.'
+  must_be_admin_to_buy_stakes: 'You must be the Admin or Owner of a group to buy stakes for it.'

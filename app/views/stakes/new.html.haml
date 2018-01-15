@@ -3,14 +3,14 @@
     .small-12.columns
       %h2= t(:buy_a_stake)
   .row
-    .large-6.columns.small-12
+    .large-9.columns.small-12
       %p= t(:stake_booking_blurb)
       %p
         = t(:stakes_as_individuals_or_groups)
 
         -#= link_to t(:create_a_group), new_group_path, class: [:button]
   .row
-    .large-6.columns.small-12
+    .large-9.columns.small-10
       = link_to t(:buy_for_self), for_self_season_stakes_path(@season.id), class: [:button, :large]
       = link_to t(:buy_for_group),  for_group_season_stakes_path(@season.id), class: [:button, :large]
   -# .row

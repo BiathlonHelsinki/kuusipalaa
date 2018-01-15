@@ -3,7 +3,7 @@ class Group < ApplicationRecord
   has_many :users, through: :members
   has_many :stakes, dependent: :destroy, as: :owner
   has_many :owners,
-   -> { where(members: { access_level: Experiment2::Access::OWNER }) },
+   -> { where(members: { access_level: KuusiPalaa::Access::OWNER }) },
    through: :members,
    source: :user
   extend FriendlyId
@@ -13,8 +13,13 @@ class Group < ApplicationRecord
   # process_in_background :avatar
   validates_presence_of :name
   validate :uniqueness_of_a_name
-  after_create :add_to_activity_feed
+  before_create :at_least_one_member
+  # after_create :add_to_activity_feed
   after_update :edit_to_activity_feed
+
+  def at_least_one_member
+
+  end
 
   def display_name
     if long_name.blank?
@@ -25,13 +30,18 @@ class Group < ApplicationRecord
   end
 
   def uniqueness_of_a_name
-    self.errors.add(:name, 'is already taken') if User.where("lower(username) = ?", self.name).exists?
-    self.errors.add(:name, 'is already taken') if Group.where("lower(name) = ? and id <> ?", self.name, self.id).exists?
+    self.errors.add(:name, 'is already taken') if User.where("lower(username) = ?", self.name.downcase).exists?
+    if new_record?
+      self.errors.add(:name, 'is already taken') if Group.where(["lower(name) = ? ", self.name.downcase]).exists?
+    else
+      self.errors.add(:name, 'is already taken') if Group.where("lower(name) = ? and id <> ?", self.name.downcase, self.id).exists?
+    end
   end
 
   def edit_to_activity_feed
     Activity.create(user: self.members.first.user, item: self, description: "edited_the_group",  addition: 0)
   end
+
   def add_to_activity_feed
     Activity.create(user: self.members.first.user, item: self, description: "created_the_group",  addition: 0)
   end

@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   has_many :groups, through: :members, source: :source, source_type: 'Group'
 
   def uniqueness_of_a_name
-    self.errors.add(:username, 'is already taken') if Group.where(name: self.username).exists?
+    self.errors.add(:username, 'is already taken') if Group.where(["lower(name) = ?", self.username.downcase]).exists?
   end
 
 

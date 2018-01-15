@@ -37,7 +37,7 @@
               - else
                 = member.access_level.to_s
               - unless @group.members.find_by(user: current_user).nil?
-                - if @group.members.find_by(user: current_user).access_level == Experiment2::Access::OWNER
+                - if @group.members.find_by(user: current_user).access_level == KuusiPalaa::Access::OWNER
                   = semantic_form_for [@group,member] do |f|
                     = f.input :access_level, as: :select, collection: [[t(:member, count: 1), 10], [ t(:admin), 30], [ t(:owner), 50]]
                     = f.submit t(:change)
