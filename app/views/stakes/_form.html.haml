@@ -1,31 +1,86 @@
+
+
+
+= f.input :bookedby_id, as: :hidden, input_html: {'required' => ''}
+= f.input :season_id, as: :hidden, input_html: {'required' => ''}
+
+- if @group
+  = f.input :owner_type, as: :hidden, input_html: {'required' => '',value: 'Group'}
+  = f.input :owner_id, as: :hidden, input_html: {'required' => '', value: @group.id }
+  - if @collection_options
+    = f.input :owner, as: :select, label: t(:who_will_own_this_stake), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], {'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }), include_blank: false #  input_html: {required: ''}
+- else
+  = f.input :owner_type, as: :hidden, input_html: {'required' => '', value: 'User'}
+  = f.input :owner_id, as: :hidden, input_html: {value: current_user.id }
+.row
+  .small-6.large-3.medium-4.columns
+    = f.input :price, as: :hidden, input_html: {'required' => ''}
+    = f.input :amount, label: false, hint: t(:number_of_stakes), input_html: {type: :number, value: 1, required: ''}
+  .small-6.large-2.medium-3.columns.end
+
+    .total_due
+      #total_due
+      .total_text= t :total_amount_due
+.row
+  .small-12.columns
+    %p= t :receive_points_for_stakes, count: 500, stake: t(:stake, count: 1)
+    %p= t :points_awarded_later
+  -# .large-6.small-10.columns
+  -#   %table
+  -#     %thead
+  -#       %th.text-center{colspan: 3}= t :stake_prices
+  -#     %tbody
+  -#       %tr
+  -#         %td= t :individual_members
+  -#         %td 50€
+  -#         %td &nbsp;
+  -#       %tr
+  -#         %td= t :unregistered_group
+  -#         %td 50€
+  -#         %td
+  -#           %small= t :unreg_bought_through_member
+  -#       %tr
+  -#         %td= t :registered_organisation_member
+  -#         %td 75€
+  -#         %td &nbsp;
+  -#       %tr
+  -#         %td= t :registered_organisation_nonmember
+  -#         %td
+  -#           100€
+  -#           %small= t(:vat)
+  -#         %td
+  -#           %small= t :exclude_vat
+    - if @group
+      %p
+        %small= raw t(:if_you_have_vat, detail_edit_link: link_to(t(:organisation_details), edit_group_path(@group)))
+
 %p= t(:how_to_buy)
 %p= t :only_accept_sepa
-= semantic_form_for [@season, @stake], html: {'data-abide':  ''} do |f|
-  .row
-    .small-10.large-4.columns
 
-      = f.input :bookedby_id, as: :hidden, input_html: {'required' => ''}
-      = f.input :season_id, as: :hidden, input_html: {'required' => ''}
-
-      - if @group
-        = f.input :owner_type, as: :hidden, input_html: {'required' => '',value: 'Group'}
-        = f.input :owner_id, as: :hidden, input_html: {'required' => '', value: @group.id }
-        - if @collection_options
-          = f.input :owner, as: :select, label: t(:who_will_own_this_stake), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], {'rel' => x[2], 'disabled'=> x[3]}] }), include_blank: false #  input_html: {required: ''}
-      - else
-        = f.input :owner_type, as: :hidden, input_html: {'required' => '', value: 'User'}
-        = f.input :owner_id, as: :hidden, input_html: {value: current_user.id }
-      = f.input :amount, label: t(:how_many_stakes_to_book), hint: t(:stakes_cost_x, x: @stake.price.to_i), input_html: {type: :number, value: 1, required: ''}
-      .total_due
-        = t :total_due
-  .row
-    .small-12.columns
-      %p= t :receive_points_for_stakes, count: 500, stake: t(:stake, count: 1)
-      %p= t :points_awarded_later
-      = f.submit t(:book_stakes)
 
 = content_for :jquery do
   :plain
+    function calcAmountDue() {
+      if ($('#stake_owner_id option').filter(":selected").attr('vat') != 'false') {
+        var multiplier = 1.24;
+      } else {
+        var multiplier = 1;
+      }
+      if ($('#stake_owner_id option').filter(":selected").val()) {
+        $('#total_due').html(($('#stake_amount').val() * $('#stake_owner_id option').filter(":selected").attr('price') * multiplier) +'€');
+      } else {
+        $('#total_due').html($('#stake_amount').val() * 50 +'€');
+      }
+    }
+    calcAmountDue();
+    $('#stake_amount').on('input', function() {
+      if ($(this).val() < 1) {
+        $('#stake_amount').val(1);
+      }
+      calcAmountDue();
+    });
     $('#stake_owner_input').on('change', function() {
+      $('#stake_price').val($('#stake_owner_id option').filter(":selected").attr('price') );
+      calcAmountDue();
       $('#stake_owner_type').val($('#stake_owner_id option').filter(":selected").attr('rel'));
     });

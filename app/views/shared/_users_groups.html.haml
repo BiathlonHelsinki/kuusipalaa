@@ -1,0 +1,40 @@
+.row
+  .columns.small-12
+    - if current_user.groups.empty?
+      %p= t :you_do_not_belong_to_any_groups
+    - else
+      %table.group_list
+        %thead
+
+          %th.text-center{colspan: 2}= t :group_name
+          %th.text-center{colspan: 2}= t :info
+
+        %tbody
+          - current_user.groups.each do |group|
+            %tr
+              %td
+                - if group.avatar?
+                  = image_tag group.avatar.url(:thumb).gsub(/development/, 'production')
+              %td
+                = group.name
+                %br/
+                %small
+                  %strong
+                    - if group.taxid
+                      = t :registered_organisation
+                      - if group.is_member
+                        %br/
+                        = t :cooperative_member
+              %td
+                = t(:x_members, count: group.members.size, members: t(:member, count:group.members.size))
+                %br/
+                = t(:x_stakes, count: group.stakes.paid.count, stakes: t(:paid_stake, count:group.stakes.paid.count))
+                - if group.stakes.count != group.stakes.paid.count
+                  = "(#{t(:x_booked, count: group.stakes.count)})"
+                %br/
+                = link_to t(:view_details), group, target: :_blank, class: [:button, :small]
+              %td
+                - if group.members.find_by(user: current_user).access_level > KuusiPalaa::Access::REGULAR_MEMBER
+                  = link_to t(:buy_stakes_for_group, group: group.name), new_season_group_stake_path(@next_season, group), class: [:button]
+                - else
+                  %small= t :must_be_admin_to_buy_stakes

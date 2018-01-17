@@ -16,9 +16,54 @@ class Group < ApplicationRecord
   before_create :at_least_one_member
   # after_create :add_to_activity_feed
   after_update :edit_to_activity_feed
+  before_save :validate_vat
+
+  def validate_vat
+    unless taxid.blank?
+      unless country == 'FI' || country.blank?
+        self.valid_vat_number = Valvat.new(taxid).valid?
+      else
+        self.valid_vat_number = false
+      end
+    else
+      self.valid_vat_number = false
+    end
+  end
 
   def at_least_one_member
 
+  end
+
+  def stake_price
+    if is_member
+      return 75
+    else
+      if taxid.blank?
+        return 50
+      else
+        return 100
+      end
+    end
+  end
+
+  def charge_vat?
+    if is_member
+      return false
+    else  #could be unregistered
+      if taxid
+        if country == 'FI'
+          return true
+        else
+          if valid_vat_number == true
+            return false
+          else
+            return true
+          end
+        end
+      else
+        return false
+      end
+    end
   end
 
   def display_name

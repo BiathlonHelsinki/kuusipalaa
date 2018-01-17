@@ -4,10 +4,10 @@ class Stake < ApplicationRecord
   belongs_to :bookedby, class_name: 'User'
   mount_uploader :invoice, AttachmentUploader
   mount_uploader :paidconfirmation, AttachmentUploader
-  before_create :figure_special_fees
+  before_validation :figure_special_fees
   validate :check_max_stakes
 
-  validates_presence_of :owner_id, :season_id, :bookedby_id, :owner_type
+  validates_presence_of :owner_id, :season_id, :bookedby_id, :owner_type, :price, :invoice_amount, :invoice_due
   after_commit  :generate_invoice
   skip_callback :after_commit, only: :generate_invoice
 
@@ -16,6 +16,9 @@ class Stake < ApplicationRecord
   scope :booked_unpaid,  ->() { where('paid is not true')}
   scope :past_year, ->() { where(["created_at >= ?",  1.year.ago.strftime("%Y-%m-%d")])}
 
+  def with_vat?
+    owner.charge_vat?
+  end
 
   def check_max_stakes
     if owner.stakes.empty?
@@ -27,15 +30,44 @@ class Stake < ApplicationRecord
 
   def figure_special_fees
     self.invoice_due = 2.weeks.since
-    # if owner.stakes.empty?
-    #   self.includes_share = true
-    #   self.includes_membership_fee = true
-    # end
-    if owner.stakes.past_year.where(includes_membership_fee: true).empty?
-      self.includes_membership_fee = true
+    self.invoice_amount = amount * price
+
+    if owner.charge_vat?
+      self.invoice_amount *= 1.24
     end
-    if owner.stakes.where(includes_share: true).empty?
-      self.includes_share = true
+    if owner_type == User
+      if owner.stakes.past_year.where(includes_membership_fee: true).empty?
+        self.includes_membership_fee = true
+      end
+      if owner.stakes.where(includes_share: true).empty?
+        self.includes_share = true
+      end
+    else
+      if owner.is_member?
+        if owner.stakes.past_year.where(includes_membership_fee: true).empty?
+          self.includes_membership_fee = true
+        end
+        if owner.stakes.where(includes_share: true).empty?
+          self.includes_share = true
+        end
+      else
+        if owner.taxid.blank?
+          if bookedby.stakes.past_year.where(includes_membership_fee: true).empty?
+            self.includes_membership_fee = true
+          end
+          if bookedby.stakes.where(includes_share: true).empty?
+            self.includes_share = true
+          end
+        end
+      end
+    end
+  end
+
+  def billable
+    if owner_type == 'Group' && !owner.taxid.blank?
+      owner
+    else
+      bookedby
     end
   end
 

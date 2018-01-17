@@ -1,0 +1,77 @@
+- totaldue = 0
+%table
+  %thead
+    %th Item
+    %th Price
+    %th Quantity
+    %th Total
+  %tbody
+    - if stake.includes_share
+      %tr
+        %td Share/osuus in Kuusi Palaa osk
+        %td= number_to_currency(10, unit: raw('&euro;'), format: "%n %u")
+        %td 1
+        %td= number_to_currency(10, unit: raw('&euro;'), format: "%n %u")
+        - totaldue += 10
+    - if stake.includes_membership_fee
+      %tr
+        %td
+          Membership fee for #{stake.created_at.strftime("%Y")}
+        %td= number_to_currency(40, unit: raw('&euro;'), format: "%n %u")
+        %td 1
+        %td= number_to_currency(40, unit: raw('&euro;'), format: "%n %u")
+        - totaldue += 40
+    %tr
+      %td
+        Kuusi Palaa 'stake' service for season ##{stake.season.number.to_s}
+        - if stake.billable != stake.owner
+          = "[#{stake.owner.long_name}]"
+        - if stake.includes_share || stake.includes_membership_fee
+          first stake price
+      - if stake.amount == 1 || stake.includes_membership_fee
+        - if stake.includes_share && stake.includes_membership_fee
+          - sa = 0
+          %td= number_to_currency(0, unit: raw('&euro;'), format: "%n %u")
+        - elsif !stake.includes_share && stake.includes_membership_fee
+          - sa = 10
+          %td= number_to_currency(10, unit: raw('&euro;'), format: "%n %u")
+        - else
+          - sa = 50
+          %td= number_to_currency(50, unit: raw('&euro;'), format: "%n %u")
+
+        %td 1
+        %td= number_to_currency(sa, unit: raw('&euro;'), format: "%n %u")
+        - totaldue += sa
+      - else
+        %td= number_to_currency(stake.price, unit: raw('&euro;'), format: "%n %u")
+        %td= stake.amount.to_s
+        %td= number_to_currency(stake.amount * stake.price, unit: raw('&euro;'), format: "%n %u")
+        - totaldue += stake.amount * stake.price
+    - if stake.amount > 1 && stake.includes_membership_fee
+      %tr
+        %td
+          Kuusi Palaa 'stake' service for season ##{stake.season.number.to_s}
+        %td= number_to_currency(50, unit: raw('&euro;'), format: "%n %u")
+        %td= (stake.amount - 1).to_s
+        %td= number_to_currency((stake.amount - 1) * stake.price, unit: raw('&euro;'), format: "%n %u")
+        - totaldue += (stake.amount - 1) * stake.price
+    %tfoot
+      - if stake.owner.class == Group
+        - unless stake.owner.taxid.blank?
+          - unless stake.owner.is_member
+            %tr
+              %th{colspan: 2} &nbsp;
+              - if stake.owner.valid_vat_number
+                %th
+                  VAT 0%
+                  = "(#{stake.owner.taxid})"
+                %th 0€
+              - else
+                %th VAT 24%
+
+                %th= number_to_currency((totaldue * 0.24), unit: raw('&euro;'), format: "%n %u")
+                - totaldue *= 1.24
+      %tr
+        %th{colspan: 2} &nbsp;
+        %th Total due:
+        %th= number_to_currency(totaldue, unit: raw('&euro;'), format: "%n %u")

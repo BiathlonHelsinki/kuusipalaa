@@ -68,8 +68,7 @@ class UsersController < ApplicationController
   end
 
   def members_agreement
-    # @members_agreement = Page.friendly.find('members-agreement')
-    @members_agreement = 'membership agreement coming soon'
+    @members_agreement = Page.friendly.find('membership-agreement') rescue 'membership agreement coming soon'
   end
 
   def mentions

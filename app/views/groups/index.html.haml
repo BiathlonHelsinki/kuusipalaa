@@ -1,0 +1,12 @@
+.groups_index
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t :your_groups
+        .blurb= render partial: 'shared/users_groups'
+
+  .row
+    .small-12.medium-3.columns.lessmargins
+      = link_to new_group_path do
+        .front_button.text-center
+          = t(:create_a_group)

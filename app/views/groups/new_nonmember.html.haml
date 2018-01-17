@@ -21,13 +21,55 @@
         = f.input :postcode, label: t(:postcode), input_html: {required: ''}
         = f.input :country, label: t(:country), input_html: {required: ''}
         = f.input :contact_phone, label: t(:contact_phone), hint: t(:we_wont_call_you), input_html: {required: ''}
-        = f.input :taxid, label: 'Tax ID', hint: t(:tax_id_hint), input_html: {required: ''}
+        = f.input :taxid, label: raw('Tax/VAT ID ' + fa_icon('check', id: :vat_ok) + fa_icon('times', id: :vat_bad)), hint: t(:tax_id_hint), input_html: {required: ''}
+
+        %p.invalid_vat= t :invalid_vat
         = f.input :accepted_agreement, as: :hidden, input_html: {value: true}
         = f.submit t(:save)
 
 = content_for :jquery do
   :plain
+    function checkVAT() {
+      $.ajax({
+        url: '/groups/check_vat',
+        data: {
+          id: $('#group_taxid').val()
+        },
+        success: function(data) {
+          if (data == 'false') {
+            $('li#group_taxid_input').addClass('error');
+            $('p.invalid_vat').fadeIn();
+            $('i#vat_ok').fadeOut();
+            $('i#vat_bad').fadeIn();
+            $('#group_taxid').addClass('is-invalid-input');
+          } else if (data == 'true') {
+            $('li#group_taxid_input').removeClass('error');
+            $('p.invalid_vat').fadeOut();
+            $('i#vat_ok').fadeIn();
+            $('i#vat_bad').fadeOut();
+            $('#group_taxid').removeClass('is-invalid-input');
+          }
+        }
+      });
+    }
+    $('#group_country').change(function() {
+      if ($(this).val() == 'FI' || $(this).val() == '') {
+        $('li#group_taxid_input').removeClass('error');
+        $('p.invalid_vat').fadeOut();
+        $('#group_taxid').removeClass('is-invalid-input');
+      } else {
+        checkVAT();
+      }
+    });
 
+    $('#group_taxid').change(function() {
+      if ($('#group_country').val() != 'FI' && $('#group_country').val() != '') {
+        if (/^\w\w\d*/.test($('#group_taxid').val())) {
+          checkVAT();
+        }
+      }
+
+    });
 
     $('#group_name').on('valid.zf.abide',function (ev,elem) {
 

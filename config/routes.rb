@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :groups do
     collection do
+      get :check_vat
       post :group_members_agreement
       post :group_nonmember_agreement
       post :member_details
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
     end
     member do
       get :buy_stakes
+      get :edit_details
       get :basic_details
     end
     resources :members do
@@ -81,8 +83,11 @@ Rails.application.routes.draw do
       get :mentions
       get :members_agreement
     end
+    resources :stakes
     member do
       get :get_membership_details
+      resources :groups
+
     end
   end
 

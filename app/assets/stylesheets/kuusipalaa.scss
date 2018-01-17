@@ -1,3 +1,89 @@
+@import 'variables';
+body {
+  padding: 0.3rem;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: $sourcecode;
+}
+li.ui-menu-item {
+  list-style-type: none;
+  font-family: $sourcecode;
+}
+
+header {
+  .title {
+    line-height: 1;
+  }
+  .tagline {
+    width: 60%;
+    font-family: $sourcecode;
+    font-weight: bold;
+  }
+  .icons {
+    padding-bottom: 0;
+    font-weight: 300;
+    color: #666;
+    a {
+      font-weight: bold;
+    }
+  }
+  .top-bar {
+    margin-top: 0rem;
+    border-top: 2px solid black;
+
+    .top-bar-right {
+      .name {
+        font-size: 0.8em;
+        float: left;
+        padding-right: 1rem;
+        color: #555;
+      }
+    }
+  }
+
+  .user_menu {
+    float: right;
+
+    #user_dropdown_menu {
+      float: left;
+    }
+    .dropdown.menu:not(.vertical) .is-dropdown-submenu.first-sub {
+      top: 100%;
+      left: auto;
+      right: 0;
+    }
+
+    ul {
+      li.is-dropdown-submenu-parent[role=menuitem] {
+        margin: 0;
+        padding: 0;
+        a {
+          padding: 0;
+        }
+      }
+      li.is-submenu-item {
+        a {
+          padding: 0.4rem !important;
+        }
+      }
+    }
+    img {
+      cursor: pointer;
+      height: 40px;
+      width: auto;
+    }
+  }
+  .buttons {
+    a {
+      border: 1px solid black;
+      padding: 0.4rem;
+      margin-right: 0.1rem;
+      text-transform: uppercase;
+
+    }
+  }
+}
+
 a.not-active {
   pointer-events: none;
   cursor: default;
@@ -8,36 +94,238 @@ a.not-active {
 
 }
 
+.post_single {
+  padding: 2.5rem 0;
+}
+
+.front_box {
+  border: 1px solid black;
+  padding: 1rem 3rem;
+  font-family: $sourcecode;
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  font-weight: bold;
+
+  .smaller {
+    font-size: 1rem;
+    font-weight: normal;
+    text-transform: none;
+  }
+}
+
+.front_images {
+  margin: 1.5rem 0;
+}
+
+.lessmargins {
+  padding-right: 0.5375rem;
+  padding-left: 0.5375rem;
+}
+
+.lessright {
+  padding-right: 0;
+  padding-left: 0.5375rem;
+}
+
+
+.lifted_box {
+
+  &.has_inner_button {
+    padding-bottom: 3rem;
+  }
+
+  margin: 1.5rem 0;
+  background-color: white;
+
+  position: relative;
+  border: 1px solid black;
+   color: black;
+  a { color: black; }
+  font-family: $sourcecode;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 7px;
+    left: -7px;
+    right: 7px;
+    bottom: -7px;
+    background: white;
+    z-index: -1;
+    outline: 1px solid $black;
+  }
+
+  .banner2_title, .title {
+    border-bottom: 1px solid black;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 1rem;
+    font-family: $sourcecode;
+  }
+  .banner2_blurb, .blurb {
+    padding: 1.5rem 1rem;
+    font-size: 0.9rem;
+    font-family: $montserrat;
+  }
+}
+
+.left_adjust {
+  padding-left: 7px;
+}
+
+.right_adjust {
+  padding-right: 0;
+}
+.front_button {
+  margin: 1.5rem 0;
+  background-color: black;
+  padding: 1rem;
+  position: relative;
+  text-transform: uppercase;
+   color: white;
+  a { color: white; }
+  font-family: $sourcecode;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 7px;
+    left: -7px;
+    right: 7px;
+    bottom: -7px;
+    background: white;
+    z-index: -1;
+    outline: 1px solid $black;
+  }
+}
+
+.smaller_button {
+
+  background-color: black;
+  padding: 1rem;
+  position: relative;
+  border: 1px solid black;
+  float: left;
+  text-transform: uppercase;
+   color: white;
+  a { color: white; }
+  font-family: $sourcecode;
+  &.white {
+    background-color: white;
+    color: black;
+    a { color: black; }
+    &:hover {
+      background-color: black;
+      color: white;
+      a { color: white; }
+    }
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 7px;
+    left: -7px;
+    right: 7px;
+    bottom: -7px;
+    background: white;
+    z-index: -1;
+    outline: 1px solid $black;
+  }
+}
+
+#progress_bar {
+  margin-top: 1.5rem;
+  .progress {
+    height: 2rem;
+  }
+  .progress-meter-text {
+    transform: translate(135%, -50%);
+  }
+}
+.stats_boxes {
+  margin-bottom: 1.5rem;
+  .small-12 {
+    float: left;
+    padding-right: 0.5rem;
+  }
+  .small-last {
+    padding-right: 0;
+    float: left;
+  }
+  .box {
+    border: 1px solid black;
+    padding: 1rem;
+
+    .big_num {
+      font-size: 3rem;
+      font-weight: bold;
+      font-family: $sourcecode;
+    }
+    .info {
+      font-family: $sourcecode;
+      font-size: 0.75rem;
+    }
+  }
+}
 .membership_pages {
   padding: 2.5rem 0;
 }
 #invoice_screen {
-  margin-left: 2rem;
-  border: 1px solid #333;
-  background-color: #CDCDCD;
-  width: 80%;
-  padding: 1.5rem;
+  padding: 2rem;
+  border: 1px solid black;
+  background-color: white;
+  font-family: $sourcecode;
   #header {
-    h1 {
-      font-size: 2rem;
+    width: 100%;
+    clear: both;
+    .logo {
+      float: left;
+      font-size: 2.5rem;
+      font-weight: bold;
 
-    }
-    .metadata {
-      font-size: 0.9rem;
-      color: #333;
-      margin: 0;
+      text-transform: uppercase;
+      width: 140px;
+      line-height: 1;
+      margin-right: 2rem;
     }
 
-    h2 {
-      font-size: 1.4rem;
-      margin: 1rem 0;
+    .invoice_info {
+      padding-top: 1.65rem;
+      padding-left: 1rem;
+      p {
+        margin: 0;
+      }
     }
-    margin-bottom: 2.5rem;
+
+    margin-bottom: 5rem;
   }
 
+  .metadata {
+    padding-bottom: 3rem;
+
+    .heading {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+  }
+
+  .tabled {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    table {
+
+      td, th {
+        font-family: $montserrat;
+      }
+    }
+  }
   .content .row {
     margin-bottom: 0;
     clear: BOTH;
+
+    &.date_row {
+      margin-top: 1.5rem;
+    }
   }
 
   table {
@@ -58,6 +346,48 @@ a.not-active {
 }
 
 form {
+  &#new_stake_form {
+    font-family: $sourcecode;
+    li.number {
+      input {
+        border: 1px solid black;
+        font-size: 1.6rem;
+        font-weight: bold;
+        width: 150px;
+        padding: 0.5rem 0.25rem;
+      }
+    }
+    .total_due {
+      margin-bottom: 1.25rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      #total_due {
+        border: 1px solid black;
+        font-size: 1.6rem;
+        height: 2.5rem;
+        padding: 0.5rem 0.25rem;
+        font-weight: bold;
+        line-height: 1;
+        width: 150px;
+        margin: 0 0 1rem;
+      }
+      .total_text {
+        font-size: 0.8rem;
+        font-weight: normal;
+      }
+    }
+  }
+  i#vat_ok {
+    color: green;
+    display: none;
+  }
+  i#vat_bad {
+    color: red;
+    display: none;
+  }
+  p.invalid_vat {
+    display: none;
+  }
   p.group_type {
     font-size: 0.85rem;
     font-weight: 300;
@@ -71,5 +401,80 @@ form {
     color: red;
     font-weight: bold;
     margin: 0;
+  }
+}
+
+.membership_pages {
+  .scrollbox_container {
+    margin-bottom: 2rem;
+    padding-left: 0; padding-right: 0;
+    border: 1px solid black;
+
+    .membership_agreement_scrollbox {
+      padding: 1rem;
+
+      height: 300px;
+      overflow: auto;
+    }
+    .agree_container {
+      border-top: 1px solid black;
+      padding: 1rem;
+      font-weight: bold;
+      font-family: $sourcecode;
+
+    }
+  }
+
+}
+
+
+a.bordered, button.bordered {
+  font-family: $sourcecode;
+  cursor: pointer;
+  text-transform: uppercase;
+  border: 1px solid black;
+  background-color: black;
+  color: white;
+  position: relative;
+  padding: 1rem;
+  &.disabled {
+    border: 1px solid black;
+    color: white;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 7px;
+    left: -7px;
+    right: 7px;
+    bottom: -7px;
+
+    z-index: -1;
+    outline: 1px solid $black;
+  }
+}
+
+table.group_list {
+  td {
+    font-size: 0.9rem;
+  }
+  a.button {
+    text-transform: uppercase;
+    margin: 0.5rem 0;
+  }
+}
+footer {
+  margin: 1rem 0;
+  font-weight: bold;
+  .row {
+    padding: 2rem 0;
+    border-top: 2px dashed $black;
+    font-family: $sourcecode;
+    border-bottom: 2px solid black;
+    .address {
+      margin: 1rem 0;
+      font-weight: normal;
+      font-size:0.9rem;
+    }
   }
 }

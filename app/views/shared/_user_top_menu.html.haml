@@ -1,0 +1,14 @@
+
+.name.text-right<
+  = current_user.name
+  %br/
+  - if current_user.is_member?
+    = t :member, count: 1
+    %br/
+  - else
+    = t :not_a_member
+    %br/
+  - if current_user.stakes.empty?
+    = link_to t(:no_stakes), user_stakes_path(current_user)
+  - else
+    = link_to pluralize(current_user.stakes.sum(&:amount), t(:stake, count: current_user.stakes.sum(&:amount))), user_stakes_path(current_user)

@@ -23,55 +23,62 @@
 
     %header
       .row
-        .small-12.column.hr
-          %hr
-      .row
-        .small-8.large-3.medium-5.columns.text-left
-          = link_to "[" + t(:about_kuusi_palaa) + "]", page_path('what-is-kuusi-palaa')
-        .medium-2.large-6.hide-for-small-only.columns &nbsp;
-        .small-4.large-3.medium-5.columns.text-right
-          - if I18n.locale.to_s != 'fi'
-            = link_to '[FIN]', :controller => controller.controller_name, :action => controller.action_name, :id => params[:id], :locale => 'fi'
-          - else
-            %strong FIN
+        .small-12.columns.icons.text-right
+          = link_to fa_icon('envelope'), "mailto:admin at temporary.fi"
+          = link_to fa_icon('twitter'), 'https://twitter.com/search?q=%23KuusiPalaa&src=typd'
+          = link_to fa_icon('facebook'), '#'
           |
+          - if I18n.locale.to_s != 'fi'
+            = link_to 'FIN', :controller => controller.controller_name, :action => controller.action_name, :id => params[:id], :locale => 'fi'
+          - else
+            FIN
+
           - if I18n.locale.to_s != 'en'
-            = link_to '[ENG]', :controller => controller.controller_name, :action => controller.action_name, :id => params[:id], :locale => 'en'
+            = link_to 'ENG', :controller => controller.controller_name, :action => controller.action_name, :id => params[:id], :locale => 'en'
           - else
-            %strong ENG
+            ENG
       .row
-        .small-8.large-3.medium-5.columns.dashed.text-left
-          = link_to "[" + t(:whats_next) + "]", page_path('what-happens-next')
-        .medium-2.large-6.hide-for-small-only.columns &nbsp;
-        .small-12.large-3.medium-5.columns.dashed.text-right
-          - if user_signed_in?
-            = link_to current_user.username, current_user
-            = link_to "[" + t(:sign_out) + "]", destroy_user_session_path, :method => :delete
-          - else
-            = link_to "[" + t(:sign_in) + "]", '/users/sign_in'
 
-      .row
-        .small-8.large-3.medium-5.columns.text-left{class: controller.controller_name != 'home' ? :third : false}
-          - unless controller.controller_name == 'home'
-            = link_to  t(:home) , '/'
-        .medium-2.large-6.hide-for-small-only.columns &nbsp;
-        .small-4.large-3.medium-5.columns.text-right{class: user_signed_in? ? :third : false}
-          - if user_signed_in?
-            = link_to t(:member_servics), '/members'
+        .top-bar.small-12.columns.lessmargins
+          .top-bar-left
 
 
+            = link_to image_tag('kuusi_palaa_logo.png', width: 163), '/'
+
+          .top-bar-right.user_menu
+            - if user_signed_in?
+              = render partial: 'shared/user_top_menu'
+              %ul.dropdown.menu#user_dropdown_menu{:'data-dropdown-menu' => '', :'data-alignment' => 'left'}
+                %li
+                  = link_to image_tag(current_user.avatar.url(:thumb)), '#'
+                  %ul.vertical.menu
+                    %li= link_to t(:edit_profile) , edit_user_path(current_user)
+                    %li= link_to t(:buy_a_stake) , new_season_stake_path(@current_season)
+                    %li= link_to t(:your_groups) , "/users/#{current_user.slug}/groups"
+                    %li= link_to t(:sign_out), '/users/sign_out', method: :delete
+            - else
+              .buttons= link_to t(:sign_in), '/users/sign_in'
+            %br{clear: :all}
+            -# = link_to fa_icon('envelope'), "mailto:admin at temporary.fi"
+            -# = link_to fa_icon('twitter'), 'https://twitter.com/search?q=%23KuusiPalaa&src=typd'
+            -# = link_to fa_icon('facebook'), '#'
+            -#
+            -# - if I18n.locale.to_s != 'fi'
+            -#   = link_to 'FIN', :controller => controller.controller_name, :action => controller.action_name, :id => params[:id], :locale => 'fi'
+            -# - else
+            -#   %strong FIN
+            -#
+            -# - if I18n.locale.to_s != 'en'
+            -#   = link_to 'ENG', :controller => controller.controller_name, :action => controller.action_name, :id => params[:id], :locale => 'en'
+            -# - else
+            -#   %strong ENG
+            -# %br/
+            -# = link_to t(:sign_in), '/users/sign_in'
     %article#main
 
       = yield
       = render 'cookies_eu/consent_banner'
-    %footer
-      .row
-        .small-6.columns.small-centered.text-center
-          = t :footer_blurb
-          %span.divider |
-          = link_to fa_icon('github'), 'https://github.com/BiathlonHelsinki/experiment2'
-          %br/
-          = t :footer_contact
+    = render partial: 'shared/footer'
     :javascript
           $(document).ready(function() {
             #{yield :jquery}

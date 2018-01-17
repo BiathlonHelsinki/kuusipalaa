@@ -55,13 +55,20 @@ class User < ActiveRecord::Base
     self.errors.add(:username, 'is already taken') if Group.where(["lower(name) = ?", self.username.downcase]).exists?
   end
 
+  def charge_vat?
+    false
+  end
 
   def is_member?
-    !stakes.where(includes_share: true).empty?
+    !stakes.where(includes_share: true).empty? && accepted_agreement == true
   end
 
   def has_membership_details?
     !address.blank? && !contact_phone.blank? && !city.blank? && !postcode.blank? && !country.blank? && !name.blank?
+  end
+
+  def taxid
+    nil
   end
 
   def as_mentionable

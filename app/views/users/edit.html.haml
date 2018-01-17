@@ -1,0 +1,51 @@
+.edit_profile
+  .row
+    .medium-8.small-10.columns.small-centered
+      .lifted_box
+        .title
+          = t :your_profile
+          = link_to fa_icon('eye'), @user, target: :_blank
+
+        .blurb
+
+
+
+          = semantic_nested_form_for @user, html: {multipart: true, :'data-abide' => ''} do |f|
+            .row
+              .small-10.medium-8.columns
+                = f.input :email, label: t(:email)
+                = f.input :username
+                = f.input :name, label: t(:your_name), input_html: {:required => ''}
+                = f.input :show_name, label: t(:show_name_on_site), hint: t(:show_name_hint)
+
+                = f.input :website, label: 'Your website', hint: 'Enter a URL, if you\'d like, to your personal website. This will be shown in your public profile.'
+                - unless f.object.authentications.empty?
+                  - unless f.object.authentications.select{|x| x.provider == 'facebook' }.empty?
+                    = f.input :show_facebook_link, label: 'Show link to your Facebook page on your public profile?'
+                  - unless f.object.authentications.select{|x| x.provider == 'twitter' }.empty?
+                    = f.input :show_twitter_link, label: 'Show link to your Twitter feed on your public profile?'
+
+                .subsection
+                  %h3= t :contact_details
+                  .info
+                    = f.input :opt_in, label: t(:opt_in), hint:  t(:we_wont_do_this)
+                    .row
+                      .small-12.columns= f.input :address, label: t(:postal_address)
+                    .row
+                      .small-6.columns= f.input :city
+                      .small-2.columns= f.input :postcode
+                      .small-4.columns= f.input :country
+
+
+
+              .small-12.large-4.columns.photo
+                - if f.object.avatar?
+                  = image_tag f.object.avatar.url(:small)
+                  = f.input :avatar, label: t(:change_image), hint: t(:keep_decent)
+                - else
+                  = image_tag 'user_missing_large.png'
+                  = f.input :avatar, label: t(:change_image), hint: t(:keep_decent)
+
+
+            .row
+              .small-12.columns= f.submit t(:save), class: [:button, :small]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180114113027) do
+ActiveRecord::Schema.define(version: 20180117205541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -281,6 +281,7 @@ ActiveRecord::Schema.define(version: 20180114113027) do
     t.string "city"
     t.string "postcode"
     t.string "country"
+    t.boolean "valid_vat_number"
   end
 
   create_table "hardwares", id: :serial, force: :cascade do |t|
@@ -763,6 +764,7 @@ ActiveRecord::Schema.define(version: 20180114113027) do
     t.boolean "includes_share", default: false, null: false
     t.boolean "includes_membership_fee", default: false, null: false
     t.float "price", default: 50.0, null: false
+    t.float "invoice_amount"
     t.index ["owner_type", "owner_id"], name: "index_stakes_on_owner_type_and_owner_id"
     t.index ["season_id"], name: "index_stakes_on_season_id"
   end

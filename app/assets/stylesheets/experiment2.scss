@@ -118,7 +118,7 @@ form {
 }
 
 article.single_page {
-  margin: 4rem 0;
+
   .page {
     border: 2px solid $black;
     position: relative;
@@ -175,7 +175,7 @@ article.single_page {
   }
 }
 article.post_single, article.meeting_single {
-  margin: 4rem 0;
+  
   .post, .meeting {
     border: 2px solid $black;
     position: relative;
@@ -642,13 +642,7 @@ header {
   }
 }
 
-footer {
-  margin: 2rem 0;
-  padding: 2rem 0;
-  border-top: 2px dashed $black;
-  font-family: $sourcecode;
 
-}
 .devise_new_session {
   padding: 2.5rem 0;
   .login_form {

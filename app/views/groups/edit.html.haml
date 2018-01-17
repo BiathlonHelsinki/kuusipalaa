@@ -1,27 +1,32 @@
 .member_services_index
   .row
     .small-12.columns
-      %h2.text-center= t :member_services
+      %h2= t :edit_a_group
       %br/
       %br/
 
   .row
-    .small-12.columns.medium-8.large-6
-      %h3.text-center= t :edit_a_group
-      %p= t :group_stakes_blurb
-
-
+    .small-12.columns.medium-8.large-9
 
       = semantic_form_for @group,  html: {multipart: true, 'data-abide': ''} do |f|
-        = f.input :name, label: "<label class='label'>#{t(:group_name)}</label><div class='validation_error'></div>".html_safe,  hint: t(:cannot_change_group), input_html: {'required': '', disabled: 'disabled'}
-        = f.input :long_name, label: t(:long_name), hint: t(:longer_name_hint), input_html: {'required': ''}
-        = f.input :description, hint: t(:group_description), input_html: {'required': ''}
-        - if f.object.avatar?
-          = image_tag f.object.avatar.url
-        = f.input :avatar, hint: t(:optional_group_image)
-        = f.input :website, hint: t(:group_website)
-        = f.input :twitter_name, hint: t(:group_twitter)
-        = f.submit t(:save)
+        .row
+          .small-10.columns.large-7
+            = f.input :name, label: "<label class='label'>#{t(:group_name)}</label><div class='validation_error'></div>".html_safe,  hint: t(:cannot_change_group), input_html: {'required': '', disabled: 'disabled'}
+            = f.input :long_name, label: t(:long_name), hint: t(:longer_name_hint), input_html: {'required': ''}
+            = f.input :address, label: t(:postal_address), input_html: {required: ''}
+            = f.input :city, label: t(:city), input_html: {required: ''}
+            = f.input :postcode, label: t(:postcode), input_html: {required: ''}
+            = f.input :country, label: t(:country), input_html: {required: ''}
+            = f.input :contact_phone, label: t(:contact_phone), hint: t(:we_wont_call_you), input_html: {required: ''}
+            = f.input :taxid, label: 'Tax/VAT ID', hint: t(:tax_id_hint)
+            = f.input :accepted_agreement, as: :hidden, input_html: {value: true}
+            = f.input :description, hint: t(:group_description)
+            - if f.object.avatar?
+              = image_tag f.object.avatar.url
+            = f.input :avatar, hint: t(:optional_group_image)
+            = f.input :website, hint: t(:group_website)
+            = f.input :twitter_name, hint: t(:group_twitter)
+            = f.submit t(:save)
 
 = content_for :jquery do
   :plain

@@ -18,6 +18,8 @@
 //= require jquery.mentionable
 //= require jquery.scrollTo.min
 //= require readmore.min
+//= require fittext
+//= require jquery.slick
 //= require cookies_eu
 //= require_tree .
 

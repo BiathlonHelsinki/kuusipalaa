@@ -1,7 +1,13 @@
 %article.post_single
-  .row
-    .small-12.columns
-      %h2= t(:buy_a_stake_for_a_group)
-  .row
-    .large-9.columns.small-12
-      = render partial: 'form'
+  = semantic_form_for [@season, @stake], html: {'data-abide':  '', id: :new_stake_form} do |f|
+    .row
+      .small-12.columns.lessright.lessmargins
+        .lifted_box
+          .title= t(:buy_a_stake_for_a_group)
+          .blurb
+            = render partial: 'form', locals: {f: f}
+
+    .row
+      .small-12.columns
+
+        %button{class: :bordered, type: :submit}=  t(:book_stakes)

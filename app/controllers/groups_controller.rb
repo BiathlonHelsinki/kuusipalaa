@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :check_vat
 
   def create
     @group = Group.new(group_params)
@@ -24,6 +24,11 @@ class GroupsController < ApplicationController
 
   end
 
+  def index
+    @groups = current_user.groups
+    @user = current_user
+  end
+
   def basic_details
     @group = Group.friendly.find(params[:id])
     @group.members <<  Member.new(user: current_user, source: @group, access_level: KuusiPalaa::Access::OWNER)
@@ -32,9 +37,16 @@ class GroupsController < ApplicationController
 
   end
 
+
+  def check_vat
+    render plain: Valvat.new(params[:id]).valid?.to_s
+  end
+
   def edit
     @group = Group.friendly.find(params[:id])
   end
+
+
 
   def new
     @group = Group.new
@@ -57,7 +69,7 @@ class GroupsController < ApplicationController
 
   def new_nonmember
     @group = Group.new(is_member: false)
-  
+
   end
 
   def new_registered

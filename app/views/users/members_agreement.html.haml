@@ -1,24 +1,26 @@
 .membership_pages
   .row
-    .small-12.columns
-      %h1= t :members_agreement
-  .row
-    .small-12.columns
-      %p= t :becoming_a_member
+    .small-12.columns.lessmargins.lessright
+      .lifted_box
+        .title= t :members_agreement
+        .blurb
+          %p= t :becoming_a_member
 
   .row
-    .small-12.columns= raw @members_agreement
+    .small-12.columns.scrollbox_container
+      .membership_agreement_scrollbox
+        - if @members_agreement.respond_to?(:body)
+          = raw @members_agreement.body
+        - else
+        = raw @members_agreement
 
-  .row
-    .small-12.columns
-      %br/
-      %br/
-      %h4
+      .agree_container
         = check_box_tag :agreed
         = t :accepts_members_agreement
 
   .row
-    .small-12.columns= link_to t(:continue), for_self_season_stakes_path(@current_season.id, accepted_agreement: true), id: :continuebutton, class: [:'not-active', :disabled, :button]
+    .small-12.columns.lessmargins
+      = link_to t(:continue), for_self_season_stakes_path(@current_season.id, accepted_agreement: true), id: :continuebutton, class: [:'not-active', :disabled, :button, :bordered]
 
 
 = content_for :jquery do

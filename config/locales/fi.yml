@@ -755,3 +755,12 @@ fi:
   no_social_spiel: 'While Kuusi Palaa encourages independence from corporate Internet overlords, we still encourage you to use your existing accounts with either <a href="/users/auth/facebook">Facebook</a>, <a href="/users/auth/twitter">Twitter</a>, <a href="/users/auth/github">GitHub</a> or <a href="/users/auth/google_oauth2">Google</a> for the simple reason that it makes our lives much easier to outsource your identity verification.'
   social_spiel2: 'Yet if you do not use any of the above services - and again, we not only respect that but support it!! - then we offer this means to create an account directly with Kuusi Palaa below.'
   close: 'Close'
+  will_be_collectively_operated: 'will be a 24/7 space for events and free use, collectively operated' 
+  get_your_stake: 'Hanki panoksesi ja tee jotain'
+  as_a_stakeholder: 'Panostajana luot yhdessä tilan, jossa'
+  everyone_creates_and_produces: 'Kaikki luovat ja tekevät'
+  participation_rules: ''
+  everyone_creates_blurb: 'Kuusi Palaa:ta ei kuratoida, tuoteta tai hallinnoida keskitetysti. Kaikki jäsenet voivat ehdottaa tapahtumia ja muuta julkista toimintaa.'
+  participation_rules_blurb: 'Kuusi Palaa arvostaa osallistumista ja sitoutumista. Kun osallistut tapahtumaan Kuusi Palaa:ssa, saat pisteitä. Pisteitä käytetään ohjelman suunnittelemiseen ja tilan ylläpitoon.'
+  the_door_is_always_open: 'Ovi on aina avoinna'
+  door_open_blurb: "Jos kalenterissa ei ole mitään, Kuusi Palaa on auki yleisenä tapaamis- ja työskentelypaikkana. Saat pisteitä myös kun tulet paikalle. Panostajat saavat avainkortin ja voivat käyttää tilaa 24/7"
