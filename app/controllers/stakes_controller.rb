@@ -9,7 +9,7 @@ class StakesController < ApplicationController
       flash[:notice] = t(:stake_booked_invoice_later)
       redirect_to season_stake_path(@season, @stake)
     else
-      die
+  
       flash[:error] = t(:error_booking_stake) + " : " + @stake.errors.messages.values.join('; ')
       fill_collection
       render template: 'stakes/new'

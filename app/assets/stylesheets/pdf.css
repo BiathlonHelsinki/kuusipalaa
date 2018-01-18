@@ -1,13 +1,68 @@
 * {
 
   font-family: 'Verdana', 'Arial', sans-serif;
+  font-size: 10pt;
 }
 
-h1 {
-  font-size: 60px;
+.invoice_top {
+  font-size: 16pt;
+
 }
-h2 {
-  font-size: 48px;
+.invoice_top p {
+  margin: 0;
+}
+
+#header .logo {
+  float: left;
+}
+
+.metadata {
+  margin: 50pt 0;
+
+  padding-bottom: 25px;
+}
+#header .logo img {
+  max-width: 35%;
+}
+.half {
+  width: 48%;
+  font-size: 10pt;
+}
+.row {
+  clear: both;
+}
+.third {
+  width: 38%;
+}
+
+.left {
+  float: left;
+}
+
+.invoice_top {
+  margin-bottom: 45px;
+}
+
+
+.right {
+  float: right;
+}
+table {
+  width: 100%;
+}
+table tr {
+  border-bottom: 1px dotted #555;
+}
+table td {
+  font-size: 8pt;
+  vertical-align: top;
+}
+table td.text-center {
+
+  text-align: center;
+}
+table th {
+  font-size: 11pt;
 }
 .content .row {
   margin-bottom: 1.5rem;
@@ -15,12 +70,12 @@ h2 {
   }
 
 .content .row .heading { color: #555; width: 18%; text-align: left; float: left;
-  font-size: 24px;}
+  font-size: 24pt;}
 
 .content .row .value {
     color: #000;
     width: 82%;
     float: left;
-    font-size: 24px;
+    font-size: 14pt;
     text-align: left;
   }

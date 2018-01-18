@@ -10,16 +10,16 @@
       %tr
         %td Share/osuus in Kuusi Palaa osk
         %td= number_to_currency(10, unit: raw('&euro;'), format: "%n %u")
-        %td 1
-        %td= number_to_currency(10, unit: raw('&euro;'), format: "%n %u")
+        %td.text-center 1
+        %td.text-center= number_to_currency(10, unit: raw('&euro;'), format: "%n %u")
         - totaldue += 10
     - if stake.includes_membership_fee
       %tr
         %td
           Membership fee for #{stake.created_at.strftime("%Y")}
         %td= number_to_currency(40, unit: raw('&euro;'), format: "%n %u")
-        %td 1
-        %td= number_to_currency(40, unit: raw('&euro;'), format: "%n %u")
+        %td.text-center 1
+        %td.text-center= number_to_currency(40, unit: raw('&euro;'), format: "%n %u")
         - totaldue += 40
     %tr
       %td
@@ -39,21 +39,21 @@
           - sa = 50
           %td= number_to_currency(50, unit: raw('&euro;'), format: "%n %u")
 
-        %td 1
-        %td= number_to_currency(sa, unit: raw('&euro;'), format: "%n %u")
+        %td.text-center 1
+        %td.text-center= number_to_currency(sa, unit: raw('&euro;'), format: "%n %u")
         - totaldue += sa
       - else
         %td= number_to_currency(stake.price, unit: raw('&euro;'), format: "%n %u")
-        %td= stake.amount.to_s
-        %td= number_to_currency(stake.amount * stake.price, unit: raw('&euro;'), format: "%n %u")
+        %td.text-center= stake.amount.to_s
+        %td.text-center= number_to_currency(stake.amount * stake.price, unit: raw('&euro;'), format: "%n %u")
         - totaldue += stake.amount * stake.price
     - if stake.amount > 1 && stake.includes_membership_fee
       %tr
         %td
           Kuusi Palaa 'stake' service for season ##{stake.season.number.to_s}
         %td= number_to_currency(50, unit: raw('&euro;'), format: "%n %u")
-        %td= (stake.amount - 1).to_s
-        %td= number_to_currency((stake.amount - 1) * stake.price, unit: raw('&euro;'), format: "%n %u")
+        %td.text-center= (stake.amount - 1).to_s
+        %td.text-center= number_to_currency((stake.amount - 1) * stake.price, unit: raw('&euro;'), format: "%n %u")
         - totaldue += (stake.amount - 1) * stake.price
     %tfoot
       - if stake.owner.class == Group

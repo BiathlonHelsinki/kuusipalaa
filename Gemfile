@@ -126,3 +126,4 @@ gem 'truncate_html'
 gem 'valvat'
 gem 'viitenumero', github: 'bittisiirto/viitenumero', branch: :master
 gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'

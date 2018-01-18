@@ -9,4 +9,4 @@
     .row
       .small-12.columns
 
-        %button{class: :bordered, type: :submit}=  t(:book_stakes)
+        %button{class: :bordered, type: :submit, onclick: 'return confirm("' + t(:confirm_purchase) + '");'}=  t(:book_stakes)

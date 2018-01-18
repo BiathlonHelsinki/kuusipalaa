@@ -9,7 +9,7 @@ class MembersController < ApplicationController
     me = @group.members.find_by(user: current_user)
     if me.nil?
       flash[:error] = t(:you_are_not_authorised_for_this_group)
-      redirect_to '/members'
+      redirect_to @group
     end
   end
 
@@ -18,10 +18,10 @@ class MembersController < ApplicationController
     me = @group.members.find_by(user: current_user)
     if me.nil?
       flash[:error] = t(:you_are_not_authorised_for_this_group)
-      redirect_to '/members'
+      redirect_to @group
     elsif me.access_level < KuusiPalaa::Access::ADMIN
       flash[:error] = t(:you_are_not_authorised_for_this_group)
-      redirect_to '/members'
+      redirect_to @group
     end
   end
 
@@ -33,7 +33,7 @@ class MembersController < ApplicationController
     if @member.save
       GroupMailer.new_member(@group, @member).deliver_now
       flash[:notice] = t(:member_has_been_added)
-      redirect_to '/members'
+      redirect_to @group
     else
 
       flash[:error] = @member.errors.full_messages

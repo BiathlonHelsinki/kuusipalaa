@@ -831,3 +831,17 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   invoice_num: 'Invoice #'
   your_details_have_been_updated: 'Your details have been updated.'
   edit_group_members: 'Edit group members for %{group_name}'
+  what_happens_next: 'What happens next'
+  confirm_purchase: 'Are you sure? Click yes will order your stake and you will receive an invoice to pay via bank transfer.'
+  payment_pending: 'Payment pending'
+  become_a_stakeholder: 'Become a stakeholder'
+  amount: 'Amount'
+  download_invoice: 'Download invoice (PDF)'
+  view_invoice: 'View invoice'
+  activerecord:
+    errors:
+      models:
+        stake:
+          attributes:
+            amount:
+              can_only_have_15_percent: 'You can only buy a maximum of 15% of the stakes for an entire season.'
