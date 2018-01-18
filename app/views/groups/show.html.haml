@@ -1,12 +1,13 @@
 %article.post_single
   .row
-    .small-12.medium-9.large-7.columns.medium-centered
+    .small-10.columns.small-centered
       .post
         .title
           = @group.long_name
-          %small= "[#{@group.name}]"
+          - if @group.long_name != @group.name
+            %small= "[#{@group.name}]"
 
-          - if @group.twitter_name
+          - unless @group.twitter_name.blank?
             = link_to fa_icon('twitter'), "http://twitter.com/#{@group.twitter_name}", target: :_blank
           - if user_signed_in?
             - me = @group.members.find_by(user: current_user)
@@ -26,7 +27,7 @@
                 = image_tag @group.avatar.url(:medium)
 
               -else
-                = image_tag '/icons/user_missing.png'
+                = image_tag '/icons/group_missing.png'
               %br/
               - if @group == current_user
                 = semantic_form_for @group, html: {multipart: true } do |f|

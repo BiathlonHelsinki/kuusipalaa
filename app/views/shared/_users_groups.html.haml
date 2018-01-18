@@ -12,9 +12,12 @@
         %tbody
           - current_user.groups.each do |group|
             %tr
-              %td
+              %td.avatar
                 - if group.avatar?
-                  = image_tag group.avatar.url(:thumb).gsub(/development/, 'production')
+                  = image_tag group.avatar.url(:thumb)
+                - else
+                  = image_tag '/icons/group_missing.png'
+
               %td
                 = group.name
                 %br/

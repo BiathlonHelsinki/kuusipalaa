@@ -1,24 +1,23 @@
 .membership_pages
   .row
-    .small-12.columns
-      %h1= t :membership_details
-
-  .row
-    .small-12.columns
-      %p
-        = t :we_need_your_details
-        = link_to t(:read_privacy_policy), page_path('privacy-policy'), target: :_blank, class: [:button, :tiny]
-
-  .row
-    .small-12.large-7.columns
-      = semantic_form_for @user, html: {:'data-abide' => '' } do |f|
-        = f.input :name, label: t(:your_real_name), input_html: {required: ''}
-        = f.input :show_name, label: t(:show_name_on_site)
-        = f.input :address, label: t(:postal_address), input_html: {required: ''}
-        = f.input :city, label: t(:city), input_html: {required: ''}
-        = f.input :postcode, label: t(:postcode), input_html: {required: ''}
-        = f.input :country, label: t(:country), input_html: {required: ''}
-        = f.input :contact_phone, label: t(:contact_phone), hint: t(:we_wont_call_you), input_html: {required: ''}
-        = f.input :buy_stakes_after_edit, as: :hidden, input_html: {value: true}
-        = f.input :accepted_agreement, as: :hidden, input_html: {value: true}
-        = f.submit t(:save)
+    .small-12.columns.lessmargins.lessright
+      .lifted_box
+        .title= t :membership_details
+        .blurb
+          %p
+            = t :we_need_your_details
+            = link_to t(:read_privacy_policy), page_path('privacy-policy'), target: :_blank, class: [:button, :tiny]
+            %br/
+          .row
+            .small-12.large-7.columns
+              = semantic_form_for @user, html: {:'data-abide' => '' } do |f|
+                = f.input :name, label: t(:your_real_name), input_html: {required: ''}
+                = f.input :show_name, label: t(:show_name_on_site)
+                = f.input :address, label: t(:postal_address), input_html: {required: ''}
+                = f.input :city, label: t(:city), input_html: {required: ''}
+                = f.input :postcode, label: t(:postcode), input_html: {required: ''}
+                = f.input :country, label: t(:country), input_html: {required: ''}
+                = f.input :contact_phone, label: t(:contact_phone), hint: t(:we_wont_call_you), input_html: {required: ''}
+                = f.input :buy_stakes_after_edit, as: :hidden, input_html: {value: true}
+                = f.input :accepted_agreement, as: :hidden, input_html: {value: true}
+                = f.submit t(:save)

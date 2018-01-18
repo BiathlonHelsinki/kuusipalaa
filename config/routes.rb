@@ -84,10 +84,9 @@ Rails.application.routes.draw do
       get :members_agreement
     end
     resources :stakes
+    resources :groups
     member do
       get :get_membership_details
-      resources :groups
-
     end
   end
 

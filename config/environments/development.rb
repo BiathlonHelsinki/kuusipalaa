@@ -54,8 +54,10 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
 
-if defined? BetterErrors && ENV['EDITOR'].include?('atom')
-  BetterErrors.editor = proc { |file, line|
-    "atom://core/open/file?filename=#{CGI.escape(file)}&line=#{line}"
-  }
-end
+BetterErrors.editor = :sublime
+
+# if defined? BetterErrors && ENV['EDITOR'].include?('atom')
+#   BetterErrors.editor = proc { |file, line|
+#     "atom://core/open/file?filename=#{CGI.escape(file)}&line=#{line}"
+#   }
+# end

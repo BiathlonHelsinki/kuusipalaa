@@ -10,6 +10,7 @@
     %link{:href => "/icons/favicon-32x32.png", :rel => "icon", :sizes => "32x32", :type => "image/png"}/
     %link{:href => "/icons/favicon-16x16.png", :rel => "icon", :sizes => "16x16", :type => "image/png"}/
     %link{:href => "/icons/manifest.json", :rel => "manifest"}/
+    %link{:color => "#5bbad5", :href => "/icons/safari-pinned-tab.svg", :rel => "mask-icon"}/
     %meta{:content => "#ffffff", :name => "theme-color"}/
     = javascript_include_tag "application"
     = stylesheet_link_tag "application"
@@ -45,18 +46,8 @@
           .top-bar-right.user_menu
             - if user_signed_in?
               = render partial: 'shared/user_top_menu'
-                
-              %ul.dropdown.menu#user_dropdown_menu{:'data-dropdown-menu' => '', :'data-alignment' => 'left'}
-                %li
-                  = link_to image_tag(current_user.avatar.url(:thumb)), '#'
-                  %ul.vertical.menu
-                    %li= link_to t(:edit_profile) , edit_user_path(current_user)
-                    %li= link_to t(:buy_a_stake) , new_season_stake_path(@current_season)
-                    %li= link_to t(:your_groups) , '#'
-                    %li= link_to t(:your_stakes), user_stakes_path(current_user)
-                    - if current_user.has_role?(:admin)
-                      %li= link_to 'admin side', '/admin'
-                    %li= link_to t(:sign_out), '/users/sign_out', method: :delete
+
+
             - else
               .buttons= link_to t(:sign_in), '/users/sign_in'
             %br{clear: :all}
@@ -88,7 +79,7 @@
               = t(:buy_a_stake)
 
         .small-12.medium-6.columns.lessright
-          = link_to page_path('faq') do
+          = link_to page_path('questions-and-answers') do
             .front_button.text-center
               =  t(:more_info)
     %article
@@ -101,7 +92,7 @@
       .row#progress_bar
         .progress{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{@current_season.stakes.sum(&:amount)}", "aria-valuetext" => "#{@current_season.stakes.sum(&:amount)} percent", :role => "progressbar", :tabindex => "0"}
           %span.progress-meter{:style => "width: #{(@current_season.stakes.sum{|x| x.amount * x.price}/5000)*100}%;"}
-            %p.progress-meter-text= t :euros_out_of_total, amount: @current_season.stakes.sum{|x| x.amount * x.price}, total: 5000
+            %p.progress-meter-text= raw t(:euros_out_of_total, amount: @current_season.stakes.sum{|x| x.amount * x.price}.to_i, total: 5000)
 
     %article
       .row.stats_boxes{:'data-equalizer' => '', :'data-equalize-on' => "medium", id: :stats_boxes}

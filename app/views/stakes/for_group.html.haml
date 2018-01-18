@@ -1,6 +1,13 @@
 %article.post_single
   .row
-    .small-12.columns
-      %h2= t(:buy_a_stake_for_a_group)
-      %p= t :group_explanation
-  = render partial: 'shared/users_groups'
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t(:buy_a_stake_for_a_group)
+        .blurb
+          = t :group_explanation
+          = render partial: 'shared/users_groups'
+  .row
+    .small-12.medium-3.columns.lessmargins
+      = link_to new_group_path do
+        .front_button.text-center
+          = t(:create_a_group)

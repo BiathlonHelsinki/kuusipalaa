@@ -1,27 +1,47 @@
-.member_services_index
+.new_group_create
 
   .row
-    .small-12.columns.medium-8.large-9
-      %h3.text-center= t :create_a_group
-      %p= t :group_stakes_blurb
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t(:choose_group_type)
+        .blurb
+          = t :group_stakes_blurb
 
-  .row
-    .small-12.columns.medium-8.large-9
-      %h4= t :choose_group_type
+  .row{:'data-equalizer' => '', :'data-equalize-on' => :medium}
+    .small-12.columns.medium-4.lessmargins
+      .group_selection_box
+        .watch{:'data-equalizer-watch' => ''}
+          .title.text-center= t :unregistered_group
+          .blurb= t :unregistered_group_explanation
+        .text-center.floor= link_to t(:create_group), '/groups/new_unregistered', method: :post, class: [:button, :bordered]
+    .small-12.columns.medium-4  
+      .group_selection_box
+        .watch{:'data-equalizer-watch' => ''}
+          .title.text-center= t :registered_organisation_joins_kp
+          .blurb= t :registered_organisation_joins_kp_explanation
+        .text-center.floor= link_to t(:create_group), '/groups/group_members_agreement', method: :post, class: [:button, :bordered]
+    .small-12.columns.medium-4.lessright     
+      .group_selection_box
+        .watch{:'data-equalizer-watch' => ''}
+          .title.text-center= t :registered_organisation_nonmember
+          .blurb= t :registered_organisation_nonmember_explanation
+        .text-center.floor= link_to t(:create_group), '/groups/new_nonmember', method: :post, class: [:button, :bordered]       
 
-      %p= t :three_types_of_groups
+      / %h4= t :choose_group_type
 
-      = form_tag '/groups/new_unregistered', id: :new_group_form do
-        = radio_button_tag :group_type, 1, true
-        = t(:unregistered_group)
-        %p.group_type= t :unregistered_group_explanation
-        = radio_button_tag :group_type, 2, false
-        = t(:registered_organisation_joins_kp)
-        %p.group_type= t :registered_organisation_joins_kp_explanation
-        = radio_button_tag :group_type, 3, false
-        = t(:registered_organisation_nonmember)
-        %p.group_type= t(:registered_organisation_nonmember_explanation)
-        = submit_tag t(:next_step)
+      / %p= t :three_types_of_groups
+
+      / = form_tag '/groups/new_unregistered', id: :new_group_form do
+      /   = radio_button_tag :group_type, 1, true
+      /   = t(:unregistered_group)
+      /   %p.group_type= t :unregistered_group_explanation
+      /   = radio_button_tag :group_type, 2, false
+      /   = t(:registered_organisation_joins_kp)
+      /   %p.group_type= t :registered_organisation_joins_kp_explanation
+      /   = radio_button_tag :group_type, 3, false
+      /   = t(:registered_organisation_nonmember)
+      /   %p.group_type= t(:registered_organisation_nonmember_explanation)
+      /   = submit_tag t(:next_step)
 
 = content_for :jquery do
   :plain

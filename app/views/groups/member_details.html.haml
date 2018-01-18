@@ -1,13 +1,11 @@
 .membership_pages
   .row
     .small-12.columns
-      %h1= t :membership_details
-
-  .row
-    .small-12.columns
-      %p
-        = t :we_need_your_details
-        = link_to t(:read_privacy_policy), page_path('privacy-policy'), target: :_blank, class: [:button, :tiny]
+      .lifted_box
+        .title= t :membership_details
+        .blurb
+          %p= t :we_need_your_details
+          %p= link_to t(:read_privacy_policy), page_path('privacy-policy'), target: :_blank, class: [:button, :tiny]
 
   .row
     .small-12.large-7.columns
@@ -28,6 +26,48 @@
 = content_for :jquery do
   :plain
 
+
+    function checkVAT() {
+      $.ajax({
+        url: '/groups/check_vat',
+        data: {
+          id: $('#group_taxid').val()
+        },
+        success: function(data) {
+          if (data == 'false') {
+            $('li#group_taxid_input').addClass('error');
+            $('p.invalid_vat').fadeIn();
+            $('i#vat_ok').fadeOut();
+            $('i#vat_bad').fadeIn();
+            $('#group_taxid').addClass('is-invalid-input');
+          } else if (data == 'true') {
+            $('li#group_taxid_input').removeClass('error');
+            $('p.invalid_vat').fadeOut();
+            $('i#vat_ok').fadeIn();
+            $('i#vat_bad').fadeOut();
+            $('#group_taxid').removeClass('is-invalid-input');
+          }
+        }
+      });
+    }
+    $('#group_country').change(function() {
+      if ($(this).val() == 'FI' || $(this).val() == '') {
+        $('li#group_taxid_input').removeClass('error');
+        $('p.invalid_vat').fadeOut();
+        $('#group_taxid').removeClass('is-invalid-input');
+      } else {
+        checkVAT();
+      }
+    });
+
+    $('#group_taxid').change(function() {
+      if ($('#group_country').val() != 'FI' && $('#group_country').val() != '') {
+        if (/^\w\w\d*/.test($('#group_taxid').val())) {
+          checkVAT();
+        }
+      }
+
+    });
 
     $('#group_name').on('valid.zf.abide',function (ev,elem) {
 

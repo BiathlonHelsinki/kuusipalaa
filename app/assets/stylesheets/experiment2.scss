@@ -28,7 +28,7 @@ form {
   }
   input, textarea , select {
     background-color: white;
-    border: 2px solid $black;
+    border: 1px solid $black;
     font-weight: bold;
     &.is-invalid-input {
       outline: 1px solid red;
@@ -120,7 +120,7 @@ form {
 article.single_page {
 
   .page {
-    border: 2px solid $black;
+    border: 1px solid $black;
     position: relative;
     background-color: white;
     padding: 0; margin: 0;
@@ -133,12 +133,12 @@ article.single_page {
       bottom: -10px;
       background: white;
       z-index: -1;
-      outline: 2px solid $black;
+      outline: 1px solid $black;
     }
     .heading {
       font-family: $sourcecode;
       font-size: 1.25rem;
-      border-bottom: 2px solid $black;
+      border-bottom: 1px solid $black;
       padding: 0.8rem 1rem;
       text-transform: uppercase;
       font-weight: bold;
@@ -151,7 +151,7 @@ article.single_page {
       h3 {
         font-family: $sourcecode;
         font-size: 1.25rem;
-        border-bottom: 2px solid $black;
+        border-bottom: 1px solid $black;
         padding: 1rem 0 0 0;float: left;
         text-transform: uppercase;
         font-weight: bold;
@@ -175,9 +175,9 @@ article.single_page {
   }
 }
 article.post_single, article.meeting_single {
-  
+
   .post, .meeting {
-    border: 2px solid $black;
+    border: 1px solid $black;
     position: relative;
     background-color: white;
     padding: 0; margin: 0;
@@ -190,7 +190,7 @@ article.post_single, article.meeting_single {
       bottom: -10px;
       background: white;
       z-index: -1;
-      outline: 2px solid $black;
+      outline: 1px solid $black;
     }
 
     .image {
@@ -199,7 +199,7 @@ article.post_single, article.meeting_single {
     .heading {
       font-family: $sourcecode;
       font-size: 1.25rem;
-      border-bottom: 2px solid $black;
+      border-bottom: 1px solid $black;
       padding: 0.8rem 1rem;
       text-transform: uppercase;
       font-weight: bold;
@@ -207,8 +207,8 @@ article.post_single, article.meeting_single {
     .info_box {
       padding: 1rem;
 
-      border-bottom: 2px solid $black;
-      font-weight: bold;
+      border-bottom: 1px solid $black;
+      
       &.has_form {
         border-bottom: none;
       }
@@ -227,12 +227,12 @@ article.post_single, article.meeting_single {
 
       .description {
         font-family: $montserrat;
-        font-weight: bold;
+
       }
     }
     .participant_grid {
       margin: 1rem;
-      border: 2px solid $black;
+      border: 1px solid $black;
       .image {
         margin: 0;
       }
@@ -244,14 +244,14 @@ article.post_single, article.meeting_single {
       margin: 1rem 0;
       font-family: $sourcecode;
       font-size: 1.0rem;
-      border-top: 2px solid $black;
+      border-top: 1px solid $black;
       padding: 0.8rem 1rem 0 1rem;
       text-transform: uppercase;
       font-weight: bold;
     }
     ul {
       margin: 0;
-      border-bottom: 2px solid $black;
+      border-bottom: 1px solid $black;
       padding-bottom: 1.5rem;
       li {
         margin-left: 5rem;
@@ -288,7 +288,7 @@ article.post_single, article.meeting_single {
       font-family: $sourcecode;
       font-size: 1.8rem;
       font-weight: bold;
-      border-bottom: 2px solid black;
+      border-bottom: 1px solid black;
       padding: 1rem;
       .since {
         font-size: 0.8rem;
@@ -306,7 +306,7 @@ article.post_single, article.meeting_single {
       .notification_form {
         font-weight: bold;
         font-family: $sourcecode;
-        border: 2px solid $black;
+        border: 1px solid $black;
         float: right;
         padding: 1rem;
 
@@ -322,7 +322,7 @@ article.post_single, article.meeting_single {
           bottom: -10px;
           background: white;
           z-index: -1;
-          outline: 2px solid $black;
+          outline: 1px solid $black;
         }
         .notification_question{
 
@@ -372,10 +372,10 @@ article.post_single, article.meeting_single {
           list-style-type: none;
 
           .entry {
-            border-top: 2px solid black;
-            border-left: 2px solid black;
-            border-bottom: 2px solid black;
-            border-right: 2px solid $black;
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+            border-bottom: 1px solid black;
+            border-right: 1px solid $black;
             padding: 1rem;
             margin-top: -2px;
             &.last .divided {
@@ -478,22 +478,22 @@ fieldset {
       bottom: -10px;
       background: white;
       z-index: -1;
-      outline: 2px solid $black;
+      outline: 1px solid $black;
     }
     .heading {
       font-family: $sourcecode;
       font-size: 1.25rem;
-      border: 2px solid $black;
+      border: 1px solid $black;
       padding: 0.8rem 1rem;
       text-transform: uppercase;
       font-weight: bold;
     }
     .info_box {
       padding: 1rem;
-      border-left: 2px solid $black;
-      border-right: 2px solid $black;
-      border-bottom: 2px solid $black;
-      font-weight: bold;
+      border-left: 1px solid $black;
+      border-right: 1px solid $black;
+      border-bottom: 1px solid $black;
+
       .title {
         a {
           color: $black;
@@ -506,14 +506,14 @@ fieldset {
       .description {
         font-family: $montserrat;
         margin: 2rem 0;
-        font-weight: bold;
+
       }
     }
     .meta {
       font-family: $sourcecode;
-      border-left: 2px solid $black;
-      border-right: 2px solid $black;
-      border-bottom: 2px solid $black;
+      border-left: 1px solid $black;
+      border-right: 1px solid $black;
+      border-bottom: 1px solid $black;
       font-weight: bold;
       padding: 0.8rem 1rem;
       a {
@@ -541,7 +541,7 @@ fieldset {
     position: relative;
   }
   .add_post {
-    border: 2px solid $black;
+    border: 1px solid $black;
     margin: 6rem 0;
     padding: 0.5rem;
     background-color: white;
@@ -558,7 +558,7 @@ fieldset {
       bottom: 89px;
       background: white;
       z-index: -1;
-      outline: 2px solid $black;
+      outline: 1px solid $black;
     }
     &:hover {
       background-color: $black;
@@ -567,7 +567,7 @@ fieldset {
   }
   .post {
     margin-bottom: 4rem;
-    border: 2px solid $black;
+    border: 1px solid $black;
     position: relative;
     background-color: white;
     &:after {
@@ -579,11 +579,11 @@ fieldset {
       bottom: -10px;
       background: white;
       z-index: -1;
-      outline: 2px solid $black;
+      outline: 1px solid $black;
     }
     .title {
       font-size: 1.25rem;
-      border-bottom: 2px solid $black;
+      border-bottom: 1px solid $black;
       padding: 0.8rem 1rem;
       text-transform: uppercase;
       font-weight: bold;
@@ -592,7 +592,7 @@ fieldset {
       overflow-y: hidden;
     }
     .blurb {
-      border-bottom: 2px solid $black;
+      border-bottom: 1px solid $black;
       font-family: $montserrat;
       padding: 1rem;
       height: 250px;
@@ -647,7 +647,7 @@ header {
   padding: 2.5rem 0;
   .login_form {
     margin-bottom: 4rem;
-    border: 2px solid $black;
+    border: 1px solid $black;
     position: relative;
     background-color: white;
     &:after {
@@ -659,11 +659,11 @@ header {
       bottom: -10px;
       background: white;
       z-index: -1;
-      outline: 2px solid $black;
+      outline: 1px solid $black;
     }
     .title {
       font-size: 1.25rem;
-      border-bottom: 2px solid $black;
+      border-bottom: 1px solid $black;
       padding: 0.8rem 1rem;
       text-transform: uppercase;
       font-weight: bold;
@@ -692,7 +692,7 @@ header {
         }
 
         input {
-          border: 2px solid $black;
+          border: 1px solid $black;
         }
 
       }
@@ -701,7 +701,7 @@ header {
 }
 
 a.button, button.button, input[type=submit] {
-  border: 2px solid $black;
+  border: 1px solid $black;
   font-family: $sourcecode;
   background-color: white;
   color: $black;

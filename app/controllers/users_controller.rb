@@ -111,10 +111,8 @@ class UsersController < ApplicationController
     @user = User.friendly.find(params[:id])
     if can? :update, @user
       if @user.update_attributes(user_params.except(:buy_stakes_after_edit))
-        flash[:error] = ''
-        flash[:warning] = ''
 
-        flash[:notice] = 'Profile info saved.'
+        flash[:notice] = t(:your_details_have_been_updated)
         if params[:user][:buy_stakes_after_edit]
           redirect_to for_self_season_stakes_path(@current_season.id, accepted_agreement: true)
         else

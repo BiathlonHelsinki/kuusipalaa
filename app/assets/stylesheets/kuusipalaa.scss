@@ -1,6 +1,26 @@
 @import 'variables';
+
+span.translation_missing {
+  font-size: 1.9rem;
+  background-color: red;
+  color: white;
+  padding: 0.4rem 0.2rem;
+}
+.alert {
+  padding: 0.75rem;
+  font-family: $sourcecode;
+  color: white;
+  font-weight: bold;
+  &.alert-notice {
+    background-color: #00bc9e;
+  }
+  &.alert-error {
+    background-color: #f05e6b;
+  }
+}
+
 body {
-  padding: 0.3rem;
+  padding: 0;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: $sourcecode;
@@ -69,7 +89,7 @@ header {
     }
     img {
       cursor: pointer;
-      height: 40px;
+      height: 55px;
       width: auto;
     }
   }
@@ -90,12 +110,12 @@ a.not-active {
 }
 
 .stake_view {
-  padding: 2.5rem 0;
+  padding: 1.5rem 0;
 
 }
 
 .post_single {
-  padding: 2.5rem 0;
+  padding: 1.5rem 0;
 }
 
 .front_box {
@@ -162,9 +182,10 @@ a.not-active {
     font-family: $sourcecode;
   }
   .banner2_blurb, .blurb {
-    padding: 1.5rem 1rem;
+    padding: 1rem;
     font-size: 0.9rem;
     font-family: $montserrat;
+
   }
 }
 
@@ -181,9 +202,13 @@ a.not-active {
   padding: 1rem;
   position: relative;
   text-transform: uppercase;
-   color: white;
+  color: white;
   a { color: white; }
   font-family: $sourcecode;
+  &:hover {
+    background-color: #AAA;
+    color: black;
+  }
   &:after {
     content: '';
     position: absolute;
@@ -266,7 +291,7 @@ a.not-active {
   }
 }
 .membership_pages {
-  padding: 2.5rem 0;
+  padding: 1.5rem 0;
 }
 #invoice_screen {
   padding: 2rem;
@@ -413,7 +438,7 @@ form {
     .membership_agreement_scrollbox {
       padding: 1rem;
 
-      height: 300px;
+      height: 240px;
       overflow: auto;
     }
     .agree_container {
@@ -456,13 +481,21 @@ a.bordered, button.bordered {
 
 table.group_list {
   td {
+    border-collapse: border-collapse;
     font-size: 0.9rem;
+    &.avatar {
+      img {
+        height: 100px;
+      }
+    }
   }
   a.button {
     text-transform: uppercase;
     margin: 0.5rem 0;
   }
 }
+
+
 footer {
   margin: 1rem 0;
   font-weight: bold;
@@ -477,4 +510,34 @@ footer {
       font-size:0.9rem;
     }
   }
+}
+
+
+.new_group_create {
+  padding-bottom: 2rem;
+  .group_selection_box {
+    padding: 1.5rem;
+    border: 1px solid black;
+
+    .title {
+      font-family: $sourcecode;
+      font-size: 1.5rem;
+      font-weight: bold;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    .blurb {
+      font-family: $montserrat;
+      font-weight: normal;
+      font-size: 0.9rem;
+      margin: 1rem 0;
+    }
+    .floor {
+      position: relative;
+      margin-top: 20%;
+    }
+  }
+
+
+
 }

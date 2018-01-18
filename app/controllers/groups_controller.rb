@@ -11,7 +11,7 @@ class GroupsController < ApplicationController
       if @group.is_member
         redirect_to basic_details_group_path(@group)
       else
-        redirect_to '/members'
+        redirect_to user_groups_path(current_user)
       end
     else
       flash[:error] = @group.errors.full_messages
@@ -94,7 +94,7 @@ class GroupsController < ApplicationController
     else
       flash[:error] = @group.errors.full_messages
     end
-    redirect_to '/members'
+    redirect_to user_groups_path(current_user)
   end
 
   protected

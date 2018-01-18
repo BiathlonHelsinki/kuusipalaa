@@ -1,27 +1,28 @@
 .membership_pages
   .row
     .small-12.columns
-      %h1= t :members_agreement_groups
+      .lifted_box
+        .title= t :members_agreement_groups
+        .blurb
+          = t :becoming_a_member_group
   .row
-    .small-12.columns
-      %p= t :becoming_a_member_group
+    .small-12.columns.scrollbox_container
+      .membership_agreement_scrollbox
+        - if @members_agreement.respond_to?(:body)
+          = raw @members_agreement.body
+        - else
+        = raw @members_agreement
 
-  .row
-    .small-12.columns= raw @members_agreement
-
-  .row
-    .small-12.columns
-      %br/
-      %br/
-      %h4
+      .agree_container
         = check_box_tag :agreed
         = t :accepts_members_agreement
-
   .row
-    .small-12.columns
-      = form_tag '/groups/member_details' do
-        = hidden_field_tag :group_type, @followup
-        = submit_tag t(:continue), disabled: true, class: :disabled, id: :continuebutton
+    .small-12.columns.lessmargins
+      -#= form_tag '/groups/member_details' do
+      -#  = hidden_field_tag :group_type, @followup
+      = link_to t(:continue), member_details_groups_path(group_type: @followup), method: :post, id: :continuebutton, class: [:'not-active', :disabled, :button, :bordered]
+      -# %button{class: [:disabled, :bordered], type: :submit, disabled: :disabled, id: :continuebutton}=  t(:continue)
+      -#= submit_tag t(:continue), disabled: true,  class: [:'not-active', :disabled, :button, :bordered], id: :continuebutton
 
 
 
@@ -31,8 +32,12 @@
         if ($(this).is(':checked')) {
           $('#continuebutton').removeAttr('disabled');
           $('#continuebutton').removeClass('disabled');
+          $('#continuebutton').removeClass('not-active');
+          $('#continuebutton').removeAttr('rel');
         } else {
           $('#continuebutton').attr('disabled', 'disabled');
+           $('#continuebutton').addClass('not-active'); 
           $('#continuebutton').addClass('disabled');
+          $('#continuebutton').attr('rel', 'nofollow');
         }
     });

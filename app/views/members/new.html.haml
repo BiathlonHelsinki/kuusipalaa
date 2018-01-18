@@ -1,47 +1,54 @@
 .member_services_index
   .row
-    .small-12.columns
-      %h2.text-center= t :groups
-      %br/
-      %h3.text-center= link_to @group.name, @group, target: :_blank
-      %br/
+    .small-12.columns.lessmargins.lessright
+      .lifted_box
+        .title= t :edit_group_members, group_name: @group.name
+        .blurb
+          %p= t :edit_member_blurb
   .row
-    .small-12.large-5.columns
-      %h4= t :add_member
-      = semantic_form_for [@group, @member] do |f|
-        = f.input :source, label: t(:group), collection: Group.all, input_html: {'disabled' => ''}
+    .small-12.columns.lessmargins.lessright
+      .lifted_box
+        .title= t :group_members
+        .blurb
+          .row.members_grid.large-up-5.medium-up-3.small-up-2
+            - @group.members.each do |member|
+              .column.member
+                - if member.user.avatar?
+                  = image_tag member.user.avatar.url(:box)
+                - else
+                  = image_tag '/icons/user_missing.png'
+                .participant_overlay.text-center
+                  = link_to member.user.display_name, member.user, target: :_blank
+                  = " - "
+                  - if member.access_level == 50
+                    %strong= t(:owner)
+                  - elsif member.access_level == 30
+                    %strong= t(:admin)
+                  - elsif member.access_level == 10
+                    = t(:member, count: 1)
+                  - else
+                    = member.access_level.to_s
+                  - unless @group.members.find_by(user: current_user).nil?
+                    - if @group.members.find_by(user: current_user).access_level == KuusiPalaa::Access::OWNER
+                      = semantic_form_for [@group,member] do |f|
+                        = f.input :access_level, label: t(:access_level),  as: :select, collection: [[t(:member, count: 1), 10], [ t(:admin), 30], [ t(:owner), 50]]
+                        = f.submit t(:change)
+                      = link_to t(:remove_member_from_group), [@group, member], method: :delete, data: {confirm: t(:are_you_sure) }, class: [:button, :alert]
 
-        = f.input :username, as: :autocomplete, url: autocomplete_user_username_members_path
-        = link_to fa_icon('times'), '#', id: :clear_click, onclick: '$("#clear_click").fadeOut();$("#member_username").val("");$("#member_username").removeAttr("disabled");$("#add_submit").attr("disabled", true);return false;'
-        %br{clear: :all}
-        = f.submit t(:add), 'disabled': '', id: :add_submit
+  .row
+    .small-12.columns.lessmargins.lessright
+      .lifted_box
+        .title= t :add_member
+        .blurb
+          = semantic_form_for [@group, @member] do |f|
+            = f.input :source, label: t(:group), collection: Group.all, input_html: {'disabled' => ''}
 
-    .small-12.large-5.columns
-      %h4= t :edit_members
-      .row.members_grid.large-up-3.medium-up-2.small-up-1
-        - @group.members.each do |member|
-          .column.member
-            - if member.user.avatar?
-              = image_tag member.user.avatar.url(:box)
-            - else
-              = image_tag '/icons/user_missing.png'
-            .participant_overlay.text-center
-              = link_to member.user.display_name, member.user, target: :_blank
-              %br/
-              - if member.access_level == 50
-                %strong Owner
-              - elsif member.access_level == 30
-                %strong Admin
-              - elsif member.access_level == 10
-                = t(:member, count: 1)
-              - else
-                = member.access_level.to_s
-              - unless @group.members.find_by(user: current_user).nil?
-                - if @group.members.find_by(user: current_user).access_level == KuusiPalaa::Access::OWNER
-                  = semantic_form_for [@group,member] do |f|
-                    = f.input :access_level, as: :select, collection: [[t(:member, count: 1), 10], [ t(:admin), 30], [ t(:owner), 50]]
-                    = f.submit t(:change)
-                  = link_to t(:remove_member_from_group), [@group, member], method: :delete, data: {confirm: t(:are_you_sure) }, class: [:button, :alert]
+            = f.input :username, as: :autocomplete, url: autocomplete_user_username_members_path
+            = link_to fa_icon('times'), '#', id: :clear_click, onclick: '$("#clear_click").fadeOut();$("#member_username").val("");$("#member_username").removeAttr("disabled");$("#add_submit").attr("disabled", true);return false;'
+            %br{clear: :all}
+            = f.submit t(:add), 'disabled': '', id: :add_submit
+
+
 
 = content_for :jquery do
   :plain

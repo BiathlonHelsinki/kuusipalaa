@@ -23,39 +23,16 @@
       .total_text= t :total_amount_due
 .row
   .small-12.columns
+    %p= t(:how_to_buy)
+    %p
+      %strong
+        %u= t :when_payment_received
+    %p= t :only_accept_sepa        
     %p= t :receive_points_for_stakes, count: 500, stake: t(:stake, count: 1)
     %p= t :points_awarded_later
-  -# .large-6.small-10.columns
-  -#   %table
-  -#     %thead
-  -#       %th.text-center{colspan: 3}= t :stake_prices
-  -#     %tbody
-  -#       %tr
-  -#         %td= t :individual_members
-  -#         %td 50€
-  -#         %td &nbsp;
-  -#       %tr
-  -#         %td= t :unregistered_group
-  -#         %td 50€
-  -#         %td
-  -#           %small= t :unreg_bought_through_member
-  -#       %tr
-  -#         %td= t :registered_organisation_member
-  -#         %td 75€
-  -#         %td &nbsp;
-  -#       %tr
-  -#         %td= t :registered_organisation_nonmember
-  -#         %td
-  -#           100€
-  -#           %small= t(:vat)
-  -#         %td
-  -#           %small= t :exclude_vat
-    - if @group
-      %p
-        %small= raw t(:if_you_have_vat, detail_edit_link: link_to(t(:organisation_details), edit_group_path(@group)))
 
-%p= t(:how_to_buy)
-%p= t :only_accept_sepa
+
+
 
 
 = content_for :jquery do

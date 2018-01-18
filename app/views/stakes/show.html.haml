@@ -2,12 +2,18 @@
   .row
     .small-12.columns
       .lifted_box
-        .title= t :stake_booked
+        .title
+          - if @stake.amount > 1
+            = t :stake_booked_plural
+          - else 
+            = t :stake_booked_singular
         .blurb
           %p= t :thank_you_for_booking_stake
           %p= raw t(:invoice_email_or_download, email: @stake.bookedby.email, pdf_link: link_to('PDF', @stake.invoice.url))
+          %p= t :if_goal_not_met
+          %p= raw t(:see_membership_agreement, membership_agreement_link: link_to(t(:membership_agreement), page_path("membership-agreement#{@stake.owner_type == 'Group' ? '-organisation' : ''}")))
           = link_to 'Download PDF',  @stake.invoice.url, class: [:bordered, :button]
-          = link_to t(:what_happens_next), page_path('what-happens-next'), class: [:bordered, :button]
+          = link_to t(:what_happens_next) + '?', page_path('what-happens-next'), class: [:bordered, :button]
   .row
     .small-12.columns
       #invoice_screen.lifted_box= render partial: 'invoice', locals: {stake: @stake}
