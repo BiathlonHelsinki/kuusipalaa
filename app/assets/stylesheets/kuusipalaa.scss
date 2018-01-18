@@ -1,5 +1,10 @@
 @import 'variables';
 
+select {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+}
+
 span.translation_missing {
   font-size: 1.9rem;
   background-color: red;
@@ -370,7 +375,35 @@ a.not-active {
 
 }
 
+.participant_overlay {
+  a.button {
+    font-size: 0.85rem;
+    padding: 0.25rem;
+    margin: 0.5rem 0;
+  }
+}
 form {
+  &.member {
+    label[for=member_access_level] {
+      font-size: 0.6rem;
+    }
+
+    select {
+      font-size: 0.7rem;
+      font-weight: normal;
+      height: 30px;
+      &#member_source_id {
+        margin-left: 1.5rem;
+        font-size: 1rem;
+        width: 50%;
+        height: inherit;
+      }
+    }
+    input[type=submit] {
+      font-size: 0.85rem;
+      padding: 0.25rem;
+    }
+  }
   &#new_stake_form {
     font-family: $sourcecode;
     li.number {

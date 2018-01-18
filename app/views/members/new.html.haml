@@ -1,10 +1,13 @@
 .member_services_index
   .row
     .small-12.columns.lessmargins.lessright
-      .lifted_box
+      .lifted_box.has_inner_button
         .title= t :edit_group_members, group_name: @group.name
         .blurb
           %p= t :edit_member_blurb
+          = link_to "#" , onclick: "javascript:$(document).scrollTo('#add_member');return false" do
+            .smaller_button.white
+              = t(:add_member)
   .row
     .small-12.columns.lessmargins.lessright
       .lifted_box
@@ -31,14 +34,14 @@
                   - unless @group.members.find_by(user: current_user).nil?
                     - if @group.members.find_by(user: current_user).access_level == KuusiPalaa::Access::OWNER
                       = semantic_form_for [@group,member] do |f|
-                        = f.input :access_level, label: t(:access_level),  as: :select, collection: [[t(:member, count: 1), 10], [ t(:admin), 30], [ t(:owner), 50]]
-                        = f.submit t(:change)
+                        = f.input :access_level, label: t(:access_level),  as: :select, collection: [[t(:member, count: 1), 10], [ t(:admin), 30], [ t(:owner), 50]], include_blank: false
+                        = f.submit t(:change_access_level)
                       = link_to t(:remove_member_from_group), [@group, member], method: :delete, data: {confirm: t(:are_you_sure) }, class: [:button, :alert]
 
   .row
-    .small-12.columns.lessmargins.lessright
+    .small-12.columns.lessmargins.lessright#add_member
       .lifted_box
-        .title= t :add_member
+        .title= t(:add_member) + " : " + @group.name
         .blurb
           = semantic_form_for [@group, @member] do |f|
             = f.input :source, label: t(:group), collection: Group.all, input_html: {'disabled' => ''}
@@ -46,7 +49,7 @@
             = f.input :username, as: :autocomplete, url: autocomplete_user_username_members_path
             = link_to fa_icon('times'), '#', id: :clear_click, onclick: '$("#clear_click").fadeOut();$("#member_username").val("");$("#member_username").removeAttr("disabled");$("#add_submit").attr("disabled", true);return false;'
             %br{clear: :all}
-            = f.submit t(:add), 'disabled': '', id: :add_submit
+            = f.submit t(:add), 'disabled': '', id: :add_submit, class: :bordered
 
 
 
