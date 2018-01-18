@@ -1,24 +1,26 @@
 .member_services_index
 
   .row
-    .small-12.columns.medium-8.large-9
-      %h3.text-center= t :more_group_details
-      %p
-        - if @group.new_record?
-          = t :group_stakes_blurb
-        - else
-          = t :few_more_details
-      %p= t :create_group_members_later
+    .small-12.columns.lessmargins.lessright
+      .lifted_box
+        .title= t :more_group_details
+        .blurb
+          %p
+            - if @group.new_record?
+              = t :group_stakes_blurb
+            - else
+              = t :few_more_details
+          %p= t :create_group_members_later
 
 
-      = semantic_form_for @group,  html: {multipart: true, 'data-abide': ''} do |f|
-        = f.input :name, label: "<label class='label'>#{t(:group_username)}</label><div class='validation_error'></div>".html_safe,  hint: t(:keep_it_short), input_html: {'required': '', disabled: !@group.new_record? ? 'disabled' : false}
-        = f.input :long_name, label: t(:long_name), hint: t(:longer_name_hint), input_html: {'required': ''}
-        = f.input :description, hint: t(:group_description), input_html: {'required': ''}
-        = f.input :avatar, hint: t(:optional_group_image)
-        = f.input :website, hint: t(:group_website)
-        = f.input :twitter_name, hint: t(:group_twitter)
-        = f.submit t(:create)
+          = semantic_form_for @group,  html: {multipart: true, 'data-abide': ''} do |f|
+            = f.input :name, label: "<label class='label'>#{t(:group_username)}</label><div class='validation_error'></div>".html_safe,  hint: t(:keep_it_short), input_html: {'required': '', disabled: !@group.new_record? ? 'disabled' : false}
+            = f.input :long_name, label: t(:long_name), hint: t(:longer_name_hint), input_html: {'required': ''}
+            = f.input :description, hint: t(:group_description), input_html: {'required': ''}
+            = f.input :avatar, hint: t(:optional_group_image)
+            = f.input :website, hint: t(:group_website)
+            = f.input :twitter_name, hint: t(:group_twitter)
+            = f.submit t(:create)
 
 = content_for :jquery do
   :plain

@@ -838,6 +838,17 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   amount: 'Amount'
   download_invoice: 'Download invoice (PDF)'
   view_invoice: 'View invoice'
+  edit_group_members_only: 'Edit group members'
+  edit_member_blurb: 'On this screen you can add people to your group if you know their username on this site. You can all set who is an admin (can buy stakes for the group) and owner (can delete the group).'
+  group_members: 'Group members'
+  access_level: 'member access level'
+  remove_member_from_group: 'Remove member from group'
+  change_access_level: 'Change access level'
+  group: 'Group: '
+  your_name: 'Your name'
+  contact_details: 'Contact details'
+  create_group: 'Create group'
+
   activerecord:
     errors:
       models:

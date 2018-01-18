@@ -28,7 +28,7 @@
                     - else
                       = t :payment_pending
                   %td
-                    = link_to t(:view_invoice), stake, class: [:button]
+                    = link_to t(:view_invoice), season_stake_path(stake.season, stake), class: [:button]
                     = link_to t(:download), stake.invoice.url, target: :_blank, class: [:button]
 
   .row

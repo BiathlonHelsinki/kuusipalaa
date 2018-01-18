@@ -777,7 +777,7 @@ fi:
   member_has_been_added: 'Jäsen lisätty.'
   member:
     zero: 'jäsentä'
-    one: jäsen'
+    one: 'jäsen'
     other: 'jäsentä'
   stake:
     zero: 'panosta'
@@ -945,3 +945,16 @@ fi:
   what_happens_next: 'What happens next'
   confirm_purchase: 'Are you sure? Click yes will order your stake and you will receive an invoice to pay via bank transfer.'
   payment_pending: 'Payment pending'
+  members_agreement_groups:
+  create_group: 'Create group'
+  members_agreement_groups: 'Members agreement for registered organisations'
+  becoming_a_member_group: 'A registered organisation can become a member of the Kuusi Palaa cooperative just like a person. Please agree to the following terms of membership for organisation before continuing.'
+  more_group_details: 'Group description and other details'
+  few_more_details: 'Just a few more details, for your group''s profile page on the website.'
+  your_name: 'Your name'
+  keep_decent: "Keep it decent, please..."
+  change_image: 'Upload/change image'
+  show_name_hint: 'If checked, your name will appear next to your username on everything you post.'
+  contact_details: 'Contact details'
+  opt_in: 'It''s OK to send me emails about upcoming events'
+  we_wont_do_this: 'We won''t do this more than once per week max'
