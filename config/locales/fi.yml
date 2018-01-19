@@ -895,7 +895,7 @@ fi:
   when_payment_received: 'Kun Kuusi Palaa on vastaanottanut tilisiirtosi, panoksesi aktivoituu ja jäsenyytesi osuuskunnasta alkaa.'
   view_details: 'Näytä yksityiskohdat'
   how_to_buy: 'Panokset varataan verkossa ja maksetaan tilisiirrolla.'
-
+  what_is_a_stake: 'Mikä on panos?'
 
 
 
@@ -911,8 +911,8 @@ fi:
   become_a_stakeholder: 'Become a stakeholder'
   footer_blurb: 'Kuusi Paala is powered by Biathlon.'
   footer_contact: 'info {at} kuusipalaa dotfi to contact us'
-  what_is_a_stake: 'Mikä on panos?'
 
+  join_cooperative: 'Join the cooperative'
   city: 'City'
   postcode: 'Postcode'
   country: 'Country'

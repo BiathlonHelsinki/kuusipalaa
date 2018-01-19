@@ -20,7 +20,10 @@
     .small-12.columns.lessmargins
       -#= form_tag '/groups/member_details' do
       -#  = hidden_field_tag :group_type, @followup
-      = link_to t(:continue), member_details_groups_path(group_type: @followup), method: :post, id: :continuebutton, class: [:'not-active', :disabled, :button, :bordered]
+      - if @group
+        = link_to t(:continue),edit_group_path(@group, accepted_agreement: true), method: :get, id: :continuebutton, class: [:'not-active', :disabled, :button, :bordered]
+      - else
+        = link_to t(:continue), member_details_groups_path(group_type: @followup), method: :post, id: :continuebutton, class: [:'not-active', :disabled, :button, :bordered]
       -# %button{class: [:disabled, :bordered], type: :submit, disabled: :disabled, id: :continuebutton}=  t(:continue)
       -#= submit_tag t(:continue), disabled: true,  class: [:'not-active', :disabled, :button, :bordered], id: :continuebutton
 
@@ -36,7 +39,7 @@
           $('#continuebutton').removeAttr('rel');
         } else {
           $('#continuebutton').attr('disabled', 'disabled');
-           $('#continuebutton').addClass('not-active'); 
+           $('#continuebutton').addClass('not-active');
           $('#continuebutton').addClass('disabled');
           $('#continuebutton').attr('rel', 'nofollow');
         }

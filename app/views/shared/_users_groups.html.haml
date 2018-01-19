@@ -28,6 +28,10 @@
                       - if group.is_member
                         %br/
                         = t :cooperative_member
+                      - else
+                        = link_to t(:join_cooperative), join_cooperative_group_path(group), class: :button
+                    - else
+                      = t :unregistered_group
               %td
                 = t(:x_members, count: group.members.size, members: t(:member, count:group.members.size))
                 %br/

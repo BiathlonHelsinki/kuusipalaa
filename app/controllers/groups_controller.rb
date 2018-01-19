@@ -44,9 +44,22 @@ class GroupsController < ApplicationController
 
   def edit
     @group = Group.friendly.find(params[:id])
+    if params[:accepted_agreement] == 'true'
+      @group.update_attribute(:accepted_agreement, true)
+      @group.update_attribute(:is_member, true)
+    end
   end
 
 
+  def join_cooperative
+    @group = Group.friendly.find(params[:id])
+    if @group.is_member == true
+      redirect_to @group
+    else
+      @members_agreement = Page.friendly.find('membership-agreement-organisations') rescue 'membership agreement coming soon'
+      render template: 'groups/group_members_agreement'
+    end
+  end
 
   def new
     @group = Group.new
@@ -54,7 +67,7 @@ class GroupsController < ApplicationController
 
   def group_members_agreement
     @followup = params[:group_type]
-    @members_agreement = 'membership agreement coming soon'
+    @members_agreement = Page.friendly.find('membership-agreement-organisations') rescue 'membership agreement coming soon'
   end
 
   def group_nonmember_agreement

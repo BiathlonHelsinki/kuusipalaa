@@ -848,6 +848,10 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   your_name: 'Your name'
   contact_details: 'Contact details'
   create_group: 'Create group'
+  city: 'City'
+  postcode: 'Postcode'
+  country: 'Country'
+  join_cooperative: 'Join the cooperative'
   please_ensure_spam: 'Please check that info@kuusipalaa.fi is whitelisted in your email spam settings.'
   activerecord:
     errors:

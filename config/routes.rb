@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     member do
       get :buy_stakes
       get :edit_details
+      get :join_cooperative
       get :basic_details
     end
     resources :members do

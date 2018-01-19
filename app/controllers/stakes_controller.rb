@@ -6,10 +6,11 @@ class StakesController < ApplicationController
     @season = Season.find(params[:season_id])
     @stake = Stake.new(stake_params)
     if @stake.save
+      StakeMailer.new_stake(@stake).deliver_now
       flash[:notice] = t(:stake_booked_invoice_later)
       redirect_to season_stake_path(@season, @stake)
     else
-  
+
       flash[:error] = t(:error_booking_stake) + " : " + @stake.errors.messages.values.join('; ')
       fill_collection
       render template: 'stakes/new'
@@ -60,7 +61,7 @@ class StakesController < ApplicationController
         fill_collection
         if @group.members.map(&:user).include?(current_user)
           if @group.members.find_by(user: current_user).access_level > KuusiPalaa::Access::REGULAR_MEMBER
-            @stake.price = @group.is_member ? 75 : 100
+            @stake.price = @group.is_member ? 75 : (@group.taxid.blank? ? 50 : 100)
             render template: 'stakes/group_stakes'
           else
             flash[:error] = t(:must_be_admin_to_buy_stakes)

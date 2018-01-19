@@ -26,6 +26,7 @@ span.translation_missing {
 
 body {
   padding: 0;
+  background-color: white;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: $sourcecode;
@@ -40,7 +41,7 @@ header {
     line-height: 1;
   }
   .tagline {
-    width: 60%;
+    width: 90%;
     font-family: $sourcecode;
     font-weight: bold;
   }
