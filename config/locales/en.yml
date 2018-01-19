@@ -616,7 +616,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   planning_to_attend: ' planning to attend' # as in "3 people are planning to attend" or "1 person is planning to attend"
   watching: ' watching' # as in "3 people watching"
   footer_blurb: 'Kuusi Palaa is powered by Biathlon.'
-  footer_contact: 'admin {at} temporary dotfi to contact us in the meantime'
+  footer_contact: 'info {at} kuusipalaa dotfi to contact us'
   comment_in_main_thread: 'Comment in main thread'
   comment_this_subthread: 'Comment in this sub-thread'
   start_new_thread: 'Start a sub-thread'
@@ -848,7 +848,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   your_name: 'Your name'
   contact_details: 'Contact details'
   create_group: 'Create group'
-
+  please_ensure_spam: 'Please check that info@kuusipalaa.fi is whitelisted in your email spam settings.'
   activerecord:
     errors:
       models:

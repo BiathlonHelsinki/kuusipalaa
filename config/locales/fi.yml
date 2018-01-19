@@ -884,12 +884,21 @@ fi:
   contact_details: 'Yhteystiedot'
   opt_in: 'Haluan saada sähköpostia tulevista tapahtumista'
   what_happens_next: 'Mitä seuraavaksi tapahtuu'
+  change_image: 'Lataa/vaihda kuva'
+  a_decentralised_cultural_venue_in_helsinki: 'Hajautettu kulttuuritila Helsingissä'
+  not_a_member: 'ei osuuskunnan jäsen'
+  what_is_a_stake: 'Mikä on panos?'
+  your_stakes: 'Panoksesi'
+  your_details_have_been_updated: 'Tietosi ollaan päivitetty.'
+  number_of_stakes: 'Ostettavien panosten määrä'
+  total_amount_due: 'Kokonaishinta'
+  when_payment_received: 'Kun Kuusi Palaa on vastaanottanut tilisiirtosi, panoksesi aktivoituu ja jäsenyytesi osuuskunnasta alkaa.'
+  view_details: 'Näytä yksityiskohdat'
+  how_to_buy: 'Panokset varataan verkossa ja maksetaan tilisiirrolla.'
 
 
 
 
-  a_decentralised_cultural_venue_in_helsinki: 'a decentralised cultural venue in Helsinki'
-  not_a_member: 'not a cooperative member'
   will_be_collectively_operated: 'will be a 24/7 space for events and free use, collectively operated'
   a_stake_is: 'A stake is your part of Kuusi Palaa'
   a_stake_is_longer: 'And a membership in the cooperative – you can organise events, use the space 24/7, and help to pay the rent.'
@@ -901,22 +910,21 @@ fi:
   participation_rules: 'Participation rules'
   become_a_stakeholder: 'Become a stakeholder'
   footer_blurb: 'Kuusi Paala is powered by Biathlon.'
-  footer_contact: 'admin {at} temporary dotfi to contact us in the meantime'
-  what_is_a_stake: 'What is a stake?'
-  your_stakes: 'Your stakes'
+  footer_contact: 'info {at} kuusipalaa dotfi to contact us'
+  what_is_a_stake: 'Mikä on panos?'
+
   city: 'City'
   postcode: 'Postcode'
   country: 'Country'
-  your_details_have_been_updated: 'Your details have been updated.'
-  number_of_stakes: 'Number of stakes to buy'
-  total_amount_due: 'Total amount due'
-  when_payment_received: 'When your bank transfer is received by Kuusi Palaa, your stake is activated and your membership in the cooperative begins.'
+
+
+
   only_accept_sepa: 'At the moment, Kuusi Palaa only accepts bank transfers made within the SEPA area of the European Union.'
   points_awarded_later: 'Points will be allocated to all stakeholders a few weeks from now. If not enough stakes are sold to fund Kuusi Palaa for the next season, your money will be returned to you in April 2018.'
   must_be_admin_to_buy_stakes: 'You must be the Admin or Owner of a group to buy stakes for it.'
   receive_points_for_stakes: "You will receive %{count} points per %{stake}. Points are the main engine of Kuusi Palaa and are used to collectively share the space."
-  how_to_buy: 'Stakes are booked here online, and paid for via bank transfer.'
-  view_details: 'View details'
+
+
   choose_group_type: 'What type of group are you creating?'
   three_types_of_groups: 'There are three different types of groups you can create at Kuusi Palaa.'
   unregistered_group_explanation: 'An unregistered group is not an official legal entity such as a company, foundation, or association. Choose this option to form groups at Kuusi Palaa based on projects or interests, or to share a stake across multiple people. If an unregistered group buys stakes, at least one of its people must become a member of the Kuusi Palaa cooperative. Stakes for unregistered groups cost 50€ each, the same as for individuals, but the points received with the stake may by shared among any or all of the members.'
@@ -957,6 +965,6 @@ fi:
   few_more_details: 'Just a few more details, for your group''s profile page on the website.'
   your_name: 'Your name'
   keep_decent: "Keep it decent, please..."
-  change_image: ''Lataa/vaihda kuva'
+  please_ensure_spam: 'Please check that info@kuusipalaa.fi is whitelisted in your email spam settings.'
   show_name_hint: 'If checked, your name will appear next to your username on everything you post.'
   we_wont_do_this: 'We won''t do this more than once per week max'
