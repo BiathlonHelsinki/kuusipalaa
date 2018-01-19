@@ -874,6 +874,8 @@ fi:
   we_wont_call_you: "Älä huoli, hyvin todennäköisesti emme soita sinulle."
   buy_a_stake_for_a_group: 'Osta panos ryhmälle tai järjestölle'
   group_explanation: 'Voit perustaa tai liittyä ryhmään jakaaksesi panoksia usealla henkilölle.'
+  buy_stakes_for_group: 'Osta panos/panoksia ryhmälle %{group}'
+  unregistered_group: 'Rekisteröimätön ryhmä'
 
 
   a_decentralised_cultural_venue_in_helsinki: 'a decentralised cultural venue in Helsinki'
@@ -907,10 +909,10 @@ fi:
   receive_points_for_stakes: "You will receive %{count} points per %{stake}. Points are the main engine of Kuusi Palaa and are used to collectively share the space."
   how_to_buy: 'Stakes are booked here online, and paid for via bank transfer.'
   view_details: 'View details'
-  buy_stakes_for_group: 'Buy stake(s) for %{group}'
+
   choose_group_type: 'What type of group are you creating?'
   three_types_of_groups: 'There are three different types of groups you can create at Kuusi Palaa.'
-  unregistered_group: 'Unregistered group'
+
   unregistered_group_explanation: 'An unregistered group is not an official legal entity such as a company, foundation, or association. Choose this option to form groups at Kuusi Palaa based on projects or interests, or to share a stake across multiple people. If an unregistered group buys stakes, at least one of its people must become a member of the Kuusi Palaa cooperative. Stakes for unregistered groups cost 50€ each, the same as for individuals, but the points received with the stake may by shared among any or all of the members.'
   registered_organisation: 'Registered organisation'
   registered_organisation_member: 'Registered organisation - member'
