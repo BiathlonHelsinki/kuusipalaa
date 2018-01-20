@@ -1,7 +1,8 @@
 .row
   .small-12.columns
     = link_to 'Create new stake', new_admin_stake_path, class: [:button]
-
+- amount = 0
+- total = 0
 .row
   .small-10.columns
     %table
@@ -10,10 +11,13 @@
         %th= t :who
         %th= t :amount
         %th= t :price
+        %th= t :season
         %th status
         %th
       %tbody
         - @stakes.each do |stake|
+          - amount += stake.amount
+          - total += stake.invoice_amount
           %tr
             %td= stake.id.to_s
             %td
@@ -26,8 +30,15 @@
             %td= stake.amount.to_s
             %td= number_to_currency(stake.invoice_amount, unit: raw('&euro;'), format: "%n %u")
             %td= stake.paid == true ? 'paid' : 'pending payment'
+            %td= stake.season.number
             %td
-              - if can? :edit, stake
-                = link_to 'Edit', edit_admin_stake_path(stake), class: [:button, :small]
+              -# if can? :edit, stake
+              -#  = link_to 'Edit', edit_admin_stake_path(stake), class: [:button, :small]
               - if can? :destroy, stake
                 = link_to 'Delete', [:admin, stake], method: :delete, class: [:button, :alert, :small], data: {confirm: 'Are you sure?'}
+      %tfoot
+        %tr
+          %td{colspan: 2} Totals:
+          %td= amount.to_s
+          %td= number_to_currency(total, unit: raw('&euro;'), format: "%n %u")
+          %td
