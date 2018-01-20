@@ -6,7 +6,7 @@ class Stake < ApplicationRecord
   mount_uploader :paidconfirmation, AttachmentUploader
   before_validation :figure_special_fees
   validate :check_max_stakes
-
+  after_create :add_to_activity_feed
   validates_presence_of :owner_id, :season_id, :bookedby_id, :owner_type, :price, :invoice_amount, :invoice_due
   after_commit  :generate_invoice
   skip_callback :after_commit, only: :generate_invoice
@@ -15,6 +15,11 @@ class Stake < ApplicationRecord
   scope :paid, ->() { where(paid: true)}
   scope :booked_unpaid,  ->() { where('paid is not true')}
   scope :past_year, ->() { where(["created_at >= ?",  1.year.ago.strftime("%Y-%m-%d")])}
+
+  def add_to_activity_feed
+    Activity.create(user: self.bookedby, item: self, description: "bought",  addition: 0,
+        extra: (self.owner != self.bookedby ? self.owner : nil))
+  end
 
   def with_vat?
     owner.charge_vat?

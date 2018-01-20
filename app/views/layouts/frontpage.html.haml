@@ -91,8 +91,8 @@
     %article
       .row#progress_bar
         .progress{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{@current_season.stakes.sum(&:amount)}", "aria-valuetext" => "#{@current_season.stakes.sum(&:amount)} percent", :role => "progressbar", :tabindex => "0"}
-          %span.progress-meter{:style => "width: #{(@current_season.stakes.sum{|x| x.amount * x.price}/5000)*100}%;"}
-            %p.progress-meter-text= raw t(:euros_out_of_total, amount: @current_season.stakes.sum{|x| x.amount * x.price}.to_i, total: 5000)
+          .progress-meter{:style => "width: #{(@current_season.stakes.sum{|x| x.amount * x.price}/5000)*100}%;"}
+            %p.progress-meter-text.text-center{style: "padding-left: #{160 + (@current_season.stakes.sum{|x| x.amount * x.price}/5000)*100}%"}= raw t(:euros_out_of_total, amount: @current_season.stakes.sum{|x| x.amount * x.price}.to_i, total: 5000)
 
     %article
       .row.stats_boxes{:'data-equalizer' => '', :'data-equalize-on' => "medium", id: :stats_boxes}

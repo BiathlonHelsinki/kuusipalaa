@@ -409,6 +409,8 @@ GEM
       railties (>= 4.2.0, < 5.3)
     rinku (1.7.3)
     rolify (5.1.0)
+    rollbar (2.15.5)
+      multi_json
     ruby_dep (1.5.0)
     ruby_parser (3.10.1)
       sexp_processor (~> 4.9)
@@ -560,6 +562,7 @@ DEPENDENCIES
   rails-jquery-autocomplete
   recaptcha
   rolify
+  rollbar
   ruby_parser (>= 3.0.1)
   sass-rails (~> 5.0)
   selenium-webdriver

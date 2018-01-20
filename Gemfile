@@ -121,6 +121,7 @@ gem 'rack-utf8_sanitizer'
 gem 'rails-jquery-autocomplete'
 gem "recaptcha", require: "recaptcha/rails"
 gem 'rolify'
+gem 'rollbar'
 gem 'simple_token_authentication', git: 'https://github.com/gonzalo-bulnes/simple_token_authentication.git', branch: 'master'
 gem 'truncate_html'
 gem 'valvat'

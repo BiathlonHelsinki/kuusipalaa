@@ -14,7 +14,7 @@ class Group < ApplicationRecord
   validates_presence_of :name
   validate :uniqueness_of_a_name
   before_create :at_least_one_member
-  # after_create :add_to_activity_feed
+  after_create :add_to_activity_feed
   after_update :edit_to_activity_feed
   before_save :validate_vat
 
