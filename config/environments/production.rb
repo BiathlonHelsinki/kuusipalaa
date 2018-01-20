@@ -67,9 +67,9 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: 'admin@temporary.fi' , host: 'experiment2.biathlon.io'}
+  config.action_mailer.default_options = {from: 'admin@temporary.fi' , host: 'kuusipalaa.fi'}
 
-  config.action_mailer.default_url_options = { :host => 'experiment2.biathlon.io' , from: 'admin@temporary.fi'}
+  config.action_mailer.default_url_options = { :host => 'kuusipalaa.fi' , from: 'info@kuusipalaa.fi'}
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
