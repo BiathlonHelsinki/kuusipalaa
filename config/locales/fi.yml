@@ -906,7 +906,7 @@ fi:
   a_stake_is: 'Panos on sinun osuutesi Kuusi Palaa –osuuskunnasta.'
   a_stake_is_longer: 'Ja jäsenyys Kuusi Palaa:ssa - voit järjestää tapahtumia, käyttää tilaa 24/7 ja osallistua vuokrakustannuksiin.'
   euros_out_of_total: 'Tähän mennessä kerrytetty %{amount}€  tarvittavasta %{total}€ kokonaissummasta'
-  out_of_x_for_season: '%{x} panosta Kaudella %{season_num} myyty.'
+  out_of_x_for_season: '/ %{x} panoksesta Kaudella %{season_num} myyty.'
   each_stake_costs_50: 'Jokainen panos maksaa 50€.'
   x_members_of_cooperative: 'Kuusi Palaa osuuskunnan jäsenet'
   will_launch_if: 'Kuusi Palaa avautuu maaliskuussa, mikäli kaikki 100 tarvittavaa panosta on myyty ajoissa.'
