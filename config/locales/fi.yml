@@ -903,7 +903,7 @@ fi:
   how_to_buy: 'Panokset varataan verkossa ja maksetaan tilisiirrolla.'
   what_is_a_stake: 'Mikä on panos?'
   will_be_collectively_operated: 'Tulee olemaan kollektiivisesti johdettu 24/7-tila tapahtumia ja vapaata käyttöä varten.'
-  a_stake_is: 'Osuus on sinun osuutesi Kuusi Palaa –osuuskunnasta.'
+  a_stake_is: 'Panos on sinun osuutesi Kuusi Palaa –osuuskunnasta.'
   a_stake_is_longer: 'Ja jäsenyys Kuusi Palaa:ssa - voit järjestää tapahtumia, käyttää tilaa 24/7 ja osallistua vuokrakustannuksiin.'
   euros_out_of_total: 'Tähän mennessä kerrytetty %{amount}€  tarvittavasta %{total}€ kokonaissummasta'
   out_of_x_for_season: '%{x} panosta Kaudella %{season_num} myyty.'
