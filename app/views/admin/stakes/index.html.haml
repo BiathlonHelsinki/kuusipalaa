@@ -1,0 +1,33 @@
+.row
+  .small-12.columns
+    = link_to 'Create new stake', new_admin_stake_path, class: [:button]
+
+.row
+  .small-10.columns
+    %table
+      %thead
+        %th= t :invoice_num
+        %th= t :who
+        %th= t :amount
+        %th= t :price
+        %th status
+        %th
+      %tbody
+        - @stakes.each do |stake|
+          %tr
+            %td= stake.id.to_s
+            %td
+              = stake.owner.name
+              - if stake.owner != stake.bookedby
+                %br/
+                %small
+                  booked by
+                  = stake.bookedby.name
+            %td= stake.amount.to_s
+            %td= number_to_currency(stake.invoice_amount, unit: raw('&euro;'), format: "%n %u")
+            %td= stake.paid == true ? 'paid' : 'pending payment'
+            %td
+              - if can? :edit, stake
+                = link_to 'Edit', edit_admin_stake_path(stake), class: [:button, :small]
+              - if can? :destroy, stake
+                = link_to 'Delete', [:admin, stake], method: :delete, class: [:button, :alert, :small], data: {confirm: 'Are you sure?'}
