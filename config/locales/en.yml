@@ -703,7 +703,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   no_bank_yet: 'As Kuusi Palaa is still undergoing its legal incorporation, we do not yet have a bank account. You can still book stakes now to show your support for the project, and you will be sent payment details as soon as it is possible.'
   who_will_own_this_stake: 'Who will own this stake?'
   only_owners_can_buy: ' (only group admins/owners can buy stakes)'
-  stake_booked_invoice_later: 'Your stake(s) have been booked in the system! Thank you for supporting Kuusi Palaa. You will receive payment information when it is available.'
+  stake_booked_invoice_later: 'Your stake(s) have been booked in the system! Thank you for supporting Kuusi Palaa. '
   error_booking_stake: 'There was an error booking your stake: '
   you_have_x_paid_this_season: 'You own %{count} paid %{stake} this season.'
   you_have_x_booked_this_season: 'You have booked %{count} %{stake} this season, which are waiting to be paid.'

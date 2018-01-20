@@ -1,0 +1,32 @@
+@media screen and (max-width: 39.9375em) {
+  body {
+    padding: 0.4rem;
+  }
+
+  header {
+    .buttons , {
+      float: right;
+    }
+    .top-bar-right.user_menu {
+      float: right; 
+      width: initial;
+    }
+
+  }
+  .front_box {
+    font-size: 1rem;
+  }
+  .stats_boxes {
+    .box {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .group_selection_box {
+    margin-bottom: 0.5rem;
+  }
+
+  footer {
+    font-size: 0.7rem;
+  }
+}

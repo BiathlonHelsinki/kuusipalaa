@@ -12,13 +12,19 @@
         %tbody
           - current_user.groups.each do |group|
             %tr
-              %td.avatar
+              %td.avatar.hide-for-small-only
                 - if group.avatar?
                   = image_tag group.avatar.url(:thumb)
                 - else
                   = image_tag '/icons/group_missing.png'
 
               %td
+                .avatar.show-for-small-only
+                  - if group.avatar?
+                    = image_tag group.avatar.url(:thumb)
+                  - else
+                    = image_tag '/icons/group_missing.png'
+                  %br/
                 = group.name
                 %br/
                 %small
