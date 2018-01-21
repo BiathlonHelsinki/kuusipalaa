@@ -970,4 +970,6 @@ fi:
   confirm_purchase: "Oletko varma? Valitsemalla 'kyllä' sitoudut ostamaan panoksen, ja sähköpostiisi lähetetään lasku."
   payment_pending: 'maksu odottaa vahvistusta'
   receive_points_for_stakes: 'Saat %{count} pistettä per %{stake}. Pisteet ovat Kuusi Palaa:n tärkein moottori ja niitä käytetään tilan jakamiseen kollektiivisesti.'
-
+  next_meeting: 'Seuraava kokous'
+  open_house: 'Open house'
+  share_on_twitter: 'Post to Twitter'

@@ -858,6 +858,8 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   come_and_visit: 'Come and visit: '
   you_must_sign_in: 'You must sign in to be able to do this.'
   meetings: 'Meetings'
+  share_on_twitter: 'Post to Twitter'
+
   activerecord:
     errors:
       models:

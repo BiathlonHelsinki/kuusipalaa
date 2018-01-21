@@ -14,6 +14,10 @@
           %p= raw t(:see_membership_agreement, membership_agreement_link: link_to(t(:membership_agreement), page_path("membership-agreement#{@stake.owner_type == 'Group' ? '-organisation' : ''}")))
           = link_to 'Download PDF',  @stake.invoice.url, class: [:bordered, :button]
           = link_to t(:what_happens_next) + '?', page_path('what-happens-next'), class: [:bordered, :button]
+          %br/
+          %a.twitter-share-button{"data-size" => "large", :href => "https://twitter.com/intent/tweet?text=I%20just%20bought%20a%20stake%20at%20Kuusi Palaa!%20Come%20be%20part%20of%20a%20culture%20venue%20that%20is%20not%20centrally%20financed,%20curated%20or%20administered!&url=https://kuusipalaa.fi&hashtags=KuusiPalaa,Helsinki", target: :_blank, class: [:bordered, :button]}
+            = fa_icon('twitter')
+            = t(:share_on_twitter)
   .row
     .small-12.columns
       #invoice_screen.lifted_box= render partial: 'invoice', locals: {stake: @stake}
