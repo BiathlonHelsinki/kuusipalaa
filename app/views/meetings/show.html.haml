@@ -1,9 +1,9 @@
 %article.meeting_single
   .row
-    .small-12.columns
+    .small-12.columns.lessright
       .meeting
         .heading
-          = t :next_general_meeting
+          = t :come_and_visit
         .info_box
           .meeting_title= @meeting.name
           .date
@@ -11,9 +11,9 @@
             = " - "
             = @meeting.end_at.strftime("%H:%M")
             %br/
-            = "(Ex-)" + @meeting.place.name + ", "
+            = @meeting.place.name + ", "
             = @meeting.place.address1 + ", "
-            = @meeting.place.city
+            = @meeting.place.city.blank? ? 'Helsinki' : @meeting.place.city
           .description
             = raw @meeting.description
         .meta

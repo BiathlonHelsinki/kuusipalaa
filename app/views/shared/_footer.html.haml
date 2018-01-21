@@ -3,10 +3,21 @@
     .small-10.columns.small-centered.text-center
       = t :footer_blurb
       %span.divider |
-      = link_to fa_icon('github'), 'https://github.com/BiathlonHelsinki/experiment2'
+      = link_to fa_icon('github'), 'https://github.com/BiathlonHelsinki/'
       %br/
-      = t :footer_contact
+      %small
+        = link_to t(:questions_and_answers), page_path('questions-and-answers')
+        |
+        = link_to t(:what_happens_next) + "?", page_path('what-happens-next')
+        |
+        = link_to t(:membership_agreement).humanize, page_path('membership-agreement')
+        |
+        = link_to t(:privacy_policy), page_path('privacy-policy')
       %br/
-      .address Kuusi Palaa osk, Kolmas linja 7, 00530 Helsinki, Finland | y-tunnus 2880614-5
+      .address 
+        Kuusi Palaa osk, Kolmas linja 7, 00530 Helsinki, Finland
+        %br/
+        info {at} kuusipalaa dotfi | y-tunnus 2880614-5
 
-      %small= link_to t(:privacy_policy), page_path('privacy-policy')
+
+

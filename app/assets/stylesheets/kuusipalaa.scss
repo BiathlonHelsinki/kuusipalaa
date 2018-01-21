@@ -18,6 +18,15 @@ span.translation_missing {
   font-weight: bold;
   &.alert-notice {
     background-color: #00bc9e;
+    a {
+      color: white;
+    }
+  }
+  &.alert-alert {
+    background-color: #00bc9e;
+    a {
+      color: white;
+    }
   }
   &.alert-error {
     background-color: #f05e6b;
@@ -120,7 +129,7 @@ a.not-active {
 
 }
 
-.post_single {
+.post_single, .meeting_single {
   padding: 1.5rem 0;
 }
 

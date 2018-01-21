@@ -29,7 +29,7 @@ form {
   input, textarea , select {
     background-color: white;
     border: 1px solid $black;
-    font-weight: bold;
+   
     &.is-invalid-input {
       outline: 1px solid red;
     }
@@ -74,8 +74,8 @@ form {
     padding: 0; margin: 0;
     font-family: $sourcecode;
     color: $black;
-    font-weight: bold;
-    font-size: 1.1rem;
+    
+    font-size: 0.9rem;
     background-color: white;
   }
 }

@@ -853,6 +853,11 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   country: 'Country'
   join_cooperative: 'Join the cooperative'
   please_ensure_spam: 'Please check that info@kuusipalaa.fi is whitelisted in your email spam settings.'
+  next_meeting: 'Next meeting'
+  open_house: 'Open house'
+  come_and_visit: 'Come and visit: '
+  you_must_sign_in: 'You must sign in to be able to do this.'
+  meetings: 'Meetings'
   activerecord:
     errors:
       models:

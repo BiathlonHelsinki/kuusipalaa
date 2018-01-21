@@ -2,7 +2,7 @@
   .row
 
     .small-12.discussions
-      .header.text-center= t :planning_meetings
+      .header.text-center= t :meetings
   - @meetings.each do |meeting|
     %br/
     %br/
@@ -10,7 +10,7 @@
       .small-12.columns
         .meeting
           .heading
-            = meeting.name
+            = link_to meeting.name, meeting
           .info_box
             .date
               = l meeting.start_at, format: :short

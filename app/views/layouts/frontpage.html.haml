@@ -17,10 +17,20 @@
     = csrf_meta_tag
 
   %body.frontpage
-    - if flash
+    - if flash.empty?
+      - unless Meeting.upcoming.empty?
+        .alert.alert-notice.text-center
+          = link_to Meeting.upcoming.first do
+            = t(:come_and_visit) 
+            = Meeting.upcoming.first.name
+            = " / "
+            = l Meeting.upcoming.first.start_at, format: :short      
+    - else
       - flash.each do |key, value|
         .alert.text-center{ :class => "alert-#{key}" }
           %strong= raw value
+  
+
 
     %header
       .row
