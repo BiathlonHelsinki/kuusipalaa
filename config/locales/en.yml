@@ -600,7 +600,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   connect_via: 'Connect via:'
   this_meeting_is_discussed_in_these_topics: 'This meeting is discussed in the following topics:'
   this_meeting_has_x_comments: 'This meeting has %{count} %{comment}.'
-  general_meeting_discussion: 'You can discuss general things relating to the meeting here. More specific topics may be found in the list above.'
+  general_meeting_discussion: 'You can discuss general things relating to the meeting here.'
   signed_in_as: 'Signed in as: '
   about_experiment_2: 'About Experiment #2'
   whats_next: 'What happens next?'
