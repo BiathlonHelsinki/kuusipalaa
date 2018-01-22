@@ -1,0 +1,18 @@
+- unless Rails.env.development?
+  :javascript
+    var _paq = _paq || [];
+    _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+    _paq.push(["setCookieDomain", "*.kuusipalaa.fi"]);
+    _paq.push(["setDomains", ["*.kuusipalaa.fi","*.kuusipalaa.eu","*.www.kuusipalaa.eu","*.www.kuusipalaa.fi"]]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//stats.temporary.fi/";
+      _paq.push(['setTrackerUrl', u+'piwik.php']);
+      _paq.push(['setSiteId', '2']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+    })();
+  %noscript
+    %p
+      %img{:alt => "", :src => "//stats.temporary.fi/piwik.php?idsite=2", :style => "border:0;"}/
