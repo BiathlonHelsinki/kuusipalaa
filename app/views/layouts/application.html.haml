@@ -16,7 +16,7 @@
     = javascript_include_tag "application"
     = stylesheet_link_tag "application"
     = csrf_meta_tag
-
+    = render partial: 'layouts/piwik'
   %body
     - if flash
       - flash.each do |key, value|
@@ -28,7 +28,7 @@
         .small-12.columns.icons.text-right
           = link_to fa_icon('envelope'), "mailto:admin at temporary.fi"
           = link_to fa_icon('twitter'), 'https://twitter.com/search?q=%23KuusiPalaa&src=typd'
-          = link_to fa_icon('facebook'), '#'
+          = link_to fa_icon('facebook'), 'https://www.facebook.com/groups/375784559552164/'
           |
           - if I18n.locale.to_s != 'fi'
             = link_to 'FIN', :controller => controller.controller_name, :action => controller.action_name, :id => params[:id], :locale => 'fi'
