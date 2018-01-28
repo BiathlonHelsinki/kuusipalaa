@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117205541) do
+ActiveRecord::Schema.define(version: 20180128110741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -282,6 +282,14 @@ ActiveRecord::Schema.define(version: 20180117205541) do
     t.string "postcode"
     t.string "country"
     t.boolean "valid_vat_number"
+  end
+
+  create_table "groups_roles", id: false, force: :cascade do |t|
+    t.bigint "group_id"
+    t.bigint "role_id"
+    t.index ["group_id", "role_id"], name: "index_groups_roles_on_group_id_and_role_id"
+    t.index ["group_id"], name: "index_groups_roles_on_group_id"
+    t.index ["role_id"], name: "index_groups_roles_on_role_id"
   end
 
   create_table "hardwares", id: :serial, force: :cascade do |t|

@@ -10,7 +10,7 @@
       - if @stake.owner != @stake.bookedby
         %br/
         booked by:
-        = @stake.bookedby_name
+        = @stake.bookedby.name
       %br/
       = @stake.billable.address
       %br/
@@ -19,7 +19,7 @@
       %br/
       - if @stake.billable.country != 'FI'
         %br/
-        = ISO3166::Country[@stake.billable.country].name 
+        = ISO3166::Country[@stake.billable.country].name
     = semantic_form_for [:admin, @stake] do |f|
       = f.input :paid
       = f.input :paid_at, as: :string, input_html: {class: :datepicker}
@@ -27,5 +27,5 @@
 
 = content_for :jquery do
   :plain
-    $('.datepicker').fdatetimepicker({ weekStart: 1, 
+    $('.datepicker').fdatetimepicker({ weekStart: 1,
     format: 'yyyy-mm-dd', pickTime: false})

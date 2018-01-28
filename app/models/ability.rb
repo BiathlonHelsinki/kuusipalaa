@@ -4,13 +4,15 @@ class Ability
   def initialize(user)
     user ||= User.new
     if user.has_role? :admin
-      can :manage, :all
-      can :manage, Page
-      can :manage, Post
-      # can :manage, Credit
-      # can :manage, Email
-      can :manage, Comment
-      # can :manage, Proposalstatus
+      if user.is_a?(User)
+        can :manage, :all
+        can :manage, Page
+        can :manage, Post
+        # can :manage, Credit
+        # can :manage, Email
+        can :manage, Comment
+        # can :manage, Proposalstatus
+      end
     elsif user.has_role? :stakeholder
       can :manage, Meeting
       can :manage, Post
@@ -18,7 +20,7 @@ class Ability
       can :read, Stake, bookedby_id: user.id
     else
       can :read, Stake, bookedby_id: user.id
-  
+
       # can :read, :all
       can :manage, User, :id => user.id
       cannot :manage, Post

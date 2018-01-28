@@ -36,8 +36,7 @@ class Admin::StakesController < Admin::BaseController
     if @stake.update_attributes(stake_params)
       flash[:notice] = 'Stake details updated.'
       if @stake.paid == true
-        if @stake.owner_type == 'User'
-          @stake.owner.add_role :stakeholder
+        if @stake.owner.add_role :stakeholder
         end
       end
       redirect_to admin_stakes_path

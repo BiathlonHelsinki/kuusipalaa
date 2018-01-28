@@ -17,7 +17,8 @@ class Group < ApplicationRecord
   after_create :add_to_activity_feed
   after_update :edit_to_activity_feed
   before_save :validate_vat
-
+  rolify
+  
   def validate_vat
     unless taxid.blank?
       unless country == 'FI' || country.blank?
