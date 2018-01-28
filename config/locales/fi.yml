@@ -974,3 +974,8 @@ fi:
   open_house: 'Open house'
   share_on_twitter: 'Post to Twitter'
   paid: 'maksettu'
+  stakeholder: 'Panostaja'
+  group_stake:
+    zero: 'rhymän panosta'
+    one: 'rhymän panos'
+    other: 'rhymän panosta'

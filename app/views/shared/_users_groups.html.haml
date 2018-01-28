@@ -41,9 +41,10 @@
               %td
                 = t(:x_members, count: group.members.size, members: t(:member, count:group.members.size))
                 %br/
-                = t(:x_stakes, count: group.stakes.paid.count, stakes: t(:paid_stake, count:group.stakes.paid.count))
-                - if group.stakes.count != group.stakes.paid.count
-                  = "(#{t(:x_booked, count: group.stakes.count)})"
+                = t(:x_stakes, count: group.stakes.paid.sum(&:amount), stakes: t(:paid_stake, count:group.stakes.paid.sum(&:amount)))
+                - if group.stakes.sum(&:amount) != group.stakes.paid.sum(&:amount)
+                  = "(#{t(:x_booked, count: group.stakes.sum(&:amount))})"
+
                 %br/
                 = link_to t(:view_details), group,  class: [:button, :small]
                 %br/

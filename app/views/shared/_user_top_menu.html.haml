@@ -3,7 +3,10 @@
   = current_user.name
   %br/
   - if current_user.is_member?
-    = t :member, count: 1
+    - if current_user.has_role? :stakeholder
+      = t :stakeholder
+    - else
+      = t :member, count: 1
     %br/
   - else
     = t :not_a_member
@@ -12,6 +15,10 @@
     = link_to t(:no_stakes), user_stakes_path(current_user)
   - else
     = link_to pluralize(current_user.stakes.sum(&:amount), t(:stake, count: current_user.stakes.sum(&:amount))), user_stakes_path(current_user)
+    - unless current_user.groups.empty?
+      - if current_user.groups.map{|x| x.has_role?(:stakeholder) }.include?(true)
+        = " / "
+        = link_to pluralize( current_user.groups.reject{|x| !x.has_role?(:stakeholder) }.map(&:stakes).flatten.sum(&:amount), t(:group_stake, count:  current_user.groups.reject{|x| !x.has_role?(:stakeholder) }.map(&:stakes).flatten.sum(&:amount))), user_groups_path(current_user)
 %ul.dropdown.menu#user_dropdown_menu{:'data-dropdown-menu' => '', :'data-alignment' => 'left'}
   %li
     = link_to image_tag(current_user.avatar.url(:thumb)), '#'
