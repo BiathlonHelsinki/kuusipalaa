@@ -29,7 +29,7 @@ form {
   input, textarea , select {
     background-color: white;
     border: 1px solid $black;
-   
+
     &.is-invalid-input {
       outline: 1px solid red;
     }
@@ -74,7 +74,7 @@ form {
     padding: 0; margin: 0;
     font-family: $sourcecode;
     color: $black;
-    
+
     font-size: 0.9rem;
     background-color: white;
   }
@@ -208,7 +208,7 @@ article.post_single, article.meeting_single {
       padding: 1rem;
 
       border-bottom: 1px solid $black;
-      
+
       &.has_form {
         border-bottom: none;
       }
@@ -752,9 +752,13 @@ a.button, button.button, input[type=submit] {
 
 .stakes_grid {
   .stake_box {
+
     float: left;
     width: 65px;
     height: 65px;
+    &.organisation {
+      width: 98px;
+    }
     cursor: pointer;
     margin: 2px;
     border: 1px solid rgba(0, 0, 0, .2);
@@ -778,6 +782,7 @@ a.button, button.button, input[type=submit] {
 
   .yellow {
     background: yellow;
+    opacity: 0.4;
   }
 
   .grey {

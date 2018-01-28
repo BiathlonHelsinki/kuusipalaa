@@ -719,7 +719,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   seasons_are: 'A "season" of Kuusi Palaa will be a four-month period of activity. Finances for each season will be raised in advance.'
   first_season: 'As Kuusi Palaa is in the planning stages, the exact start date of the first four-month season is not yet known.'
   required_for_season: 'Required for the season:'
-  requirement_justification: 'This amount has been budgeted to cover rent, bills, bank fees, and general supplies. Funding will be raised by offering shares in the Kuusi Palaa cooperative, called stakes, to anyone interested in becoming a member and operator of Kuusi Palaa. Stakes are offered at 50€ each.'
+  requirement_justification: 'This amount has been budgeted to cover rent, bills, bank fees, and general supplies. Funding will be raised by offering shares in the Kuusi Palaa cooperative, called stakes, to anyone interested in becoming a member and operator of Kuusi Palaa. Stakes are offered at 50€ each to individuals and 75€ to registered organisations.'
   book_stake: 'Book a stake'
   owned_by: 'Owned by %{who}'
   booked_by: 'Booked by %{who} (unpaid)'
