@@ -1,0 +1,31 @@
+.row
+  .small-12.columns
+    %h2 Stake info
+
+.row
+  .small-12.large-4.columns
+    %p= "##{@stake.id.to_s}"
+    %p
+      = @stake.owner.name
+      - if @stake.owner != @stake.bookedby
+        %br/
+        booked by:
+        = @stake.bookedby_name
+      %br/
+      = @stake.billable.address
+      %br/
+      = @stake.billable.postcode
+      = @stake.billable.city
+      %br/
+      - if @stake.billable.country != 'FI'
+        %br/
+        = ISO3166::Country[@stake.billable.country].name 
+    = semantic_form_for [:admin, @stake] do |f|
+      = f.input :paid
+      = f.input :paid_at, as: :string, input_html: {class: :datepicker}
+      = f.submit t(:save), class: [:button]
+
+= content_for :jquery do
+  :plain
+    $('.datepicker').fdatetimepicker({ weekStart: 1, 
+    format: 'yyyy-mm-dd', pickTime: false})

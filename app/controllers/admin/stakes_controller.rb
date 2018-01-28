@@ -13,13 +13,13 @@ class Admin::StakesController < Admin::BaseController
   end
 
   def destroy
-    stake = Stake.friendly.find(params[:id])
+    stake = Stake.find(params[:id])
     stake.destroy!
     redirect_to admin_stakes_path
   end
 
   def edit
-    @stake = Stake.friendly.find(params[:id])
+    @stake = Stake.find(params[:id])
   end
 
   def index
@@ -32,7 +32,7 @@ class Admin::StakesController < Admin::BaseController
   end
 
   def update
-    @stake = Stake.friendly.find(params[:id])
+    @stake = Stake.find(params[:id])
     if @stake.update_attributes(stake_params)
       flash[:notice] = 'Stake details updated.'
       redirect_to admin_stakes_path
@@ -44,7 +44,7 @@ class Admin::StakesController < Admin::BaseController
 
   def stake_params
     params.require(:stake).permit(:published, :place_id, :start_at, :end_at,
-      :era_id, :image, :cancelled,
+      :era_id, :image, :cancelled, :paid, :paid_at,
       translations_attributes: [:id, :locale, :name, :description ]
       )
   end

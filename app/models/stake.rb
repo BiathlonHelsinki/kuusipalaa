@@ -8,8 +8,8 @@ class Stake < ApplicationRecord
   validate :check_max_stakes
   after_create :add_to_activity_feed
   validates_presence_of :owner_id, :season_id, :bookedby_id, :owner_type, :price, :invoice_amount, :invoice_due
-  after_commit  :generate_invoice
-  skip_callback :after_commit, only: :generate_invoice
+  after_create  :generate_invoice
+  skip_callback :after_create, only: :generate_invoice
 
   scope :by_season, -> (x) { where(season_id: x)}
   scope :paid, ->() { where(paid: true)}
@@ -106,11 +106,11 @@ class Stake < ApplicationRecord
          self.invoice = File.open tempfile.path
        end
 
-       Stake.skip_callback(:commit, :after, :generate_invoice)
+       Stake.skip_callback(:create, :after, :generate_invoice)
 
        save(validate: false)
 
-       Stake.set_callback(:commit, :after, :generate_invoice)
+       Stake.set_callback(:create, :after, :generate_invoice)
     end
 
   end
