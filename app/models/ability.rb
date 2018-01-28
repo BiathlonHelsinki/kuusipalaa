@@ -15,8 +15,11 @@ class Ability
       can :manage, Meeting
       can :manage, Post
       can :manage, Comment
+      can :read, Stake, bookedby_id: user.id
     else
-      can :read, :all
+      can :read, Stake, bookedby_id: user.id
+  
+      # can :read, :all
       can :manage, User, :id => user.id
       cannot :manage, Post
       # cannot :manage, Credit

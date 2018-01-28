@@ -80,6 +80,10 @@ class StakesController < ApplicationController
   def show
     @season = Season.find(params[:season_id])
     @stake = Stake.find(params[:id])
+    if cannot? :read, @stake
+      flash[:notice] = t(:you_cannot_look_at_someone_elses_invoices)
+      redirect_to '/'
+    end
   end
 
   def fill_collection
