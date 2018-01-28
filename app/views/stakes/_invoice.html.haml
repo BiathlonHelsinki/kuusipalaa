@@ -4,7 +4,7 @@
     KUUSI PALAA
   .invoice_info
     %p= "INVOICE: ##{stake.id.to_s}"
-    %p= "DATE: #{Time.now.utc.strftime("%d.%m.%Y")}"
+    %p= "DATE: #{stake.created_at.strftime("%d.%m.%Y")}"
 
 .row.metadata
   .small-12.columns.medium-6
