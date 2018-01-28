@@ -22,12 +22,12 @@
         - s.amount.times do
           .stake_box.green{class: s.owner_type == 'Group' && !s.owner.taxid.blank? ? 'organisation' : false, style: s.owner.avatar? ? "background: url(#{s.owner.avatar.url(:thumb).gsub(/development/, 'production') }) center center no-repeat;" : false}
             .overlay
-              = link_to t(:owned_by, who: s.owner.name), s.owner, target: :_blank
+              = link_to t(:owned_by, who: s.owner.display_name), s.owner, target: :_blank
       - @season.stakes.booked_unpaid.each do |s|
         - s.amount.times do
           .stake_box.yellow{class: s.owner_type == 'Group' && !s.owner.taxid.blank? ? 'organisation' : false, style: s.owner.avatar? ? "background: url(#{s.owner.avatar.url(:thumb).gsub(/development/, 'production') }) center center no-repeat;" : false}
             .overlay
-              = link_to t(:booked_by, who: s.owner.name), s.owner, target: :_blank
+              = link_to t(:booked_by, who: s.owner.display_name), s.owner, target: :_blank
       - (@season.stake_count - @season.stakes.paid.sum(&:amount) - @season.stakes.booked_unpaid.sum(&:amount)).times do
         = link_to new_season_stake_path(@current_season) do
           .stake_box.grey
