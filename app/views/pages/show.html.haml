@@ -51,9 +51,10 @@
                       %small= link_to t(:answer_this), '/users/sign_in'
                   .unanswered.answers[q]
                     .translation_credit
-                      = link_to q.contributor do
-                        = image_tag q.contributor.avatar.url(:thumb).gsub(/development/, 'production')
-                        = t(:question_asked_by, name: q.contributor.display_name)
+                      - unless q.contributor.nil?
+                        = link_to q.contributor do
+                          = image_tag q.contributor.avatar.url(:thumb).gsub(/development/, 'production')
+                          = t(:question_asked_by, name: q.contributor.display_name)
                     .answer_form.row
                       .small-10.large-7.columns
                         - if user_signed_in?
@@ -86,7 +87,8 @@
                       %p= t :your_question
                       = ff.text_field :question, :required => ''
                     = f.input :era_id, as: :hidden, input_html: {value: 3, required: ''}
-                    - if @collection_options
+                    - if @collection_options.size > 1
+
                       = f.input :contributor_type, as: :hidden, input_html: {'required' => '',value: 'User'}
                       = f.input :contributor_id, as: :hidden, input_html: {'required' => '', value: current_user.id }
                       = f.input :contributor, as: :select, input_html: {id: :question_contributor_select}, label: t(:who_is_asking), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }),  include_blank: false
