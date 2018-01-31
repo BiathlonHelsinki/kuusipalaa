@@ -1,0 +1,25 @@
+.question_index
+  .row.expanded
+    .small-12.columns
+      %h1 Questions
+  .row.expanded
+    .small-10.columns
+      %table
+        %thead
+          %tr
+            %th Question
+            %th Answered?
+            %th Actions
+        %tbody
+          - @questions.each do |question|
+            %tr
+              %td= question.question
+              %td= question.answers.empty? ? 'no' : 'yes'
+              %td
+
+                - if can? :edit, question
+                  = link_to 'Edit',  edit_admin_question_path(question), class: [:button, :small]
+                - if can? :destroy,  question
+                  = link_to 'Delete', [:admin, question], method: :delete, class: [:button, :small, :alert]
+  .row.expanded
+    .small-12.columns= link_to 'New question', new_admin_question_path, class: [:button]

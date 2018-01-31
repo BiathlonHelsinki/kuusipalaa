@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :posts
     resources :pages
     resources :meetings
+    resources :questions
     resources :seasons
     resources :stakes
   end

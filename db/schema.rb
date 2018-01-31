@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180128110741) do
+ActiveRecord::Schema.define(version: 20180131131641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,23 @@ ActiveRecord::Schema.define(version: 20180128110741) do
     t.index ["extra_type", "extra_id"], name: "index_activities_on_extra_type_and_extra_id"
     t.index ["item_type", "item_id"], name: "index_activities_on_item_type_and_item_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
+  end
+
+  create_table "answer_translations", force: :cascade do |t|
+    t.integer "answer_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "body"
+    t.index ["answer_id"], name: "index_answer_translations_on_answer_id"
+    t.index ["locale"], name: "index_answer_translations_on_locale"
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
   create_table "audits", id: :serial, force: :cascade do |t|
@@ -669,6 +686,26 @@ ActiveRecord::Schema.define(version: 20180128110741) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "question_translations", force: :cascade do |t|
+    t.integer "question_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "question"
+    t.index ["locale"], name: "index_question_translations_on_locale"
+    t.index ["question_id"], name: "index_question_translations_on_question_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "slug"
+    t.bigint "page_id"
+    t.bigint "era_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["era_id"], name: "index_questions_on_era_id"
+    t.index ["page_id"], name: "index_questions_on_page_id"
+  end
+
   create_table "rates", id: :serial, force: :cascade do |t|
     t.boolean "current"
     t.integer "experiment_cost"
@@ -917,6 +954,7 @@ ActiveRecord::Schema.define(version: 20180128110741) do
 
   add_foreign_key "accounts", "users"
   add_foreign_key "activities", "ethtransactions"
+  add_foreign_key "answers", "questions"
   add_foreign_key "authentications", "users"
   add_foreign_key "blockchain_transactions", "accounts"
   add_foreign_key "blockchain_transactions", "ethtransactions"
@@ -941,6 +979,8 @@ ActiveRecord::Schema.define(version: 20180128110741) do
   add_foreign_key "pledges", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "proposals", "users"
+  add_foreign_key "questions", "eras"
+  add_foreign_key "questions", "pages"
   add_foreign_key "rates", "instances"
   add_foreign_key "registrations", "instances"
   add_foreign_key "registrations", "users"

@@ -1,0 +1,39 @@
+.row
+  .small-12.columns
+    = semantic_nested_form_for [:admin, @question], html: {:'data-abide' => ''} do |f|
+      = f.input :page, as: :select, input_html: {required: ''}
+      = f.input :era_id, as: :hidden, input_html: {value: 3}
+      %ul.tabs#post_tabs{"data-tabs" => ""}
+        - I18n.available_locales.each_with_index do |locale, i|
+          %li.tabs-title{:class => (i == 0 ? "is-active" : false)}
+            = link_to t(:locale_name, :locale => locale), "##{locale}"
+      .tabs-content{:'data-tabs-content' => 'post_tabs'}
+        - I18n.available_locales.each_with_index do |locale, i|
+          .tabs-panel{:class => (i == 0 ? "is-active" : false), :id => "#{locale}"}
+            = f.globalize_fields_for locale do |en|
+              .row
+                .small-10.medium-8.columns
+                  %b= "Question text in #{t :locale_name, :locale => locale}"
+                  = en.text_field :question
+      = f.fields_for :answers do |ff|
+        %ul.tabs#answer_tabs{"data-tabs" => ""}
+          - I18n.available_locales.each_with_index do |locale, i|
+            %li.tabs-title{:class => (i == 0 ? "is-active" : false)}
+              = link_to t(:locale_name, :locale => locale), "#a#{locale}"
+        .tabs-content{:'data-tabs-content' => 'answer_tabs'}
+          - I18n.available_locales.each_with_index do |locale, i|
+            .tabs-panel{:class => (i == 0 ? "is-active" : false), :id => "a#{locale}"}
+              = ff.globalize_fields_for locale do |en|
+                .row
+                  .small-10.medium-8.columns
+                    %b= "Answer text in #{t :locale_name, :locale => locale}"
+                    = en.cktext_area :body
+
+      = f.link_to_add 'Add an answer', :answers, class: [:button, :secondary]
+      = f.submit t(:save), class: [:button]
+
+= content_for :jquery do
+  :plain
+    $(document).on('nested:fieldAdded', function(event){
+      $(document).foundation(); 
+    });      
