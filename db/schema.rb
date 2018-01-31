@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180128110741) do
+ActiveRecord::Schema.define(version: 20180131100119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -316,6 +316,48 @@ ActiveRecord::Schema.define(version: 20180128110741) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_hardwaretypes_on_slug", unique: true
+  end
+
+  create_table "ideas", force: :cascade do |t|
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.boolean "has_other_timeslots"
+    t.boolean "timeslot_undetermined"
+    t.string "proposer_type"
+    t.bigint "proposer_id"
+    t.string "parent_type"
+    t.bigint "parent_id"
+    t.string "name"
+    t.text "short_description"
+    t.text "proposal_text"
+    t.integer "comment_count"
+    t.bigint "proposalstatus_id"
+    t.text "special_notes"
+    t.bigint "ideatype_id"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ideatype_id"], name: "index_ideas_on_ideatype_id"
+    t.index ["parent_type", "parent_id"], name: "index_ideas_on_parent_type_and_parent_id"
+    t.index ["proposalstatus_id"], name: "index_ideas_on_proposalstatus_id"
+    t.index ["proposer_type", "proposer_id"], name: "index_ideas_on_proposer_type_and_proposer_id"
+  end
+
+  create_table "ideatype_translations", force: :cascade do |t|
+    t.integer "ideatype_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.text "description"
+    t.index ["ideatype_id"], name: "index_ideatype_translations_on_ideatype_id"
+    t.index ["locale"], name: "index_ideatype_translations_on_locale"
+  end
+
+  create_table "ideatypes", force: :cascade do |t|
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "images", id: :serial, force: :cascade do |t|
@@ -928,6 +970,8 @@ ActiveRecord::Schema.define(version: 20180128110741) do
   add_foreign_key "ethtransactions", "transaction_types"
   add_foreign_key "events", "places"
   add_foreign_key "hardwares", "hardwaretypes"
+  add_foreign_key "ideas", "ideatypes"
+  add_foreign_key "ideas", "proposalstatuses"
   add_foreign_key "instances", "events"
   add_foreign_key "instances", "places"
   add_foreign_key "instances_organisers", "instances"
