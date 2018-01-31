@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131161236) do
+ActiveRecord::Schema.define(version: 20180131170515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -705,6 +705,9 @@ ActiveRecord::Schema.define(version: 20180131161236) do
     t.bigint "era_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "contributor_type"
+    t.bigint "contributor_id"
+    t.index ["contributor_type", "contributor_id"], name: "index_questions_on_contributor_type_and_contributor_id"
     t.index ["era_id"], name: "index_questions_on_era_id"
     t.index ["page_id"], name: "index_questions_on_page_id"
   end

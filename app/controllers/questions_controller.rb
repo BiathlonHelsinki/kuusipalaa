@@ -6,6 +6,18 @@ class QuestionsController < ApplicationController
     @question = Question.friendly.find(params[:id])
   end
 
+  def create
+    @page = Page.friendly.find(params[:page_id])
+    @question = Question.new(question_params)
+    @page.questions << @question
+    if @question.save
+      flash[:notice] = t(:your_question_has_been_asked)
+    else
+      flash[:error] =  @question.errors.messages.join(', ')
+    end
+    redirect_to @page
+  end
+
   def update
     @question = Question.friendly.find(params[:id])
     if @question.update_attributes(question_params)
@@ -21,7 +33,7 @@ class QuestionsController < ApplicationController
   private
   
   def question_params
-    params.require(:question).permit(:slug, :era_id, :page_id, translations_attributes: [:question, :id, :locale, :_destroy],
+    params.require(:question).permit(:slug, :era_id, :contributor_type, :contributor_id, :page_id, translations_attributes: [:question, :id, :locale, :_destroy],
           answers_attributes: [:id,
                                 translations_attributes: [:body, :id, :locale, :contributor_type, :contributor_id, :_destroy]
                               ])

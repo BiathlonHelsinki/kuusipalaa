@@ -871,6 +871,16 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   contribute_a_translation_into_lang: 'Help us by contributing a translation!'
   submit: 'Submit'
   answer_contributed_by: 'Answer contributed by %{name}'
+  ask_a_question: 'Ask a question'
+  ask_question_blurb: 'Here you can ask a question to the Kuusi Palaa members, any of whom may answer it. Please make sure this question is not already answered above before submitting it.'
+  your_question: 'Your question:'
+  ask: 'Ask it'
+  who_is_asking: 'Ask this question as: '
+  your_question_has_been_asked: 'Your question has been asked!'
+  unanswered_questions: 'Unanswered questions'
+  question_asked_by: 'Question asked by %{name}'
+  answer_this: 'Answer this!'
+  your_answer: 'Your answer:'
 
 
   activerecord:

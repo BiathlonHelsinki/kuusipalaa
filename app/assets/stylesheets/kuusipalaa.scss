@@ -590,30 +590,48 @@ footer {
 
 
 }
-
-ul#page_questions {
+#new_question_form {
+  display: none;
+}
+.small_title {
+  font-weight: bold;
+  font-size: 1.4rem;
+  text-decoration: underline;
+  margin-top: 2rem;
+}
+ul#page_questions, ul#unanswered_questions {
   list-style-type: square;
   li.question {
     font-weight: bold;
     font-size: 1.15rem;
     margin-bottom: 1rem;
+    small {
+      font-family: $montserrat;
+      font-weight: normal;
+      font-size: 0.54rem;
+    }
   }
-  .answer {
+  .translation_credit {
+    margin-left: 2rem;
+    font-style: italic;
+    font-size: 0.7rem;
+    img {
+      height: 30px;
+      width: auto;
+    }
+  }
+  .answers {
     display: none;
     margin-bottom: 1rem;
     font-family: $montserrat;
+    font-weight: normal;
+      font-size: 0.9rem;
     p {
       font-family: $montserrat;
+      font-weight: normal;
+      font-size: 0.9rem;
     }
-    .translation_credit {
-      margin-left: 2rem;
-      font-style: italic;
-      font-size: 0.7rem;
-      img {
-        height: 30px;
-        width: auto;
-      }
-    }
+
     .translate {
       font-family: $sourcecode;
       text-transform: uppercase;

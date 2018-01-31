@@ -3,13 +3,13 @@ class Question < ApplicationRecord
   belongs_to :era
   translates :question
   has_many :answers
+  belongs_to :contributor, polymorphic:true, optional: true
   extend FriendlyId
   friendly_id :title_en , :use => [ :slugged, :finders, :history]
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['question'].blank?  }
   accepts_nested_attributes_for :answers, reject_if: :has_translation? 
 
    def read_translated_attribute(name, locale)
- 
     globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name)
   end
 

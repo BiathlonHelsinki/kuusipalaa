@@ -59,7 +59,11 @@ Rails.application.routes.draw do
 
 
 
-  resources :pages
+  resources :pages do
+    resources :questions do
+      resources :answers
+    end
+  end
 
   resources :posts do
     resources :comments

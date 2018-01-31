@@ -10,9 +10,18 @@
             .questions_box
               %ul#page_questions
                 - @page.questions.each do |q|
-                  %li.question= link_to q.question, '#', onClick: "javascript:$('#question_#{q.id.to_s}').slideToggle();return false;"
-                  .answer[q]
+                  - next if q.answers.empty?
+                  %li.question
+                    = link_to q.question, '#', onClick: "javascript:$('#question_#{q.id.to_s}').slideToggle();return false;"
+
+                  .answers[q]
+                    - unless q.contributor.nil?
+                      .translation_credit
+                        = link_to q.contributor do
+                          = image_tag q.contributor.avatar.url(:thumb).gsub(/development/, 'production')
+                          = t(:question_asked_by, name: q.contributor.display_name)
                     - q.answers.each do |a|
+
                       = raw a.body
                       - unless a.contributor.nil?
                         .translation_credit
@@ -26,4 +35,73 @@
                           = link_to t(:no_translation_in_lang, obj: t(:question), lang: t(:locale_name))
                           %p= link_to t(:contribute_a_translation_into_lang), contribute_translation_question_path(q), class: [:button, :tiny]
 
+
+          - unless @page.questions.reject{|x| !x.answers.empty? }.empty?
+
+            .unanswered_questions_box
+              .small_title= t :unanswered_questions
+              %ul#unanswered_questions
+                - @page.questions.each do |q|
+                  - next unless q.answers.empty?
+                  %li.question
+                    = link_to q.question, '#' , onClick: "javascript:$('#question_#{q.id.to_s}').slideToggle();return false;"
+                    - if user_signed_in?
+                      %small= link_to t(:answer_this), '#' , onClick: "javascript:$('#question_#{q.id.to_s}').slideToggle();return false;"
+                    - else
+                      %small= link_to t(:answer_this), '/users/sign_in'
+                  .unanswered.answers[q]
+                    .translation_credit
+                      = link_to q.contributor do
+                        = image_tag q.contributor.avatar.url(:thumb).gsub(/development/, 'production')
+                        = t(:question_asked_by, name: q.contributor.display_name)
+                    .answer_form.row
+                      .small-10.large-7.columns
+                        - if user_signed_in?
+                          = semantic_form_for [@page, q, Answer.new], html: {id: "form_#{q.id}_answer", :'data-abide' => ''} do |f|
+                            = f.globalize_fields_for session[:locale] do |ff|
+                              %strong= t :your_answer
+                              = ff.hidden_field :contributor_type, value: 'User'
+                              = ff.hidden_field :contributor_id, value: current_user.id
+                              = ff.text_area :body
+                            = f.submit t(:submit)
+
+          .row
+            .small-8.large-3.columns
+              - if user_signed_in?
+
+                = link_to '#', onClick: "javascript:$('#new_question_form').slideToggle();return false;" do
+                  .front_button.text-center
+                    = t(:ask_a_question)
+              - else
+                = link_to '/users/sign_in' do
+                  .front_button.text-center
+                    = t(:ask_a_question)
+          - if user_signed_in?          
+            .row
+              .small-12.large-8.columns
+                #new_question_form
+                  %p= t :ask_question_blurb
+                  = semantic_form_for [@page, Question.new], html: {:'data-abide' => ''} do |f|
+                    = f.globalize_fields_for session[:locale] do |ff|
+                      %p= t :your_question
+                      = ff.text_field :question, :required => ''
+                    = f.input :era_id, as: :hidden, input_html: {value: 3, required: ''}
+                    - if @collection_options
+                      = f.input :contributor_type, as: :hidden, input_html: {'required' => '',value: 'User'}
+                      = f.input :contributor_id, as: :hidden, input_html: {'required' => '', value: current_user.id }
+                      = f.input :contributor, as: :select, input_html: {id: :question_contributor_select}, label: t(:who_is_asking), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }),  include_blank: false
+                    - else
+                      = f.input :contributor_type, as: :hidden, input_html: {'required' => '', value: 'User'}
+                      = f.input :contributor_id, as: :hidden, input_html: {value: current_user.id }
+
+                    = f.submit t(:ask), class: [:button, :small]
           = raw @page.body
+
+- if user_signed_in?
+  = content_for :jquery do
+    :plain
+      $('#question_contributor_select').on('change', function() {
+      $('#question_contributor_type').val($('#question_contributor_select option').filter(":selected").attr('rel'));
+      $('#question_contributor_id').val($('#question_contributor_select').val());
+
+    });
