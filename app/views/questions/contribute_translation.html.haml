@@ -27,6 +27,6 @@
                       = ff.globalize_fields_for locale do |fff|
                         %strong= "Answer text in #{t :locale_name, :locale => locale}"
                         = fff.cktext_area :body, {required: ''}
-                        = fff.text_field :contributor_type, value: 'User'
-                        = fff.text_field :contributor_id, value: current_user.id
+                        = fff.hidden_field :contributor_type, value: 'User'
+                        = fff.hidden_field :contributor_id, value: current_user.id
                 = f.submit t(:submit)
