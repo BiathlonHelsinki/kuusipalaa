@@ -201,6 +201,14 @@ a.not-active {
     font-size: 0.9rem;
     font-family: $montserrat;
 
+    .question {
+      font-weight: bold;
+      font-family: $sourcecode;
+    }
+    .answer {
+      font-family: $montserrat;
+    }
+
   }
 }
 
@@ -593,5 +601,20 @@ ul#page_questions {
   .answer {
     display: none;
     margin-bottom: 1rem;
+    .translation_credit {
+      margin-left: 2rem;
+      font-style: italic;
+      font-size: 0.7rem;
+      img {
+        height: 30px;
+        width: auto;
+      }
+    }
+    .translate {
+      font-family: $sourcecode;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
   }
 }

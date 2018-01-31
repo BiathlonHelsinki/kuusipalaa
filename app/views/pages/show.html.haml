@@ -14,4 +14,14 @@
                   .answer[q]
                     - q.answers.each do |a|
                       = raw a.body
+                      - unless a.contributor.nil?
+                        .translation_credit
+                          = link_to a.contributor do
+                            = image_tag a.contributor.avatar.url(:thumb).gsub(/development/, 'production')
+                            = t(:answer_contributed_by, name: a.contributor.display_name)
+
+                      - if !a.translations.map{|x| x.locale.to_s }.include?(session[:locale])
+                        .translate
+                          = link_to t(:no_translation_in_lang, obj: t(:question), lang: t(:locale_name))
+                          %p= link_to t(:contribute_a_translation_into_lang), contribute_translation_question_path(q), class: [:button, :tiny]
           = raw @page.body

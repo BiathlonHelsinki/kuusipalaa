@@ -28,7 +28,8 @@
                   .small-10.medium-8.columns
                     %b= "Answer text in #{t :locale_name, :locale => locale}"
                     = en.cktext_area :body
-
+                    = en.text_field :contributor_type, value: 'User'
+                    = en.text_field :contributor_id, value: current_user.id
       = f.link_to_add 'Add an answer', :answers, class: [:button, :secondary]
       = f.submit t(:save), class: [:button]
 

@@ -8,6 +8,11 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['question'].blank?  }
   accepts_nested_attributes_for :answers, reject_if: :has_translation? 
 
+   def read_translated_attribute(name, locale)
+ 
+    globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name)
+  end
+
   private
 
   def has_translation?(att)

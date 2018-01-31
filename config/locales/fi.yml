@@ -979,3 +979,8 @@ fi:
     zero: 'rhymän panosta'
     one: 'rhymän panos'
     other: 'rhymän panosta'
+  no_translation_in_lang: 'There is no translation available for this %{obj} in %{lang}.'
+  question: 'kysymys'
+  contribute_a_translation_into_lang: 'Help us by contributing a translation!'
+  submit: 'Submit'
+  answer_contributed_by: 'Answer contributed by %{name}'

@@ -58,6 +58,7 @@ Rails.application.routes.draw do
   end
 
 
+
   resources :pages
 
   resources :posts do
@@ -67,6 +68,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :questions do
+    member do
+      get :contribute_translation
+    end
+  end
+  
   resources :seasons do
     resources :groups do
       resources :stakes

@@ -6,7 +6,7 @@ class Admin::QuestionsController < Admin::BaseController
       redirect_to admin_questions_path
     else
       flash[:error] = "Error saving question: " + @question.errors.full_messages.join(', ')
-      @question.answer = Answer.new(question_params[:answer_attributes])
+ 
 
       render template: 'admin/questions/new'
     end
@@ -43,7 +43,7 @@ class Admin::QuestionsController < Admin::BaseController
   def question_params
     params.require(:question).permit(:slug, :era_id, :page_id, translations_attributes: [:question, :id, :locale, :_destroy],
           answers_attributes: [:id,
-                                translations_attributes: [:body, :id, :locale, :_destroy]
+                                translations_attributes: [:body, :id, :locale, :contributor_type, :contributor_id, :_destroy]
                               ])
   end
   

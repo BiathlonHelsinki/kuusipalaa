@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131131641) do
+ActiveRecord::Schema.define(version: 20180131161236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,7 +56,10 @@ ActiveRecord::Schema.define(version: 20180131131641) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "body"
+    t.string "contributor_type"
+    t.bigint "contributor_id"
     t.index ["answer_id"], name: "index_answer_translations_on_answer_id"
+    t.index ["contributor_type", "contributor_id"], name: "contributor_answer_index"
     t.index ["locale"], name: "index_answer_translations_on_locale"
   end
 

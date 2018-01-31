@@ -866,6 +866,13 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
     zero: 'group stakes'
     one: 'group stake'
     other: 'group stakes'
+  no_translation_in_lang: 'There is no translation available for this %{obj} in %{lang}.'
+  question: 'question'
+  contribute_a_translation_into_lang: 'Help us by contributing a translation!'
+  submit: 'Submit'
+  answer_contributed_by: 'Answer contributed by %{name}'
+
+
   activerecord:
     errors:
       models:
