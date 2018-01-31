@@ -11,7 +11,7 @@ class Page < ApplicationRecord
   before_save :update_image_attributes
   validate :title_present_in_at_least_one_locale
   scope :published, -> () { where(published: true) }
-
+  has_many :questions
 
   def title_en
     self.title(:en)

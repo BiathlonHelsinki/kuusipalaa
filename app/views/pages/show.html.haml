@@ -5,4 +5,13 @@
         .title
           = @page.title
         .blurb
+
+          - unless @page.questions.empty?
+            .questions_box
+              %ul#page_questions
+                - @page.questions.each do |q|
+                  %li.question= link_to q.question, '#', onClick: "javascript:$('#question_#{q.id.to_s}').slideToggle();return false;"
+                  .answer[q]
+                    - q.answers.each do |a|
+                      = raw a.body
           = raw @page.body
