@@ -61,7 +61,9 @@ Rails.application.routes.draw do
 
   resources :pages do
     resources :questions do
-      resources :answers
+      resources :answers do
+        resources :comments
+      end
     end
   end
 
@@ -95,11 +97,13 @@ Rails.application.routes.draw do
     collection do
       get :check_unique
       get :mentions
+
       get :members_agreement
     end
     resources :stakes
     resources :groups
     member do
+      get :get_avatar
       get :get_membership_details
     end
   end

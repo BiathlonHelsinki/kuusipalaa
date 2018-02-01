@@ -17,6 +17,11 @@ class Page < ApplicationRecord
     self.title(:en)
   end
 
+
+  def notifications
+    []
+  end
+  
   def title_present_in_at_least_one_locale
     if I18n.available_locales.map { |locale| translation_for(locale).title }.compact.empty?
       errors.add(:base, "You must specify a title in at least one available language.")

@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   # process_in_background :avatar
   # store_in_background :avatar
   after_create :add_to_activity_feed
-  has_many :comments
+  has_many :comments, as: :contributor
   validates_presence_of :geth_pwd
   has_many :rsvps
   has_many :registrations

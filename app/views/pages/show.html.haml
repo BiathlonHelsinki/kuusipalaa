@@ -23,18 +23,34 @@
                     .answer_block
                       - q.answers.each do |a|
                         .answer_section{class: q.answers.last == a ? 'last' : false}[a]
-                          = raw a.body
-                          - unless a.contributor.nil?
-                            .translation_credit
+                          = sanitize a.body
+                          
+                          .translation_credit
+                            - unless a.contributor.nil?
                               = link_to a.contributor do
                                 = image_tag a.contributor.avatar.url(:thumb).gsub(/development/, 'production')
                                 = t(:answer_contributed_by, name: a.contributor.display_name)
+                                %br/
+                            
 
+                            .comment_info
+                              - unless a.comments.empty?
+                                = link_to a.comments.count.to_s + ' ' + t(:comment, count: a.comments.count), '#', onClick: "javscript:$('#comments_answer_#{a.id.to_s}').slideToggle();return false;"
+                                |
+                              - if user_signed_in?  
+                                
+                                = link_to t(:add_a_comment_to_this_answer), new_page_question_answer_comment_path(@page, q, a), remote: true
                           - if a.read_translated_attribute(:body, session[:locale]).blank?
 
                             .translate
                               = link_to t(:no_translation_in_lang, obj: '', lang: t(:locale_name))
                               %p= link_to t(:contribute_a_translation_into_lang), contribute_translation_question_path(q), class: [:button, :tiny]
+                        - unless a.comments.empty?
+                          .comments{id: "comments_answer_#{a.id.to_s}"}
+                            - a.comments.each do |comment|
+                              = render partial: 'shared/answer_comment', locals: {comment: comment, last: a.comments.last, depth: 0}
+                        .new_comment_form{id: "new_comment_form_#{a.id.to_s}"}
+
                     - if user_signed_in?
                       %small= link_to t(:add_another_answer), new_page_question_answer_path(@page, q), remote: true, class: [:button, :tiny, :bordered], id: ["add_answer_#{q.id.to_s}"]
 

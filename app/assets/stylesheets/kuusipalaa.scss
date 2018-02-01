@@ -614,6 +614,9 @@ ul#page_questions, ul#unanswered_questions {
     margin-left: 2rem;
     font-style: italic;
     font-size: 0.7rem;
+    .comment_info {
+      margin-left: 2rem;
+    }
     img {
       height: 30px;
       width: auto;
@@ -625,14 +628,62 @@ ul#page_questions, ul#unanswered_questions {
     font-family: $montserrat;
     font-weight: normal;
     font-size: 0.9rem;
+    .new_comment_form {
+      margin-left: 9rem;
+      .avatar {
+        float: left;
+        margin-right: 10px;
+        img {
+          height: 30px;
+          width: auto;
+        }
+      }
+      .comment_input {
+        height: 150px;
+      }
+      .chooser {
+        margin: 1rem 0 1rem 25px;
+
+      }
+    }
+    .answer_block {
+      .comments {
+        display: none;
+        margin-left: 6rem;
+        .comment {
+          border-bottom: 1px dotted black;
+          &.last {
+            border-bottom: none;
+          }
+          margin-left: 2rem;
+          font-style: italic;
+          font-size: 0.7rem;
+          margin-right: 8rem;
+          margin-bottom: 1rem;
+          font-family: $sourcecode;
+          img {
+            height: 30px;
+          }
+          .content {
+            margin: 1rem 0 1rem 40px;
+            font-size: 1rem;
+            font-family: $montserrat;
+          }
+        }
+      }
+    }
+
     .answer_section {
       padding: 0.5rem 0;
       border-bottom: 1px dotted black;
       font-family: $montserrat;
+
+
       &.last {
         border-bottom: none;
         margin-bottom: 1.5rem;
       }
+
     }
     p {
       font-family: $montserrat;

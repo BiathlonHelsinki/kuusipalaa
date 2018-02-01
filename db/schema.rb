@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131170515) do
+ActiveRecord::Schema.define(version: 20180201111107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,9 @@ ActiveRecord::Schema.define(version: 20180131170515) do
     t.datetime "updated_at", null: false
     t.boolean "systemflag", default: false, null: false
     t.boolean "frontpage", default: false, null: false
+    t.string "contributor_type"
+    t.bigint "contributor_id"
+    t.index ["contributor_type", "contributor_id"], name: "index_comments_on_contributor_type_and_contributor_id"
     t.index ["item_type", "item_id"], name: "index_comments_on_item_type_and_item_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end

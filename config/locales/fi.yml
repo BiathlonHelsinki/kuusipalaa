@@ -984,3 +984,4 @@ fi:
   contribute_a_translation_into_lang: 'Auta meitä kääntämään!'
   submit: 'Submit'
   answer_contributed_by: 'Answer contributed by %{name}'
+  add_a_comment_to_this_answer: 'Add a comment to this answer...'

@@ -593,6 +593,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   user_says_on: 'At %{date}, %{user} said...'
   reply_to_this: 'Reply to this...'
   add_a_comment_to_this_discussion: 'Add a comment to this discussion ...'
+  add_a_comment_to_this_answer: 'Add a comment to this answer...'
   this_post_regards_a_meeting: 'This discussion refers to a meeting:'
   current_discussions: '[Active discussions]'
   next_general_meeting: 'Next general meeting'
@@ -870,7 +871,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   question: 'question'
   contribute_a_translation_into_lang: 'Help us by contributing a translation!'
   submit: 'Submit'
-  answer_contributed_by: 'Answer contributed by %{name}'
+  answer_contributed_by: 'Answer contributed by %{name}.'
   ask_a_question: 'Ask a question'
   ask_question_blurb: 'Here you can ask a question to the Kuusi Palaa members, any of whom may answer it. Please make sure this question is not already answered above before submitting it.'
   your_question: 'Your question:'
@@ -883,7 +884,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   answer_this: 'Answer this!'
   your_answer: 'Your answer:'
   add_another_answer: 'Add another answer'
-
+  who_is_commenting: 'Post this comment as:'
   activerecord:
     errors:
       models:

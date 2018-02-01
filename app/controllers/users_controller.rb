@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: [:mentions, :check_unique]
+  before_action :authenticate_user!, except: [:mentions, :check_unique, :get_avatar]
 
 
   def buy_photoslot
@@ -46,6 +46,14 @@ class UsersController < ApplicationController
       redirect_to '/'
     end
     set_meta_tags title: 'Edit your profile'
+  end
+
+  def get_avatar
+    if params[:class] == 'Group'
+      render plain: Group.find(params[:id]).avatar.url(params[:size].to_sym)
+    elsif params[:class] == 'User'
+      render plain: User.find(params[:id]).avatar.url(params[:size].to_sym)
+    end
   end
 
   def get_membership_details
