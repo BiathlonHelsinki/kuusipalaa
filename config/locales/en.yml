@@ -876,12 +876,13 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   your_question: 'Your question:'
   ask: 'Ask it'
   who_is_asking: 'Ask this question as: '
+  who_is_answering: 'Answer this question as: '
   your_question_has_been_asked: 'Your question has been asked!'
   unanswered_questions: 'Unanswered questions'
   question_asked_by: 'Question asked by %{name}'
   answer_this: 'Answer this!'
   your_answer: 'Your answer:'
-
+  add_another_answer: 'Add another answer'
 
   activerecord:
     errors:

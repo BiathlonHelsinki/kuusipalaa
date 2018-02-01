@@ -20,21 +20,23 @@
                         = link_to q.contributor do
                           = image_tag q.contributor.avatar.url(:thumb).gsub(/development/, 'production')
                           = t(:question_asked_by, name: q.contributor.display_name)
-                    - q.answers.each do |a|
+                    .answer_block
+                      - q.answers.each do |a|
+                        .answer_section{class: q.answers.last == a ? 'last' : false}[a]
+                          = raw a.body
+                          - unless a.contributor.nil?
+                            .translation_credit
+                              = link_to a.contributor do
+                                = image_tag a.contributor.avatar.url(:thumb).gsub(/development/, 'production')
+                                = t(:answer_contributed_by, name: a.contributor.display_name)
 
-                      = raw a.body
-                      - unless a.contributor.nil?
-                        .translation_credit
-                          = link_to a.contributor do
-                            = image_tag a.contributor.avatar.url(:thumb).gsub(/development/, 'production')
-                            = t(:answer_contributed_by, name: a.contributor.display_name)
+                          - if a.read_translated_attribute(:body, session[:locale]).blank?
 
-                      - if a.read_translated_attribute(:body, session[:locale]).blank?
-
-                        .translate
-                          = link_to t(:no_translation_in_lang, obj: t(:question), lang: t(:locale_name))
-                          %p= link_to t(:contribute_a_translation_into_lang), contribute_translation_question_path(q), class: [:button, :tiny]
-
+                            .translate
+                              = link_to t(:no_translation_in_lang, obj: '', lang: t(:locale_name))
+                              %p= link_to t(:contribute_a_translation_into_lang), contribute_translation_question_path(q), class: [:button, :tiny]
+                    - if user_signed_in?
+                      %small= link_to t(:add_another_answer), new_page_question_answer_path(@page, q), remote: true, class: [:button, :tiny, :bordered], id: ["add_answer_#{q.id.to_s}"]
 
           - unless @page.questions.reject{|x| !x.answers.empty? }.empty?
 
@@ -58,13 +60,7 @@
                     .answer_form.row
                       .small-10.large-7.columns
                         - if user_signed_in?
-                          = semantic_form_for [@page, q, Answer.new], html: {id: "form_#{q.id}_answer", :'data-abide' => ''} do |f|
-                            = f.globalize_fields_for session[:locale] do |ff|
-                              %strong= t :your_answer
-                              = ff.hidden_field :contributor_type, value: 'User'
-                              = ff.hidden_field :contributor_id, value: current_user.id
-                              = ff.text_area :body
-                            = f.submit t(:submit)
+                          sfsd
 
           .row
             .small-8.large-3.columns

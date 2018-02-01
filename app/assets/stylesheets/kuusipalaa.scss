@@ -205,9 +205,7 @@ a.not-active {
       font-weight: bold;
       font-family: $sourcecode;
     }
-    .answer {
-      font-family: $montserrat;
-    }
+
 
   }
 }
@@ -612,6 +610,7 @@ ul#page_questions, ul#unanswered_questions {
     }
   }
   .translation_credit {
+
     margin-left: 2rem;
     font-style: italic;
     font-size: 0.7rem;
@@ -625,7 +624,16 @@ ul#page_questions, ul#unanswered_questions {
     margin-bottom: 1rem;
     font-family: $montserrat;
     font-weight: normal;
-      font-size: 0.9rem;
+    font-size: 0.9rem;
+    .answer_section {
+      padding: 0.5rem 0;
+      border-bottom: 1px dotted black;
+      font-family: $montserrat;
+      &.last {
+        border-bottom: none;
+        margin-bottom: 1.5rem;
+      }
+    }
     p {
       font-family: $montserrat;
       font-weight: normal;

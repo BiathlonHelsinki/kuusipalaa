@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!
 
 
   def create
@@ -9,9 +10,17 @@ class AnswersController < ApplicationController
     if @answer.save
       flash[:notice] = t(:your_answer_has_been_submitted)
     else
-      flash[:error] = @answer.errors.messages.join(', ')
+      flash[:error] = @answer.errors.full_messages.join(', ')
     end
     redirect_to @page
+  end
+
+  def new
+    @page = Page.friendly.find(params[:page_id])
+    @question = @page.questions.find_by(slug: params[:question_id])
+    @answer = Answer.new
+    @question.answers << @answer
+    fill_collection
   end
 
   private

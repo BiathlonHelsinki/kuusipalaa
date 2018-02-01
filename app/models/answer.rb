@@ -9,7 +9,7 @@ class Answer < ApplicationRecord
   end
 
   def contributor
-    translation.contributor
+    contributor_type.nil? ? nil : contributor_type.constantize.find(contributor_id)
   end
 end
 
