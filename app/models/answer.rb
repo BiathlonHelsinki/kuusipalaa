@@ -3,11 +3,11 @@ class Answer < ApplicationRecord
   translates :body, :contributor_type, :contributor_id
   accepts_nested_attributes_for :translations, reject_if: proc {|x| x['body'].blank? }
   has_many :comments, as: :item
-  
+  validates_presence_of :question_id
   after_create :update_activity_feed
-
+  belongs_to :user, optional: true # store user as well as contributor, to attribute authorship later
   def update_activity_feed
-    Activity.create(user: contributor, item: self, description: "answered_the_question",  addition: 0)
+    Activity.create(user: user,contributor: contributor, item: self, description: "answered_the_question",  addition: 0)
   end
 
 

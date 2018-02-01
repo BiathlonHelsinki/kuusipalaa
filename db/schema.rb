@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180201111107) do
+ActiveRecord::Schema.define(version: 20180201132305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,9 @@ ActiveRecord::Schema.define(version: 20180201111107) do
     t.string "txaddress"
     t.integer "blockchain_transaction_id"
     t.integer "numerical_value"
+    t.string "contributor_type"
+    t.bigint "contributor_id"
+    t.index ["contributor_type", "contributor_id"], name: "index_activities_on_contributor_type_and_contributor_id"
     t.index ["ethtransaction_id"], name: "index_activities_on_ethtransaction_id"
     t.index ["extra_type", "extra_id"], name: "index_activities_on_extra_type_and_extra_id"
     t.index ["item_type", "item_id"], name: "index_activities_on_item_type_and_item_id"
@@ -67,7 +70,9 @@ ActiveRecord::Schema.define(version: 20180201111107) do
     t.bigint "question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
   create_table "audits", id: :serial, force: :cascade do |t|
@@ -710,9 +715,11 @@ ActiveRecord::Schema.define(version: 20180201111107) do
     t.datetime "updated_at", null: false
     t.string "contributor_type"
     t.bigint "contributor_id"
+    t.bigint "user_id"
     t.index ["contributor_type", "contributor_id"], name: "index_questions_on_contributor_type_and_contributor_id"
     t.index ["era_id"], name: "index_questions_on_era_id"
     t.index ["page_id"], name: "index_questions_on_page_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "rates", id: :serial, force: :cascade do |t|
@@ -964,6 +971,7 @@ ActiveRecord::Schema.define(version: 20180201111107) do
   add_foreign_key "accounts", "users"
   add_foreign_key "activities", "ethtransactions"
   add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
   add_foreign_key "authentications", "users"
   add_foreign_key "blockchain_transactions", "accounts"
   add_foreign_key "blockchain_transactions", "ethtransactions"
@@ -990,6 +998,7 @@ ActiveRecord::Schema.define(version: 20180201111107) do
   add_foreign_key "proposals", "users"
   add_foreign_key "questions", "eras"
   add_foreign_key "questions", "pages"
+  add_foreign_key "questions", "users"
   add_foreign_key "rates", "instances"
   add_foreign_key "registrations", "instances"
   add_foreign_key "registrations", "users"

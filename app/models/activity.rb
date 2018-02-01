@@ -3,7 +3,7 @@ class Activity < ApplicationRecord
   pg_search_scope :search_activity_feed, :against => [:description], associated_against: {user: [:name, :username], ethtransaction: :txaddress }
 
   include Rails.application.routes.url_helpers
-
+  belongs_to :contributor, polymorphic: true
   belongs_to :user
   belongs_to :ethtransaction, optional: true
   belongs_to :blockchain_transaction, optional: true

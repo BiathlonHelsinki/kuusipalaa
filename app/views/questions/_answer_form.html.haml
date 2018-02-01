@@ -1,6 +1,7 @@
 .row
   .small-12.large-7.colummns
     = semantic_form_for [@page, q, Answer.new], html: {:'data-abide' => ''} do |f|
+      = f.hidden_field :user_id, value: current_user.id, 'required' => ''
       = f.globalize_fields_for session[:locale] do |ff|
         
         / = ff.hidden_field :contributor_type, value: 'User'

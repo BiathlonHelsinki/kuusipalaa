@@ -45,7 +45,8 @@ class Comment < ApplicationRecord
   end
 
   def update_activity_feed
-    Activity.create(user: user, item: self.item, description: "commented_on",  addition: 0, extra: contributor)
+
+    Activity.create(user: user, item: self.item, description: "commented_on",  addition: 0, contributor: contributor)
     matches = content.scan(/rel=\"\/users\/(\d*)\"/)
     unless matches.empty?
       matches.flatten.each do |uu|

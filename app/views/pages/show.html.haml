@@ -94,6 +94,7 @@
                 #new_question_form
                   %p= t :ask_question_blurb
                   = semantic_form_for [@page, Question.new], html: {:'data-abide' => ''} do |f|
+                    = f.input :user_id, as: :hidden, input_html: {'required' => '', value: current_user.id}
                     = f.globalize_fields_for session[:locale] do |ff|
                       %p= t :your_question
                       = ff.text_field :question, :required => ''

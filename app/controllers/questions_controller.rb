@@ -33,7 +33,7 @@ class QuestionsController < ApplicationController
   private
   
   def question_params
-    params.require(:question).permit(:slug, :era_id, :contributor_type, :contributor_id, :page_id, translations_attributes: [:question, :id, :locale, :_destroy],
+    params.require(:question).permit(:slug, :era_id, :user_id, :contributor_type, :contributor_id, :page_id, translations_attributes: [:question, :id, :locale, :_destroy],
           answers_attributes: [:id,
                                 translations_attributes: [:body, :id, :locale, :contributor_type, :contributor_id, :_destroy]
                               ])

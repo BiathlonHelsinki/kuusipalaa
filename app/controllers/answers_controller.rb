@@ -26,7 +26,7 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:id,
+    params.require(:answer).permit(:id, :user_id,
                                 translations_attributes: [:body, :id, :locale, :contributor_type, :contributor_id, :_destroy]
                               )  
   end
