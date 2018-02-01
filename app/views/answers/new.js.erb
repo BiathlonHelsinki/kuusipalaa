@@ -1,5 +1,6 @@
 $('form#new_answer').remove();
 $('#add_answer_<%= @question.id.to_s %>').remove();
+
 $("#question_<%= @question.id.to_s %> .answer_block").append("<%= escape_javascript(render(partial: 'questions/answer_form', locals: {q: @question})) %>");
 $('#answer_contributor_select').on('change', function() {
   $('#answer_contributor_type').val($('#answer_contributor_select option').filter(":selected").attr('rel'));

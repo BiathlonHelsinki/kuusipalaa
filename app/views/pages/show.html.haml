@@ -48,7 +48,7 @@
                   %li.question
                     = link_to q.question, '#' , onClick: "javascript:$('#question_#{q.id.to_s}').slideToggle();return false;"
                     - if user_signed_in?
-                      %small= link_to t(:answer_this), '#' , onClick: "javascript:$('#question_#{q.id.to_s}').slideToggle();return false;"
+                      %small= link_to t(:answer_this), new_page_question_answer_path(@page, q), remote: true,  id: ["add_answer_#{q.id.to_s}"], onClick: "javascript:$('#question_#{q.id.to_s}').slideToggle();return false;"#'#' , onClick: "javascript:$('#question_#{q.id.to_s}').slideToggle();return false;"
                     - else
                       %small= link_to t(:answer_this), '/users/sign_in'
                   .unanswered.answers[q]
@@ -57,10 +57,9 @@
                         = link_to q.contributor do
                           = image_tag q.contributor.avatar.url(:thumb).gsub(/development/, 'production')
                           = t(:question_asked_by, name: q.contributor.display_name)
-                    .answer_form.row
-                      .small-10.large-7.columns
-                        - if user_signed_in?
-                          sfsd
+                    .answer_block
+
+            
 
           .row
             .small-8.large-3.columns
