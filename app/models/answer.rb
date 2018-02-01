@@ -4,6 +4,13 @@ class Answer < ApplicationRecord
   accepts_nested_attributes_for :translations, reject_if: proc {|x| x['body'].blank? }
   has_many :comments, as: :item
   
+  after_create :update_activity_feed
+
+  def update_activity_feed
+    Activity.create(user: contributor, item: self, description: "answered_the_question",  addition: 0)
+  end
+
+
   def read_translated_attribute(name, locale)
     globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name)
   end

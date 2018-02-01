@@ -1,0 +1,41 @@
+= semantic_form_for [ page, question, answer, comment ], html: {id: "new_comment_" + commentable.id.to_s, onSubmit: "return getContent('" + commentable.class.to_s + '_' + commentable.id.to_s + "');", multipart: true, :"data-abide" => '' } do |f|
+  = f.hidden_field :user_id, value: current_user.id, 'required' => ''
+  .avatar{id: "avatar_comment_#{answer.id.to_s}"}
+    = image_tag current_user.avatar.url(:thumb).gsub(/development/, 'production')
+  .comment_wrapper
+    .comment_input{id: "ci_#{commentable.class.to_s}_#{commentable.id.to_s}", contenteditable: true}
+
+  = f.input :content, :label => false, input_html: {:required => '', class: :comment_input_textarea, id: "cit_#{commentable.class.to_s}_#{commentable.id.to_s}" }
+  .row.chooser
+    .small-10.large-3.columns  
+      - if @collection_options.size > 1
+
+        = f.hidden_field :contributor_type, value: 'User', 'required' => '', id: :comment_contributor_type
+        = f.hidden_field :contributor_id,  value: current_user.id, 'required' => '', id: :comment_contributor_type
+        = f.input :contributor, as: :select, input_html: {id: :comment_contributor_select}, label: t(:who_is_commenting), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }),  include_blank: false
+      - else
+        = f.hidden_field :contributor_type, value: 'User', 'required' => ''
+        = f.hidden_field :contributor_id, value: current_user.id , 'required' => ''
+
+
+
+  .chooser= f.submit t(:leave_comment), :class => [:button, :bordered]
+
+:javascript
+  $('#comment_contributor_select').on('change', function() {
+      $('#comment_contributor_type').val($('#comment_contributor_select option').filter(":selected").attr('rel'));
+      $('#comment_contributor_id').val($('#comment_contributor_select').val());
+      $.ajax({
+        url: '/users/' + $('#comment_contributor_select').val() + '/get_avatar?class=' + $('#comment_contributor_type').val() + '&size=thumb',
+        success: function(image) {
+
+          $('#avatar_comment_#{answer.id.to_s} img').attr('src', image);
+          $('#avatar_comment_#{answer.id.to_s} img').attr('alt', $('#comment_contributor_select option').filter(":selected").html());
+       
+         }
+        });
+    }); 
+  $('#ci_#{commentable.class.to_s}_#{commentable.id.to_s}').one('click', function() {
+
+    $('#ci_#{commentable.class.to_s}_#{commentable.id.to_s}').mentionable("/users/mentions", {id: 'mi_#{commentable.class.to_s}_#{commentable.id.to_s}', position: 'flush'});
+  });

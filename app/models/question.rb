@@ -9,7 +9,13 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['question'].blank?  }
   accepts_nested_attributes_for :answers, reject_if: :has_translation? 
 
-   def read_translated_attribute(name, locale)
+  after_create :update_activity_feed
+
+  def update_activity_feed
+    Activity.create(user: contributor, item: self, description: "asked_the_question",  addition: 0, extra: page)
+  end
+
+  def read_translated_attribute(name, locale)
     globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name)
   end
 
