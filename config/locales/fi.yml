@@ -901,7 +901,7 @@ fi:
   your_details_have_been_updated: 'Tietosi ollaan päivitetty.'
   number_of_stakes: 'Ostettavien panosten määrä'
   total_amount_due: 'Kokonaishinta'
-  when_payment_received: 'Kun Kuusi Palaa on vastaanottanut tilisiirtosi, panoksesi aktivoituu ja jäsenyytesi osuuskunnasta alkaa.'
+  when_payment_received: 'Kun Kuusi Palaa on vastaanottanut tilisiirtosi tai kortimaksusi, panoksesi aktivoituu ja jäsenyytesi osuuskunnasta alkaa.'
   view_details: 'Näytä yksityiskohdat'
   how_to_buy: 'Panokset varataan verkossa ja maksetaan tilisiirrolla tai kortilla.'
   what_is_a_stake: 'Mikä on panos?'
