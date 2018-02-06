@@ -30,14 +30,14 @@
           first stake price
       - if stake.amount == 1 || stake.includes_membership_fee
         - if stake.includes_share && stake.includes_membership_fee
-          - sa = 0
-          %td= number_to_currency(0, unit: raw('&euro;'), format: "%n %u")
+          - sa = stake.price - 50
+          %td= number_to_currency(sa, unit: raw('&euro;'), format: "%n %u")
         - elsif !stake.includes_share && stake.includes_membership_fee
-          - sa = 10
-          %td= number_to_currency(10, unit: raw('&euro;'), format: "%n %u")
+          - sa = stake.price - 40
+          %td= number_to_currency(sa, unit: raw('&euro;'), format: "%n %u")
         - else
-          - sa = 50
-          %td= number_to_currency(50, unit: raw('&euro;'), format: "%n %u")
+          - sa = stake.price
+          %td= number_to_currency(sa, unit: raw('&euro;'), format: "%n %u")
 
         %td.text-center 1
         %td.text-center= number_to_currency(sa, unit: raw('&euro;'), format: "%n %u")
@@ -51,7 +51,7 @@
       %tr
         %td
           Kuusi Palaa 'stake' service for season ##{stake.season.number.to_s}
-        %td= number_to_currency(50, unit: raw('&euro;'), format: "%n %u")
+        %td= number_to_currency(stake.price, unit: raw('&euro;'), format: "%n %u")
         %td.text-center= (stake.amount - 1).to_s
         %td.text-center= number_to_currency((stake.amount - 1) * stake.price, unit: raw('&euro;'), format: "%n %u")
         - totaldue += (stake.amount - 1) * stake.price
