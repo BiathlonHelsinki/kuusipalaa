@@ -9,6 +9,24 @@
             = t :stake_booked_singular
         .blurb
           %p= t :thank_you_for_booking_stake
+          - if @stake.paid != true
+            #credit_card_form
+              = form_tag charges_path do
+                = hidden_field_tag :stake_id,  @stake.id
+                = hidden_field_tag :amount, @stake.invoice_amount
+                %article
+                  - if flash[:error].present?
+                    #error_explanation
+                      %p= flash[:error]
+                  %label.amount
+                    %span
+                      = t(:amount) + ":"
+                      = number_to_currency(@stake.invoice_amount, unit: raw('&euro;'), format: "%n %u")
+
+                %script.stripe-button{"data-amount" => "#{@stake.invoice_amount * 100}", "data-description" => "#{t(:x_stakes, stakes: t(:stake, count: @stake.amount), count: @stake.amount)} (invoice ##{@stake.id.to_s})", "data-key" => "#{Rails.configuration.stripe[:publishable_key]}", "data-currency" => 'eur', "data-locale" => "auto",  "data-email" => @stake.bookedby.email, src: "https://checkout.stripe.com/checkout.js"}
+          - else
+            = t :paid
+
           %p= raw t(:invoice_email_or_download, email: @stake.bookedby.email, pdf_link: link_to('PDF', @stake.invoice.url))
           %p= t :if_goal_not_met
           %p= raw t(:see_membership_agreement, membership_agreement_link: link_to(t(:membership_agreement), page_path("membership-agreement#{@stake.owner_type == 'Group' ? '-organisation' : ''}")))

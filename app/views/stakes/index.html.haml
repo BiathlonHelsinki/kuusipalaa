@@ -22,11 +22,8 @@
                     = number_to_currency(stake.invoice_amount, format: "%n %u", unit: raw("&euro;"))
                     - if stake.owner.charge_vat?
                       = "(#{t :vat})"
-                  %td
-                    - if stake.paid
-                      = t :paid
-                    - else
-                      = t :payment_pending
+                  %td= render partial: 'stakes/paid_stake', locals: {stake: stake}
+
                   %td
                     = link_to t(:view_invoice), season_stake_path(stake.season, stake), class: [:button]
                     = link_to t(:download), stake.invoice.url, target: :_blank, class: [:button]

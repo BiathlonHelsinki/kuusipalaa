@@ -885,6 +885,11 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   your_answer: 'Your answer:'
   add_another_answer: 'Add another answer'
   who_is_commenting: 'Post this comment as:'
+  payment_method: 'Payment method: '
+  payment_date: 'Payment received: '
+  bank_transfer: 'Bank transfer'
+  credit_card: 'Credit/debit card'
+  pay_by_credit_card: 'Pay by credit card'
   activerecord:
     errors:
       models:
