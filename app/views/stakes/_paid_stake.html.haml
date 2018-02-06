@@ -1,14 +1,16 @@
 - if stake.paid
-  .paid_heading= t :paid
+  .paid_heading
+    %span.heading= t(:status) + ':'
+    %span.value= t :paid
   .paid_metadata
     
-    .heading= t :payment_method
-    .value= t stake.paymenttype.name.to_sym
+    %span.heading= t :payment_method
+    %span.value= t stake.paymenttype.name.to_sym
 
     %br/
 
-    .heading= t :payment_date
-    .value= l stake.paid_at.to_date, format: :long
+    %span.heading= t :payment_date
+    %span.value= l stake.paid_at.to_date, format: :long
 - else
   .paid_heading= t :payment_pending
   = link_to t(:pay_by_credit_card), season_stake_path(stake.season, stake), class: [:button, :bordered]
