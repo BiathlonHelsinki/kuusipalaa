@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :stakes
   end
 
+  resources :charges
+  
   resources :comments do
     resources :comments
   end

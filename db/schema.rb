@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180201132305) do
+ActiveRecord::Schema.define(version: 20180205204231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -554,6 +554,12 @@ ActiveRecord::Schema.define(version: 20180201132305) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "paymenttypes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pg_search_documents", id: :serial, force: :cascade do |t|
     t.text "content"
     t.string "searchable_type"
@@ -826,6 +832,8 @@ ActiveRecord::Schema.define(version: 20180201132305) do
     t.boolean "includes_membership_fee", default: false, null: false
     t.float "price", default: 50.0, null: false
     t.float "invoice_amount"
+    t.integer "paymenttype_id", default: 1, null: false
+    t.string "stripe_token"
     t.index ["owner_type", "owner_id"], name: "index_stakes_on_owner_type_and_owner_id"
     t.index ["season_id"], name: "index_stakes_on_season_id"
   end

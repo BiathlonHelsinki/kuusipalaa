@@ -743,7 +743,8 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   buy_a_stake: 'Buy a stake'
   buy_for_self: 'Buy stake(s) as an individual'
   buy_for_group: 'Buy stake(s) for a group'
-  thank_you_for_booking_stake: 'Thank you for being part of Kuusi Palaa. Please pay the invoice as seen below with a bank transfer by the date due.'
+  thank_you_for_booking_stake: 'Thank you for being part of Kuusi Palaa.'
+  please_pay: 'Please pay the invoice as seen below with a bank transfer by the date due, or right here with a credit card.'
   if_goal_not_met: 'If the amount of stakes needed to fund the next season is not reached and Kuusi Palaa closes, this money will be returned to you minus the small administrative costs.'
   membership_agreement: 'membership agreement'
   see_membership_agreement: 'For more information, please see the %{membership_agreement_link}.'
@@ -885,6 +886,11 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   your_answer: 'Your answer:'
   add_another_answer: 'Add another answer'
   who_is_commenting: 'Post this comment as:'
+  payment_method: 'Payment method: '
+  payment_date: 'Payment received: '
+  bank_transfer: 'Bank transfer'
+  credit_card: 'Credit/debit card'
+  pay_by_credit_card: 'Pay by credit card'
   activerecord:
     errors:
       models:

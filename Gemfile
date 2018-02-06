@@ -1,7 +1,7 @@
 
 source 'https://rubygems.org'
 
-ruby '2.5.0'
+ruby '2.4.3'
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
@@ -131,6 +131,7 @@ gem "recaptcha", require: "recaptcha/rails"
 gem 'rolify'
 gem 'rollbar'
 gem 'simple_token_authentication', git: 'https://github.com/gonzalo-bulnes/simple_token_authentication.git', branch: 'master'
+gem 'stripe'
 gem 'truncate_html'
 gem 'valvat'
 gem 'viitenumero', github: 'bittisiirto/viitenumero', branch: :master
