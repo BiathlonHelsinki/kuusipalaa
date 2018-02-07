@@ -9,10 +9,13 @@ Rails.application.routes.draw do
     resources :posts
     resources :pages
     resources :meetings
+    resources :questions
     resources :seasons
     resources :stakes
   end
 
+  resources :charges
+  
   resources :comments do
     resources :comments
   end
@@ -57,7 +60,14 @@ Rails.application.routes.draw do
   end
 
 
-  resources :pages
+
+  resources :pages do
+    resources :questions do
+      resources :answers do
+        resources :comments
+      end
+    end
+  end
 
   resources :posts do
     resources :comments
@@ -66,6 +76,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :questions do
+    member do
+      get :contribute_translation
+    end
+  end
+  
   resources :seasons do
     resources :groups do
       resources :stakes
@@ -83,11 +99,13 @@ Rails.application.routes.draw do
     collection do
       get :check_unique
       get :mentions
+
       get :members_agreement
     end
     resources :stakes
     resources :groups
     member do
+      get :get_avatar
       get :get_membership_details
     end
   end

@@ -87,7 +87,7 @@ form {
 }
 
 .comment_input {
-  background-color: $grey;
+
   white-space: pre-wrap;
   height: 250px;
   img {
@@ -101,7 +101,8 @@ form {
 
 .comment_input {
   overflow-y: scroll;
-  background-color: $grey;
+  border: 1px solid black;
+  background-color: #FCFCFC;
   white-space: pre-wrap;
   height: 250px;
   max-width: 500px;

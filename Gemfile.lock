@@ -17,16 +17,16 @@ GIT
 
 GIT
   remote: https://github.com/globalize/globalize
-  revision: b228455065888d91fd2aca6340dd7ef3d8d5c92e
+  revision: e946e63983d42c9ff49b39b13ffcc3ad45626dd3
   specs:
-    globalize (5.1.0.beta2)
+    globalize (5.1.0)
       activemodel (>= 4.2, < 5.2)
       activerecord (>= 4.2, < 5.2)
       request_store (~> 1.0)
 
 GIT
   remote: https://github.com/gonzalo-bulnes/simple_token_authentication.git
-  revision: ce6279abf43071477b8e23a2340ee288ea3a97d3
+  revision: 2ea7d13e155bf7d7da22a69e3e884e94d05a8dae
   branch: master
   specs:
     simple_token_authentication (1.15.1)
@@ -94,24 +94,24 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     arel (8.0.0)
-    audited (4.5.0)
+    audited (4.6.0)
       activerecord (>= 4.0, < 5.2)
     auto_html (2.0.0)
       gemoji (~> 2.1)
       redcarpet (~> 3.3)
       rinku (~> 1.7)
       tag_helper (~> 0.5)
-    awesome_nested_set (3.1.3)
-      activerecord (>= 4.0.0, < 5.2)
-    aws-partitions (1.36.0)
-    aws-sdk-core (3.8.0)
+    awesome_nested_set (3.1.4)
+      activerecord (>= 4.0.0, < 5.3)
+    aws-partitions (1.57.0)
+    aws-sdk-core (3.14.0)
       aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.3.0)
+    aws-sdk-kms (1.4.0)
       aws-sdk-core (~> 3)
       aws-sigv4 (~> 1.0)
-    aws-sdk-s3 (1.7.0)
+    aws-sdk-s3 (1.8.0)
       aws-sdk-core (~> 3)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.0)
@@ -126,12 +126,12 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
     bindex (0.5.0)
-    binding_of_caller (0.7.3)
+    binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
     builder (3.2.3)
-    byebug (9.1.0)
-    cancancan (2.1.1)
-    capistrano (3.10.0)
+    byebug (10.0.0)
+    cancancan (2.1.3)
+    capistrano (3.10.1)
       airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
@@ -139,7 +139,7 @@ GEM
     capistrano-bundler (1.3.0)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
-    capistrano-rails (1.3.0)
+    capistrano-rails (1.3.1)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
     capistrano-rvm (0.1.2)
@@ -149,14 +149,14 @@ GEM
       capistrano (~> 3.7)
       capistrano-bundler
       puma (~> 3.4)
-    capybara (2.16.0)
+    capybara (2.17.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
-      xpath (~> 2.0)
-    carrierwave (1.2.1)
+      xpath (>= 2.0, < 4.0)
+    carrierwave (1.2.2)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
@@ -165,13 +165,13 @@ GEM
       carrierwave (>= 0.7, < 2.0)
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
-    chosen-rails (1.5.2)
+    chosen-rails (1.8.3)
       coffee-rails (>= 3.2)
       railties (>= 3.0)
       sass-rails (>= 3.2)
     climate_control (0.2.0)
-    cocaine (0.5.8)
-      climate_control (>= 0.0.3, < 1.0)
+    cocaine (0.6.0)
+      terrapin (= 0.6.0)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -183,7 +183,7 @@ GEM
     concurrent-ruby (1.0.5)
     cookies_eu (1.6.3)
       js_cookie_rails
-    countries (2.1.2)
+    countries (2.1.3)
       i18n_data (~> 0.8.0)
       money (~> 6.9)
       sixarm_ruby_unaccent (~> 1.1)
@@ -192,19 +192,21 @@ GEM
       countries (~> 2.0)
       sort_alphabetical (~> 1.0)
     crass (1.0.3)
-    daemons (1.2.5)
+    daemons (1.2.6)
+    database_cleaner (1.6.2)
     debug_inspector (0.0.3)
-    delayed_job (4.1.3)
+    delayed_job (4.1.4)
       activesupport (>= 3.0, < 5.2)
     delayed_job_active_record (4.1.2)
       activerecord (>= 3.0, < 5.2)
       delayed_job (>= 3.0, < 5)
-    devise (4.3.0)
+    devise (4.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    diff-lcs (1.3)
     error_page_assets (0.4)
     erubi (1.7.0)
     erubis (2.7.0)
@@ -217,7 +219,7 @@ GEM
       thor (~> 0.14)
     fittextjs_rails (1.2.0.1)
       railties (>= 3.1)
-    font-awesome-rails (4.7.0.2)
+    font-awesome-rails (4.7.0.3)
       railties (>= 3.2, < 5.2)
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
@@ -229,7 +231,7 @@ GEM
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     gemoji (2.1.0)
-    geocoder (1.4.4)
+    geocoder (1.4.5)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     gyoku (1.3.1)
@@ -246,7 +248,7 @@ GEM
     has_scope (0.7.1)
       actionpack (>= 4.1, < 5.2)
       activesupport (>= 4.1, < 5.2)
-    hashie (3.5.6)
+    hashie (3.5.7)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
       haml (>= 4.0, < 6)
@@ -262,7 +264,7 @@ GEM
     httpi (2.4.2)
       rack
       socksify
-    i18n (0.9.1)
+    i18n (0.9.3)
       concurrent-ruby (~> 1.0)
     i18n_data (0.8.0)
     icalendar (2.4.1)
@@ -293,7 +295,7 @@ GEM
     kaminari-core (1.1.1)
     launchy (2.4.3)
       addressable (~> 2.3)
-    letter_opener (1.4.1)
+    letter_opener (1.6.0)
       launchy (~> 2.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -304,7 +306,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
-    meta-tags (2.6.0)
+    meta-tags (2.7.1)
       actionpack (>= 3.2.0, < 5.3)
     method_source (0.9.0)
     migration_data (0.3.0)
@@ -313,28 +315,28 @@ GEM
     mini_magick (4.8.0)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    minitest (5.10.3)
-    money (6.10.0)
+    minitest (5.11.3)
+    money (6.10.1)
       i18n (>= 0.6.4, < 1.0)
-    multi_json (1.12.2)
+    multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     nested_form (0.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)
-    nio4r (2.1.0)
-    nokogiri (1.8.1)
+    nio4r (2.2.0)
+    nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     nori (2.6.0)
-    oauth (0.5.3)
+    oauth (0.5.4)
     oauth2 (1.4.0)
       faraday (>= 0.8, < 0.13)
       jwt (~> 1.0)
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    omniauth (1.7.1)
+    omniauth (1.8.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
     omniauth-facebook (4.0.0)
@@ -342,34 +344,34 @@ GEM
     omniauth-github (1.3.0)
       omniauth (~> 1.5)
       omniauth-oauth2 (>= 1.4.0, < 2.0)
-    omniauth-google-oauth2 (0.5.2)
-      jwt (~> 1.5)
-      multi_json (~> 1.3)
+    omniauth-google-oauth2 (0.5.3)
+      jwt (>= 1.5)
       omniauth (>= 1.1.1)
-      omniauth-oauth2 (>= 1.3.1)
+      omniauth-oauth2 (>= 1.5)
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
-    omniauth-oauth2 (1.4.0)
-      oauth2 (~> 1.0)
+    omniauth-oauth2 (1.5.0)
+      oauth2 (~> 1.1)
       omniauth (~> 1.2)
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
+    openssl (2.1.0)
     orm_adapter (0.5.0)
     paranoia (2.4.0)
       activerecord (>= 4.0, < 5.2)
     pg (0.21.0)
-    pg_search (2.1.1)
+    pg_search (2.1.2)
       activerecord (>= 4.2)
       activesupport (>= 4.2)
       arel (>= 6)
     public_suffix (3.0.1)
-    puma (3.10.0)
-    rack (2.0.3)
-    rack-test (0.8.0)
+    puma (3.11.2)
+    rack (2.0.4)
+    rack-test (0.8.2)
       rack (>= 1.0, < 3)
-    rack-utf8_sanitizer (1.3.2)
+    rack-utf8_sanitizer (1.4.0)
       rack (>= 1.0, < 3.0)
     rails (5.1.4)
       actioncable (= 5.1.4)
@@ -400,17 +402,35 @@ GEM
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    recaptcha (4.6.2)
+    recaptcha (4.6.4)
       json
     redcarpet (3.4.0)
-    request_store (1.3.2)
+    request_store (1.4.0)
+      rack (>= 1.4)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
     rinku (1.7.3)
-    rolify (5.1.0)
+    rolify (5.2.0)
     rollbar (2.15.5)
       multi_json
+    rspec-core (3.7.1)
+      rspec-support (~> 3.7.0)
+    rspec-expectations (3.7.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.7.0)
+    rspec-mocks (3.7.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.7.0)
+    rspec-rails (3.7.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.7.0)
+      rspec-expectations (~> 3.7.0)
+      rspec-mocks (~> 3.7.0)
+      rspec-support (~> 3.7.0)
+    rspec-support (3.7.1)
     ruby_dep (1.5.0)
     ruby_parser (3.10.1)
       sexp_processor (~> 4.9)
@@ -422,15 +442,15 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    savon (2.11.2)
+    savon (2.12.0)
       akami (~> 1.2)
       builder (>= 2.1.2)
       gyoku (~> 1.2)
       httpi (~> 2.3)
-      nokogiri (>= 1.4.0)
+      nokogiri (>= 1.8.1)
       nori (~> 2.4)
       wasabi (~> 3.4)
-    selenium-webdriver (3.7.0)
+    selenium-webdriver (3.8.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
     sexp_processor (4.10.0)
@@ -454,11 +474,15 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sshkit (1.15.1)
+    sshkit (1.16.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    stripe (3.9.1)
+      faraday (~> 0.10)
     tag_helper (0.5.0)
     temple (0.8.0)
+    terrapin (0.6.0)
+      climate_control (>= 0.0.3, < 1.0)
     thin (1.7.2)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -467,9 +491,9 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     truncate_html (0.9.3)
-    tzinfo (1.2.4)
+    tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (3.2.0)
+    uglifier (4.1.5)
       execjs (>= 0.3.0, < 3)
     unicode_utils (1.4.0)
     valvat (0.7.1)
@@ -489,8 +513,8 @@ GEM
     websocket-extensions (0.1.3)
     wicked_pdf (1.1.0)
     wkhtmltopdf-binary (0.12.3.1)
-    xpath (2.1.0)
-      nokogiri (~> 1.3)
+    xpath (3.0.0)
+      nokogiri (~> 1.8)
 
 PLATFORMS
   ruby
@@ -509,7 +533,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capistrano3-puma
-  capybara (~> 2.13)
+  capybara
   carrierwave
   carrierwave-aws
   carrierwave_backgrounder!
@@ -517,6 +541,7 @@ DEPENDENCIES
   ckeditor!
   cookies_eu
   country_select
+  database_cleaner
   delayed_job_active_record
   devise
   error_page_assets
@@ -553,22 +578,25 @@ DEPENDENCIES
   omniauth-github
   omniauth-google-oauth2
   omniauth-twitter
+  openssl
   paranoia (~> 2.4.0)
-  pg
+  pg (= 0.21.0)
   pg_search
   puma (~> 3.7)
   rack-utf8_sanitizer
-  rails (~> 5.1.4)
+  rails (= 5.1.4)
   rails-jquery-autocomplete
   recaptcha
   rolify
   rollbar
+  rspec-rails
   ruby_parser (>= 3.0.1)
   sass-rails (~> 5.0)
   selenium-webdriver
   simple_token_authentication!
   spring
   spring-watcher-listen (~> 2.0.0)
+  stripe
   thin
   truncate_html
   uglifier (>= 1.3.0)
@@ -579,7 +607,7 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 RUBY VERSION
-   ruby 2.4.2p198
+   ruby 2.4.3p205
 
 BUNDLED WITH
-   1.16.0.pre.3
+   1.16.1

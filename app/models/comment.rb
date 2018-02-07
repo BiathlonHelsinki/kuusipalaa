@@ -1,12 +1,13 @@
 class Comment < ApplicationRecord
-  include PgSearch
-  multisearchable :against => :content
+  # include PgSearch
+  # multisearchable :against => :content
   belongs_to :item, polymorphic: true, touch: true
-  belongs_to :user
+  belongs_to :contributor, polymorphic: true
   has_many :comments, as: :item
+  belongs_to :user
   mount_uploader :image, ImageUploader
   mount_uploader :attachment, AttachmentUploader
-  validates_presence_of :user_id, :item_id, :item_type, :content
+  validates_presence_of :contributor_id, :contributor_type, :item_id, :item_type, :content, :user_id
   before_save :update_image_attributes, :update_attachment_attributes
   after_create :update_activity_feed
   after_create -> {
@@ -31,6 +32,8 @@ class Comment < ApplicationRecord
   def root_comment
     if item.class == Comment
       item.root_comment
+    elsif item.class == Answer
+      item.question.page
     else
       item
     end
@@ -42,13 +45,14 @@ class Comment < ApplicationRecord
   end
 
   def update_activity_feed
-    Activity.create(user: user, item: self.item, description: "commented_on",  addition: 0)
+
+    Activity.create(user: user, item: self.item, description: "commented_on",  addition: 0, contributor: contributor)
     matches = content.scan(/rel=\"\/users\/(\d*)\"/)
     unless matches.empty?
       matches.flatten.each do |uu|
         u = User.find(uu.to_i)
         unless u.nil?
-          Activity.create(user: u, description: 'was_mentioned_by', item: user, extra: self.item, extra_info: 'in_a_comment_on', addition: 0)
+          Activity.create(user: u, description: 'was_mentioned_by', item: contributor, extra: self.item, extra_info: 'in_a_comment_on', addition: 0)
         end
       end
     end

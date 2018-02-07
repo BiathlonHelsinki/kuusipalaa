@@ -1,0 +1,4 @@
+.comment[comment]
+  = image_tag comment.contributor.avatar.url(:thumb).gsub(/development/, 'production')
+  = raw t(:user_says_on, user: link_to(comment.contributor.display_name, comment.contributor), date: l(comment.created_at))
+  .content= sanitize comment.content

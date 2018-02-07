@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131100119) do
+
+ActiveRecord::Schema.define(version: 20180205204231) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,10 +46,35 @@ ActiveRecord::Schema.define(version: 20180131100119) do
     t.string "txaddress"
     t.integer "blockchain_transaction_id"
     t.integer "numerical_value"
+    t.string "contributor_type"
+    t.bigint "contributor_id"
+    t.index ["contributor_type", "contributor_id"], name: "index_activities_on_contributor_type_and_contributor_id"
     t.index ["ethtransaction_id"], name: "index_activities_on_ethtransaction_id"
     t.index ["extra_type", "extra_id"], name: "index_activities_on_extra_type_and_extra_id"
     t.index ["item_type", "item_id"], name: "index_activities_on_item_type_and_item_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
+  end
+
+  create_table "answer_translations", force: :cascade do |t|
+    t.integer "answer_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "body"
+    t.string "contributor_type"
+    t.bigint "contributor_id"
+    t.index ["answer_id"], name: "index_answer_translations_on_answer_id"
+    t.index ["contributor_type", "contributor_id"], name: "contributor_answer_index"
+    t.index ["locale"], name: "index_answer_translations_on_locale"
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
   create_table "audits", id: :serial, force: :cascade do |t|
@@ -130,6 +157,9 @@ ActiveRecord::Schema.define(version: 20180131100119) do
     t.datetime "updated_at", null: false
     t.boolean "systemflag", default: false, null: false
     t.boolean "frontpage", default: false, null: false
+    t.string "contributor_type"
+    t.bigint "contributor_id"
+    t.index ["contributor_type", "contributor_id"], name: "index_comments_on_contributor_type_and_contributor_id"
     t.index ["item_type", "item_id"], name: "index_comments_on_item_type_and_item_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -568,6 +598,12 @@ ActiveRecord::Schema.define(version: 20180131100119) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "paymenttypes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pg_search_documents", id: :serial, force: :cascade do |t|
     t.text "content"
     t.string "searchable_type"
@@ -711,6 +747,31 @@ ActiveRecord::Schema.define(version: 20180131100119) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "question_translations", force: :cascade do |t|
+    t.integer "question_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "question"
+    t.index ["locale"], name: "index_question_translations_on_locale"
+    t.index ["question_id"], name: "index_question_translations_on_question_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "slug"
+    t.bigint "page_id"
+    t.bigint "era_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "contributor_type"
+    t.bigint "contributor_id"
+    t.bigint "user_id"
+    t.index ["contributor_type", "contributor_id"], name: "index_questions_on_contributor_type_and_contributor_id"
+    t.index ["era_id"], name: "index_questions_on_era_id"
+    t.index ["page_id"], name: "index_questions_on_page_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
+  end
+
   create_table "rates", id: :serial, force: :cascade do |t|
     t.boolean "current"
     t.integer "experiment_cost"
@@ -815,6 +876,8 @@ ActiveRecord::Schema.define(version: 20180131100119) do
     t.boolean "includes_membership_fee", default: false, null: false
     t.float "price", default: 50.0, null: false
     t.float "invoice_amount"
+    t.integer "paymenttype_id", default: 1, null: false
+    t.string "stripe_token"
     t.index ["owner_type", "owner_id"], name: "index_stakes_on_owner_type_and_owner_id"
     t.index ["season_id"], name: "index_stakes_on_season_id"
   end
@@ -959,6 +1022,8 @@ ActiveRecord::Schema.define(version: 20180131100119) do
 
   add_foreign_key "accounts", "users"
   add_foreign_key "activities", "ethtransactions"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
   add_foreign_key "authentications", "users"
   add_foreign_key "blockchain_transactions", "accounts"
   add_foreign_key "blockchain_transactions", "ethtransactions"
@@ -985,6 +1050,9 @@ ActiveRecord::Schema.define(version: 20180131100119) do
   add_foreign_key "pledges", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "proposals", "users"
+  add_foreign_key "questions", "eras"
+  add_foreign_key "questions", "pages"
+  add_foreign_key "questions", "users"
   add_foreign_key "rates", "instances"
   add_foreign_key "registrations", "instances"
   add_foreign_key "registrations", "users"

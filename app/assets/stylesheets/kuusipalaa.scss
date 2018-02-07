@@ -201,6 +201,12 @@ a.not-active {
     font-size: 0.9rem;
     font-family: $montserrat;
 
+    .question {
+      font-weight: bold;
+      font-family: $sourcecode;
+    }
+
+
   }
 }
 
@@ -581,4 +587,131 @@ footer {
 
 
 
+}
+#new_question_form {
+  display: none;
+}
+.small_title {
+  font-weight: bold;
+  font-size: 1.4rem;
+  text-decoration: underline;
+  margin-top: 2rem;
+}
+ul#page_questions, ul#unanswered_questions {
+  list-style-type: square;
+  li.question {
+    font-weight: bold;
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+    small {
+      font-family: $montserrat;
+      font-weight: normal;
+      font-size: 0.54rem;
+    }
+  }
+  .translation_credit {
+
+    margin-left: 2rem;
+    font-style: italic;
+    font-size: 0.7rem;
+    .comment_info {
+      margin-left: 2rem;
+    }
+    img {
+      height: 30px;
+      width: auto;
+    }
+  }
+  .answers {
+    display: none;
+    margin-bottom: 1rem;
+    font-family: $montserrat;
+    font-weight: normal;
+    font-size: 0.9rem;
+    .new_comment_form {
+      margin-left: 9rem;
+      .avatar {
+        float: left;
+        margin-right: 10px;
+        img {
+          height: 30px;
+          width: auto;
+        }
+      }
+      .comment_input {
+        height: 150px;
+      }
+      .chooser {
+        margin: 1rem 0 1rem 25px;
+
+      }
+    }
+    .answer_block {
+      .comments {
+        display: none;
+        margin-left: 6rem;
+        .comment {
+          border-bottom: 1px dotted black;
+          &.last {
+            border-bottom: none;
+          }
+          margin-left: 2rem;
+          font-style: italic;
+          font-size: 0.7rem;
+          margin-right: 8rem;
+          margin-bottom: 1rem;
+          font-family: $sourcecode;
+          img {
+            height: 30px;
+          }
+          .content {
+            margin: 1rem 0 1rem 40px;
+            font-size: 1rem;
+            font-family: $montserrat;
+          }
+        }
+      }
+    }
+
+    .answer_section {
+      padding: 0.5rem 0;
+      border-bottom: 1px dotted black;
+      font-family: $montserrat;
+
+
+      &.last {
+        border-bottom: none;
+        margin-bottom: 1.5rem;
+      }
+
+    }
+    p {
+      font-family: $montserrat;
+      font-weight: normal;
+      font-size: 0.9rem;
+    }
+
+    .translate {
+      font-family: $sourcecode;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+button.stripe-button-el {
+  margin: 0.75rem  0;
+  border-radius: 0;
+  
+  span {
+    background: none !important;
+    border-radius: 0px !important;
+    background-image: none !important;
+    background-color: black !important;
+    color: white;
+    text-transform: uppercase;
+    font-family: $sourcecode;
+
+  }
 }

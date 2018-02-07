@@ -1,0 +1,33 @@
+%article.post_single
+  .row
+    .small-12.columns.lessmargins.lessright
+      .lifted_box
+        .title= t :contribute_a_translation_into_lang
+        .blurb
+          .question= @question.question
+          .answer
+            %ol
+              - @question.answers.each_with_index do |a, index|
+                %li= raw a.body
+          .form.row
+            .small-12.large-8.columns
+
+              = semantic_nested_form_for @question, html: {:'data-abide' => ''} do |f|
+                - I18n.available_locales.each_with_index do |locale, i|
+                  
+
+                  = f.globalize_fields_for locale do |ff|
+                    - if @question.read_translated_attribute(:question, locale).blank?
+                      %b= "Please translate the question text into #{t :locale_name, :locale => locale}"
+                      = ff.text_field :question, {required: ''}
+
+                = f.fields_for :answers do |ff|
+                  - I18n.available_locales.each_with_index do |locale, i|
+                    - if ff.object.read_translated_attribute(:body, locale).blank?
+                      
+                      = ff.globalize_fields_for locale do |fff|
+                        %strong= "Please translate answer text ##{ff.options[:child_index] + 1} into #{t :locale_name, :locale => locale}:"
+                        = fff.cktext_area :body, {required: ''}
+                        = fff.hidden_field :contributor_type, value: 'User'
+                        = fff.hidden_field :contributor_id, value: current_user.id
+                = f.submit t(:submit)

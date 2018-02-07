@@ -1,0 +1,8 @@
+
+
+$("#new_comment_form_<%= @answer.id.to_s %>").html("<%= escape_javascript(render(partial: 'shared/answer_comment_form', locals: {page: @page, answer: @answer, commentable: @answer, comment: @comment, question: @question})) %>");
+$('#comment_contributor_select').on('change', function() {
+  $('#comment_contributor_type').val($('#comment_contributor_select option').filter(":selected").attr('rel'));
+  $('#comment_contributor_id').val($('#comment_contributor_select').val());
+
+});  

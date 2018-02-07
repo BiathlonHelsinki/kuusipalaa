@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   # process_in_background :avatar
   # store_in_background :avatar
   after_create :add_to_activity_feed
-  has_many :comments
+  has_many :comments, as: :contributor
   validates_presence_of :geth_pwd
   has_many :rsvps
   has_many :registrations
@@ -262,7 +262,7 @@ class User < ActiveRecord::Base
     elsif omniauth['provider'] == 'github'
       self.email = omniauth['info']['email'] if email.blank? || email =~ /change@me/
       self.username = omniauth['info']['nickname']
-      self.name = omniauth['info']['name']
+      self.name = omniauth['info']['name'] ||= 'Your name'
       self.name.strip!
       identifier = self.username
     elsif omniauth['provider'] == 'google_oauth2'

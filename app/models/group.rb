@@ -17,6 +17,7 @@ class Group < ApplicationRecord
   after_create :add_to_activity_feed
   after_update :edit_to_activity_feed
   before_save :validate_vat
+  has_many :activities, as: :contributor
   rolify
   
   def validate_vat

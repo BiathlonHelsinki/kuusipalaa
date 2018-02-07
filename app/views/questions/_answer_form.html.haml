@@ -1,0 +1,27 @@
+.row
+  .small-12.large-7.colummns
+    = semantic_form_for [@page, q, Answer.new], html: {:'data-abide' => ''} do |f|
+      = f.hidden_field :user_id, value: current_user.id, 'required' => ''
+      = f.globalize_fields_for session[:locale] do |ff|
+        
+        / = ff.hidden_field :contributor_type, value: 'User'
+        / = ff.hidden_field :contributor_id, value: current_user.id
+        - if @collection_options.size > 1
+
+          = ff.hidden_field :contributor_type, value: 'User', 'required' => '', id: :answer_contributor_type
+          = ff.hidden_field :contributor_id,  value: current_user.id, 'required' => '', id: :answer_contributor_type
+          = f.input :contributor, as: :select, input_html: {id: :answer_contributor_select}, label: t(:who_is_answering), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }),  include_blank: false
+        - else
+          = ff.hidden_field :contributor_type, value: 'User', 'required' => ''
+          = ff.hidden_field :contributor_id, value: current_user.id , 'required' => ''
+        %strong= t :your_answer          
+        = ff.text_area :body
+      = f.submit t(:submit)
+
+= content_for :jquery do
+  :plain
+    $('#answer_contributor_select').on('change', function() {
+      $('#answer_contributor_type').val($('#answer_contributor_select option').filter(":selected").attr('rel'));
+      $('#answer_contributor_id').val($('#answer_contributor_select').val());
+
+    });  
