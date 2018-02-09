@@ -29,7 +29,8 @@
                 %br/
                 %small
                   %strong
-                    - if group.taxid
+                    - unless group.taxid.blank?
+
                       = t :registered_organisation
                       - if group.is_member
                         %br/
