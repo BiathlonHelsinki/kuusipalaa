@@ -715,3 +715,35 @@ button.stripe-button-el {
 
   }
 }
+
+form {
+  &.idea {
+    fieldset {
+      border: none;
+      legend.label {
+        background: none;
+      }
+    }
+    #calendar {
+      display: none;
+    }
+    .points_total {
+      font-family: $sourcecode;
+      font-weight: bold;
+      span#points_total {
+        font-weight: bold;
+        font-size: 2.5rem;
+      }
+    }
+  }
+  p {
+    input[type='radio'] {
+      margin: 0 !important;
+    }
+    margin: 0.25rem 0;
+  }
+  p.small {
+    margin: 0.25rem 0 1.25rem;
+    font-size: 0.8rem;
+  }
+}

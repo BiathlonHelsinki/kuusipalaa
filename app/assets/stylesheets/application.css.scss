@@ -20,10 +20,13 @@
  *= require font-awesome
  *= require jquery-ui/autocomplete
  *= require mobile
+ *= require fullcalendar
+ *= require calendar_overrides
 */
 
 @import "cookies_eu";
 @import "foundation";
+@import 'foundation-datetimepicker';
 @import "slick";
 @import "slick-theme";
 

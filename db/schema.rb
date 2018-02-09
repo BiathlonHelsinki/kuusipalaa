@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20180205204231) do
-
+ActiveRecord::Schema.define(version: 20180207171401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -367,6 +365,13 @@ ActiveRecord::Schema.define(version: 20180205204231) do
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
+    t.string "image"
+    t.integer "image_size"
+    t.string "image_content_type"
+    t.datetime "image_updated_at"
+    t.integer "image_width"
+    t.integer "image_height"
     t.index ["ideatype_id"], name: "index_ideas_on_ideatype_id"
     t.index ["parent_type", "parent_id"], name: "index_ideas_on_parent_type_and_parent_id"
     t.index ["proposalstatus_id"], name: "index_ideas_on_proposalstatus_id"

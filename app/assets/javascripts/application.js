@@ -13,6 +13,7 @@
 //= require jquery2
 //= require jquery_ujs
 //= require foundation
+//= require foundation-datetimepicker
 //= require jquery-ui/widgets/autocomplete
 //= require autocomplete-rails
 //= require jquery.mentionable
@@ -21,6 +22,8 @@
 //= require fittext
 //= require jquery.slick
 //= require cookies_eu
+//= require moment 
+//= require fullcalendar
 //= require_tree .
 
 function getContent(id){
@@ -38,5 +41,30 @@ function getContentEmptyOK(id){
 
 }
 
+
+function calculateCost() {
+  var start = moment($('#idea_start_at').val(), 'YYYY-MM-DD HH:mm');
+  var endtime = moment($('#idea_end_at').val(), 'YYYY-MM-DD HH:mm');
+  base = 0
+  if (endtime.isBefore(start)) {
+
+    $('#idea_end_at').val($('#idea_start_at').val());
+  } else {
+    // get time difference in hour and validate as well
+    var duration = moment.duration(endtime.diff(start));
+    // figure out how much of each time belongs to the three prices
+    for (var m = moment(start); m.isBefore(endtime); m.add(1, 'hours')) {
+      if (m.format('HH') <= 7) {
+        base += 50;
+      } else if (m.format('HH') > 7 && m.format('HH') <= 17) {
+        base += 75;
+      } else {
+        base += 100;
+      }
+    }
+
+    $('#points_total').html(base);
+  }
+}
 
 $(function(){ $(document).foundation(); });

@@ -43,6 +43,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :ideas do
+    collection do
+      get :calendar
+    end
+    resources :build, controller: 'ideas/build'
+  end
+
   resources :meetings do
     resources :comments
     member do

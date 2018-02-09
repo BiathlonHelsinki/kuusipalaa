@@ -3,7 +3,7 @@ class Ideatype < ApplicationRecord
   friendly_id :name_en , :use => [ :slugged, :finders, :history]
   translates :name, :description
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['name'].blank? && x['description'].blank? }
-  validate :title_present_in_at_least_one_locale
+  validate :name_present_in_at_least_one_locale
   has_many :ideas
 
   def name_en

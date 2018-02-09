@@ -53,6 +53,7 @@ group :development, :test do
 end
 group :test do
   gem "capybara"
+  gem 'factory_bot'
   gem "selenium-webdriver"
 end
 
@@ -102,6 +103,7 @@ gem 'figaro'
 gem 'fittextjs_rails'
 gem 'font-awesome-rails'
 gem 'friendly_id', '~> 5.1.0'
+gem 'fullcalendar-rails'
 gem 'geocoder'
 gem 'globalize', git: 'https://github.com/globalize/globalize'
 gem 'activemodel-serializers-xml'
@@ -116,6 +118,7 @@ gem 'meta-tags'
 gem 'migration_data'
 gem 'mimemagic'
 gem 'mini_magick'
+gem 'momentjs-rails'
 gem 'multipart-post'
 gem 'nested_form'
 gem 'omniauth'
@@ -135,5 +138,6 @@ gem 'stripe'
 gem 'truncate_html'
 gem 'valvat'
 gem 'viitenumero', github: 'bittisiirto/viitenumero', branch: :master
+gem 'wicked'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
