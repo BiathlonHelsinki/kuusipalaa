@@ -12,6 +12,7 @@ class Stake < ApplicationRecord
   after_create  :generate_invoice
   skip_callback :after_create, only: :generate_invoice
   has_many :activities, as: :item
+
   scope :by_season, -> (x) { where(season_id: x)}
   scope :paid, ->() { where(paid: true)}
   scope :booked_unpaid,  ->() { where('paid is not true')}
