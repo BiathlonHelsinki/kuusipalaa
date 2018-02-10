@@ -1,0 +1,34 @@
+.member_services_index
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t :when_do_you_want_this_to_happen
+        .blurb
+
+
+          = semantic_form_for @idea,url: "/ideas/#{@idea.id.to_s}/build/when", html: { method: :put, multipart: true, :'data-abide' => ''} do |f|
+            = f.input :timeslot_undetermined, as: :radio, collection: {t(:undetermined_time) => true, t(:choose_from_calendar) => false}, label: false
+            = f.input :start_at, as: :string
+            .calendar#calendar
+            %button{type: :submit, class: [:button, :bordered]}= raw(t(:next) + ' ' + fa_icon('caret-right').html_safe)
+= content_for :jquery do
+
+  
+  :plain
+    function pollVisibility() {
+      if ($("#calendar").is(":visible")) {
+
+          // call a function here, or do whatever now that the div is  visible
+          #{render partial: 'ideas/build/calendar', locals: {user: current_user.id }, formats: [:js]}
+      
+      } else {
+          setTimeout(pollVisibility, 500);
+      }
+    }
+    $('input#idea_timeslot_undetermined_false').change(() => {
+
+     if ($('input#idea_timeslot_undetermined_false').is(':checked')) {
+        $('#calendar').slideDown();
+        pollVisibility();
+     }
+    });

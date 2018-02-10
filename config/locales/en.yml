@@ -910,6 +910,11 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   event_details: 'Event details'
   choose: 'Choose '
   event_as_proposed_will_cost: 'This event will require '
+  public_start_time: 'Enter the times that your event will start and end for the public/participants.'
+  bonus_hour: "All events include one 'free' hour before the public starting time to allow setup, and one 'free' hour after the official end time in case it runs late."
+  add_an_additional_time: 'Add another timeslot to this proposal'
+  additional_times_explanation: 'If your event will span over multiple non-continuous times (for example, two evenings in a row), add additional times needed here.'
+  additional_times_info: 'Additional timeslot:'
   activerecord:
     errors:
       models:

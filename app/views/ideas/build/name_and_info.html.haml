@@ -1,0 +1,12 @@
+.member_services_index
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t :what_do_you_want_to_call_it
+        .blurb
+          = semantic_form_for @idea,url: "/ideas/#{@idea.id.to_s}/build/name_and_info", html: { method: :put, multipart: true, :'data-abide' => ''} do |f|
+            = f.input :name
+            = f.input :short_description, as: :string
+            = f.input :proposal_text
+            = f.input :image
+            %button{type: :submit, class: [:button, :bordered]}= raw(t(:next) + ' ' + fa_icon('caret-right').html_safe)

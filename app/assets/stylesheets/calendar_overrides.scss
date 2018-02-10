@@ -1,0 +1,22 @@
+@import 'variables';
+
+a.fc-event { 
+  border: 1px solid black;
+  background-color: black;
+  color: white;
+  .fc-content {
+    span.fc-title {
+      font-family: $sourcecode;
+      font-weight: bold;
+    }
+  }
+}
+
+
+.datetimepicker {
+  position: relative;
+  th {
+    background: initial;
+    color: black;
+  }
+}

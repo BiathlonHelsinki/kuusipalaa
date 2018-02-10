@@ -1,0 +1,19 @@
+.member_services_index
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t :which_type_of_event
+        .blurb
+          - if @idea.ideatype_id == 1
+            = form_tag "/ideas/#{@idea.id.to_s}/build/find_type", method: :put, 'data-abide' => '' do |f|
+              %p
+                = radio_button_tag 'idea[ideatype_id]', '4'
+                = t :private_event
+              %p.small= t :private_event_explanation
+              %p
+                = radio_button_tag 'idea[ideatype_id]', '1'
+                = t :public_event
+              %p.small= t :public_event_explanation 
+
+              %button{type: :submit, class: [:button, :bordered]}= raw(t(:next) + ' ' + fa_icon('caret-right').html_safe)
+

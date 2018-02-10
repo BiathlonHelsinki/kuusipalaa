@@ -1,0 +1,88 @@
+.member_services_index
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t :event_details
+        .blurb
+          - if @idea.timeslot_undetermined == true
+            = t :pick_times_anyway
+            = @idea.inspect
+          = semantic_nested_form_for @idea,url: "/ideas/#{@idea.id.to_s}/build/points", html: { method: :put, multipart: true, :'data-abide' => ''} do |f|
+            .row
+              .small-12.columns
+                %p= t(:public_start_time)
+                %p.inline-hints= t :bonus_hour
+            .row
+              .small-6.large-4.columns
+                = f.input :start_at_date, as: :string, input_html: {class: :datetimepicker }
+              .small-6.large-4.columns
+                = f.input :start_at, as: :string, input_html: {class: :timepicker, value: f.object.end_at.blank? ? '18:00' : f.object.start_at.strftime('%H:%M')}
+              .small-4.columns
+                #initial_time_length
+
+            .row
+              .small-6.large-4.columns
+                = f.input :end_at_date, as: :string, input_html: {class: :datetimepicker, value: f.object.end_at_date.nil? ? f.object.start_at_date : f.object.end_at_date }
+              .small-6.large-4.columns.end
+                = f.input :end_at, as: :string, input_html: {class: :timepicker, value: f.object.end_at.blank? ? '20:00' : f.object.end_at.strftime('%H:%M')}
+
+            .row
+              .small-12.columns
+                = f.fields_for :additionaltimes do |ff|
+                  %div{class: "subtimes", id: ff.options[:child_index] }
+                    .row
+                      .small-12.columns
+                        = t :additional_times_info
+                    .row
+                      .small-6.large-4.columns
+                        = ff.input :start_at_date, as: :string, input_html: {class: :datetimepicker }
+                      .small-6.large-4.columns.end
+                        = ff.input :start_at, as: :string, input_html: {class: :timepicker, value: ff.object.start_at.blank? ? '' : ff.object.start_at.strftime('%H:%M')}
+                      .small-4.columns
+                        .initial_time_length{id: "slotlength_" + ff.options[:child_index]}                        
+                    .row
+                      .small-6.large-4.columns
+                        = ff.input :end_at_date, as: :string, input_html: {class: :datetimepicker, value: ff.object.end_at_date.nil? ? ff.object.start_at_date : ff.object.end_at_date }
+                      .small-6.large-4.columns.end
+                        = ff.input :end_at, as: :string, input_html: {class: :timepicker, value: ff.object.end_at.blank? ? '' : ff.object.end_at.strftime('%H:%M')}
+                = f.link_to_add t(:add_an_additional_time), :additionaltimes, class: [:button, :bordered, :tiny]
+                %p.inline-hints= t :additional_times_explanation
+            .row
+              .small-6.large-4.columns                
+            = f.input :room_needed, as: :select, collection: {t(:main_room) => 1, t(:back_room) => 2, t(:both) => 3}
+            = f.input :allow_others, as: :boolean
+            = f.input :price_public
+            = f.input :price_stakeholders
+
+            .points_total
+              = t :event_as_proposed_will_cost
+              %span#points_total 
+              points to be scheduled
+= content_for :jquery do
+  :plain
+     calculateCost();
+     $(document).on('nested:fieldAdded', function(event){     
+      var field = event.field;  
+      $('form input, form select').change(() => {
+   
+        calculateCost();
+      });   
+      $('.timepicker').timepicker({ 'timeFormat': 'H:i' });
+     
+      var dateField = field.find('.datetimepicker');
+      // and activate datepicker on it
+      dateField.fdatetimepicker({ weekStart: 1, format: 'yyyy-mm-dd', minView: 2, startview:2 }).on('changeDate', function(){
+
+        $(this).fdatetimepicker('hide');
+      }); 
+    });
+
+    $('.datetimepicker').fdatetimepicker({ weekStart: 1, format: 'yyyy-mm-dd', minView: 2, startview:2 }).on('changeDate', function(){
+
+      $(this).fdatetimepicker('hide');
+    }); 
+    $('form input, form select').change(() => {
+   
+      calculateCost();
+    });
+    $('.timepicker').timepicker({ 'timeFormat': 'H:i' });

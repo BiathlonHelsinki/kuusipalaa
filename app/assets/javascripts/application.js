@@ -18,11 +18,13 @@
 //= require autocomplete-rails
 //= require jquery.mentionable
 //= require jquery.scrollTo.min
+//= require jquery.timepicker.min
 //= require readmore.min
 //= require fittext
 //= require jquery.slick
 //= require cookies_eu
 //= require moment 
+//= require moment-precise-range
 //= require fullcalendar
 //= require_tree .
 
@@ -42,28 +44,71 @@ function getContentEmptyOK(id){
 }
 
 
-function calculateCost() {
-  var start = moment($('#idea_start_at').val(), 'YYYY-MM-DD HH:mm');
-  var endtime = moment($('#idea_end_at').val(), 'YYYY-MM-DD HH:mm');
-  base = 0
-  if (endtime.isBefore(start)) {
+function check_additionals() {
+  var returned = []
+  var idarray = []
+  // see if there are additional form times and calculate them, return an array of points needed
+  $('.fields').each(function(index) {
+    $(this).find('.subtimes').each(function(ids) { idarray.push($(this).attr('id')) });
+   });
+  idarray.forEach(function(eyed) {
+    var start = moment($('input[name="idea[additionaltimes_attributes][' + eyed + '][start_at_date]"]').val() + ' ' + $('input[name="idea[additionaltimes_attributes][' + eyed + '][start_at]"]').val(), 'YYYY-MM-DD HH:mm');
+    var endtime = moment($('input[name="idea[additionaltimes_attributes][' + eyed + '][end_at_date]"]').val() + ' ' + $('input[name="idea[additionaltimes_attributes][' + eyed + '][end_at]"]').val(), 'YYYY-MM-DD HH:mm');
+    if (endtime.isBefore(start)) {
+      // TODO fix for split fields
+      $('input[name="idea[additionaltimes_attributes][' + eyed + '][end_at_date]"]').val($('input[name="idea[additionaltimes_attributes][' + eyed + '][start_at_date]"]').val());
+    } else {
+      let base = calcSpan(start, endtime);
+      var duration = moment.duration(endtime.diff(start));
+      console.log(endtime.preciseDiff(start))
+      $('#slotlength_' + eyed).html(endtime.preciseDiff(start) + '<Br />+' + base + " points needed")
+      returned.push(base)
+    }
+  })
+  return returned
+}
 
+function calcSpan(start, endtime) {
+  let base = 0
+  for (var m = moment(start); m.isBefore(endtime); m.add(1, 'hours')) {
+    if (m.format('HH') <= 7) {
+      base += 50;
+    } else if (m.format('HH') > 7 && m.format('HH') <= 17) {
+      base += 75;
+    } else {
+      base += 100;
+    }
+  }
+  return base
+}
+
+function calculateCost() {
+  var start = moment($('#idea_start_at_date').val() + ' ' + $('#idea_start_at').val(), 'YYYY-MM-DD HH:mm');
+  var endtime = moment($('#idea_end_at_date').val() + ' ' + $('#idea_end_at').val(), 'YYYY-MM-DD HH:mm');
+
+  if (endtime.isBefore(start)) {
+    //  TODO fix for split fields
     $('#idea_end_at').val($('#idea_start_at').val());
   } else {
     // get time difference in hour and validate as well
     var duration = moment.duration(endtime.diff(start));
     // figure out how much of each time belongs to the three prices
-    for (var m = moment(start); m.isBefore(endtime); m.add(1, 'hours')) {
-      if (m.format('HH') <= 7) {
-        base += 50;
-      } else if (m.format('HH') > 7 && m.format('HH') <= 17) {
-        base += 75;
-      } else {
-        base += 100;
-      }
+    let base = calcSpan(start, endtime)
+
+    // discount for room needed
+    if ($('#idea_room_needed').val() == "2") {
+      base *= 0.7;
+    } else if ($('#idea_room_needed').val() == "3") {
+      base *= 1.3;
     }
 
-    $('#points_total').html(base);
+    // discount for allowing others to be there
+    if ($('#idea_allow_others').is(":checked")) {
+      base *= 0.75;
+    }
+    let returned = check_additionals();
+    $('#initial_time_length').html(endtime.preciseDiff(start) + '<Br />' + base + " base points needed")
+    $('#points_total').html(base + returned.reduce((a, b) => a + b, 0));
   }
 }
 

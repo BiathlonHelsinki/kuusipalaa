@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205204231) do
+ActiveRecord::Schema.define(version: 20180210091452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,16 @@ ActiveRecord::Schema.define(version: 20180205204231) do
     t.index ["extra_type", "extra_id"], name: "index_activities_on_extra_type_and_extra_id"
     t.index ["item_type", "item_id"], name: "index_activities_on_item_type_and_item_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
+  end
+
+  create_table "additionaltimes", force: :cascade do |t|
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.string "item_type"
+    t.bigint "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_type", "item_id"], name: "index_additionaltimes_on_item_type_and_item_id"
   end
 
   create_table "answer_translations", force: :cascade do |t|
@@ -365,6 +375,17 @@ ActiveRecord::Schema.define(version: 20180205204231) do
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
+    t.string "image"
+    t.integer "image_size"
+    t.string "image_content_type"
+    t.datetime "image_updated_at"
+    t.integer "image_width"
+    t.integer "image_height"
+    t.integer "room_needed"
+    t.boolean "allow_others"
+    t.float "price_public"
+    t.float "price_stakeholders"
     t.index ["ideatype_id"], name: "index_ideas_on_ideatype_id"
     t.index ["parent_type", "parent_id"], name: "index_ideas_on_parent_type_and_parent_id"
     t.index ["proposalstatus_id"], name: "index_ideas_on_proposalstatus_id"

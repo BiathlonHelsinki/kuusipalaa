@@ -1,0 +1,21 @@
+.member_services_index
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t :what_do_you_want_to_do
+        .blurb
+          = form_tag @idea, html: {'data-abide' => ''} do |f|
+            %p
+              = radio_button_tag 'step1', 'event'
+              = t :book_an_event
+            %p.small= t :book_event_explanation
+            %p
+              = radio_button_tag 'step1', 'installation'
+              = t :put_something_in_the_space
+            %p.small= t :installation_explanation
+            %p
+              = radio_button_tag 'step1', 'request'
+              = t :make_a_request
+            %p.small= t :make_request_explanation            
+
+            %button{type: :submit, class: [:button, :bordered]}= raw(t(:next) + ' ' + fa_icon('caret-right').html_safe)

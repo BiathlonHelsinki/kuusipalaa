@@ -718,6 +718,17 @@ button.stripe-button-el {
 
 form {
   &.idea {
+    .fields {
+      border: 1px dotted black;
+      padding: 2rem;
+      label.label {
+        font-size: 0.75rem;
+      }
+      input[type=text] {
+        height: 1.9rem;
+        font-size: 0.8rem;
+      }
+    }
     fieldset {
       border: none;
       legend.label {
