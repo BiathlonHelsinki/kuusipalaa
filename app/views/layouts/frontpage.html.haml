@@ -65,8 +65,12 @@
       %article.pending
         .row
           .small-12.columns.title.text-center
+            .attention= t :requires_your_attention
             - @kuusipalaa_pending.each do |pending|
-              = pending.name
+              %li
+                = link_to pending.last do
+                  = "'#{pending.last.name}'"
+                  = t pending.first
     %article.headline
       .row
         .small-12.columns.title

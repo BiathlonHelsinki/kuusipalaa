@@ -40,6 +40,16 @@ class IdeasController < ApplicationController
     @idea = Idea.new(status: 'building')
   end
 
+  def publish_event
+    @idea = Idea.friendly.find(params[:id])
+    if @idea.has_enough? && @idea.proposers.include?(current_user)
+      
+    else
+      flash[:error]= t(:not_enough_points_yet, count: @idea.points_still_needed)
+      redirect_to @idea
+    end
+  end
+
   def show
     @idea = Idea.friendly.find(params[:id])
     if user_signed_in?

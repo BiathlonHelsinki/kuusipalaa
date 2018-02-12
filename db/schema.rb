@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180212172629) do
+ActiveRecord::Schema.define(version: 20180212190146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -279,6 +279,8 @@ ActiveRecord::Schema.define(version: 20180212172629) do
     t.integer "proposal_id"
     t.boolean "collapse_in_website", default: false, null: false
     t.boolean "stopped"
+    t.bigint "idea_id"
+    t.index ["idea_id"], name: "index_events_on_idea_id"
     t.index ["place_id"], name: "index_events_on_place_id"
   end
 
@@ -1067,6 +1069,7 @@ ActiveRecord::Schema.define(version: 20180212172629) do
   add_foreign_key "credits", "rates"
   add_foreign_key "credits", "users"
   add_foreign_key "ethtransactions", "transaction_types"
+  add_foreign_key "events", "ideas"
   add_foreign_key "events", "places"
   add_foreign_key "hardwares", "hardwaretypes"
   add_foreign_key "ideas", "ideatypes"

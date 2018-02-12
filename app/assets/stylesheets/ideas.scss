@@ -98,10 +98,15 @@ article.ideas_index {
       font-size: 1.2rem;
       font-weight: bold;
       font-family: $sourcecode;
+ 
+    }
+    a {
+      margin: 1rem 0;
+      color: white;
     }
     font-family: $montserrat;
     color: white;
-    background-color: red;
+    background-color: $pink;
   }
 
   .pledge_box {

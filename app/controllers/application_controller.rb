@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     @kuusipalaa_pending = []
     Idea.needing_to_be_published.each do |pending|
       if pending.proposers.flatten.uniq.include?(current_user)
-        @kuusipalaa_pending.push(pending)
+        @kuusipalaa_pending.push([:has_enough_ready_to_be, pending])
       end
     end
   end

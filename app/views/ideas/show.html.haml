@@ -10,7 +10,7 @@
             .has_enough_banner= t :this_proposal_has_enough_points
             - if user_signed_in?
               - if @idea.proposers.include?(current_user)
-                %p= link_to t(:publish_this_proposal), publish_event_idea_path(@idea)
+                = link_to t(:publish_this_proposal), publish_event_idea_path(@idea), class: [:button, :bordered]
               - else
                 %p= t :proposer_must_publish
         .blurb.proposal_review

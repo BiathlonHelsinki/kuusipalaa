@@ -47,7 +47,7 @@ class Idea < ApplicationRecord
   end
 
   def determined_time?
-    (timeslot_undetermined == false && !timeslot_undetermined.nil? ) && ideatype_id == 1
+    (timeslot_undetermined == false && !timeslot_undetermined.nil? ) && ideatype_id == 1 && (status.include?('points') || active?)
   end
 
   def active_or_name_and_info?

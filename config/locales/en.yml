@@ -1015,4 +1015,6 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   this_proposal_has_enough_points: 'This proposal received enough points and is ready to schedule.'
   proposer_must_publish: 'It is just waiting for the original proposer to verify and publish it.'
   publish_this_proposal: 'Publish this proposal!'
-  requires_your_attention: 'Attention! The following item requires your attention!'
+  requires_your_attention: 'The following item(s) require your attention!'
+  has_enough_ready_to_be: ' has enough points and is ready to be published!'
+  not_enough_points_yet: 'This proposal still needs %{count} points before it can be scheduled.'
