@@ -47,12 +47,19 @@
                       = f.submit t(:pledge_verb), class: [:bordered, :button]
                     - else
                       = f.submit t(:change_pledge), class: [:bordered, :button]
+        #comments_list
 
+          .comments_title= t :discussion
+          - if @idea.discussion.size > 0
+            .small-12.columns
+              .comment_count
+                = t(:this_proposal_has_x_comments, count: @idea.comments.select(&:persisted?).size, comments: t(:comment, count: @idea.comments.select(&:persisted?).size) )
+
+
+          %ul.first= render(partial: 'shared/comment', collection: @idea.discussion.select(&:persisted?).sort_by(&:created_at), locals: {depth: 0, root: @idea, last: @idea.comments.last})
+          #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @idea, depth: 0}
 
 = content_for :jquery do
   :plain
-    $('form button').click(function() {
-
-      $("#form_direction").val($(this).attr('rel'));
-
-    });              
+    $('.comment_content').readmore({lessLink: '<a class="button readmore" href="#">[#{t(:close)}]</a>', moreLink: '<a class="button readmore" href="#">[#{t(:read_more)}]</a>'});
+     

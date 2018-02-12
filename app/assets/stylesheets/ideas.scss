@@ -131,4 +131,43 @@ article.ideas_index {
       }
     }
   }
+  #comments_list {
+    .comments_title {
+      text-transform: uppercase;
+      font-weight: bold;
+      padding: 1rem;
+      font-family: $sourcecode;
+      border-top: 1px solid black;
+    }
+    .comment_count {
+      font-family: $montserrat;
+    }
+    ul.first {
+      margin: 1rem 0;
+      li {
+        list-style-type: none;
+      }
+    }
+    .comment {
+      margin: 2rem 0;
+      .comment_type {
+        font-size: 0.8rem;
+        margin-bottom: 0.8rem;
+      }
+      .comment_content {
+        font-family: $montserrat;
+      }
+      .occluded_form {
+        padding: 1rem 0;
+        display: none;
+      }
+      ul {
+        margin-left: 5rem;
+      }
+
+      .comment_form {
+        margin-left: 5.5rem;
+      }
+    }
+  }
 }

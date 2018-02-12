@@ -51,7 +51,7 @@
                   = t(:this_experiment_has_x_comments, count:@post.discussion.size, comment: t(:comment, count: @post.discussion.size) )
 
 
-          %ul.first= render(partial: 'shared/comment', collection: @post.comments.order(:created_at), locals: {depth: 0, last: @post.comments.last})
+          %ul.first= render(partial: 'shared/comment', collection: @post.comments.order(:created_at), locals: {depth: 0, root: @post, last: @post.comments.last})
           #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @post, depth: 0}
 
 = content_for :jquery do

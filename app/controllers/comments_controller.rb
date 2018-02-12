@@ -14,6 +14,9 @@ class CommentsController < ApplicationController
     if params[:meeting_id]
       @master = Meeting.friendly.find(params[:meeting_id])
     end
+    if params[:idea_id]
+      @master = Idea.friendly.find(params[:idea_id])
+    end
 
     if params[:event_id]
       @master= Event.friendly.find(params[:event_id])

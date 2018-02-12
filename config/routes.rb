@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   end
 
   resources :ideas do
+    resources :comments
     collection do
       get :calendar
     end

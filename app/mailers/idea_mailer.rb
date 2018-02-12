@@ -5,7 +5,7 @@ class IdeaMailer < ActionMailer::Base
     @idea = idea
     if @idea.proposer_type == 'Group'
       @idea.proposer.members.each do |user|
-        mail(to: user.email,  subject: "#{@idea.name} is ready to be scheduled!")
+        mail(to: user.user.email,  subject: "#{@idea.name} is ready to be scheduled!")
       end
     else
       mail(to: @idea.proposer.email,  subject: "#{@idea.name} is ready to be scheduled!")

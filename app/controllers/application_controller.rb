@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :get_era
   before_action :get_current_season
   before_action :store_user_location!, if: :storable_location?
-  before_action :get_pending_kuusipalaa, if: :user_signed_in?
+  before_action :get_pending_kuusipalaa #, if: :user_signed_in?
 
   protected
 

@@ -34,7 +34,7 @@ en:
   register: 'Register!'
   your_comment_was_added: 'Your comment was added.'
   your_comment_was_not_added: 'There was an error saving your comment.'
-  has_pledged: '%{user} has pledged %{amount} to this proposal.'
+  has_pledged: '%{user} pledged %{amount} to this proposal.'
   experiments: 'Experiments'
   sign_in: 'Sign in'
   sign_in_with_none: 'Or if none of the above, sign in with your email and password:'
@@ -178,8 +178,8 @@ en:
   x_meetings_proposed: '%{amount} meetings proposed'
   intended_participants: 'Intended participants'
   edit_proposal: 'Edit proposal'
-  this_proposal_has_x_comments: 'This experiment proposal has %{comments}.'
-  this_proposal_had_x_comments: 'This experiment proposal had %{comments}.'
+  this_proposal_has_x_comments: 'This proposal has %{count} %{comments}.'
+
 
   delete_this_comment: 'Delete this comment'
   are_you_sure_delete_comment: 'Are you sure? If someone has replied to this comment and you delete it, it might be confusing.'
@@ -584,7 +584,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   signed_in_as: 'Signed in as: '
   about_experiment_2: 'About Experiment #2'
   whats_next: 'What happens next?'
-  discussion: '[Discussion]'
+  discussion: 'Discussion'
   home: '[Home]'
   start_a_new_topic: 'Start a new topic'
   start_topic_disclaimer: 'You can start a new topic for discussion here. This can be simply an online forum or a way to organise a working group to approach a design topic for Kuusi Palaa. '

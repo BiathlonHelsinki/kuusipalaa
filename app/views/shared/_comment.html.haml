@@ -1,4 +1,4 @@
-%li{class: comment.item.class == Post ? 'top-level' : false}
+%li{class: comment.item == root ? 'top-level' : false}
 
   .row.expanded
     .small-12.columns
@@ -6,52 +6,57 @@
         .row
           .small-12.medium-8.columns.end{class: comment.comments.empty? ? :divided : false}
             .row
-              .small-1.columns.user_box
-                = link_to image_tag(comment.user.avatar.url(:box).gsub(/development/, 'production')), comment.user, target: :_blank, class: :comment_avatar
+              .small-2.columns.user_box.text-right
+                = link_to image_tag(comment.contributor.avatar.url(:box).gsub(/development/, 'production'), width: 45), comment.user, target: :_blank, class: :comment_avatar
 
 
-              .small-11.columns
+              .small-10.columns
                 .comment_type
-                  = raw t(:user_says_on, :user => comment.user.display_name, date: l(comment.created_at, format: :long))
-
-                .comment_content
-                  - link_filter = AutoHtml::Link.new(target: '_blank')
-                  = raw link_filter.call(simple_format(comment.content_linked))
-                  - if user_signed_in?
-                    - if can?(:destroy, comment) && comment.comments.empty?
-                      = link_to fa_icon('trash'), comment, method: :delete, data: {confirm: t(:are_you_sure_delete_comment)} #, class: [:button, :tiny, :alert]
-                  - if comment.image?
-                    %br/
-                    .image_attached= image_tag comment.image.url(:medium)
-                  - if comment.attachment?
-                    %p= link_to t(:download) + ' ' + File.basename(URI.parse(comment.attachment.url).path), comment.attachment.url, class: [:button, :round, :tiny]
-            .row
-              .sma11-12.medium-8.columns
-                .row
-                  .small-4.columns.horizontald_line
-                  .small-8.columns
-                    %button.button{type: :button, :'data-toggle' => 'reply_dropdown_' + comment.id.to_s }= "Comment"
-                    .dropdown-pane{id:'reply_dropdown_' + comment.id.to_s, :'data-dropdown' => '', :'data-close-on-click' => true, :'data-auto-focus' => true}
-                      = link_to t(:comment_in_main_thread), '#', onclick: "$('.dropdown-pane').foundation('close');$(document).scrollTo('#main_thread', 800);return false;", class: [:button, :tiny, :secondary]
+                  - if comment.class == Comment
+                    = raw t(:user_says_on, :user => comment.contributor.display_name, date: l(comment.created_at, format: :long))
+                  - elsif comment.class == Pledge
+                    = raw t(:has_pledged, user: link_to(comment.user.display_name, comment.user, target: :_blank), amount: comment.pledge)
+                - if comment.class == Comment    
+                  .comment_content
+                    - link_filter = AutoHtml::Link.new(target: '_blank')
+                    = raw link_filter.call(simple_format(comment.content_linked))
+                    - if user_signed_in?
+                      - if can?(:destroy, comment) && comment.comments.empty? && comment.class != Pledge
+                        = link_to fa_icon('trash'), comment, method: :delete, data: {confirm: t(:are_you_sure_delete_comment)} #, class: [:button, :tiny, :alert]
+                    - if comment.image?
                       %br/
-                      - if depth > 0
-                        - if depth == 1
-                          = link_to t(:comment_this_subthread), '#', onClick: "$('.dropdown-pane').foundation('close');$('#comment_#{comment.item.id.to_s}.occluded_form').slideToggle();$(document).scrollTo('#comment_#{comment.item.id.to_s}.occluded_form', 800);return false;", class: [:button, :tiny, :secondary]
-
-                        - else
-                          = link_to t(:comment_this_subthread), '#', onClick: "$('.dropdown-pane').foundation('close');$('#comment_#{comment.item.id.to_s}.occluded_form').slideToggle();$(document).scrollTo('#comment_#{comment.item.id.to_s}.occluded_form', 800);return false;", class: [:button, :tiny, :secondary]
+                      .image_attached= image_tag comment.image.url(:medium)
+                    - if comment.attachment?
+                      %p= link_to t(:download) + ' ' + File.basename(URI.parse(comment.attachment.url).path), comment.attachment.url, class: [:button, :round, :tiny]
+            - if comment.class == Comment 
+              .row
+                .sma11-12.medium-8.columns
+                  .row
+                    .small-4.columns.horizontal_line
+                    .small-8.columns
+                      %button.button{type: :button, :'data-toggle' => 'reply_dropdown_' + comment.id.to_s }= "Comment"
+                      .dropdown-pane{id:'reply_dropdown_' + comment.id.to_s, :'data-dropdown' => '', :'data-close-on-click' => true, :'data-auto-focus' => true}
+                        = link_to t(:comment_in_main_thread), '#', onclick: "$('.dropdown-pane').foundation('close');$(document).scrollTo('#main_thread', 800);return false;", class: [:button, :tiny, :secondary]
                         %br/
-                      - if comment.comments.empty? && depth < 2
-                        = link_to t(:start_new_thread), '#', onClick: "$('.dropdown-pane').foundation('close');$('#comment_#{comment.id.to_s}.occluded_form').slideToggle();return false;", class: [:button, :tiny, :secondary]
+                        - if depth > 0
+                          - if depth == 1
+                            = link_to t(:comment_this_subthread), '#', onClick: "$('.dropdown-pane').foundation('close');$('#comment_#{comment.item.id.to_s}.occluded_form').slideToggle();$(document).scrollTo('#comment_#{comment.item.id.to_s}.occluded_form', 800);return false;", class: [:button, :tiny, :secondary]
 
+                          - else
+                            = link_to t(:comment_this_subthread), '#', onClick: "$('.dropdown-pane').foundation('close');$('#comment_#{comment.item.id.to_s}.occluded_form').slideToggle();$(document).scrollTo('#comment_#{comment.item.id.to_s}.occluded_form', 800);return false;", class: [:button, :tiny, :secondary]
+                          %br/
+                        - if comment.comments.empty? && depth < 2
+                          = link_to t(:start_new_thread), '#', onClick: "$('.dropdown-pane').foundation('close');$('#comment_#{comment.id.to_s}.occluded_form').slideToggle();return false;", class: [:button, :tiny, :secondary]
 
-        - unless comment.comments.empty?
-          - if comment.comments.size > 2
-            .row
-              .sma11-12.medium-8.columns
-                .row
-                  .small-2.columns.horizontal_line
-                  .small-10.columns
-                    .show_link= link_to t(:show_x_comments, count: comment.comments.size), '#', onClick: "javascript:$('#comment_thread_#{comment.id.to_s}').show();$(this).hide();return false;"
-          %ul{id: 'comment_thread_' + comment.id.to_s, class: comment.comments.size > 2 ? :hidden : false}= render partial: 'shared/comment', collection: comment.comments.order(created_at: :asc), locals: {depth: depth + 1, last: comment.comments.last}
-        .occluded_form[comment]= render partial: 'shared/comments_and_form', locals: {depth: depth + 1, commentable: comment}
+        - if comment.class == Comment                   
+          - unless comment.comments.empty?
+            - if comment.comments.size > 2
+              .row
+                .sma11-12.medium-8.columns
+                  .row
+                    .small-2.columns.horizontal_line
+                    .small-10.columns
+                      .show_link= link_to t(:show_x_comments, count: comment.comments.size), '#', onClick: "javascript:$('#comment_thread_#{comment.id.to_s}').show();$(this).hide();return false;"
+            %ul{id: 'comment_thread_' + comment.id.to_s, class: comment.comments.size > 2 ? :hidden : false}= render partial: 'shared/comment', collection: comment.comments.order(created_at: :asc), locals: {depth: depth + 1,root: root, last: comment.comments.last}
+
+          .occluded_form[comment]= render partial: 'shared/comments_and_form', locals: {depth: depth + 1, commentable: comment}

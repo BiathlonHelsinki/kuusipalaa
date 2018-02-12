@@ -53,7 +53,7 @@ class IdeasController < ApplicationController
   def show
     @idea = Idea.friendly.find(params[:id])
     if user_signed_in?
-
+      fill_collection
       if current_user.pledges.unconverted.where(item: @idea).empty?
         @pledge = @idea.pledges.build
       else
@@ -61,7 +61,7 @@ class IdeasController < ApplicationController
         @pledge = current_user.pledges.unconverted.find_by(item: @idea)
       end 
     end 
-    set_meta_tags tite: @idea.name
+    set_meta_tags title: @idea.name
     unless @idea.active?
       flash[:error] = t(:idea_not_published_yet)
       redirect_to ideas_path

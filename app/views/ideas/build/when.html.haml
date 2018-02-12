@@ -20,10 +20,15 @@
               .small-12.columns
                 = f.actions do
                   = f.action :submit, :label => raw("<i class='fa fa-caret-left icon-large'></i> ") + t(:back), :as => :button, button_html: {:class => [:button, :bordered], rel: :previous}
-                  = f.action :submit, :label => raw("<i class='fa fa-caret-right icon-large'></i> ") + t(:next), :as => :button,button_html: {:class => [:button, :bordered] }
+                  = f.action :submit, :label => raw(t(:next) + " <i class='fa fa-caret-right icon-large'></i> ") , :as => :button,button_html: {:class => [:button, :bordered] }
 = content_for :jquery do
   :plain
     $('form button').click(function() {
+      if ($('#form_direction').val() == 'previous') {
+        $('input, div, form').removeAttr('data-invalid'); 
+        $('input, div, form').removeAttr('required');             
+        $('input, div, form').removeClass('error');
+      }
       $("#form_direction").val($(this).attr('rel'))
     });    
     function pollVisibility() {

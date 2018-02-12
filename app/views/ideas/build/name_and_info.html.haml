@@ -8,7 +8,9 @@
             = f.input :name , input_html: {required: ''}
             = f.input :short_description, as: :string, input_html: {required: ''}, label: t(:short_description), hint: t(:describe_in_one_line)
             = f.input :proposal_text, input_html: {required: ''}
-            = f.input :image
+            - if f.object.image?
+              = image_tag f.object.image.url(:small)
+            = f.input :image, label: t("request.image")
             = hidden_field_tag :form_direction, "forward"
             .row
               .small-12.columns

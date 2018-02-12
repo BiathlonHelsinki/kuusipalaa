@@ -10,7 +10,7 @@ class Idea < ApplicationRecord
   has_many :comments, as: :item
   validates :ideatype, :proposer_type, :proposer_id, :presence => true, :if => :active_or_find_type? 
   validates :name, :short_description, :proposal_text,  presence: true, if: :active_or_name_and_info?
-  validates :timeslot_undetermined, inclusion: { in: [ true, false ]}, if: :active_or_when?
+  # validates :timeslot_undetermined, inclusion: { in: [ true, false ]}, if: :active_or_when?
   validates :start_at, :end_at, presence: true, if: :determined_time?
   validates :points_needed, :price_public, presence: true, if: :active_or_points?
   validates :slug, presence: true, if: :active?
@@ -27,6 +27,15 @@ class Idea < ApplicationRecord
 
   scope :active, ->() { where(status: 'active')}
   scope :needing_to_be_published,  ->() { where(notified: :true).where(converted_id: nil)}
+
+  def root_comment
+    self
+  end
+
+  def discussion
+    [pledges, comments].flatten.compact
+  end
+  
 
   def add_to_activity_feed
     if active?

@@ -18,7 +18,8 @@
             .small-12.medium-8.columns.end
               .row
                 .small-2.columns.user_comment_box
-                  = image_tag current_user.avatar.url(:box).gsub(/development/, 'production')
+                  .avatar{id: "avatar_comment_#{commentable.class.to_s}_#{commentable.id.to_s}"}
+                    = image_tag current_user.avatar.url(:box).gsub(/development/, 'production')
 
                   -#%p.small= link_to t(:edit_profile), edit_user_path(current_user), class: [:button, :tiny, :secondary, :round]
                 .small-10.columns
@@ -31,19 +32,43 @@
                   -#     %em= t(:people_tagging)
                   -#     %br/
                       -#%em= t(:experiment_tagging)
-                  = semantic_form_for [ commentable,  Comment.new ], html: {id: "new_comment_" + commentable.id.to_s, onSubmit: "return getContent('" + commentable.class.to_s + '_' + commentable.id.to_s + "');", multipart: true, :"data-abide" => '' } do |f|
-                    = f.input :user_id, as: :hidden, input_html: {value: current_user.id}
+                  - unless commentable.class == Pledge
+                    = semantic_form_for [ commentable,  Comment.new ], html: {id: "new_comment_" + commentable.id.to_s, onSubmit: "return getContent('" + commentable.class.to_s + '_' + commentable.id.to_s + "');", multipart: true, :"data-abide" => '' } do |f|
+                      = f.input :user_id, as: :hidden, input_html: {value: current_user.id}
 
-                    .comment_wrapper
-                      = t :add_a_comment_to_this_discussion
-                      .comment_input{id: "ci_#{commentable.class.to_s}_#{commentable.id.to_s}", contenteditable: true}
+                      .comment_wrapper
+                        = t :add_a_comment_to_this_discussion
+                        .comment_input{id: "ci_#{commentable.class.to_s}_#{commentable.id.to_s}", contenteditable: true}
 
-                    = f.input :content, :label => false, input_html: {:required => '', class: :comment_input_textarea, id: "cit_#{commentable.class.to_s}_#{commentable.id.to_s}" }
-                    = f.input :image, :label => t(:attach_image_to_comment)
-                    = f.input :attachment, :label => t(:attach_attachment_to_comment)
-                    -# if current_user == commentable.primary_sponsor || current_user == commentable.secondary_sponsor
-                    -#  = f.input :frontpage, label: "Is this frontpage news?", hint: 'Tick this box and the comment will appear on Temporary\'s frontpage in the newsfeed.'
-                    = f.submit t(:leave_comment), :class => [:button, :round]
+                      = f.input :content, :label => false, input_html: {:required => '', class: :comment_input_textarea, id: "cit_#{commentable.class.to_s}_#{commentable.id.to_s}" }
+                      = f.input :image, :label => t(:attach_image_to_comment)
+                      = f.input :attachment, :label => t(:attach_attachment_to_comment)
+                      -# if current_user == commentable.primary_sponsor || current_user == commentable.secondary_sponsor
+                      -#  = f.input :frontpage, label: "Is this frontpage news?", hint: 'Tick this box and the comment will appear on Temporary\'s frontpage in the newsfeed.'
+                      - if @collection_options.size > 1
+
+                        = f.hidden_field :contributor_type, value: 'User', 'required' => '', id: :comment_contributor_type
+                        = f.hidden_field :contributor_id,  value: current_user.id, 'required' => '', id: :comment_contributor_type
+                        = f.input :contributor, as: :select, input_html: {id: :comment_contributor_select}, label: t(:who_is_commenting), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }),  include_blank: false
+                      - else
+                        = f.hidden_field :contributor_type, value: 'User', 'required' => ''
+                        = f.hidden_field :contributor_id, value: current_user.id , 'required' => ''                    
+                      = f.submit t(:leave_comment), :class => [:button, :round]
+  = content_for :jquery do
+    :plain
+      $('#comment_contributor_select').on('change', function() {
+        $('#comment_contributor_type').val($('#comment_contributor_select option').filter(":selected").attr('rel'));
+        $('#comment_contributor_id').val($('#comment_contributor_select').val());
+        $.ajax({
+          url: '/users/' + $('#comment_contributor_select').val() + '/get_avatar?class=' + $('#comment_contributor_type').val() + '&size=thumb',
+          success: function(image) {
+
+            $('#avatar_comment_#{commentable.class.to_s}_#{commentable.id.to_s} img').attr('src', image);
+            $('#avatar_comment_#{commentable.class.to_s}_#{commentable.id.to_s} img').attr('alt', $('#comment_contributor_select option').filter(":selected").html());
+         
+           }
+          });
+      }); 
 - else
   .row.expanded
     .small-12.columns

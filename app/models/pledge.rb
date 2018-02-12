@@ -12,13 +12,37 @@ class Pledge < ApplicationRecord
   scope :unconverted, -> () { where('converted = 0 OR converted is null')}
   scope :converted, -> () { where(converted: true)}
 
+  def comments  
+    #  do not allow comments on specific pledges, that would be insane
+    []
+  end
+
+  def contributor
+    user
+  end
+
   def max_for_user(user)
     item.max_for_user(user)
   end
 
   def notify_item
- 
     item.notify_if_enough
+  end
+
+  def attachment?
+    false
+  end
+  
+  def image?
+    false
+  end
+
+  def content_linked
+    nil
+  end
+  
+  def content
+    comment
   end
 
   private
