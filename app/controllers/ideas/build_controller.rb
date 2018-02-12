@@ -4,9 +4,13 @@ class Ideas::BuildController < ApplicationController
   steps :find_type, :name_and_info, :when, :points, :finalise
 
   def show
-    @idea = Idea.friendly.find(params[:idea_id])
-    fill_collection
-    render_wizard
+    begin
+      @idea = Idea.friendly.find(params[:idea_id])
+      fill_collection
+      render_wizard
+    rescue ActiveRecord::RecordNotFound 
+      redirect_to new_idea_path
+    end
   end
 
   def update
@@ -15,7 +19,7 @@ class Ideas::BuildController < ApplicationController
     if params[:idea][:ideatype_id] == "4"
       @idea.destroy
 
-      redirect_to new_roombooking_path
+      redirect_to roombookings_path
     else
       params[:idea][:status] = step.to_s
       params[:idea][:status] = 'active' if step == steps.last
