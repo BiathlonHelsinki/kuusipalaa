@@ -80,11 +80,12 @@
     %article
       .row.front_box
         .small-12.columns.small-centered.text-center
-          .banner_blurb= t :get_your_stake
+          .banner_blurb= t(:opening_1_march)
+
 
       .row
         .small-12.medium-6.columns.lessmargins
-          = link_to new_season_stake_path(@current_season) do
+          = link_to new_season_stake_path(@current_season.complete? ? @next_season : @current_season) do
             .front_button.text-center
               = t(:buy_a_stake)
 
@@ -101,31 +102,32 @@
     %article
       .row#progress_bar
         .progress{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{@current_season.stakes.sum(&:amount)}", "aria-valuetext" => "#{@current_season.stakes.sum(&:amount)} percent", :role => "progressbar", :tabindex => "0"}
-          .progress-meter{:style => "width: #{(@current_season.stakes.sum{|x| x.amount * x.price}/5000)*100}%;"}
+          .progress-meter{:style => "width: #{[((@current_season.stakes.sum{|x| x.amount * x.price}/5000)*100), 100].min}%;"}
       .row
         .small-12.columns.text-center
-          %p.progress-meterbar-text.text-center= raw t(:euros_out_of_total, amount: @current_season.stakes.sum{|x| x.amount * x.price}.to_i, total: 5000)
+          %p.progress-meterbar-text.text-center= raw t(:euros_out_of_total, amount: @current_season.stakes.sum{|x| x.amount * x.price}.to_i, total: 5000) + '! Kiitos!'
 
-    %article
-      .row.stats_boxes{:'data-equalizer' => '', :'data-equalize-on' => "medium", id: :stats_boxes}
-        .small-12.medium-4
-          .box{:'data-equalizer-watch' => ''}
-            .big_num= @current_season.stakes.sum(&:amount).to_s
-            .info
-              = t :out_of_x_for_season, x: @current_season.stake_count, season_num: @current_season.number
-              = "(#{@next_season.start_at.strftime("%d.%m")} - #{@next_season.end_at.strftime("%d.%m")})"
+    / %article
+    /   .row.stats_boxes{:'data-equalizer' => '', :'data-equalize-on' => "medium", id: :stats_boxes}
+    /     .small-12.medium-4
+    /       .box{:'data-equalizer-watch' => ''}
+    /         .big_num= @current_season.stakes.sum(&:amount).to_s
+    /         .info
+    /           = t :out_of_x_for_season, x: @current_season.stake_count, season_num: @current_season.number
+    /           = "(#{@next_season.start_at.strftime("%d.%m")} - #{@next_season.end_at.strftime("%d.%m")})"
 
-        .small-12.medium-4
-          .box{:'data-equalizer-watch' => ''}
-            .big_num= Stake.all.map(&:owner).to_a.reject{|x| !x.accepted_agreement}.count
-            .info= t :x_members_of_cooperative
+    /     .small-12.medium-4
+    /       .box{:'data-equalizer-watch' => ''}
+    /         .big_num= Stake.all.map(&:owner).to_a.reject{|x| !x.accepted_agreement}.count
+    /         .info= t :x_members_of_cooperative
 
-        .small-last.medium-4
-          .box{:'data-equalizer-watch' => ''}
-            .big_num= (Date::strptime('2018-02-28',"%Y-%m-%d") - Date.today).to_i
-            .info
-              = t :days_to_go
-              = t :will_launch_if
+    /     .small-last.medium-4
+    /       .box{:'data-equalizer-watch' => ''}
+    /         .big_num= (Date::strptime('2018-02-28',"%Y-%m-%d") - Date.today).to_i
+    /         .info
+    /           = t :days_to_go
+    /           = t :will_launch_if
+    
 
     %article
       .row.front_box

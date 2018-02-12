@@ -36,7 +36,7 @@ class Admin::SeasonsController < Admin::BaseController
   private
 
   def season_params
-    params.require(:season).permit(:slug, :number, :start_at, :end_at, :stake_count)
+    params.require(:season).permit(:slug, :number, :start_at, :end_at, :amount_needed, :stake_count)
   end
 
 end
