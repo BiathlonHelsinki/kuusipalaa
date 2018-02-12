@@ -1011,3 +1011,8 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
     please_review_and_finalise_proposal: 'Please review your proposal below. When you click Publish, it goes live on the site and any Kuusi Palaa member can pledge to it. If you want to change anything, go back and do this now.'
   you_cannot_pledge_this_much: 'You can''t pledge this much!'
   change_pledge: 'Change pledge'
+  pledges_from: 'Supported by: '
+  this_proposal_has_enough_points: 'This proposal received enough points and is ready to schedule.'
+  proposer_must_publish: 'It is just waiting for the original proposer to verify and publish it.'
+  publish_this_proposal: 'Publish this proposal!'
+  requires_your_attention: 'Attention! The following item requires your attention!'

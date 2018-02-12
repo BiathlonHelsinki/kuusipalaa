@@ -8,11 +8,17 @@ class Pledge < ApplicationRecord
   acts_as_paranoid
   validate :one_per_user
   validate :check_balance
+  after_commit :notify_item
   scope :unconverted, -> () { where('converted = 0 OR converted is null')}
   scope :converted, -> () { where(converted: true)}
 
   def max_for_user(user)
     item.max_for_user(user)
+  end
+
+  def notify_item
+ 
+    item.notify_if_enough
   end
 
   private

@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :get_era
   before_action :get_current_season
   before_action :store_user_location!, if: :storable_location?
+  before_action :get_pending_kuusipalaa, if: :user_signed_in?
 
   protected
 
@@ -33,6 +34,15 @@ class ApplicationController < ActionController::Base
 
   def save_location
     session[:return_to] = request.fullpath
+  end
+
+  def get_pending_kuusipalaa
+    @kuusipalaa_pending = []
+    Idea.needing_to_be_published.each do |pending|
+      if pending.proposers.flatten.uniq.include?(current_user)
+        @kuusipalaa_pending.push(pending)
+      end
+    end
   end
 
   def get_current_season

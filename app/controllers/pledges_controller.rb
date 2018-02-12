@@ -23,17 +23,17 @@ class PledgesController < ApplicationController
         flash[:error] = 'You do not have this many ' + ENV['currency_full_name']
         redirect_to new_proposal_pledge_path(@proposal)
       end
-      if params[:pledge][:pledge].to_i > @item.max_for_user(current_user)
+      if params[:pledge][:pledge].to_i > @item.max_for_user(current_user, @pledge)
         flash[:error] = t(:you_cannot_pledge_this_much)
         redirect_to new_proposal_pledge_path(@proposal)
       else
         @pledge = Pledge.new(pledge_params)
-        @pledge.item_id = @item.id
-        if @item.class == Event
-          @pledge.item_type = 'Event'
-        else
-          @pledge.item_type = @item.class.to_s
-        end
+        @pledge.item = @item
+        # if @item.class == Event
+        #   @pledge.item_type = 'Event'
+        # else
+        #   @pledge.item_type = @item.class.to_s
+        # end
         @pledge.user = current_user
         @pledge.converted = false
         if @pledge.save
@@ -43,7 +43,7 @@ class PledgesController < ApplicationController
               NotificationMailer.new_pledge(@item, @pledge, n.user).deliver_later
             end
           end
-          render template: 'pledges/after_pledge'
+          redirect_to @item
         else
           flash[:error] = 'There was an error saving your pledge: ' + @pledge.errors.messages.values.join('; ')
           redirect_to @item

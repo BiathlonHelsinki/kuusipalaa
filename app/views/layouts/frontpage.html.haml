@@ -61,8 +61,13 @@
             - else
               .buttons= link_to t(:sign_in), '/users/sign_in'
             %br{clear: :all}
-
-
+    - unless @kuusipalaa_pending.empty?
+      %article.pending
+        .row
+          .small-12.columns.title.text-center
+            - @kuusipalaa_pending.each do |pending|
+              = pending.name
+    %article.headline
       .row
         .small-12.columns.title
           #kp_headline.text-center KUUSI PALAA

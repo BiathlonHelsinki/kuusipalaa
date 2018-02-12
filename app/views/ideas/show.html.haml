@@ -5,8 +5,16 @@
         .title
           = t(:proposal) + ' : '
           = @idea.name
-
+        - if @idea.has_enough?
+          .has_enough.text-center
+            .has_enough_banner= t :this_proposal_has_enough_points
+            - if user_signed_in?
+              - if @idea.proposers.include?(current_user)
+                %p= link_to t(:publish_this_proposal), publish_event_idea_path(@idea)
+              - else
+                %p= t :proposer_must_publish
         .blurb.proposal_review
+
           .tagline= @idea.short_description
           .byline= raw t(:proposed_by, who: link_to(@idea.proposer.display_name, @idea_proposer, target: :_blank), when: l(@idea.created_at, format: :long))
 
@@ -19,23 +27,26 @@
             .pledge_heading
               .row
                 .small-6.columns= t(:still_needed, amount: @idea.points_still_needed)
-                .small-6.columns= raw @idea.pledges.select(&:persisted?).map{|x| [link_to(x.user.display_name, x.user, target: :_blank), "(#{x.pledge})"].join(' ')}.join(', ')
+                .small-6.columns.pledge_list
+                  %em= t :pledges_from
+                  = raw @idea.pledges.select(&:persisted?).map{|x| [link_to(x.user.display_name, x.user, target: :_blank), "(#{x.pledge})"].join(' ')}.join(', ')
               - if user_signed_in?  
                 .row
                   .small-12.columns
                     = t(:you_can_pledge_a_max_of_x, max: @idea.max_for_user(current_user, @pledge))
-            .row
-              .small-12.medium-8.columns
-                .slider{"data-initial-start" => "#{@pledge.new_record? ? 0 : @pledge.pledge}", "data-start" => "0", "data-end" => "#{@idea.max_for_user(current_user, @pledge)}", "data-slider" => ""}
-                  %span.slider-handle{"aria-controls" => "pledge_pledge", "data-slider-handle" => "", :role => "slider", :tabindex => "1"}
-                  %span.slider-fill{"data-slider-fill" => ""}
-              .small-12.medium-4.columns
-                = semantic_form_for [@idea, @pledge], html: {:"data-abide" => '' } do |f|
-                  = f.input :pledge, label: false
-                  -if @pledge.new_record?
-                    = f.submit t(:pledge_verb), class: [:bordered, :button]
-                  - else
-                    = f.submit t(:change_pledge), class: [:bordered, :button]
+            - if user_signed_in?         
+              .row
+                .small-12.medium-8.columns
+                  .slider{"data-initial-start" => "#{@pledge.new_record? ? 0 : @pledge.pledge}", "data-start" => "0", "data-end" => "#{@idea.max_for_user(current_user, @pledge)}", "data-slider" => ""}
+                    %span.slider-handle{"aria-controls" => "pledge_pledge", "data-slider-handle" => "", :role => "slider", :tabindex => "1"}
+                    %span.slider-fill{"data-slider-fill" => ""}
+                .small-12.medium-4.columns
+                  = semantic_form_for [@idea, @pledge], html: {:"data-abide" => '' } do |f|
+                    = f.input :pledge, label: false
+                    -if @pledge.new_record?
+                      = f.submit t(:pledge_verb), class: [:bordered, :button]
+                    - else
+                      = f.submit t(:change_pledge), class: [:bordered, :button]
 
 
 = content_for :jquery do

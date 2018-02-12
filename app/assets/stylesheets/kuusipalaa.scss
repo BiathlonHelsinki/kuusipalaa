@@ -45,10 +45,18 @@ li.ui-menu-item {
   font-family: $sourcecode;
 }
 
+.headline {
+  .title {
+    line-height: 1;
+    font-family: $sourcecode;
+    font-weight: bold;
+  }
+}
 header {
   .title {
     line-height: 1;
   }
+
   .tagline {
     width: 90%;
     font-family: $sourcecode;

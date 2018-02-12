@@ -1,0 +1,28 @@
+
+%h1 Good news!
+
+%p Hi!
+%p
+  Your proposal at Kuusi Palaa:
+  
+  = @idea.name
+  
+%p
+  has reached or exceeded the necessary amount of points needed.
+  
+%p
+  The following people pledged support to this:
+  = @idea.pledges.map {|pledge| pledge.user.username + " (#{pledge.pledge.to_s})"}.join(', ')
+    
+%p
+  You must now review the proposal and publish it on the public calendar. Until you do this, the event will not be scheduled.
+
+%p Please log into the Kuusi Palaa site to complete this.
+
+%p
+  Please be advised that it is possible that some of the people who pledged support may withdraw their pledges before you do this! 
+  
+  
+%p
+  Thank you for your interest in Kuusi Palaa!
+  

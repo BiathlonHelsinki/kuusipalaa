@@ -1,6 +1,7 @@
 class Idea < ApplicationRecord
   has_many :pledges, as: :item
   belongs_to :user
+  belongs_to :converted, polymorphic: true, optional: true
   belongs_to :proposer, polymorphic: true, optional: true
   belongs_to :parent, polymorphic: true, optional: true
   belongs_to :proposalstatus, optional: true
@@ -25,6 +26,7 @@ class Idea < ApplicationRecord
   before_save :update_image_attributes
 
   scope :active, ->() { where(status: 'active')}
+  scope :needing_to_be_published,  ->() { where(notified: :true).where(converted_id: nil)}
 
   def add_to_activity_feed
     if active?
@@ -56,6 +58,10 @@ class Idea < ApplicationRecord
     active?
   end
 
+  def has_enough?
+    pledged >= points_needed
+  end
+
   def active?
     status == 'active'
   end
@@ -77,7 +83,34 @@ class Idea < ApplicationRecord
   end
 
   def max_for_user(user, pledge)
-    [user.latest_balance, (points_needed * 0.9), points_still_needed_except(pledge)].min.to_i
+    [user.latest_balance, (points_needed * 0.9), pledges.select(&:persisted?).map(&:user).uniq.size >= 2 ? points_still_needed_except(pledge) : points_still_needed_except(pledge) -1 ].min.to_i
+  end
+
+  def pledged
+    pledges.select(&:persisted?).sum(&:pledge)
+  end
+
+  def proposers
+    if proposer_type == Group
+      [user, proposer.members.map(&:user)].uniq
+    else
+      [user]
+    end
+  end
+  
+  def notify_if_enough
+
+    if pledged >= points_needed
+      if notified != true
+        begin
+          IdeaMailer.proposal_for_review(self).deliver_now
+          update_attribute(:notified, true)
+        rescue
+          die
+          notified = false
+        end
+      end
+    end
   end
 
   private

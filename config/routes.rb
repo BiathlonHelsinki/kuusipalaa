@@ -49,6 +49,9 @@ Rails.application.routes.draw do
     collection do
       get :calendar
     end
+    member do
+      get :publish_event
+    end
     resources :pledges
     resources :build, controller: 'ideas/build'
     resources :thing, controller: 'ideas/thing'
