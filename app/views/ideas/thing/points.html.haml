@@ -1,0 +1,78 @@
+.member_services_index
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t "thing.time_details"
+        .blurb
+
+          = semantic_nested_form_for @idea,url: "/ideas/#{@idea.id.to_s}/thing/points", html: { method: :put, multipart: true, :'data-abide' => ''} do |f|
+
+            .row
+              .small-12.columns
+                %p= t("thing.choose_dates")
+                %p.inline-hints= t "thing.choose_dates_hint"
+            .row
+              .small-6.large-4.columns
+                = f.input :start_at_date, as: :string, input_html: {class: :datetimepicker, required: '', value: f.object.start_at.nil? ? (Time.now.utc + 1.week).strftime("%Y-%m-%d") : f.object.start_at.strftime("%Y-%m-%d")}
+              .small-6.large-4.columns
+                = f.input :start_at, as: :hidden, input_html: { value: '00:00' }
+                = f.input :thing_size, as: :hidden
+              .small-4.columns
+                #initial_time_length
+
+            .row
+              .small-6.large-4.columns
+                = f.input :end_at_date, as: :string, input_html: {class: :datetimepicker, value: f.object.end_at_date.nil? ? f.object.start_at_date : f.object.end_at_date, required: '', value: f.object.end_at.nil? ? (Time.now.utc + 1.week).strftime("%Y-%m-%d") : f.object.end_at.strftime("%Y-%m-%d")}
+              .small-6.large-4.columns.end
+                = f.input :end_at, as: :hidden, input_html: {value: '23:59' }
+                = f.input :price_public, as: :hidden, input_html: {value: 0}
+                = f.input :price_stakeholders, as: :hidden, input_html: {value: 0}
+                = f.input :room_needed, as: :hidden, input_html: {value: 1}
+
+            .points_total.row
+              .small-6.large-3.columns
+                = hidden_field_tag :form_direction, "forward"
+                = f.input :points_needed, as: :hidden
+              
+              .small-12.columns
+                = t :thing_as_proposed_will_cost
+                %span#points_total 
+                = t :points_to_happen
+
+            .row
+              .small-12.columns
+                = f.actions do
+                  = f.action :submit, :label => raw("<i class='fa fa-caret-left icon-large'></i> ") + t(:back), :as => :button, button_html: {:class => [:button, :bordered], rel: :previous}
+                  = f.action :submit, :label => raw("<i class='fa fa-caret-right icon-large'></i> ") + t(:next), :as => :button,button_html: {:class => [:button, :bordered] }
+
+
+= content_for :jquery do
+  :plain
+
+    calculateThing().done((callback) => {
+          callback();
+    });
+
+
+    $('.datetimepicker').fdatetimepicker({ weekStart: 1, format: 'yyyy-mm-dd', minView: 2, startview:2 }).on('changeDate', function(){
+      $(this).fdatetimepicker('hide');
+    }); 
+
+    $('form input, form select').change(() => {      
+      calculateThing().done((callback) => {
+          callback();
+      })
+    });
+    $('form button').click(function() {
+      calculateThing().done((callback) => {
+          callback();
+      })  
+      if ($('#form_direction').val() == 'previous') {
+        $('input, div, form').removeAttr('data-invalid'); 
+        $('input, div, form').removeAttr('required');             
+        $('input, div, form').removeClass('error');
+      }
+      $("#form_direction").val($(this).attr('rel'))
+
+    });    
+   

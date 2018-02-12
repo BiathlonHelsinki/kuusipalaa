@@ -2,20 +2,21 @@
   .row
     .small-12.columns.lessright
       .lifted_box
-        .title= t :what_do_you_want_to_call_it
+        .title= t "request.request_form"
         .blurb
-          = semantic_form_for @idea,url: "/ideas/#{@idea.id.to_s}/build/name_and_info", html: { method: :put, multipart: true, :'data-abide' => ''} do |f|
-            = f.input :name , input_html: {required: ''}
-            = f.input :short_description, as: :string, input_html: {required: ''}, label: t(:short_description), hint: t(:describe_in_one_line)
-            = f.input :proposal_text, input_html: {required: ''}
-            = f.input :image
+          = semantic_form_for @idea,url: "/ideas/#{@idea.id.to_s}/request/name_and_info", html: { method: :put, multipart: true, :'data-abide' => ''} do |f|
+            = f.input :name , label: t("request.request_name"), input_html: {required: ''}
+            = f.input :short_description, as: :string, input_html: {required: ''}, label: t("request.short_description"), hint: t("request.question_hint")
+            = f.input :proposal_text, input_html: {required: ''}, label: t("request.proposal_text"), hint: t("request.proposal_text_hint")
+            - if f.object.image?
+              = image_tag f.object.image.url(:small)
+            = f.input :image, label: t("request.image")
             = hidden_field_tag :form_direction, "forward"
             .row
               .small-12.columns
                 = f.actions do
                   = f.action :submit, :label => raw("<i class='fa fa-caret-left icon-large'></i> ") + t(:back), :as => :button, button_html: {:class => [:button, :bordered], rel: :previous}
                   = f.action :submit, :label => raw("<i class='fa fa-caret-right icon-large'></i> ") + t(:next), :as => :button,button_html: {:class => [:button, :bordered] }
-
 = content_for :jquery do
   :plain
     $('form button').click(function() {
@@ -27,4 +28,4 @@
       }
       $("#form_direction").val($(this).attr('rel'))
 
-    });                    
+    });                                      

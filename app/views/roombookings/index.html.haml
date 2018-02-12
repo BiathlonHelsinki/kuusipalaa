@@ -1,0 +1,19 @@
+%article.post_single
+  .row
+    .small-12.columns.lessmargins.lessright
+      .lifted_box.has_inner_button
+        .title= t(:room_bookings) + '/' + t(:private_event)
+        .blurb
+          %p
+            = raw t(:small_back_room_blurb)
+            = raw link_to("(#{t(:how_do_i_get_temps)})", page_path('how-do-i-get-temps')  )
+          %p= raw t(:room_specs, squared: raw("<sup>2</sup>"))
+          %p= raw t(:room_blurb_2)
+
+          .row.expanded
+            #calendar.small-centered
+      
+            = content_for :jquery do
+              = render partial: 'calendar', formats: [:js]
+
+    

@@ -503,6 +503,7 @@ fieldset {
           font-weight: bold;
         }
         margin-bottom: 1.5rem;
+
       }
       .description {
         font-family: $montserrat;
@@ -591,6 +592,13 @@ fieldset {
       height: 90px;
       background-color: white;
       overflow-y: hidden;
+      .description {
+        font-family: $montserrat;
+        text-transform: none;
+        font-weight: normal;
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+      }
     }
     .blurb {
       border-bottom: 1px solid $black;

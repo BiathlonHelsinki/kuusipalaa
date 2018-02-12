@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include CanCan::ControllerAdditions
+  before_action :check_service_status
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :get_locale
   before_action :get_era
@@ -12,6 +13,14 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     
     stored_location_for(resource) || request.env['omniauth.origin'] ||  root_path
+  end
+
+  def check_service_status
+    @parity_status = Net::Ping::TCP.new(ENV['parity_server'],  ENV['parity_port'], 1).ping?
+    @geth_status = Net::Ping::TCP.new(ENV['geth_server'],  ENV['geth_port'], 1).ping?
+    @api_status = Net::Ping::TCP.new(ENV['biathlon_api_server'],  ENV['biathlon_api_port'], 1).ping?
+    @dapp_status = Net::Ping::TCP.new(ENV['dapp_server'], ENV['dapp_port'], 1).ping?
+    
   end
 
 

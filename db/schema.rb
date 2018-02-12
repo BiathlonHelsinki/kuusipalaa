@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180210091452) do
+ActiveRecord::Schema.define(version: 20180212002149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -386,10 +386,15 @@ ActiveRecord::Schema.define(version: 20180210091452) do
     t.boolean "allow_others"
     t.float "price_public"
     t.float "price_stakeholders"
+    t.integer "points_needed"
+    t.integer "hours_estimate"
+    t.bigint "user_id"
+    t.integer "thing_size"
     t.index ["ideatype_id"], name: "index_ideas_on_ideatype_id"
     t.index ["parent_type", "parent_id"], name: "index_ideas_on_parent_type_and_parent_id"
     t.index ["proposalstatus_id"], name: "index_ideas_on_proposalstatus_id"
     t.index ["proposer_type", "proposer_id"], name: "index_ideas_on_proposer_type_and_proposer_id"
+    t.index ["user_id"], name: "index_ideas_on_user_id"
   end
 
   create_table "ideatype_translations", force: :cascade do |t|
@@ -835,11 +840,17 @@ ActiveRecord::Schema.define(version: 20180210091452) do
     t.date "day", null: false
     t.integer "user_id", null: false
     t.integer "ethtransaction_id"
-    t.integer "rate_id", null: false
+    t.integer "rate_id"
     t.string "purpose"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["day"], name: "index_roombookings_on_day", unique: true
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.string "booker_type"
+    t.bigint "booker_id"
+    t.integer "points_needed"
+    t.index ["booker_type", "booker_id"], name: "index_roombookings_on_booker_type_and_booker_id"
+    t.index ["day"], name: "index_roombookings_on_day"
     t.index ["ethtransaction_id"], name: "index_roombookings_on_ethtransaction_id"
     t.index ["rate_id"], name: "index_roombookings_on_rate_id"
     t.index ["user_id"], name: "index_roombookings_on_user_id"
@@ -1056,6 +1067,7 @@ ActiveRecord::Schema.define(version: 20180210091452) do
   add_foreign_key "hardwares", "hardwaretypes"
   add_foreign_key "ideas", "ideatypes"
   add_foreign_key "ideas", "proposalstatuses"
+  add_foreign_key "ideas", "users"
   add_foreign_key "instances", "events"
   add_foreign_key "instances", "places"
   add_foreign_key "instances_organisers", "instances"

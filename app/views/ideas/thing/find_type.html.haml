@@ -1,0 +1,35 @@
+.member_services_index
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t "thing.what_kind_of_thing"
+        .blurb
+          %p= t "thing.why_propose_thing"
+          %p= t "thing.size_confusion"
+
+          - if @idea.ideatype_id == 2
+            = form_tag "/ideas/#{@idea.id.to_s}/thing/find_type", method: :put, 'data-abide' => '' do 
+              %p
+                = radio_button_tag 'idea[thing_size]', '1', required: 'required'
+                = t "thing.small_thing"
+              %p.small= t "thing.small_thing_explanation"
+              %p
+                = radio_button_tag 'idea[thing_size]', '2'
+                = t "thing.medium_thing"
+              %p.small= t "thing.medium_thing_explanation"
+              %p
+                = radio_button_tag 'idea[thing_size]', '3'
+                = t "thing.large_thing"
+              %p.small= t "thing.large_thing_explanation"              
+              = hidden_field_tag :form_direction, "forward"
+              .row
+                .small-12.columns
+                  -#%button{type: :submit, class: [:button, :bordered], rel: :previous}= raw("<i class='fa fa-caret-left icon-large'></i> ") + t(:back)
+                  %button{type: :submit, class: [:button, :bordered]}= raw(t(:next) + " <i class='fa fa-caret-right icon-large'></i> ")
+
+= content_for :jquery do
+  :plain
+    $('form button').click(function() {
+      $("#form_direction").val($(this).attr('rel'))
+
+    });  

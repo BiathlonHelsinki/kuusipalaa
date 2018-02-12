@@ -397,6 +397,12 @@ a.not-active {
   }
 }
 form {
+  input[type=text], textarea {
+    margin-bottom: 0.2rem !important;
+  } 
+  li {
+    margin-top: 1rem;
+  }
   &.member {
     label[for=member_access_level] {
       font-size: 0.6rem;
@@ -413,6 +419,7 @@ form {
         height: inherit;
       }
     }
+
     input[type=submit] {
       font-size: 0.85rem;
       padding: 0.25rem;
@@ -516,12 +523,12 @@ a.bordered, button.bordered {
   &:after {
     content: '';
     position: absolute;
-    top: 7px;
-    left: -7px;
-    right: 7px;
-    bottom: -7px;
+    top: 5px;
+    left: -5px;
+    right: 5px;
+    bottom: -5px;
 
-    z-index: -1;
+    z-index: 1;
     outline: 1px solid $black;
   }
 }
@@ -716,6 +723,37 @@ button.stripe-button-el {
   }
 }
 
+.proposal_review {
+  .final_title {
+    font-family: $sourcecode;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+ .byline {
+    padding: 0.8rem 0;
+  }
+  .proposal_image {
+    padding: 0.8em 0;
+  }
+  .short_description {
+    font-family: $montserrat;
+    margin-bottom: 1rem;
+  }
+  .when {
+    font-family: $sourcecode;
+    font-weight: bold;
+    font-size: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .other_meta {
+    font-family: $montserrat;
+    margin-bottom: 1rem;
+  }
+  .proposal_image {
+    margin-bottom: 1.5rem;
+  }
+}
 form {
   &.idea {
     .fields {
@@ -729,22 +767,55 @@ form {
         font-size: 0.8rem;
       }
     }
+    li#idea_special_notes_input {
+      margin: 1.5rem 0;
+    
+      textarea#idea_special_notes {
+
+        height: 150px;
+        width: 50%;
+      }
+    }
+    li#idea_hours_estimate_input {
+      display: inline;
+    
+      #idea_hours_estimate {
+        width: 60px;
+        display: inline;
+      }
+    }
+
     fieldset {
+      &.actions {
+        padding: 0;
+        ol {
+          margin: 0; 
+          li {
+            float: left;
+            margin-right: 15px;
+          }
+        }
+      }
       border: none;
       legend.label {
         background: none;
       }
     }
-    #calendar {
+    .calendar {
       display: none;
-    }
-    .points_total {
-      font-family: $sourcecode;
-      font-weight: bold;
-      span#points_total {
-        font-weight: bold;
-        font-size: 2.5rem;
+      &.not_hidden {
+        display: block;
       }
+    }
+
+  }
+  .points_total {
+    margin-bottom: 1.5rem;
+    font-family: $sourcecode;
+    font-weight: bold;
+    span#points_total {
+      font-weight: bold;
+      font-size: 2.5rem;
     }
   }
   p {

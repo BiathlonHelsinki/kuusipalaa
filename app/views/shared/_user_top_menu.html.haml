@@ -19,10 +19,13 @@
       - if current_user.groups.map{|x| x.has_role?(:stakeholder) }.include?(true)
         = " / "
         = link_to pluralize( current_user.groups.reject{|x| !x.has_role?(:stakeholder) }.map(&:stakes).flatten.sum(&:amount), t(:group_stake, count:  current_user.groups.reject{|x| !x.has_role?(:stakeholder) }.map(&:stakes).flatten.sum(&:amount))), user_groups_path(current_user)
+  %br/
+  = t(:x_points, count: current_user.latest_balance)        
 %ul.dropdown.menu#user_dropdown_menu{:'data-dropdown-menu' => '', :'data-alignment' => 'left'}
   %li
     = link_to image_tag(current_user.avatar.url(:thumb)), '#'
     %ul.vertical.menu
+      %li= link_to t(:create_new_proposal), new_idea_path
       %li= link_to t(:edit_profile) , edit_user_path(current_user)
       %li= link_to t(:buy_a_stake) , new_season_stake_path(@current_season)
       %li= link_to t(:your_groups) , user_groups_path(current_user)

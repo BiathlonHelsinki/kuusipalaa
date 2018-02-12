@@ -5,15 +5,24 @@
         .title= t :which_type_of_event
         .blurb
           - if @idea.ideatype_id == 1
-            = form_tag "/ideas/#{@idea.id.to_s}/build/find_type", method: :put, 'data-abide' => '' do |f|
+            = form_tag "/ideas/#{@idea.id.to_s}/build/find_type", method: :put, 'data-abide' => '' do 
               %p
                 = radio_button_tag 'idea[ideatype_id]', '4'
                 = t :private_event
               %p.small= t :private_event_explanation
               %p
-                = radio_button_tag 'idea[ideatype_id]', '1'
+                = radio_button_tag 'idea[ideatype_id]', '1', required: 'required'
                 = t :public_event
               %p.small= t :public_event_explanation 
+              = hidden_field_tag :form_direction, "forward"
+              .row
+                .small-12.columns
+                  -#%button{type: :submit, class: [:button, :bordered], rel: :previous}= raw("<i class='fa fa-caret-left icon-large'></i> ") + t(:back)
+                  %button{type: :submit, class: [:button, :bordered]}= raw(t(:next) + " <i class='fa fa-caret-right icon-large'></i> ")
 
-              %button{type: :submit, class: [:button, :bordered]}= raw(t(:next) + ' ' + fa_icon('caret-right').html_safe)
+= content_for :jquery do
+  :plain
+    $('form button').click(function() {
+      $("#form_direction").val($(this).attr('rel'))
 
+    });  

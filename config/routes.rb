@@ -48,6 +48,8 @@ Rails.application.routes.draw do
       get :calendar
     end
     resources :build, controller: 'ideas/build'
+    resources :thing, controller: 'ideas/thing'
+    resources :request, controller: 'ideas/request'
   end
 
   resources :meetings do
@@ -83,6 +85,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :roombookings do
+    collection do
+      get :calendar
+    end
+  end
+  
   resources :questions do
     member do
       get :contribute_translation

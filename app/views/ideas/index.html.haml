@@ -1,0 +1,35 @@
+%article.ideas_index
+  - unless @ideas.empty?
+    .row
+
+      .small-12.discussions
+        .header.text-center= t :all_active_proposals
+
+    .row.small-up-1.large-up-3.medium-up-2
+      - @ideas.each do |idea|
+        .column
+          .idea
+            .title
+              = link_to idea.name, idea
+              - if user_signed_in?
+                = link_to fa_icon('pencil'), edit_idea_path(idea)
+              .description= raw idea.short_description
+              
+            .blurb{style: idea.image? ? "background: url(#{idea.image.url(:box)}) center top; min-height: 250px;" : "min-height: 250px"}
+            .under
+              .needed
+                - if idea.ideatype_id == KuusiPalaa::Ideas::Request
+                  request
+                - else
+                  = t :x_needed, count: idea.points_needed
+              .so_far
+                - if idea.ideatype_id == KuusiPalaa::Ideas::Request
+                  = t(:x_comments, count: idea.comments.count, comment: t(:comment, count: idea.comments.count))
+                - else
+                  = t :x_so_far, count: idea.pledges.sum(&:pledge)
+              
+    .row
+      .small-12.medium-6.columns.lessmargins.small-centered
+        = link_to new_idea_path do
+          .front_button.text-center
+            = t(:create_new_proposal)

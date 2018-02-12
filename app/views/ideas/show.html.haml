@@ -1,0 +1,70 @@
+.member_services_index
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title
+          = t(:proposal) + ' : '
+          = @idea.name
+
+        .blurb.proposal_review
+          .tagline= @idea.short_description
+          .byline= raw t(:proposed_by, who: link_to(@idea.proposer.display_name, @idea_proposer, target: :_blank), when: l(@idea.created_at, format: :long))
+
+          - if @idea.image?
+            .proposal_image= image_tag @idea.image.url(:medium)
+           
+          .when
+            - if @idea.timeslot_undetermined == true
+              = t(:pick_times_anyway)
+              = t(:proposed_length_is, hours: @idea.hours_estimate)
+            - else
+              = date_range(@idea.start_at, @idea.end_at)
+              %small= t(:calendar_reserved_from, when: l(@idea.start_at - 1.hour, format: :short))
+              - unless @idea.additionaltimes.empty?
+                - @idea.additionaltimes.each do |t|
+                  .additional
+                    = " + "
+                    = date_range(t.start_at, t.end_at)
+                    %small= t(:calendar_reserved_from, when: l(t.start_at - 1.hour, format: :short))
+          .other_meta
+            %p
+              %strong= t :proposal_details
+            %p
+              %strong= t :proposed_to_take_place_in
+              - case @idea.room_needed
+                - when 1
+                  = t(:main_room)
+                - when 2
+                  = t(:back_room)
+                - when 3
+                  = t(:both)
+              - if @idea.allow_others == true
+                %br/
+                = t :others_are_allowed
+
+
+          .description
+            %strong= t :proposal_description
+            %br
+            = @idea.proposal_text
+
+          / = semantic_nested_form_for @idea, url: "/ideas/#{@idea.id.to_s}/build/finalise", html: { method: :put, multipart: true, :'data-abide' => ''} do |f|
+          /   = f.input :special_notes, label: t(:special_notes), hint: t(:special_notes_explanation)
+          /   .points_total
+          /     = t :event_as_proposed_will_cost
+          /     %span#points_total= @idea.points_needed.to_i
+          /     points to be scheduled            
+          /   = hidden_field_tag :form_direction, "forward"
+          /   .row
+          /     .small-12.columns
+          /       = f.actions do
+          /         = f.action :submit, :label => raw("<i class='fa fa-caret-left icon-large'></i> ") + t(:back), :as => :button, button_html: {:class => [:button, :bordered], rel: :previous}
+          /         = f.action :submit, :label =>  raw(t(:publish)  + (" <i class='fa fa-check-square icon-large'></i>")), :as => :button, button_html: {:class => [:button, :bordered], :'data-confirm' => "#{t(:are_you_sure_proposal)}" }
+
+= content_for :jquery do
+  :plain
+    $('form button').click(function() {
+
+      $("#form_direction").val($(this).attr('rel'));
+
+    });              

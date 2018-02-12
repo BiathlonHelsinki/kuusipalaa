@@ -1,0 +1,143 @@
+var $fc = $("#calendar");  
+var screenWidth = $(window).width(); 
+var options = {
+  editable: true,
+  header: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'month,agendaWeek,agendaDay'
+  },
+  defaultView: 'month',
+  contentHeight: '400px',
+  locale: '<%= I18n.locale.to_s %>',
+  contentHeight: 'auto',
+  firstDay: 1,
+  fixedWeekCount: false,
+  slotMinutes: 30,
+  eventOrder: "start",
+  eventSources: [
+    {
+      url: '/roombookings/calendar.json'
+    }
+  ],
+  displayEventEnd: {
+    month: true,
+    basicWeek: true,
+    "default": true
+  },
+  timeFormat: 'H:mm',
+  dragOpacity: "0.5",
+
+  eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+    return updateEvent(event);
+  },
+  eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+    return updateEvent(event);
+  },
+  eventRender: function(copiedEventObject,element) {
+
+    var icon = $(document.createElement('div'));
+    if (copiedEventObject.icon_url) {
+      icon.addClass('roomcalendar_icon');
+      icon.css('background-image',"url(" + copiedEventObject.icon_url + ")");
+      element.find('.fc-title').prepend(icon);
+     
+    } else {
+      element.find('.fc-content').addClass('roomcalendar_tobook');
+       element.addClass('booking_link');
+    }
+
+  },
+  eventAfterRender: function(event, element,view) {
+    if (moment(event.start).format('YYYY-M-D') == moment(new Date()).format('YYYY-M-D')) {
+      element.parent().addClass('fc-today');
+    } 
+
+  }
+};
+
+var mobileOptions = {
+  editable: true,
+  header: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'month,agendaWeek,agendaDay'
+  },
+  defaultView: 'listMonth',
+  contentHeight: '400px',
+  locale: '<%= I18n.locale.to_s %>',
+  contentHeight: 'auto',
+  firstDay: 1,
+  fixedWeekCount: false,
+  slotMinutes: 30,
+  eventOrder: "start",
+  eventSources: [
+    {
+      url: '/roombookings/calendar.json'
+    }
+  ],
+  displayEventEnd: {
+    month: true,
+    basicWeek: true,
+    "default": true
+  },
+  timeFormat: 'H:mm',
+  dragOpacity: "0.5",
+
+  eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+    return updateEvent(event);
+  },
+  eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+    return updateEvent(event);
+  },
+  eventRender: function(copiedEventObject,element) {
+
+    var icon = $(document.createElement('div'));
+    if (copiedEventObject.icon_url) {
+      icon.addClass('roomcalendar_icon');
+      icon.css('background-image',"url(" + copiedEventObject.icon_url + ")");
+      element.find('.fc-title').prepend(icon);
+     
+    } else {
+      element.find('.fc-content').addClass('roomcalendar_tobook');
+       element.addClass('booking_link');
+    }
+
+  },
+  eventAfterRender: function(event, element,view) {
+    if (moment(event.start).format('YYYY-M-D') == moment(new Date()).format('YYYY-M-D')) {
+      element.parent().addClass('fc-today');
+    } 
+
+  }
+};
+
+if (screenWidth < 700) {
+  $fc.fullCalendar(mobileOptions);
+  } else {
+    $fc.fullCalendar(options);
+  };
+
+
+var updateEvent = function(the_event) {
+
+return $.update("/roombookings/calendar/" + the_event.id, {
+  event: {
+    title: the_event.title,
+    starts_at: "" + the_event.start,
+    ends_at: "" + the_event.end,
+    description: the_event.description
+    }
+  });
+};
+
+$(window).resize(function() {
+  screenWidth = $(window).width(); 
+  $fc.fullCalendar('destroy');
+  if (screenWidth < 700) {
+    $fc.fullCalendar(mobileOptions);
+    } else {
+      $fc.fullCalendar(options);
+    };
+  
+});

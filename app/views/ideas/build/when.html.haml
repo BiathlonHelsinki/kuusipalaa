@@ -7,14 +7,25 @@
 
 
           = semantic_form_for @idea,url: "/ideas/#{@idea.id.to_s}/build/when", html: { method: :put, multipart: true, :'data-abide' => ''} do |f|
-            = f.input :timeslot_undetermined, as: :radio, collection: {t(:undetermined_time) => true, t(:choose_from_calendar) => false}, label: false
-            = f.input :start_at, as: :string
-            .calendar#calendar
-            %button{type: :submit, class: [:button, :bordered]}= raw(t(:next) + ' ' + fa_icon('caret-right').html_safe)
+            = f.input :timeslot_undetermined, as: :radio, collection: [[t(:undetermined_time), true, "required" => "required"], [t(:choose_from_calendar), false]], label: false, input_html: {required: ''}
+            = f.input :start_at, as: :hidden
+            = hidden_field_tag :form_direction, "forward"
+            .calendar{class: f.object.start_at.blank? ? false : 'not_hidden'}
+              %h4= t(:when_do_you_want_this_to_start)
+              #calendar
+              - unless f.object.start_at.blank? 
+                :javascript
+                  #{render partial: 'ideas/build/calendar', locals: {user: current_user.id }, formats: [:js]}
+            .row
+              .small-12.columns
+                = f.actions do
+                  = f.action :submit, :label => raw("<i class='fa fa-caret-left icon-large'></i> ") + t(:back), :as => :button, button_html: {:class => [:button, :bordered], rel: :previous}
+                  = f.action :submit, :label => raw("<i class='fa fa-caret-right icon-large'></i> ") + t(:next), :as => :button,button_html: {:class => [:button, :bordered] }
 = content_for :jquery do
-
-  
   :plain
+    $('form button').click(function() {
+      $("#form_direction").val($(this).attr('rel'))
+    });    
     function pollVisibility() {
       if ($("#calendar").is(":visible")) {
 
@@ -28,7 +39,7 @@
     $('input#idea_timeslot_undetermined_false').change(() => {
 
      if ($('input#idea_timeslot_undetermined_false').is(':checked')) {
-        $('#calendar').slideDown();
+        $('.calendar').slideDown();
         pollVisibility();
      }
     });

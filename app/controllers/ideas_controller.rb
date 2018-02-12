@@ -1,5 +1,5 @@
 class IdeasController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
 
   def calendar
     #  build month
@@ -20,14 +20,32 @@ class IdeasController < ApplicationController
 
   def create
     if params[:step1] == 'event'
-      @idea = Idea.create(status: 'building', ideatype_id: 1)
+      @idea = Idea.create(status: 'building', ideatype_id: 1, proposer: current_user, user: current_user)
       redirect_to idea_build_index_path(idea_id: @idea.id)
+    elsif params[:step1] == 'installation'
+      @idea = Idea.create(status: 'building', ideatype_id: 2, proposer: current_user, user: current_user)
+      redirect_to idea_thing_index_path(idea_id: @idea.id)
+    elsif params[:step1] == 'request'
+      @idea = Idea.create(status: 'building', ideatype_id: 3, proposer: current_user, user: current_user)
+      redirect_to idea_request_index_path(idea_id: @idea.id)
     end
+  end
+
+  def index
+    @ideas = Idea.active.order(updated_at: :desc)
   end
 
   def new
     @idea = Idea.new(status: 'building')
+  end
 
+  def show
+    @idea = Idea.friendly.find(params[:id])
+    set_meta_tags tite: @idea.name
+    unless @idea.active?
+      flash[:error] = t(:idea_not_published_yet)
+      redirect_to ideas_path
+    end
   end
 
 end

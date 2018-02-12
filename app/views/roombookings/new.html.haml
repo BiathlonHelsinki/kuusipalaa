@@ -1,0 +1,91 @@
+%article.post_single
+  .row
+    .small-12.columns.lessmargins.lessright
+      .lifted_box.has_inner_button
+        .title= t :private_event
+        .blurb
+          %p= t :private_event_explanation
+
+          - if current_user.nfcs.empty?
+            %p As you do not currently have a Temporary ID card, you will only be able to access the room when Temporary is open, if someone else is there.
+            
+          - else
+            %p= t "private_room.free_to_use"
+            %p= t "private_room.stakeholders_use_free"
+            
+            %p= t "private_room.must_let_others_in"
+            
+            %p= t "private_room.shares_with_neighbours"
+            
+            %p= t "private_room.anything_you_bring" 
+            
+            %p= t "private_room.other_events"
+       
+          = semantic_form_for @roombooking do |f|
+            .row
+              .small-12.medium-6.columns
+                = f.input :user_id, as: :hidden
+
+            .row
+              .small-6.large-4.columns
+                = f.input :start_at_date, as: :string, input_html: {class: :datetimepicker, required: '' , value: f.object.start_at_date.nil? ? params[:day] : f.object.start_at_date}, label: t(:starting_from_day)
+              .small-6.large-4.columns
+                = f.input :start_at, as: :string, input_html: {class: :timepicker, value: f.object.end_at.blank? ? (@existing.empty? ? '13:00' : @existing.order(:end_at).last.end_at.localtime.strftime("%H:%M")) : f.object.start_at.strftime('%H:%M'), required: ''}, label: t(:starting_from_time)
+              .small-4.columns
+                #initial_time_length
+
+            .row
+              .small-6.large-4.columns
+                = f.input :end_at_date, as: :string, input_html: {class: :datetimepicker, value: f.object.end_at_date.nil? ?  params[:day] : f.object.end_at_date, required: '' }, label: t(:until_when_day)
+              .small-6.large-4.columns.end
+                = f.input :end_at, as: :string, input_html: {class: :timepicker, value: f.object.end_at.blank? ? (@existing.empty? ? '14:00' : (@existing.order(:end_at).last.end_at.localtime + 1.hour).strftime("%H:%M"))  : f.object.end_at.strftime('%H:%M'), required: ''}, label: t(:until_when_time)
+            .points_total.row
+              .small-6.large-3.columns
+                = f.input :points_needed, as: :hidden
+                - if @collection_options.size > 1
+                  = f.input :booker_type, as: :hidden, input_html: {'required' => '',value: 'User'}
+                  = f.input :booker_id, as: :hidden, input_html: {'required' => '', value: current_user.id }
+                  = f.input :booker, as: :select, input_html: {id: :roombooking_booker_select}, label: t(:book_as), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }),  include_blank: false
+                - else
+                  = f.input :booker_type, as: :hidden, input_html: {'required' => '', value: 'User'}
+                  = f.input :booker_id, as: :hidden, input_html: {value: current_user.id }
+              .small-12.columns
+                = t :this_booking_will_cost
+                %span#points_total 
+                = t :points_fullstop             
+            .row
+              .small-10.large-8.columns
+                = f.input :purpose, label: t("private_room.purpose"), hint: t("private_room.purpose_hint")
+                = f.submit 'Book the room!', class: [:button, :bordered], data: { confirm: t("private_room.are_you_sure")}
+- if @existing.empty?
+  = content_for :jquery do
+    :plain
+      $('.timepicker').timepicker({ 'timeFormat': 'H:i' });
+- else
+  = content_for :jquery do
+    :plain
+      $('.timepicker').timepicker({ 'timeFormat': 'H:i',
+       'disableTimeRanges': #{raw @existing.map{|x| [x.start_at.localtime.strftime("%H:%M"), x.end_at.localtime.strftime("%H:%M")] }.to_s}
+        
+      })
+
+= content_for :jquery do
+  :plain
+    $('#roombooking_booker_select').on('change', function() {
+      $('#roombooking_booker_type').val($('#roombooking_booker_select option').filter(":selected").attr('rel'));
+      $('#roombooking_booker_id').val($('#roombooking_booker_select').val());
+
+    });
+    calculatePrivate()
+    $('form input').change(() => {      
+      calculatePrivate().done((callback) => {
+        callback();
+      })
+    })
+
+
+
+    $('.datetimepicker').fdatetimepicker({ weekStart: 1, format: 'yyyy-mm-dd', minView: 2, startview:2 }).on('changeDate', () => {
+
+        $(this).fdatetimepicker('hide')
+      })

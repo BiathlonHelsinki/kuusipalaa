@@ -1,0 +1,92 @@
+@import 'variables';
+
+article.ideas_index {
+  padding: 2rem 0;
+  .discussions {
+    margin: 2.5rem 0;
+    .header {
+      font-family: $sourcecode;
+      font-weight: bold;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+  }
+  .column {
+    position: relative;
+  }
+  .idea {
+    margin-bottom: 4rem;
+    border: 1px solid $black;
+    position: relative;
+    background-color: white;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: -10px;
+      right: 10px;
+      bottom: -10px;
+      background: white;
+      z-index: -1;
+      outline: 1px solid $black;
+    }
+    .title {
+      font-size: 1.25rem;
+      border-bottom: 1px solid $black;
+      padding: 0.8rem 1rem;
+      text-transform: uppercase;
+      font-weight: bold;
+
+      background-color: white;
+      overflow-y: hidden;
+      .description {
+        font-family: $montserrat;
+        text-transform: none;
+        font-weight: normal;
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+      }
+    }
+    .blurb {
+      border-bottom: 1px solid $black;
+      font-family: $montserrat;
+      padding: 1rem;
+      height: 250px;
+      font-weight: bold;
+      overflow-y: hidden;
+    }
+    .meta {
+      font-family: $sourcecode;
+
+      font-weight: bold;
+      padding: 0.8rem 1rem;
+      a {
+        text-transform: uppercase;
+        text-decoration: underline;
+        &:hover {
+          background-color: $black;
+          color: white;
+        }
+      }
+    }
+    .under {
+      min-height: 3rem;
+      font-size: 0.8rem;
+      font-family: $sourcecode;
+      font-weight: bold;
+      .needed {
+        padding: 15px;
+        float: left;
+        border-right: 1px solid black;
+      }
+      .so_far {
+        padding: 15px;
+        float: left;
+      }
+    }
+  }
+
+
+}
+

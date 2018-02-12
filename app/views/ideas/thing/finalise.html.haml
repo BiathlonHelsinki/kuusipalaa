@@ -1,0 +1,45 @@
+.member_services_index
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t(:proposal_review) + ' : ' + t(:put_something_in_the_space)
+        .blurb.proposal_review
+          %p= t "thing.please_review_and_finalise_proposal"
+          .final_title= @idea.name
+          .byline
+            = raw t(:proposed_by, who: link_to(@idea.proposer.display_name, @idea_proposer, target: :_blank), when: l(@idea.created_at, format: :long))
+          - if @idea.image?
+            .proposal_image= image_tag @idea.image.url(:medium)            
+          .short_description
+            %strong= t :proposal_short_description
+            = @idea.short_description
+          .when
+            %strong= t :proposal_dates
+            = date_range(@idea.start_at.to_date, @idea.end_at.to_date)
+     
+
+          .description
+            %strong= t :proposal_description
+            %p= @idea.proposal_text
+
+          = semantic_nested_form_for @idea, url: "/ideas/#{@idea.id.to_s}/thing/finalise", html: { method: :put, multipart: true, :'data-abide' => ''} do |f|
+            = f.input :special_notes, label: t(:special_notes), hint: t(:special_notes_explanation)
+            .points_total
+              = t :thing_as_proposed_will_cost
+              %span#points_total= @idea.points_needed.to_i
+              = t :points_to_happen
+            = hidden_field_tag :form_direction, "forward"
+            = f.input :timeslot_undetermined, as: :hidden, input_html: {value: 'false'}
+            .row
+              .small-12.columns
+                = f.actions do
+                  = f.action :submit, :label => raw("<i class='fa fa-caret-left icon-large'></i> ") + t(:back), :as => :button, button_html: {:class => [:button, :bordered], rel: :previous}
+                  = f.action :submit, :label =>  raw(t(:publish)  + (" <i class='fa fa-check-square icon-large'></i>")), :as => :button, button_html: {:class => [:button, :bordered], :'data-confirm' => "#{t(:are_you_sure_proposal)}" }
+
+= content_for :jquery do
+  :plain
+    $('form button').click(function() {
+
+      $("#form_direction").val($(this).attr('rel'));
+
+    });              
