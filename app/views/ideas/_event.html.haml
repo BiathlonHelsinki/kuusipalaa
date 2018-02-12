@@ -1,0 +1,34 @@
+.when
+  - if @idea.timeslot_undetermined == true
+    = t(:pick_times_anyway)
+    = t(:proposed_length_is, hours: @idea.hours_estimate)
+  - else
+    = date_range(@idea.start_at, @idea.end_at)
+    %small= t(:calendar_reserved_from, when: l(@idea.start_at - 1.hour, format: :short))
+    - unless @idea.additionaltimes.empty?
+      - @idea.additionaltimes.each do |t|
+        .additional
+          = " + "
+          = date_range(t.start_at, t.end_at)
+          %small= t(:calendar_reserved_from, when: l(t.start_at - 1.hour, format: :short))
+.other_meta
+  %p
+    %strong= t :proposal_details
+  %p
+    %strong= t :proposed_to_take_place_in
+    - case @idea.room_needed
+      - when 1
+        = t(:main_room)
+      - when 2
+        = t(:back_room)
+      - when 3
+        = t(:both)
+    - if @idea.allow_others == true
+      %br/
+      = t :others_are_allowed
+
+
+.description
+  %strong= t :proposal_description
+  %br
+  = @idea.proposal_text

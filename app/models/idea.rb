@@ -16,7 +16,8 @@ class Idea < ApplicationRecord
   accepts_nested_attributes_for :additionaltimes, reject_if: proc {|x| x['start_at'].blank? || x['end_at'].blank? }, allow_destroy: true
 
   has_many :activities, as: :item
-
+  has_many :notifications, as: :item
+  
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
@@ -66,6 +67,19 @@ class Idea < ApplicationRecord
   def end_at_date
     end_at.nil? ? nil : end_at.strftime('%Y-%m-%d')
   end
+
+  def points_still_needed
+    points_needed -  pledges.select(&:persisted?).sum(&:pledge)  
+  end
+
+  def points_still_needed_except(pledge)
+    points_needed - pledges.select(&:persisted?).select{|x| x != pledge}.sum(&:pledge)
+  end
+
+  def max_for_user(user, pledge)
+    [user.latest_balance, (points_needed * 0.9), points_still_needed_except(pledge)].min.to_i
+  end
+
   private
 
   def update_image_attributes

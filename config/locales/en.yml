@@ -972,6 +972,9 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   thing_as_proposed_will_cost: 'This proposal will require '
   points_to_happen: ' points pledged to it in order to happen.'
   proposal_dates: 'Proposal dates: '
+  event_category: 'event'
+  request_category: 'request'
+  thing_category: 'thing'
   request:
     request_form: 'Make a request'
     request_name: 'What are you seeking?'
@@ -986,6 +989,8 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   idea_not_published_yet: 'This proposal is not yet finished.'
   proposal_details: 'Proposal details: '
   proposed_to_take_place_in: 'Proposed to take place in: '
+  publish_proposal_as: 'Publish this as: '
+  you_can_pledge_a_max_of_x: 'You can pledge a maximum of %{max} points to this.'
   thing:
     time_details: 'Times and dates'
     choose_dates: 'For how long do you wish to have this in ths Kuusi Palaa space?'
@@ -1004,3 +1009,5 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
     proposal_text_hint: 'Please describe what you want to do very clearly, including where you want to put it, why, and for how long (you''ll choose exact dates on the next page).'
     image: 'Please upload an image of it'
     please_review_and_finalise_proposal: 'Please review your proposal below. When you click Publish, it goes live on the site and any Kuusi Palaa member can pledge to it. If you want to change anything, go back and do this now.'
+  you_cannot_pledge_this_much: 'You can''t pledge this much!'
+  change_pledge: 'Change pledge'

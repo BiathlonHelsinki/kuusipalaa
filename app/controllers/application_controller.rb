@@ -74,6 +74,7 @@ class ApplicationController < ActionController::Base
   end
 
   def fill_collection
+
     @collection_options = []
     @collection_options << [current_user.name, current_user.id, 'User', nil, 50, false]
     last = ''

@@ -5,6 +5,7 @@ class Ideas::BuildController < ApplicationController
 
   def show
     @idea = Idea.friendly.find(params[:idea_id])
+    fill_collection
     render_wizard
   end
 

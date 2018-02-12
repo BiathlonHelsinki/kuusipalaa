@@ -90,3 +90,27 @@ article.ideas_index {
 
 }
 
+
+.idea_detail_view {
+  .pledge_box {
+    border-top: 1px solid black;
+    padding: 1rem;
+    .pledge_heading {
+      font-family: $montserrat;
+      font-weight: bold;
+    }
+    .pledge_list {
+      font-family: $montserrat;
+      font-weight: normal;
+    }
+    li#pledge_pledge_input {
+      float: left;
+      margin: 0;
+      padding-right: 25px;
+      input {
+
+        width: 100px;
+      }
+    }
+  }
+}

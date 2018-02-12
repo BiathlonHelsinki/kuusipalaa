@@ -5,6 +5,7 @@ class Ideas::ThingController < ApplicationController
 
   def show
     @idea = Idea.friendly.find(params[:idea_id])
+    fill_collection
     render_wizard
   end
 
@@ -35,12 +36,14 @@ class Ideas::ThingController < ApplicationController
       if params[:form_direction] == 'previous'
         @idea.attributes = idea_params
         if @idea.save(validate: false)
+          fill_collection
           redirect_to wizard_path(previous_step, :idea_id => @idea.id)
         else
           flash[:error] = @idea.errors.full_messages.join('; ')
         end
       else
         if @idea.update_attributes(idea_params)
+          fill_collection
           render_wizard @idea         
         else
           logger.warn @idea.errors.full_messages.join('; ')

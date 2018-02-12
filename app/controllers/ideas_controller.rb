@@ -1,4 +1,5 @@
 class IdeasController < ApplicationController
+
   before_action :authenticate_user!, except: [:index]
 
   def calendar
@@ -41,6 +42,15 @@ class IdeasController < ApplicationController
 
   def show
     @idea = Idea.friendly.find(params[:id])
+    if user_signed_in?
+
+      if current_user.pledges.unconverted.where(item: @idea).empty?
+        @pledge = @idea.pledges.build
+      else
+        # flash[:notice] = 'You already have an unspent pledge towards this proposal. You can edit or delete it but you cannot create a new one.'
+        @pledge = current_user.pledges.unconverted.find_by(item: @idea)
+      end 
+    end 
     set_meta_tags tite: @idea.name
     unless @idea.active?
       flash[:error] = t(:idea_not_published_yet)

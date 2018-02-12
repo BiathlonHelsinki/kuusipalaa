@@ -30,6 +30,13 @@
               = t :points_to_happen
             = hidden_field_tag :form_direction, "forward"
             = f.input :timeslot_undetermined, as: :hidden, input_html: {value: 'false'}
+            - if @collection_options.size > 1
+              = f.input :proposer_type, as: :hidden, input_html: {'required' => '',value: 'User'}
+              = f.input :proposer_id, as: :hidden, input_html: {'required' => '', value: current_user.id }
+              = f.input :proposer, as: :select, input_html: {id: :idea_proposer_select}, label: t(:publish_proposal_as), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }),  include_blank: false
+            - else
+              = f.input :proposer_type, as: :hidden, input_html: {'required' => '', value: 'User'}
+              = f.input :proposer_id, as: :hidden, input_html: {value: current_user.id }            
             .row
               .small-12.columns
                 = f.actions do
@@ -38,6 +45,11 @@
 
 = content_for :jquery do
   :plain
+    $('#idea_proposer_select').on('change', function() {
+      $('#idea_proposer_type').val($('#idea_proposer_select option').filter(":selected").attr('rel'));
+      $('##idea_proposer_id').val($('#idea_proposer_select').val());
+
+    });
     $('form button').click(function() {
 
       $("#form_direction").val($(this).attr('rel'));

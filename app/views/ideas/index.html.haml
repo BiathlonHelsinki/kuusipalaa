@@ -18,11 +18,12 @@
             .blurb{style: idea.image? ? "background: url(#{idea.image.url(:box)}) center top; min-height: 250px;" : "min-height: 250px"}
             .under
               .needed
-                - if idea.ideatype_id == KuusiPalaa::Ideas::Request
-                  request
-                - else
-                  = t :x_needed, count: idea.points_needed
+                = t((idea.ideatype.slug + '_category').to_sym)
+
               .so_far
+                - if idea.ideatype_id != KuusiPalaa::Ideas::Request
+                  = t :x_needed, count: idea.points_needed
+                  |
                 - if idea.ideatype_id == KuusiPalaa::Ideas::Request
                   = t(:x_comments, count: idea.comments.count, comment: t(:comment, count: idea.comments.count))
                 - else

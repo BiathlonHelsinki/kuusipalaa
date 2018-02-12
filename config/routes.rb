@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     get "logout", to: "devise/sessions#destroy"
   end
 
+
+
   namespace :admin do
     root to: 'base#home'
     resources :posts
@@ -47,6 +49,7 @@ Rails.application.routes.draw do
     collection do
       get :calendar
     end
+    resources :pledges
     resources :build, controller: 'ideas/build'
     resources :thing, controller: 'ideas/thing'
     resources :request, controller: 'ideas/request'
