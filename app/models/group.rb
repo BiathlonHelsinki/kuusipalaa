@@ -37,7 +37,7 @@ class Group < ApplicationRecord
   end
 
   def stake_price
-    if is_member
+    if is_member && !taxid.blank?
       return 75
     else
       if taxid.blank?
@@ -52,7 +52,7 @@ class Group < ApplicationRecord
     if is_member
       return false
     else  #could be unregistered
-      if taxid
+      if !taxid.blank?
         if country == 'FI'
           return true
         else

@@ -46,8 +46,8 @@ class ApplicationController < ActionController::Base
   end
 
   def get_current_season
-    @current_season = Season.order(start_at: :desc).last
-    @next_season = Season.count == 1 ? @current_season : 2
+    @current_season = Season.find(1)
+    @next_season = Season.find(2) rescue "2"
   end
 
   def get_era

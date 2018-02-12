@@ -905,7 +905,7 @@ fi:
   view_details: 'Näytä yksityiskohdat'
   how_to_buy: 'Panokset varataan verkossa ja maksetaan tilisiirrolla tai kortilla.'
   what_is_a_stake: 'Mikä on panos?'
-  will_be_collectively_operated: 'Tulee olemaan kollektiivisesti johdettu 24/7-tila tapahtumia ja vapaata käyttöä varten.'
+  will_be_collectively_operated: 'On kollektiivisesti johdettu 24/7-tila tapahtumia ja vapaata käyttöä varten.'
   a_stake_is: 'Panos on sinun osuutesi Kuusi Palaa –osuuskunnasta.'
   a_stake_is_longer: 'Ja jäsenyys Kuusi Palaa:ssa - voit järjestää tapahtumia, käyttää tilaa 24/7 ja osallistua vuokrakustannuksiin.'
   euros_out_of_total: 'Tähän mennessä kerrytetty %{amount}€  tarvittavasta %{total}€ kokonaissummasta'
@@ -986,3 +986,4 @@ fi:
   submit: 'Submit'
   answer_contributed_by: 'Answer contributed by %{name}'
   add_a_comment_to_this_answer: 'Add a comment to this answer...'
+  opening_1_march: 'Kuusi Palaa aukeaa 1. maaliskuuta 2018!'
