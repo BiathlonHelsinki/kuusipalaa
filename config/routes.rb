@@ -57,6 +57,7 @@ Rails.application.routes.draw do
     resources :members do
       member do
         get :leave
+        get :toggle_key
         post :remove
       end
     end

@@ -20,6 +20,15 @@ class Group < ApplicationRecord
   has_many :activities, as: :contributor
   rolify
   
+
+  def keys
+    members.select{|x| x.has_key == true}.map(&:user)
+  end
+
+  def keys_left
+    (stakes.paid.sum(&:amount) * 5) - keys.size
+  end
+
   def validate_vat
     unless taxid.blank?
       unless country == 'FI' || country.blank?

@@ -13,11 +13,16 @@
       .lifted_box
         .title= t :group_members
         .blurb
+          .row
+            .small-12.columns
+              %p= t :you_have_x_keys, count: @group.keys_left
+              %p= t :key_explanation
+              %p.small= t :already_stakeholder
           .row.members_grid.large-up-5.medium-up-3.small-up-2
             - @group.members.each do |member|
               .column.member
                 - if member.user.avatar?
-                  = image_tag member.user.avatar.url(:box)
+                  = image_tag member.user.avatar.url(:box).gsub(/development/, 'production')
                 - else
                   = image_tag '/icons/user_missing.png'
                 .participant_overlay.text-center
@@ -29,13 +34,23 @@
                     %strong= t(:admin)
                   - elsif member.access_level == 10
                     = t(:member, count: 1)
+                  - elsif member.access_level == 5
+                    = t(:peasant)
                   - else
                     = member.access_level.to_s
                   - unless @group.members.find_by(user: current_user).nil?
                     - if @group.members.find_by(user: current_user).access_level == KuusiPalaa::Access::OWNER
                       = semantic_form_for [@group,member] do |f|
-                        = f.input :access_level, label: t(:access_level),  as: :select, collection: [[t(:member, count: 1), 10], [ t(:admin), 30], [ t(:owner), 50]], include_blank: false
+                        = f.input :access_level, label: t(:access_level),  as: :select, collection: [[t(:peasant), 5], [t(:member, count: 1), 10], [ t(:admin), 30], [ t(:owner), 50]], include_blank: false
                         = f.submit t(:change_access_level)
+                      - if member.user.stakes.paid.empty?
+                        - if member.has_key
+                          = link_to fa_icon('key') + t(:remove_key), toggle_key_group_member_path(@group, member), class: [:button, :bordered, :alert]
+                        - else
+                          = link_to fa_icon('key') + t(:give_key), toggle_key_group_member_path(@group, member), class: [:button, :bordered]
+                      - else
+                        %p
+                          %strong= t :stakeholder
                       = link_to t(:remove_member_from_group), [@group, member], method: :delete, data: {confirm: t(:are_you_sure) }, class: [:button, :alert]
 
   .row

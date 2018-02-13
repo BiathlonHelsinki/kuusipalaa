@@ -64,6 +64,13 @@ class MembersController < ApplicationController
     end
   end
 
+  def toggle_key
+
+    @member = @group.members.find(params[:id])
+    @member.toggle!(:has_key)
+    redirect_to new_group_member_path(@group)
+  end
+
   def leave
 
   end
