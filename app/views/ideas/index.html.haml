@@ -28,7 +28,10 @@
                   = t(:x_comments, count: idea.comments.count, comment: t(:comment, count: idea.comments.count))
                 - else
                   = t :x_so_far, count: idea.pledges.sum(&:pledge)
-              
+            - if idea.has_enough?
+              .ready.text-center
+                = t :ready_to_be_published
+
     .row
       .small-12.medium-6.columns.lessmargins.small-centered
         = link_to new_idea_path do

@@ -1,0 +1,65 @@
+%article.events_index
+  .row
+    .small-12.lessright
+      .lifted_box
+        .title= @event.name
+        -# = link_to fa_icon('calendar'), calendar_events_path
+        .blurb
+          - if @event.image?
+            .image= image_tag @event.image.url(:medium)
+          %p= raw @event.description
+          -# .small-12.medium-3.columns
+          -#   = render partial: 'pledge_panel'
+                
+            
+          - unless @event.instances.empty?
+            .row
+              .small-12.columns
+                
+                %p
+                  = t(:x_meetings_scheduled, meeting_instance: t(:meeting_instance, count: @event.instances.size))
+
+                  = t(:x_people_have_checked_in, count: @event.instances.map(&:users).flatten.size, people: t(:person, count: @event.instances.map(&:users).flatten.size), distinct_count: @event.instances.map(&:users).flatten.uniq.size, distinct_people: t(:distinct_person, count: @event.instances.map(&:users).flatten.uniq.size), guest_ticket_count:  @event.instances.map{|x| x.onetimers.unclaimed}.flatten.size, guest_tickets: t(:guest_tickets, count: @event.instances.map{|x| x.onetimers.unclaimed}.flatten.size))
+
+                  
+                %p
+                  = t(:original_proposal)
+                  = link_to @event.idea.name, idea_path(@event.idea)
+                  = " / " 
+                  = link_to @event.idea.proposer.display_name,  @event.idea.proposer
+          - unless @future.empty?
+            .row.expanded
+              .small-12.columns
+                %h1= t :coming_up
+          .row.expanded#expandme.small-up-1.medium-up-2.large-up-4.xxlarge-up-5{:"data-equalizer" => '', :"data-equalize-by-row" => "true"}
+            - @future.each do |exp|
+              = render partial: 'event_instance_column', locals: {exp: exp, event: @event}
+
+          - unless @event.instances.past.empty?
+            .row.expanded
+              .small-12.columns
+                %h1= t(:past_occurrences)
+
+            .row.expanded#expandme.small-up-1.medium-up-2.large-up-4.xlarge-up-5{:"data-equalizer" => '', :"data-equalize-by-row" => "true"}
+              - @past.each do |exp|
+                = render partial: 'event_instance_column', locals: {exp: exp, event: @event}
+              
+
+
+          -#= render partial: 'events/comments_and_form'
+          #comments_list
+
+            .comments_title= t :discussion
+            - if @event.discussion.size > 0
+              .small-12.columns
+                .comment_count
+                  = t(:this_proposal_has_x_comments_x_pledges, count: @event.comments.select(&:persisted?).size, comments: t(:comment, count: @event.comments.select(&:persisted?).size), pledge_count: @event.pledges.select(&:persisted?).size, pledges: t(:pledge, count: @event.pledges.select(&:persisted?).size), pledged: @event.pledged.to_s)
+
+
+
+            %ul.first= render(partial: 'shared/comment', collection: @event.discussion.select(&:persisted?).sort_by(&:created_at), locals: {depth: 0, root: @event, last: @event.comments.last, commenting_open: true})
+            #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @event, depth: 0, commenting_open: true}
+
+= content_for :jquery do
+  :plain
+    $('.comment_content').readmore({lessLink: '<a class="button readmore" href="#">[#{t(:close)}]</a>', moreLink: '<a class="button readmore" href="#">[#{t(:read_more)}]</a>'});

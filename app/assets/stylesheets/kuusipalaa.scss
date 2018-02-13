@@ -762,6 +762,11 @@ button.stripe-button-el {
     margin-bottom: 1.5rem;
   }
 }
+
+label.label {
+  white-space: unset !important;
+}
+
 form {
   &.idea {
     .fields {

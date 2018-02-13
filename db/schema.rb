@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20180212193711) do
-
+ActiveRecord::Schema.define(version: 20180213153221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -282,8 +280,10 @@ ActiveRecord::Schema.define(version: 20180212193711) do
     t.boolean "collapse_in_website", default: false, null: false
     t.boolean "stopped"
     t.bigint "idea_id"
+    t.string "primary_sponsor_type"
     t.index ["idea_id"], name: "index_events_on_idea_id"
     t.index ["place_id"], name: "index_events_on_place_id"
+    t.index ["primary_sponsor_id", "primary_sponsor_type"], name: "index_events_on_primary_sponsor_id_and_primary_sponsor_type"
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -449,7 +449,7 @@ ActiveRecord::Schema.define(version: 20180212193711) do
   create_table "instances", id: :serial, force: :cascade do |t|
     t.integer "event_id", null: false
     t.integer "cost_bb"
-    t.float "cost_euros"
+    t.float "price_public"
     t.datetime "start_at"
     t.datetime "end_at"
     t.integer "place_id"
@@ -484,6 +484,9 @@ ActiveRecord::Schema.define(version: 20180212193711) do
     t.boolean "registration_open", default: true, null: false
     t.boolean "cancelled", default: false, null: false
     t.boolean "survey_locked"
+    t.float "price_stakeholders"
+    t.integer "room_needed"
+    t.boolean "allow_others"
     t.index ["event_id"], name: "index_instances_on_event_id"
     t.index ["place_id"], name: "index_instances_on_place_id"
     t.index ["proposal_id"], name: "index_instances_on_proposal_id"
@@ -680,6 +683,7 @@ ActiveRecord::Schema.define(version: 20180212193711) do
     t.datetime "deleted_at"
     t.string "extra_info"
     t.integer "instance_id"
+    t.datetime "spent_at"
     t.index ["item_type", "item_id"], name: "index_pledges_on_item_type_and_item_id"
     t.index ["user_id"], name: "index_pledges_on_user_id"
   end

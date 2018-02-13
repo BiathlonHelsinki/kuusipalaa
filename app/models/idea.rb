@@ -1,13 +1,14 @@
 class Idea < ApplicationRecord
   has_many :pledges, as: :item
   belongs_to :user
+  has_many :events
   belongs_to :converted, polymorphic: true, optional: true
   belongs_to :proposer, polymorphic: true, optional: true
   belongs_to :parent, polymorphic: true, optional: true
   belongs_to :proposalstatus, optional: true
   belongs_to :ideatype
   has_many :additionaltimes, as: :item
-  has_many :comments, as: :item
+  has_many :comments, as: :item, dependent: :destroy
   validates :ideatype, :proposer_type, :proposer_id, :presence => true, :if => :active_or_find_type? 
   validates :name, :short_description, :proposal_text,  presence: true, if: :active_or_name_and_info?
   # validates :timeslot_undetermined, inclusion: { in: [ true, false ]}, if: :active_or_when?
@@ -27,6 +28,10 @@ class Idea < ApplicationRecord
 
   scope :active, ->() { where(status: 'active')}
   scope :needing_to_be_published,  ->() { where(notified: :true).where(converted_id: nil)}
+
+  def converted?
+    !events.empty?
+  end
 
   def root_comment
     self
@@ -92,7 +97,8 @@ class Idea < ApplicationRecord
   end
 
   def max_for_user(user, pledge)
-    [user.latest_balance, (points_needed * 0.9), pledges.select(&:persisted?).map(&:user).uniq.size >= 2 ? points_still_needed_except(pledge) : points_still_needed_except(pledge) -1 ].min.to_i
+    [user.available_balance, (points_needed * 0.9), pledges.select(&:persisted?).map(&:user).delete_if{|x| x == user}.uniq.size >= 2 ? points_still_needed_except(pledge) :
+     points_still_needed_except(pledge) - 1 ].min.to_i
   end
 
   def pledged
@@ -103,12 +109,12 @@ class Idea < ApplicationRecord
     if proposer_type == Group
       [user, proposer.members.map(&:user)].uniq
     else
-      [user]
+      [user, proposer].uniq
     end
   end
   
   def notify_if_enough
-
+  
     if pledged >= points_needed
       if notified != true
         begin
@@ -120,6 +126,7 @@ class Idea < ApplicationRecord
         end
       end
     end
+    die
   end
 
   private

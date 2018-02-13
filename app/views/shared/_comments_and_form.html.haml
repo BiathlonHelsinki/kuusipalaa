@@ -1,7 +1,7 @@
 
 - if user_signed_in?
 
-  - if can? :create, Comment
+  - if can?(:create, Comment) && commenting_open
     = content_for :jquery do
       :plain
         $('#ci_#{commentable.class.to_s}_#{commentable.id.to_s}').one('click', function() {
@@ -15,7 +15,7 @@
 
         .comment_form
           .row
-            .small-12.medium-8.columns.end
+            .small-12.large-10.columns.end
               .row
                 .small-2.columns.user_comment_box
                   .avatar{id: "avatar_comment_#{commentable.class.to_s}_#{commentable.id.to_s}"}
@@ -54,21 +54,24 @@
                         = f.hidden_field :contributor_type, value: 'User', 'required' => ''
                         = f.hidden_field :contributor_id, value: current_user.id , 'required' => ''                    
                       = f.submit t(:leave_comment), :class => [:button, :round]
-  = content_for :jquery do
-    :plain
-      $('#comment_contributor_select').on('change', function() {
-        $('#comment_contributor_type').val($('#comment_contributor_select option').filter(":selected").attr('rel'));
-        $('#comment_contributor_id').val($('#comment_contributor_select').val());
-        $.ajax({
-          url: '/users/' + $('#comment_contributor_select').val() + '/get_avatar?class=' + $('#comment_contributor_type').val() + '&size=thumb',
-          success: function(image) {
+  - if commenting_open
+    = content_for :jquery do
+      :plain
+        $('#comment_contributor_select').on('change', function() {
+          $('#comment_contributor_type').val($('#comment_contributor_select option').filter(":selected").attr('rel'));
+          $('#comment_contributor_id').val($('#comment_contributor_select').val());
+          $.ajax({
+            url: '/users/' + $('#comment_contributor_select').val() + '/get_avatar?class=' + $('#comment_contributor_type').val() + '&size=thumb',
+            success: function(image) {
 
-            $('#avatar_comment_#{commentable.class.to_s}_#{commentable.id.to_s} img').attr('src', image);
-            $('#avatar_comment_#{commentable.class.to_s}_#{commentable.id.to_s} img').attr('alt', $('#comment_contributor_select option').filter(":selected").html());
-         
-           }
-          });
-      }); 
+              $('#avatar_comment_#{commentable.class.to_s}_#{commentable.id.to_s} img').attr('src', image);
+              $('#avatar_comment_#{commentable.class.to_s}_#{commentable.id.to_s} img').attr('alt', $('#comment_contributor_select option').filter(":selected").html());
+           
+             }
+            });
+        }); 
+
+
 - else
   .row.expanded
     .small-12.columns

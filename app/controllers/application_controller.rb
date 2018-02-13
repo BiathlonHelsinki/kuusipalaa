@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :get_current_season
   before_action :store_user_location!, if: :storable_location?
   before_action :get_pending_kuusipalaa #, if: :user_signed_in?
-
+  before_action :fill_collection, if: :user_signed_in?
   protected
 
   def after_sign_in_path_for(resource)
@@ -48,6 +48,7 @@ class ApplicationController < ActionController::Base
   def get_current_season
     @current_season = Season.find(1)
     @next_season = Season.find(2) rescue "2"
+
   end
 
   def get_era

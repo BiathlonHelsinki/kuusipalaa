@@ -26,15 +26,15 @@ class Ideas::BuildController < ApplicationController
       @idea.add_to_activity_feed if step == steps.last
       if step == :when || step == :points
         if params[:idea][:start_at_date]
-          params[:idea][:start_at] = params[:idea][:start_at_date] + ' ' + params[:idea][:start_at]
-          params[:idea][:end_at] = params[:idea][:end_at_date] + ' ' + params[:idea][:end_at]
+          params[:idea][:start_at] = Time.parse(params[:idea][:start_at_date] + ' ' + params[:idea][:start_at]).getutc
+          params[:idea][:end_at] = Time.parse(params[:idea][:end_at_date] + ' ' + params[:idea][:end_at]).getutc
         end
         if params[:idea][:additionaltimes_attributes]
           params[:idea][:additionaltimes_attributes].permit!.to_hash.each_with_index do |pa, index|
-            params[:idea][:additionaltimes_attributes]["#{index}"][:start_at] = pa.last["start_at_date"] + ' ' + pa.last["start_at"]
-            params[:idea][:additionaltimes_attributes]["#{index}"][:end_at] = pa.last["end_at_date"] + ' ' + pa.last["end_at"]
+            params[:idea][:additionaltimes_attributes]["#{pa.first}"][:start_at] = Time.parse(pa.last["start_at_date"] + ' ' + pa.last["start_at"]).getutc
+            params[:idea][:additionaltimes_attributes]["#{pa.first}"][:end_at] = Time.parse(pa.last["end_at_date"] + ' ' + pa.last["end_at"]).getutc
           end
-        end
+        end        
       end
       if @idea.update_attributes(idea_params)
         if params[:form_direction] == 'previous'

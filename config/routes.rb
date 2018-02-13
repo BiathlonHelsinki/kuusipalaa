@@ -22,6 +22,23 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  resources :events do
+    resources :comments
+    resources :instances , path: '' do
+      member do
+        post :rsvp
+        post :register
+        post :cancel_rsvp
+        post :cancel_registration
+        get :stats
+        resources :users do
+          get :make_organiser
+          get :remove_organiser
+        end
+      end
+    end
+  end
+
   resources :groups do
     collection do
       get :check_vat

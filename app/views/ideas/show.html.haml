@@ -5,7 +5,11 @@
         .title
           = t(:proposal) + ' : '
           = @idea.name
-        - if @idea.has_enough?
+        - if @idea.converted?
+          .has_enough.text-center
+            .has_enough_banner= t :this_proposal_was_scheduled
+            = link_to t(:please_see) + @idea.events.first.name, @idea.events.first
+        - elsif @idea.has_enough?
           .has_enough.text-center
             .has_enough_banner= t :this_proposal_has_enough_points
             - if user_signed_in?
@@ -22,7 +26,11 @@
             .proposal_image= image_tag @idea.image.url(:medium)
            
           = render partial: "ideas/#{@idea.ideatype.slug}"
-        - unless @idea.ideatype == KuusiPalaa::Ideas::Request
+          .points_stats
+            %strong= t(:points_required_for_this_event)
+            = @idea.points_needed
+
+        - unless @idea.ideatype == KuusiPalaa::Ideas::Request || @idea.converted?
           .pledge_box
             .pledge_heading
               .row
@@ -53,12 +61,14 @@
           - if @idea.discussion.size > 0
             .small-12.columns
               .comment_count
-                = t(:this_proposal_has_x_comments, count: @idea.comments.select(&:persisted?).size, comments: t(:comment, count: @idea.comments.select(&:persisted?).size) )
+                = t(:this_proposal_has_x_comments_x_pledges, count: @idea.comments.select(&:persisted?).size, comments: t(:comment, count: @idea.comments.select(&:persisted?).size), pledge_count: @idea.pledges.select(&:persisted?).size, pledges: t(:pledge, count: @idea.pledges.select(&:persisted?).size), pledged: @idea.pledged.to_s)
 
 
-          %ul.first= render(partial: 'shared/comment', collection: @idea.discussion.select(&:persisted?).sort_by(&:created_at), locals: {depth: 0, root: @idea, last: @idea.comments.last})
-          #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @idea, depth: 0}
 
+          %ul.first= render(partial: 'shared/comment', collection: @idea.discussion.select(&:persisted?).sort_by(&:created_at), locals: {depth: 0, root: @idea, last: @idea.comments.last, commenting_open: !@idea.converted?})
+          #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @idea, depth: 0, commenting_open: !@idea.converted?}
+        - if @idea.converted?
+          .bottom_box= t :proposal_is_closed
 = content_for :jquery do
   :plain
     $('.comment_content').readmore({lessLink: '<a class="button readmore" href="#">[#{t(:close)}]</a>', moreLink: '<a class="button readmore" href="#">[#{t(:read_more)}]</a>'});

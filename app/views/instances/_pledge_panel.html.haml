@@ -1,0 +1,45 @@
+.pledge.panel.pledge-panel
+  .title
+    = @event.name + ": "
+    = t(:current_event_status).downcase
+
+  - if @event.dormant?
+    .dormant
+      %h4= t(:event_is_inactive)
+      %p= t(:inactive_explanation, timeframe: time_ago_in_words(@event.last_activity))
+  - else
+
+    .progress{role: :progressbar, tabindex: 0, :'aria-valuenow' => @event.pledges.unconverted.sum(&:pledge).to_s, :'aria-valuemin' => 0, :'aria-valuemax' => 100 }
+      .progress-meter{style: "width: #{[(@event.pledges.unconverted.sum(&:pledge).to_f / @event.needed_for_next.to_f) * 100, 100].min}%"}
+    .explanation
+      %p
+        = t(:meeting_instance, count: @event.instances.published.size) + " / "
+        %strong
+          = t(:to_next_meeting, number: ((@event.pledges.unconverted.sum(&:pledge).to_f / @event.needed_for_next.to_f) * 100).to_i) + " (##{@event.instances.published.size + 1})"
+      %p
+        = t(:x_total_needed_to_schedule_next, amount: @event.needed_for_next, meeting_number: @event.instances.published.size + 1)
+        %br/
+        = t(:number_currently_pledged, number: @event.pledges.unconverted.sum(&:pledge))
+        - unless @event.pledges.unconverted.empty?
+          .pledge_list_toggler= link_to t(:see_pledges), '#', class: [:button, :tiny, :toggler], onclick: '$(".pledge_list").slideToggle(); return false;'
+          .pledge_list
+            %ul
+              - @event.pledges.unconverted.each do |pledge|
+                %li
+                  = link_to pledge.user.display_name, pledge.user, target: :_blank
+                  = raw ": #{pledge.pledge.to_s}#{tsign} (#{l pledge.created_at, format: :short})"
+                  - unless pledge.comment.blank?
+                    %span.has-tip{"aria-haspopup" => "true", "data-disable-hover" => "false", "data-tooltip" => "", :tabindex => "1" , title: strip_tags(pledge.comment)}= fa_icon('sticky-note')
+      - if user_signed_in?
+        - if current_user.has_pledged?(@event)
+          %br/
+          = link_to t(:edit_pledge), edit_event_pledge_path(@event, current_user.pledges.find_by(item: @event) ), class: [:button, :tiny]
+        - else
+          .panel.callout
+            %p= t(:temporary_closed)
+          -#= link_to raw(t(:pledge_temps)), new_event_pledge_path(@event), class: [:button]
+      - else
+        %p
+          = t :you_should_join_to_pledge
+          %br/
+          = link_to t(:join), '/users/sign_in', class: [:button, :small]

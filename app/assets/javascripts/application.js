@@ -27,6 +27,7 @@
 //= require moment-precise-range
 //= require fullcalendar
 //= require jquery.idle.min
+//= require points
 //= require_tree .
 
 function getContent(id){

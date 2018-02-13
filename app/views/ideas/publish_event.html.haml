@@ -1,0 +1,161 @@
+%article.member_services_index.publish_event
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t :publish_event_to_calendar
+        .blurb.nopadding
+          .pad
+            %p=  t :please_confirm_information
+          = semantic_nested_form_for @event do |f|
+            = f.input :place_id, as: :hidden
+            = f.input :idea_id, as: :hidden
+            .row.pad
+              .small-8.columns
+                - if @collection_options.size > 1
+                  = f.input :primary_sponsor_type, as: :hidden, input_html: {'required' => '',value: 'User'}
+                  = f.input :primary_sponsor_id, as: :hidden, input_html: {'required' => '', value: current_user.id }
+                  = f.input :primary_sponsor, as: :select, input_html: {id: :idea_primary_sponsor_select}, label: t(:publish_proposal_as), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }),  include_blank: false
+                - else
+                  = f.input :primary_sponsor_type, as: :hidden, input_html: {'required' => '', value: 'User'}
+                  = f.input :primary_sponsor_id, as: :hidden, input_html: {value: current_user.id }   
+                - if @event.idea.timeslot_undetermined == false
+                  = f.input :start_at, as: :hidden, input_html: {value: @event.idea.start_at.localtime.strftime("%Y-%m-%d %H:%M"), required: '' }
+                  = f.input :end_at, as: :hidden, input_html: {value: @event.idea.end_at.localtime.strftime("%Y-%m-%d %H:%M"), required: '' }
+            .row.pad
+              .small-8.columns
+                %p
+                  = t :will_recur
+                  %br/
+                  = radio_button_tag :recurs, '0', required: ''
+                  = t(:recurs_no)
+                  %br/
+                  = radio_button_tag :recurs, '1'
+                  = t :recurs_yes
+                .project_name
+                  = f.fields_for :translations do |t|
+                    = t.input :locale, as: :hidden, input_html: {value: I18n.locale.to_s }
+                    = t.input :name, label: t(:more_general_name), hint: t(:general_name_hint)
+            .row.pad
+              .small-8.columns
+                - if f.object.idea.image?
+                  = image_tag f.object.idea.image.url(:medium)
+                  = f.input :image, label: t(:change_image)
+                - else
+                  = f.input :image
+            = f.fields_for :instances do |ff|
+              %div{id: ff.options[:child_index], class: [:subtimes, cycle('odd', 'even'), (f.object.idea.additionaltimes.map(&:start_at).include?(ff.object.start_at) ? :bordered : false)] }
+                .pad
+                  .row
+                    - if ff.options[:child_index] != 0
+                      .small-12.columns
+                        = t :enter_next_session_times
+                    - if @event.idea.timeslot_undetermined == false
+                      .small-6.large-4.columns= ff.input :start_at, as: :string, input_html: { class: :datetimepicker, value: ff.object.start_at.nil? ? '' : ff.object.start_at.localtime.strftime("%Y-%m-%d %H:%M"), required: ''  }
+                      .small-6.large-4.columns.end= ff.input :end_at, as: :string, input_html: { class: :datetimepicker, value: ff.object.end_at.nil? ? '' : ff.object.end_at.localtime.strftime("%Y-%m-%d %H:%M"), required: '' }
+                  - if ff.options[:child_index] != 0
+                    .row
+                      .small-12.columns= t :enter_different_names
+                  - else
+                    %p.inline-hints= t :multiple_languages
+                  %ul.tabs{"data-tabs" => "", id: "tabs_#{ff.options[:child_index]}"}
+                    - I18n.available_locales.each_with_index do |locale, i|
+                      %li.tabs-title{:class => (i == 0 ? "is-active" : false)}
+                        = link_to t(:locale_name, :locale => locale), "##{locale}_#{ff.options[:child_index]}"
+                  .tabs-content{:'data-tabs-content' => "tabs_#{ff.options[:child_index]}"}
+                    - I18n.available_locales.each_with_index do |locale, i|
+                      .tabs-panel{:class => (i == 0 ? "is-active" : false), :id => "#{locale}_#{ff.options[:child_index]}"}
+                        = ff.globalize_fields_for locale do |en|
+                          .row
+                            .small-10.columns
+                              %b= "Name of event in #{t :locale_name, :locale => locale}"
+                              = en.text_field :name, value: @event.read_translated_attribute(:name, locale.to_sym).blank? ? '' : @event.name(locale.to_sym)
+                          .row
+                            .small-10.columns
+                              %b= "Description of event in #{t :locale_name, :locale => locale}"
+                              = en.cktext_area :description, value: @event.read_translated_attribute(:description, locale.to_sym).blank? ? '' : @event.description(locale.to_sym)
+                
+
+                .row.pad
+                  .small-6.large-8.columns  
+                    = ff.input :place_id, as: :hidden, input_html: {value: 2}
+                    = ff.input :custom_bb_fee, as: :hidden, input_html: {required: ''}           
+                    = ff.input :room_needed, as: :select, collection: {t(:main_room) => 1, t(:back_room) => 2, t(:both) => 3}, include_blank: false, label: t(:room_needed_session)
+                .row.pad
+                  .small-12.columns= ff.input :allow_others, as: :boolean, label: t(:allow_others)
+                .row.pad
+                  .small-10.large3.columns= ff.input :price_public, hint: t(:zero_for_free), label: t(:price_public), input_html: {required: '', value: ff.object.price_public.blank? ? f.object.idea.price_public : ff.object.price_public}
+                  .small-10.large-3.end.columns= ff.input :price_stakeholders, hint: t(:if_not_free), label: t(:price_stakeholders), input_html: {required: '', value: ff.object.price_stakeholders.blank? ? f.object.idea.price_stakeholders : ff.object.price_stakeholders}
+                .row.pad
+                  .small-12.column
+                    %p= t(:how_many_points)
+                    .slider{"data-initial-start" => "5", "data-start" => "#{ff.options[:child_index].to_s == "0" ? 1 : 0}", "data-end" => "15", "data-slider" => ""}
+                      %span.slider-handle{"aria-controls" => "event_instances_attributes_#{ff.options[:child_index].to_s}_cost_bb", "data-slider-handle" => "", :role => "slider", :tabindex => "1"}
+                      %span.slider-fill{"data-slider-fill" => ""}
+                    = ff.input :cost_bb, label: false, hint: raw(t(:costbb_hint)), input_html: {class: :short_input}, wrapper_html: {class: :short_input}
+
+            = f.link_to_add t(:add_an_additional_meeting_time), :instances, class: [:button, :bordered]
+            %p.inline-hints= t :may_require_more_points
+
+
+            %p
+              %strong= t(:points_available_for_event)
+              %big= @event.idea.pledged.to_s
+
+            %p
+              %strong= t(:points_required_for_this_event)
+              %big#points_required
+              .explanation
+            = f.submit t(:publish_event)
+= content_for :jquery do
+  :plain
+     $('#event_primary_sponsor_select').on('change', function() {
+      $('#event_primary_sponsor_type').val($('#event_primary_sponsor_select option').filter(":selected").attr('rel'));
+      $('#event_primary_sponsor_id').val($('#event_primary_sponsor_select').val());
+
+    });
+    $('input[name="recurs"]').change(() => {
+      if ($('input#recurs_1').is(':checked')) {
+        $('.project_name').slideDown();
+      }
+    })
+    function recalc(idarray) { 
+      let total = 0
+      idarray.forEach(function(eyed) {
+        let instance = calculatePoints('event_instances_attributes_' + eyed)
+        total += instance
+        $('#event_instances_attributes_' + eyed + '_custom_bb_fee').val(instance)
+      })
+      return parseInt(total);
+    }
+    $('form input, form select').change(() => { 
+      $('#points_required').html(recalc(idarray));
+    })
+    var idarray = []
+    $('.fields').each(function(index) {
+      $(this).find('.subtimes').each(function(ids) { idarray.push($(this).attr('id')) });
+    })
+    $('#points_required').html(recalc(idarray));
+    $('.datetimepicker').fdatetimepicker({ weekStart: 1, format: 'yyyy-mm-dd hh:ii'}).on('changeDate', function(){
+
+          $(this).fdatetimepicker('hide');
+    }) 
+
+    $(document).on('nested:fieldAdded', function(event){     
+      var field = event.field;  
+      field.css('border-top', '1px solid black')
+      field.css('padding', '3rem')
+      field.foundation(); 
+      $('.datetimepicker').fdatetimepicker({ weekStart: 1, format: 'yyyy-mm-dd hh:ii'}).on('changeDate', function(){
+          $(this).fdatetimepicker('hide');
+      })
+      var idarray = []
+      // see if there are additional form times and calculate them, return an array of points needed
+      $('.fields').each(function(index) {
+        $(this).find('.subtimes').each(function(ids) { idarray.push($(this).attr('id')) });
+       });
+
+      $('#points_required').html(recalc(idarray))
+      $('form input, form select').change(() => {    
+        $('#points_required').html(recalc(idarray));
+      }); 
+    })

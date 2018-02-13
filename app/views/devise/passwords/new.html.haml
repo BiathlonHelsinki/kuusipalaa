@@ -1,0 +1,27 @@
+%article.member_services_index.idea_detail_view
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t :forgot_your_password
+        .blurb
+          = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post , :"data-abide" => ''}) do |f|
+            = devise_error_messages!
+            %p= t :email_forgot_password
+            %p
+              If you have signed in previously using
+              = succeed "," do
+                %a{:href => "/users/auth/facebook"} Facebook
+              = succeed "," do
+                %a{:href => "/users/auth/twitter"} Twitter
+              %a{:href => "/users/auth/github"} GitHub
+              or
+              = succeed "," do
+                %a{:href => "/users/auth/google_oauth2"} Google
+              , then you do not have a password stored with Kuusi Palaa; you can access your account through one of these services. 
+            .field
+              = f.label 'Enter your email address to recover your password '
+              %br/
+              = f.email_field :email, autofocus: true, required: '' 
+            .actions
+              = f.submit "Send me reset password instructions", class: [:button]
+            \

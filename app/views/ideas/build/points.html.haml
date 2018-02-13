@@ -22,7 +22,7 @@
                 .small-6.large-4.columns
                   = f.input :start_at_date, as: :string, input_html: {class: :datetimepicker, required: '' }
                 .small-6.large-4.columns
-                  = f.input :start_at, as: :string, input_html: {class: :timepicker, value: f.object.end_at.blank? ? '18:00' : f.object.start_at.strftime('%H:%M'), required: ''}
+                  = f.input :start_at, as: :string, input_html: {class: :timepicker, value: f.object.end_at.blank? ? '18:00' : f.object.start_at.localtime.strftime('%H:%M'), required: ''}
                 .small-4.columns
                   #initial_time_length
 
@@ -30,7 +30,7 @@
                 .small-6.large-4.columns
                   = f.input :end_at_date, as: :string, input_html: {class: :datetimepicker, value: f.object.end_at_date.nil? ? f.object.start_at_date : f.object.end_at_date, required: '' }
                 .small-6.large-4.columns.end
-                  = f.input :end_at, as: :string, input_html: {class: :timepicker, value: f.object.end_at.blank? ? '20:00' : f.object.end_at.strftime('%H:%M'), required: ''}
+                  = f.input :end_at, as: :string, input_html: {class: :timepicker, value: f.object.end_at.blank? ? '20:00' : f.object.end_at.localtime.strftime('%H:%M'), required: ''}
 
               .row
                 .small-12.columns
@@ -43,14 +43,14 @@
                         .small-6.large-4.columns
                           = ff.input :start_at_date, as: :string, input_html: {class: :datetimepicker }
                         .small-6.large-4.columns.end
-                          = ff.input :start_at, as: :string, input_html: {class: :timepicker, value: ff.object.start_at.blank? ? '' : ff.object.start_at.strftime('%H:%M')}
+                          = ff.input :start_at, as: :string, input_html: {class: :timepicker, value: ff.object.start_at.blank? ? '' : ff.object.start_at.localtime.strftime('%H:%M')}
                         .small-4.columns
                           .initial_time_length{id: "slotlength_" + ff.options[:child_index].to_s}                        
                       .row
                         .small-6.large-4.columns
                           = ff.input :end_at_date, as: :string, input_html: {class: :datetimepicker, value: ff.object.end_at_date.nil? ? ff.object.start_at_date : ff.object.end_at_date }
                         .small-6.large-4.columns.end
-                          = ff.input :end_at, as: :string, input_html: {class: :timepicker, value: ff.object.end_at.blank? ? '' : ff.object.end_at.strftime('%H:%M')}
+                          = ff.input :end_at, as: :string, input_html: {class: :timepicker, value: ff.object.end_at.blank? ? '' : ff.object.end_at.localtime.strftime('%H:%M')}
                       .row
                         .small-12.columns
                           = ff.link_to_remove t(:remove_this_timeslot)

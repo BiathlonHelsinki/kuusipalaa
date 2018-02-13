@@ -4,13 +4,13 @@
     = t(:proposed_length_is, hours: @idea.hours_estimate)
   - else
     = date_range(@idea.start_at, @idea.end_at)
-    %small= t(:calendar_reserved_from, when: l(@idea.start_at - 1.hour, format: :short))
+    %small= t(:calendar_reserved_from, when: l(@idea.start_at.localtime - 1.hour, format: :short))
     - unless @idea.additionaltimes.empty?
       - @idea.additionaltimes.each do |t|
         .additional
           = " + "
-          = date_range(t.start_at, t.end_at)
-          %small= t(:calendar_reserved_from, when: l(t.start_at - 1.hour, format: :short))
+          = date_range(t.start_at.localtime, t.end_at.localtime)
+          %small= t(:calendar_reserved_from, when: l(t.start_at.localtime - 1.hour, format: :short))
 .other_meta
   %p
     %strong= t :proposal_details

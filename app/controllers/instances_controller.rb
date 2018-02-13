@@ -1,0 +1,140 @@
+class InstancesController < ApplicationController
+  include ActionView::Helpers::SanitizeHelper
+  before_action :authenticate_user!, only: [:rsvp]
+
+  def cancel_registration
+    if params[:event_id]
+      @event = Event.friendly.find(params[:event_id])
+      @instance = @event.instances.friendly.find(params[:id])
+      if @instance.in_future?
+        registration = Registration.find_or_create_by(instance: @instance, user: current_user)
+        if registration.destroy
+          Activity.create(user: current_user, addition: 0, item: @instance, description: 'is_no_longer_registered_for')
+          flash[:notice] = t(:unregistred)
+          redirect_to [@event, @instance]
+        end
+      end
+    else
+      flash[:error] = 'Error'
+      redirect_to '/'
+    end
+  end
+  
+  def make_organiser
+    @event = Event.friendly.find(params[:event_id])
+    @instance = @event.instances.friendly.find(params[:id])
+  end
+      
+  def cancel_rsvp
+    if params[:event_id]
+      @event = Event.friendly.find(params[:event_id])
+      @instance = @event.instances.friendly.find(params[:id])
+      if @instance.in_future?
+        rsvp = Rsvp.find_or_create_by(instance: @instance, user: current_user)
+        if rsvp.destroy
+          Activity.create(user: current_user, addition: 0, item: @instance, description: 'is_no_longer_planning_to_attend')
+          flash[:notice] = t(:unregistred)
+          redirect_to [@event, @instance]
+        end
+      end
+    else
+      flash[:error] = 'Error'
+      redirect_to '/'
+    end
+  end
+    
+  def rsvp
+    if params[:event_id]
+      @event = Event.friendly.find(params[:event_id])
+      @instance = @event.instances.friendly.find(params[:id])
+      Rsvp.find_or_create_by(instance: @instance, user: current_user)
+      Activity.create(user: current_user, addition: 0, item: @instance, description: 'plans_to_attend')
+      flash[:notice] = t(:rsvp_thanks)
+      redirect_to [@event, @instance]
+    else
+      flash[:error] = 'Error'
+      redirect_to '/'
+    end
+  end
+
+  def stats
+    if params[:event_id]
+      @event = Event.friendly.find(params[:event_id])
+      @instance = @event.instances.friendly.find(params[:id])
+      if @instance.slug =~ /open\-time/ || @instance.name =~ /open time/i 
+        if params['start'] && params['end']
+          @sessions = Opensession.between(params['start'], params['end'])
+          @sessions = @sessions.to_a.delete_if{|x| x.seconds_open < 90 }
+        else
+          @sessions = Opensession.between(@instance.start_at.beginning_of_month, @instance.end_at.end_of_month)
+          if @temporary_is_open == true && Time.current.localtime <= @instance.end_at
+            current = Opensession.by_node(1).find_by(closed_at: nil )
+          end
+          @sessions = @sessions.sort_by{|x| x.id }
+          @potential_minutes = ((Time.current - @instance.start_at.beginning_of_month) / 60).to_i
+        end
+      else
+        flash[:notice] = 'No statistics available for regular events.'
+        redirect_to event_instance_path(@event, @instance)
+      end
+    end
+    set_meta_tags title: 'Stats'
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render :json => @sessions }
+    end
+  end
+    
+  def show
+    if params[:event_id]
+      @event = Event.friendly.find(params[:event_id])
+      @instance = @event.instances.friendly.find(params[:id])
+      if @instance.slug == @event.slug && @event.instances.published.size == 1
+        redirect_to event_path(@event.slug)
+      end
+      set_meta_tags title: @instance.name
+
+      if params[:format] == 'ics'
+        require 'icalendar/tzinfo'
+        @cal = Icalendar::Calendar.new
+        @cal.prodid = '-//Temporary, Helsinki//NONSGML ExportToCalendar//EN'
+
+        tzid = "Europe/Helsinki"
+        @cal.event do |e|
+          e.dtstart     = Icalendar::Values::DateTime.new(@instance.start_at, 'tzid' => tzid)
+          e.dtend       = Icalendar::Values::DateTime.new(@instance.end_at, 'tzid' => tzid)
+          e.summary     = @instance.name
+          e.location  = 'Temporary, Kolmas linja 7, Helsinki'
+          e.description = strip_tags @instance.description
+          e.ip_class = 'PUBLIC'
+          e.url = e.uid = 'https://temporary.fi/events/' + @instance.event.slug + '/' + @instance.slug
+        end
+        @cal.publish
+      end
+
+      
+      
+      respond_to do |format|
+        format.html # index.html.erb
+        format.ics { send_data @cal.to_ical, type: 'text/calendar', disposition: 'attachment', filename: @instance.slug + ".ics" }
+      end
+    end
+    
+  end
+  
+  def index
+    if params[:event_id]
+      @event = Event.friendly.find(params[:event_id])
+      redirect_to action: action_name, event_id: @event.friendly_id, status: 301 and return unless @event.friendly_id == params[:event_id] 
+      @future = @event.instances.current.or(@event.instances.future).order(:start_at).uniq
+      @past = @event.instances.past.order(:start_at).uniq.reverse  
+    end
+    set_meta_tags title: @event.name
+    @instance = @event.instances.published.first
+    if @event.instances.published.size == 1
+       render template: 'instances/show' 
+    end
+  end
+  
+end

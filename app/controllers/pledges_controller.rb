@@ -15,8 +15,11 @@ class PledgesController < ApplicationController
     elsif params[:event_id]
       @item = Event.friendly.find(params[:event_id])
     end
-    if !current_user.pledges.unconverted.where(item: @item).empty?
-      flash[:notice] = 'You already have an unspent pledge towards this proposal. You can edit or delete it but you cannot create a new one.'
+    if !current_user.pledges.unconverted.where(item: @item).empty? 
+      flash[:notice] = t(:illegal_pledge)
+      redirect_to @item
+    elsif @item.converted?
+      flash[:notice] = t(:illegal_pledge)
       redirect_to @item
     else
       if balance < params[:pledge][:pledge].to_i
