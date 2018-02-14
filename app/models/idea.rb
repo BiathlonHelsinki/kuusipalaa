@@ -13,7 +13,7 @@ class Idea < ApplicationRecord
   validates :name, :short_description, :proposal_text,  presence: true, if: :active_or_name_and_info?
   # validates :timeslot_undetermined, inclusion: { in: [ true, false ]}, if: :active_or_when?
   validates :start_at, :end_at, presence: true, if: :determined_time?
-  validates :points_needed, :price_public, presence: true, if: :active_or_points?
+  validates :points_needed,  presence: true, if: :active_or_points?
   validates :slug, presence: true, if: :active?
   accepts_nested_attributes_for :additionaltimes, reject_if: proc {|x| x['start_at'].blank? || x['end_at'].blank? }, allow_destroy: true
 

@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   end
 
   resources :events do
+    collection do
+      get :calendar
+    end
     resources :comments
     resources :instances , path: '' do
       member do

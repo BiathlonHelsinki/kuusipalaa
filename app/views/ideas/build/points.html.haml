@@ -112,12 +112,35 @@
         var dateField = field.find('.datetimepicker');
         // and activate datepicker on it
         dateField.fdatetimepicker({ weekStart: 1, initialDate : $('#idea_start_at_date').val(), format: 'yyyy-mm-dd', minView: 2, startview:2 }).on('changeDate', function(){
-
+          let called = $(this).attr ( "id" )
+          $.get('/events/calendar.json?start=' + $(this).val() + '&end=' + $(this).val(), (data) => {
+            let blacklist = []
+            data.forEach((d) => {
+              var start = d.start.split(" ")[1].replace(/\:00$/, '');
+              var myend = d.end.split(" ")[1].replace(/\:00$/, '');
+              blacklist.push([start, myend])
+            })
+            
+            $('.timepicker#' + called.replace(/_date$/, '')).timepicker('remove')
+            $('.timepicker#' + called.replace(/_date$/, '')).timepicker({ 'timeFormat': 'H:i', 'disableTimeRanges': blacklist});
+           })
           $(this).fdatetimepicker('hide');
         }); 
       });
 
       $('.datetimepicker').fdatetimepicker({ weekStart: 1, format: 'yyyy-mm-dd', minView: 2, startview:2 }).on('changeDate', function(){
+        let called = $(this).attr ( "id" )
+         $.get('/events/calendar.json?start=' + $(this).val() + '&end=' + $(this).val(), (data) => {
+          let blacklist = []
+          data.forEach((d) => {
+            var start = d.start.split(" ")[1].replace(/\:00$/, '');
+            var myend = d.end.split(" ")[1].replace(/\:00$/, '');
+            blacklist.push([start, myend])
+          })
+          
+          $('.timepicker#' + called.replace(/_date$/, '')).timepicker('remove')
+          $('.timepicker#' + called.replace(/_date$/, '')).timepicker({ 'timeFormat': 'H:i', 'disableTimeRanges': blacklist});
+         })
 
         $(this).fdatetimepicker('hide');
       }); 
@@ -133,7 +156,11 @@
         checkLogic()
         calculateCost()
         $("#form_direction").val($(this).attr('rel'))
-
+          if ($('#form_direction').val() == 'previous') {
+            $('input, div, form').removeAttr('data-invalid'); 
+            $('input, div, form').removeAttr('required');             
+            $('input, div, form').removeClass('error');
+          }
       });    
       $('.timepicker').timepicker({ 'timeFormat': 'H:i' });
 - else
@@ -160,5 +187,10 @@
         simpleCost()
       })
       $('form button').click(function() {
+        if ($('#form_direction').val() == 'previous') {
+          $('input, div, form').removeAttr('data-invalid'); 
+          $('input, div, form').removeAttr('required');             
+          $('input, div, form').removeClass('error');
+        }
         $("#form_direction").val($(this).attr('rel'))
       })

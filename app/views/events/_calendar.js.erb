@@ -1,0 +1,128 @@
+var $fc = $("#calendar");  
+var screenWidth = $(window).width(); 
+
+var options = {
+    editable: true,
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay'
+    },
+    defaultView: 'month',
+    contentHeight: '400px',
+    locale: '<%= I18n.locale.to_s %>',
+    contentHeight: 'auto',
+    firstDay: 1,
+    fixedWeekCount: false,
+    slotMinutes: 30,
+    eventSources: [
+      {
+        url: '/events/calendar.json'
+      }
+    ],
+    displayEventEnd: {
+      month: true,
+      basicWeek: true,
+      "default": true
+    },
+    timeFormat: 'H:mm',
+    dragOpacity: "0.5",
+    eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+      return updateEvent(event);
+    },
+    eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+      return updateEvent(event);
+    },
+    eventAfterRender: function(event, element, view) {
+      if (event.cancelled == true) {
+        element.addClass('fc-cancelled');
+        element.find('.fc-time').append(" <span class='cancelled'>CANCELLED!</span>"); 
+      }
+      if (moment(event.start).format('YYYY-M-D') == moment(new Date()).format('YYYY-M-D')) {
+        element.parent().addClass('fc-today');
+      } 
+    }
+  };
+
+var mobileOptions = {
+  editable: true,
+  header: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'month,agendaWeek,agendaDay'
+  },
+  defaultView: 'listMonth',
+  contentHeight: '400px',
+  locale: '<%= I18n.locale.to_s %>',
+  contentHeight: 'auto',
+  firstDay: 1,
+  fixedWeekCount: false,
+  slotMinutes: 30,
+  eventSources: [
+    {
+      url: '/events/calendar.json'
+    }
+  ],
+  displayEventEnd: {
+    month: true,
+    basicWeek: true,
+    "default": true
+  },
+  timeFormat: 'H:mm',
+  dragOpacity: "0.5",
+
+  eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+    return updateEvent(event);
+  },
+  eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+    return updateEvent(event);
+  },
+  eventRender: function(copiedEventObject,element) {
+
+    if (copiedEventObject.cancelled == true) {
+   
+      element.find('.fc-widget-content a').prepend(" <span class='cancelled'>CANCELLED: </span>"); 
+      element.find('.fc-widget-content a').addClass('cancelled');
+    }
+
+
+  },
+  eventAfterRender: function(event, element,view) {
+
+    if (moment(event.start).format('YYYY-M-D') == moment(new Date()).format('YYYY-M-D')) {
+      element.parent().addClass('fc-today');
+    } 
+
+  }
+};
+
+if (screenWidth < 700) {
+  $fc.fullCalendar(mobileOptions);
+  } else {
+    $fc.fullCalendar(options);
+  };
+
+
+
+var updateEvent = function(the_event) {
+
+return $.update("/events/calendar/" + the_event.id, {
+  event: {
+    title: the_event.title,
+    starts_at: "" + the_event.start,
+    ends_at: "" + the_event.end,
+    description: the_event.description
+    }
+  });
+};
+
+$(window).resize(function() {
+  screenWidth = $(window).width(); 
+  $fc.fullCalendar('destroy');
+  if (screenWidth < 700) {
+    $fc.fullCalendar(mobileOptions);
+    } else {
+      $fc.fullCalendar(options);
+    };
+  
+});

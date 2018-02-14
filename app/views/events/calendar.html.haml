@@ -1,0 +1,18 @@
+%article.member_services_index
+  .row
+    .small-12.columns.lessmargins.lessright
+      .lifted_box.has_inner_button
+        .title= t :calendar
+        .blurb
+          .row
+            .small-12.columns
+              = link_to fa_icon('list') + ' ' + t(:view_as_list), events_path, class: [:button]
+              = link_to fa_icon('download') + ' ' + t(:download), calendar_events_path(format: 'ics'), class: [:button, :small]
+          .row
+
+            #calendar.small-centered
+          
+          = content_for :jquery do
+            = render partial: 'calendar', formats: [:js]
+
+    

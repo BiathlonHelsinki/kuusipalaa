@@ -13,9 +13,11 @@ class IdeasController < ApplicationController
 
     end
 
+    #  add existing instances and probably proposals too
+    @times += Instance.published.between(params['start'], params['end']) if (params['start'] && params['end'])
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @times }
+      format.json { render :json => @times.flatten.uniq }
     end
   end
 
