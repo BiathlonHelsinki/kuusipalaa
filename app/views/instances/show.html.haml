@@ -1,0 +1,461 @@
+%article.instance_single
+  .row.expanded
+
+    .small-10.medium-9.large-8.columns.post
+      .row
+        .small-12.colums
+          .meta
+            %span.date
+              - if @instance.survey_locked
+                = l @instance.start_at, format: :short
+                = " - "
+                = l @instance.end_at, format: :short
+              - else
+                = date_range(@instance.start_at, @instance.end_at)
+            = " // "
+            %span.category 
+              - if @event.instances.size > 1
+                = link_to @event.name, @event
+              - else
+                = link_to t(:event, count: 1), @event
+            = " // "
+            - if @instance.cancelled == true
+              %span.cancelled= t :cancelled
+          .title
+            = t(:event, count: 1) + " ##{@instance.sequence}:"
+            = @instance.name
+            - if @instance.slug =~ /open-time/
+              %br/
+              = link_to fa_icon('area-chart'), stats_event_instance_path(@instance.event, @instance)
+          .temps
+            - if @instance.cancelled
+              .cancelled
+                %h3= t :event_has_been_cancelled
+                %br/
+                %h4= t :reschedule_info
+            - else
+              - if @instance.in_future?
+                = raw t(:you_will_earn_x_for_participating, number: @instance.cost_bb)
+                - if @instance.request_registration?
+                  %p
+                    = t :you_must_register_for_this_event
+                    - unless @instance.max_attendees.blank?
+                      = t(:there_are_x_places_left, is_number_place: t(:place_in_registration, count: @instance.max_attendees - @instance.registrations.not_waiting.size))
+                    
+
+                    %br/
+                    - if user_signed_in?
+                      - if current_user.registered?(@instance)
+                        - if @instance.start_at - Time.current >= 86400
+                          = link_to t(:cancel_registration), '#', onclick:"javascript:$(document).scrollTo('#cancel_link', 800);return false;", class: [:button, :alert]
+                      - elsif !@instance.max_attendees.blank?
+                        = link_to t(:register_x, waiting_list_option: (@instance.max_attendees - @instance.registrations.not_waiting.to_a.delete_if{|x| x.new_record? }.size) < 1 ? t(:for_the_waiting_list) : '' ), '#', onclick:"javascript:$('.registration_form').slideToggle();$(document).scrollTo('.registration_form', 800);return false;", class: [:button]
+                      - else
+                        = link_to t(:register), '#', onclick:"javascript:$('.registration_form').slideToggle();$(document).scrollTo('.registration_form', 800);return false;", class: [:button]
+                    - else
+                      - if !@instance.max_attendees.blank?
+                        = link_to t(:register_x, waiting_list_option: (@instance.max_attendees - @instance.registrations.not_waiting.to_a.delete_if{|x| x.new_record? }.size) < 1 ? t(:for_the_waiting_list) : '' ), '#', onclick:"javascript:$('.registration_form').slideToggle();$(document).scrollTo('#sign_in_to_register', 800);return false;", class: [:button]
+                      - else
+                        = link_to t(:register), '/users/sign_in', class: [:button]
+                - else
+                  - if user_signed_in?
+
+                    - if current_user.rsvpd?(@instance)
+                    
+                      %strong  You have RSVPd to this event.
+                    - else
+                      %br/
+                      - if @instance.survey_locked
+                        - if current_user.survey.nil? || current_user.survey.completed == false
+                          .survey_banner
+                            = link_to t(:must_complete_survey), '/surveys/new'
+                            .smaller
+                              = t(:survey_explanation)
+                              = link_to t(:take_the_survey), '/surveys/new'
+                        - else
+                          %p= t(:thanks_for_taking_survey)
+                          = link_to t(:i_plan_to_attend), rsvp_event_instance_path(@instance.event, @instance), method: :post, class: [:button]
+                      - else
+                        = link_to t(:i_plan_to_attend), rsvp_event_instance_path(@instance.event, @instance), method: :post, class: [:button]
+                  - else
+                    - if @instance.survey_locked
+                      .survey_banner
+                        = link_to t(:must_complete_survey), '/surveys/new'
+                        .smaller
+                          = t(:survey_explanation)
+                          = link_to t(:take_the_survey), '/surveys/new' 
+              - else
+                = link_to raw(t(:x_people_participated_earning_x, count: (@instance.users.uniq + @instance.onetimers.unclaimed).size, people: t(:person, count: (@instance.users.uniq + @instance.onetimers.unclaimed).size), temps_total: @instance.users.uniq.size * @instance.cost_bb)), '#', onClick: "javascript:$(window).scrollTo('#participants', {duration: 1000});return false;"
+
+          - if @instance.idea
+            .proposal_info
+              = t(:scheduled_from_proposal)
+              = link_to @instance.idea.name, @instance.idea, target: :_blank
+
+              
+          .temps= link_to fa_icon('download') + t(:download_to_calendar), event_instance_path(@instance.event, @instance, format: 'ics'), class: [:button, :small]
+
+      .row
+        .small-12.columns
+          - if @instance.image?
+            = image_tag @instance.image.url.gsub(/development/, 'production')
+          - elsif @event.image?
+            = image_tag @event.image.url.gsub(/development/, 'production')
+      .row
+        .small-12.columns
+          .body= raw @instance.description
+
+    .small-12.medium-3.large-3.columns
+      = render partial: 'pledge_panel'
+      
+  .row
+    .small-12.columns
+      .rsvp_container      
+        - if @instance.request_registration == true
+          - if user_signed_in?
+
+            - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin) 
+              .row.expanded
+                .small-10.medium-8.columns
+                  %h3= t :registrations
+              .row.expanded
+                .small-10.medium-8.columns              
+                  %ol
+                    - @instance.registrations.each do |user|
+                      %li
+                        = link_to user.user.display_name, user.user, target: :_blank
+                        - if user.waiting_list == true
+                          %em waiting list
+                        %br/
+                        = [user.user.email, user.phone].compact.join(' / ')
+                        %br/
+                        = [user.question1, user.question2].compact.join(', ')
+                        %br/
+                        %br/
+          
+          - if @instance.in_future? # && @instance.registration_open == true
+            .row.expanded
+              .small-10.medium-8.columns
+                - if user_signed_in?
+                  - if current_user.registered?(@instance)
+                    #cancel_link
+                      %h5= t(:you_have_registered_see_you)
+              
+
+                      - if @instance.start_at - Time.current >= 86400
+                        %h5= t :registration_cancel_blurb
+            
+                        = link_to t(:cancel_registration), cancel_registration_event_instance_path(@instance.event, @instance), method: :post, class: [:button, :alert], data: {confirm: t(:are_you_sure_you_want_to_cancel)}
+                  - else
+                    %h4
+                      %strong= t(:you_must_register_for_this_event)
+                      - unless @instance.max_attendees.blank?
+                        %br/
+                        = t(:there_are_x_places_left, is_number_place: t(:place_in_registration, count: @instance.max_attendees - @instance.registrations.not_waiting.size))
+
+                
+                - else
+                  #sign_in_to_register
+                    %h4
+                      = raw t(:if_you_want_to_register, sign_in: link_to(t(:sign_in).downcase, '/users/sign_in'))
+
+                      %br/
+                      = link_to t(:log_in_join), '/users/sign_in', class: [:button]
+                      %br/
+              
+            .row.expanded
+              .small-10.medium-8.columns
+                - if user_signed_in?
+                  -  unless current_user.registered?(@instance)
+                    = link_to t(:register_me), '#', onclick: 'javascript:$(".registration_form").slideToggle();return false;', class: [:button]
+                    .registration_form
+                      .row.expanded
+                        .small-10.medium-8.columns
+                          %h4= t :registration_form
+                          - unless @instance.max_attendees.blank?
+                            - if @instance.max_attendees.to_i - @instance.registrations.not_waiting.to_a.delete_if{|x| x.new_record? }.size < 1
+                              %h5= t(:registration_is_full_waiting_list)
+                      = semantic_form_for  [ @instance.event, @instance,  @registration = @instance.registrations.build(user: current_user)], html: {:"data-abide" => '' } do |f|
+                        = f.input :user_id, as: :hidden, data: {value: current_user.id}
+
+           
+                        - unless @instance.question1_text.blank?
+                          .row.expanded
+                            .small-10.medium-8.columns= f.input :question1, label: @instance.question1_text, input_html: {required: ''}
+                        - unless @instance.question2_text.blank?
+                          .row.expanded
+                            .small-10.medium-8.columns= f.input :question2, label: @instance.question2_text, input_html: {required: ''}
+                        - unless @instance.question3_text.blank?
+                          .row.expanded
+                            .small-10.medium-8.columns= f.input :question3, label: @instance.question3_text, input_html: {required: ''}
+                        - unless @instance.question4_text.blank?
+                          .row.expanded
+                            .small-10.medium-8.columns= f.input :question4, label: @instance.question4_text , input_html: {required: ''}   
+                        - unless @instance.boolean1_text.blank?
+                          .row.expanded
+                            .small-10.medium-8.columns= f.input :boolean1, as: :boolean, label: @instance.boolean1_text 
+                        - unless @instance.boolean2_text.blank?
+                          .row.expanded
+                            .small-10.medium-8.columns= f.input :boolean2, as: :boolean, label: @instance.boolean2_text                            
+                        .row.expanded
+                          .small-10.medium-8.columns= f.input :phone, label: t(:registration_phone), hint: t(:phone_is_optional)
+                        .row.expanded
+                          .small-10.medium-8.columns= f.submit t(:register), :class => [:button, :round]                                                                                             
+                    
+          - elsif @instance.in_future?
+            .row.expanded
+              .small-10.medium-8.columns
+                %h5= t(:registration_is_closed)
+         
+          - else
+            .row.expanded
+              .small-10.medium-8.columns
+                %h5= t :event_already_took_place
+        - else
+          - if @instance.request_rsvp? && @instance.in_future?
+            .row.expanded
+              .small-10.medium-8.columns
+                - if user_signed_in?
+                  - if current_user.rsvpd?(@instance)
+          
+                    %h5= t :you_have_rsvpd
+                    = link_to t(:cancel_rsvp), cancel_rsvp_event_instance_path(@instance.event, @instance), method: :post, class: [:button, :alert], data: {confirm: t(:confirm_cancel_rsvp)}
+                  - else
+                  
+                  
+
+                    - if current_user.rsvpd?(@instance)
+                    
+                      %strong  You have RSVPd to this event.
+                    - else
+                      %br/
+                      - if @instance.survey_locked
+                        - if current_user.survey.nil? || current_user.survey.completed != true
+                          .survey_banner
+                            = link_to t(:must_complete_survey), '/surveys/new'
+                            .smaller
+                              = t(:survey_explanation)
+                              = link_to t(:take_the_survey), '/surveys/new'
+                        - else
+                          %p= t(:thanks_for_taking_survey)
+                          = link_to t(:i_plan_to_attend), rsvp_event_instance_path(@instance.event, @instance), method: :post, class: [:button]
+                      - else
+                        %h4= t :organiser_requested_rsvp
+                        = link_to t(:i_plan_to_attend), rsvp_event_instance_path(@instance.event, @instance), method: :post, class: [:button]
+                  
+                  
+                  
+                    
+                - else
+                  %h4
+                    = t(:organiser_requested_rsvp)
+                    = link_to t(:rsvp), '/users/sign_in', class: [:button]
+            .row.expanded
+              .small-10.medium-8.columns
+  
+                - if user_signed_in?
+                  -  unless current_user.rsvpd?(@instance)
+                    - if @instance.survey_locked
+                      - unless current_user.survey.nil? || current_user.survey.completed != true
+                        = link_to t(:yes_i_plan_to_attend), rsvp_event_instance_path(@instance.event, @instance), method: :post, class: [:button]
+                    - else
+                      = link_to t(:yes_i_plan_to_attend), rsvp_event_instance_path(@instance.event, @instance), method: :post, class: [:button]
+                      
+
+
+  - if @instance.users.empty? && @instance.onetimers.empty?
+    - unless @instance.rsvps.empty? && @instance.responsible_people.empty?
+      %section#participants
+        - if @instance.request_registration == true
+          - unless @instance.registrations.to_a.delete_if{|x| x.new_record? }.empty?
+            .row.expanded
+              .small-12.columns
+                .participant_header= t :registered_you_must_register
+            .row.expanded.small-up-4.medium-up-6.large-up-8.xlarge-up-9  
+              - @instance.registrations.to_a.delete_if{|x| x.new_record? }.each do |attended|
+                .column.participant_grid
+                  .image
+                    - if attended.user.avatar?
+                      = image_tag attended.user.avatar.url(:box)
+                    - else
+                      = image_tag image_path('user_missing_large.png')
+                  .participant_overlay
+              
+                    = link_to attended.user.display_name, attended.user
+                    %div{id: "organiser_info_#{attended.user.id.to_s}"}
+                      - if @instance.responsible_people.include?(attended.user)
+                        %br/
+                        = t(:organiser)
+                        - if @instance.event.primary_sponsor == attended.user || @instance.event.secondary_sponsor == attended.user
+                          %br/
+                          = link_to t(:event_instigator_brackets), @instance.proposal
+                        - else
+                          - if user_signed_in?
+                            - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+                              = link_to t(:remove_organiser), event_user_remove_organiser_path(@instance.event, @instance, attended.user), remote: true,  class: [:button, :alert, :tiny]
+                      - else
+                        - if user_signed_in?
+                          - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+                            = link_to t(:make_organiser), event_user_make_organiser_path(@instance.event, @instance, attended.user), remote: true,  class: [:button, :secondary, :tiny]
+
+                    - if attended.waiting_list == true
+                      %br/
+                      = t :waiting_list
+                    - if user_signed_in?
+                      - if @instance.start_at - Time.current >= 86400
+                        - if current_user == attended.user
+                          = link_to t(:cancel_registration), cancel_registration_event_instance_path(@instance.event, @instance), method: :post, class: [:button, :alert], data: {confirm: t(:are_you_sure_you_want_to_cancel)}
+                    - if @instance.allow_multiple_entry == true && !@instance.in_future?
+                      = " (#{pluralize(@instance.users.select{|x| x == attended.user}.count, 'time')})"
+              
+        - else
+          .row.expanded
+            .small-12.columns
+              .participant_header= t(:rsvp_explanation)
+          .row.expanded.small-up-4.medium-up-6.large-up-8.xlarge-up-9  
+            - [@instance.rsvps.map(&:user), @instance.responsible_people].flatten.compact.uniq.each do |attended|
+              .column.participant_grid
+                .image
+                  - if attended.avatar?
+                    = image_tag attended.avatar.url(:box)
+                  - else
+                    = image_tag image_path('user_missing_large.png')
+                .participant_overlay
+
+                  = link_to attended.display_name, attended 
+                  %div{id: "organiser_info_#{attended.id.to_s}"}
+               
+                    - if @instance.responsible_people.include?(attended)
+                      = t(:organiser)
+        
+            
+                      - if @instance.event.primary_sponsor == attended || @instance.event.secondary_sponsor == attended
+                        %br/
+                        = link_to t(:event_instigator_brackets), @instance.proposal
+                      - else
+                        - if user_signed_in?
+                          - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+                            = link_to t(:remove_organiser), event_user_remove_organiser_path(@instance.event, @instance, attended), remote: true, class: [:button, :alert, :tiny]
+                    - else
+                      - if user_signed_in?
+                        - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+                          = link_to t(:make_organiser), event_user_make_organiser_path(@instance.event, @instance, attended), remote: true, class: [:button, :secondary, :tiny]
+                  
+                  - if user_signed_in?
+                    - if current_user == attended 
+                      = link_to t(:cancel_rsvp), cancel_rsvp_event_instance_path(@instance.event, @instance), method: :post, class: [:button, :alert], data: {confirm: t(:confirm_cancel_rsvp) }
+                  - if @instance.allow_multiple_entry == true
+                    = " (#{pluralize(@instance.users.select{|x| x == attended}.count, 'time')})"
+  
+  - else
+    %section#participants
+      .row.expanded
+        .small-12.columns
+          .participant_header 
+            = t(:participant, count: 2).capitalize
+            = "(#{(@instance.users.uniq + @instance.onetimers.unclaimed).size.to_s}):"
+      .row.expanded{class: (@instance.users.uniq.size > 12) ? 'small-up-6 medium-up-8 large-up-11 xlarge-up-13' : 'small-up-3 medium-up-4 large-up-6 xlarge-up-7' }
+        - @instance.users.uniq.each do |attended|
+          .column.participant_grid
+            .image
+              - if attended.avatar?
+                = image_tag attended.avatar.url(:box)
+              - else
+                = image_tag image_path('user_missing_large.png')
+            .participant_overlay
+
+              = link_to attended.display_name, attended 
+              - if @instance.event.primary_sponsor == attended
+                %br/
+                = link_to "(event instigator)", @instance.proposal
+
+              - if @instance.allow_multiple_entry == true
+                = " (#{pluralize(@instance.users.select{|x| x == attended}.count, 'time')})"
+        - @instance.onetimers.unclaimed.each do |onetimer|
+          .column.participant_grid
+            .image= image_tag image_path('user_missing_large.png')
+            .participant_overlay
+              = t(:anonymous_person_who_arrived_at_x, time_of_arrival: onetimer.created_at.strftime('%H:%M'))
+        
+              - if @instance.allow_multiple_entry == true
+                = " on #{l onetimer.created_at.to_date, format: :short}"
+
+  - unless @instance.in_future?
+    %section#viewpoints
+      .row.expanded
+        .small-10.medium-6.columns
+          .participant_header 
+            = t(:viewpoint, count: 2).capitalize
+
+      - if @instance.viewpoints.empty?
+        .row.expanded
+          .small-10.medium-10.columns
+            %h5= t :no_viewpoints_yet
+        .row.expanded.small-up-1.medium-up-2.large-up-4.xxlarge-up-5#viewpoints_row{:"data-equalizer" => '', :"data-equalize-by-row" => "true"}            
+      - else
+        - unless @instance.userthoughts.empty?
+          - markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new, extensions = {})
+
+        .row.expanded.small-up-1.medium-up-2.large-up-4.xxlarge-up-5#viewpoints_row{:"data-equalizer" => '', :"data-equalize-by-row" => "true"}
+          - @instance.viewpoints.each do |viewpoint|
+            - if viewpoint.class == Userphoto
+              = render partial: 'viewpoints/captioned_photo', locals: {viewpoint: viewpoint}
+            - if viewpoint.class == Userthought
+              = render partial: 'viewpoints/userthought', locals: {viewpoint: viewpoint, markdown: markdown}
+                
+      - if user_signed_in?
+        - if @instance.users.include?(current_user)
+          .row.expanded
+            .small-12.columns
+              %p= link_to t(:add_a_viewpoint), '#', class: [:button], onclick: '$("#new_form").slideToggle();return false;'
+    
+          #user_viewpoint_form.row.expanded
+            .small-12.medium-8.columns
+       
+              #new_form= render partial: 'viewpoints/userphoto_form'
+              #ajax_area
+              .row
+                .small-3.medium-2.columns.ajax_loading= image_tag 'loading.gif'                    
+              
+  - unless @instance.event.instances.select{|x| x != @instance}.empty?
+    - unless @instance.event.instances.current.or(@instance.event.instances.future).select{|x| x != @instance}.empty?
+      .row.expanded
+        .small-10.medium-10.large-7.columns
+          %h3
+            = t(:related_events) + ": "
+            = t(:future)
+      .row.expanded#expandme.small-up-1.medium-up-2.large-up-4.xxlarge-up-5{:"data-equalizer" => '', :"data-equalize-by-row" => "true"}
+        - @instance.event.instances.current.or(@instance.event.instances.future).select{|x| x != @instance}.sort_by(&:start_at).each do |exp|
+          = render partial: 'instances/event_instance_column', locals: {exp: exp, :"@event" =>  exp.event}
+    - unless @instance.event.instances.past.select{|x| x != @instance}.empty?
+      .row.expanded
+        .small-10.medium-10.large-7.columns
+          %h3
+            = t(:related_events) + ": "
+            = t(:past)
+      .row.expanded#expandme.small-up-1.medium-up-2.large-up-4.xxlarge-up-5{:"data-equalizer" => '', :"data-equalize-by-row" => "true"}
+        - @instance.event.instances.past.select{|x| x != @instance}.sort_by(&:start_at).each do |exp|
+          = render partial: 'instances/event_instance_column', locals: {exp: exp, :"@event" =>  exp.event}
+    
+
+
+  -#= render partial: 'events/comments_and_form'
+
+- if user_signed_in?
+  - if @instance.users.include?(current_user)
+    = content_for :jquery do
+      :plain
+        jQuery(".best_in_place").best_in_place();
+        
+= content_for :jquery do
+  :plain
+    
+    $("form.userphoto").on("ajax:success", function(e, data, status, xhr) {
+        $("form.userphoto .area").append(xhr.responseText);
+      }).on("ajax:error", function(e, xhr, status, error) {
+        $("form.userphoto .area").append("<p>ERROR</p>");
+        }).on("ajax:beforeSend", function() {
+          $('.ajax_loading').fadeIn();
+        }).on("ajax:complete", function() {
+          $('.ajax_loading').fadeOut();
+        });
