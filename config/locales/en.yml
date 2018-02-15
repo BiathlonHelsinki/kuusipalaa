@@ -892,10 +892,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   credit_card: 'Credit/debit card'
   pay_by_credit_card: 'Pay by credit card'
   opening_1_march: 'Kuusi Palaa will open on 1 March 2018!'
-  activerecord:
-    errors:
-      models:
-        stake:
-          attributes:
-            amount:
-              can_only_have_15_percent: 'You can only buy a maximum of 15% of the stakes for an entire season.'
+  your_pin: 'Your PIN code:'
+  enter_pin: 'Enter a 4-6 digit PIN'
+  change_pin: 'Change your PIN'
+  pin_explanation: 'Please enter a 4-6 digit PIN. You will need this to link an ID card to your account.'

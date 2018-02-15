@@ -50,6 +50,16 @@ class User < ActiveRecord::Base
   has_one :survey
   has_many :members, dependent: :destroy
   has_many :groups, through: :members, source: :source, source_type: 'Group'
+  # validates :pin, length: {minimum: 4, maximum: 6}, allow_blank: true
+  # validates :pin, format: { with: /\A\d+\z/, message: "Numbers only." }
+  
+  before_save :hash_pin
+
+  def hash_pin
+    if pin_changed?
+      self.pin = Digest::MD5.hexdigest(self['pin']) unless self.pin.blank?
+    end
+  end
 
   def uniqueness_of_a_name
     self.errors.add(:username, 'is already taken') if Group.where(["lower(name) = ?", self.username.downcase]).exists?

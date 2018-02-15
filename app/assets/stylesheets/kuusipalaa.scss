@@ -201,6 +201,12 @@ a.not-active {
     font-size: 0.9rem;
     font-family: $montserrat;
 
+    .subtitle {
+      text-transform: uppercase;
+      font-weight: bold;
+      padding: 1rem;
+      font-family: $sourcecode;
+    }
     .question {
       font-weight: bold;
       font-family: $sourcecode;
