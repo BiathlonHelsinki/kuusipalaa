@@ -51,9 +51,13 @@ class IdeasController < ApplicationController
       if @idea.has_enough? && @idea.proposers.include?(current_user)
         @event = Event.new(idea: @idea, place_id: 2, primary_sponsor: @idea.proposer, cost_euros: @idea.price_public, cost_bb: @idea.price_stakeholders, 
           translations: [Event::Translation.new(locale: I18n.locale, name: @idea.name, description: @idea.proposal_text)])
-        @event.instances << Instance.new(start_at: @idea.start_at, end_at: @idea.end_at, price_public: @idea.price_public, price_stakeholders: @idea.price_stakeholders, 
-          room_needed: @idea.room_needed, allow_others: @idea.allow_others, place_id: 2, translations: [Instance::Translation.new(locale: I18n.locale,
-            name: @idea.name, description: @idea.proposal_text)])
+        # if @idea.timeslot_undetermined == true
+          
+        # else
+          @event.instances << Instance.new(start_at: @idea.start_at, end_at: @idea.end_at, price_public: @idea.price_public, price_stakeholders: @idea.price_stakeholders, 
+            room_needed: @idea.room_needed, allow_others: @idea.allow_others, place_id: 2, translations: [Instance::Translation.new(locale: I18n.locale,
+              name: @idea.name, description: @idea.proposal_text)])
+        # end
         unless @idea.additionaltimes.empty?
           @idea.additionaltimes.sort_by(&:start_at).each do |at|
             @event.instances << Instance.new(start_at: at.start_at, end_at: at.end_at, price_public: @idea.price_public, price_stakeholders: @idea.price_stakeholders,

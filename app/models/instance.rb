@@ -9,7 +9,7 @@ class Instance < ApplicationRecord
   has_many :users, through: :instances_users
   has_many :organisers, through: :instances_organisers
   has_many :onetimers, dependent: :destroy
-  
+  has_many :rsvps
   scope :between, -> (start_time, end_time) { 
     where( [ "(start_at >= ?  AND  end_at <= ?) OR ( start_at >= ? AND end_at <= ? ) OR (start_at >= ? AND start_at <= ?)  OR (start_at < ? AND end_at > ? )",
     start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), 
@@ -37,5 +37,22 @@ class Instance < ApplicationRecord
       :url => Rails.application.routes.url_helpers.event_instance_path(event.slug, slug)
     } 
   end 
+
+  def responsible_people
+    [event.primary_sponsor, organisers].flatten.compact.uniq
+  end
+
+  def idea
+    event.idea
+  end
+
+  def proposal
+    idea
+  end
+  
+  def in_future?
+    start_at.localtime >= Time.current
+  end
+  
 
 end

@@ -116,7 +116,7 @@ class Idea < ApplicationRecord
   def notify_if_enough
   
     if pledged >= points_needed
-      if notified != true
+      if self.notified != true
         begin
           IdeaMailer.proposal_for_review(self).deliver_now
           update_attribute(:notified, true)
@@ -126,7 +126,6 @@ class Idea < ApplicationRecord
         end
       end
     end
-    die
   end
 
   private

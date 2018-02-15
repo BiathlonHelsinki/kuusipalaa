@@ -6,9 +6,11 @@
         .blurb.nopadding
           .pad
             %p=  t :please_confirm_information
-          = semantic_nested_form_for @event do |f|
+          = semantic_nested_form_for @event, html: {:'data-abide' => true, multipart: true} do |f|
             = f.input :place_id, as: :hidden
             = f.input :idea_id, as: :hidden
+            = f.input :start_at, as: :hidden
+            = f.input :end_at, as: :hidden
             .row.pad
               .small-8.columns
                 - if @collection_options.size > 1
@@ -49,9 +51,10 @@
                     - if ff.options[:child_index] != 0
                       .small-12.columns
                         = t :enter_next_session_times
-                    - if @event.idea.timeslot_undetermined == false
-                      .small-6.large-4.columns= ff.input :start_at, as: :string, input_html: { class: :datetimepicker, value: ff.object.start_at.nil? ? '' : ff.object.start_at.localtime.strftime("%Y-%m-%d %H:%M"), required: ''  }
-                      .small-6.large-4.columns.end= ff.input :end_at, as: :string, input_html: { class: :datetimepicker, value: ff.object.end_at.nil? ? '' : ff.object.end_at.localtime.strftime("%Y-%m-%d %H:%M"), required: '' }
+                    -# - if @event.idea.timeslot_undetermined == false
+                    .small-6.large-4.columns= ff.input :start_at, as: :string, input_html: { class: :datetimepicker, value: ff.object.start_at.nil? ? '' : ff.object.start_at.localtime.strftime("%Y-%m-%d %H:%M"), required: ''  }
+                    .small-6.large-4.columns.end= ff.input :end_at, as: :string, input_html: { class: :datetimepicker, value: ff.object.end_at.nil? ? '' : ff.object.end_at.localtime.strftime("%Y-%m-%d %H:%M"), required: '' }
+
                   - if ff.options[:child_index] != 0
                     .row
                       .small-12.columns= t :enter_different_names
@@ -129,6 +132,8 @@
     }
     $('form input, form select').change(() => { 
       $('#points_required').html(recalc(idarray));
+      $('#event_start_at').val($('#event_instances_attributes_0_start_at').val())
+      $('#event_end_at').val($('#event_instances_attributes_0_start_at').val())
     })
     var idarray = []
     $('.fields').each(function(index) {
@@ -155,7 +160,10 @@
        });
 
       $('#points_required').html(recalc(idarray))
+
       $('form input, form select').change(() => {    
         $('#points_required').html(recalc(idarray));
+        $('#event_start_at').val($('#event_instances_attributes_0_start_at').val())
+        $('#event_end_at').val($('#event_instances_attributes_0_start_at').val())
       }); 
     })

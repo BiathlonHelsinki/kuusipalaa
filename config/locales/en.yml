@@ -943,7 +943,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
     other_events: 'If there are other experiments going on at Kuusi Palaa during your booking, be mindful of noise and try to share the space well.'
     purpose_hint: 'This is optional. Just enter something here if you''d like others to know what you are doing.'
     purpose: 'What are you planning to do   in there?'
-  x_points: '%{count} points'
+  x_points: '%{count}ᵽ available'
   book_this_day: 'Book on this day'
   this_booking_will_cost: 'This booking will cost you '
   points_fullstop: 'points.'

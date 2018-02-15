@@ -28,7 +28,7 @@ class PledgesController < ApplicationController
       end
       if params[:pledge][:pledge].to_i > @item.max_for_user(current_user, @pledge)
         flash[:error] = t(:you_cannot_pledge_this_much)
-        redirect_to new_proposal_pledge_path(@proposal)
+        redirect_to @item
       else
         @pledge = Pledge.new(pledge_params)
         @pledge.item = @item

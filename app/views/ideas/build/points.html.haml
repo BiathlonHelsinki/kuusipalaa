@@ -146,10 +146,11 @@
       }); 
 
       $('form input, form select').change(() => {      
-        calculateCost();
+        calculateCost().then(() => {
 
           checkLogic().done((callback) => {
             callback();
+          })
         })
       });
       $('form button').click(function() {
@@ -177,6 +178,18 @@
         if ($('#idea_allow_others').is(":checked") && $('#idea_room_needed').val() != "2") {
           base_totaled *= 0.75;
         }
+        if ($('#idea_price_public').val()) {
+            if (parseInt($('#idea_price_public').val()) > 0 ) {
+              if ($('#idea_price_stakeholders').val()) {
+                if (parseInt($('#idea_price_stakeholders').val()) >= parseInt($('#idea_price_public').val())) {
+                  $('#idea_price_stakeholders').val(parseInt($('#idea_price_public').val()) - 1)
+                }
+              }
+            } else {
+              $('#idea_price_stakeholders').val(0)
+            }
+        }
+
         $('#idea_points_needed').val(base_totaled);
         $('span#points_total').html(base_totaled);
       }
