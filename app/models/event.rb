@@ -22,7 +22,7 @@ class Event < ApplicationRecord
   has_many :pledges, -> { where item_type: "Event"}, foreign_key: :item_id, foreign_type: :item_type,   dependent: :destroy
   acts_as_nested_set
   has_many :instances, foreign_key: 'event_id', dependent: :destroy
-  validate :at_least_one_instance
+  # validate :at_least_one_instance
 
   scope :published, -> () { where(published: true) }
   scope :has_events_on, -> (*args) { where(['published is true and (date(start_at) = ? OR (end_at is not null AND (date(start_at) <= ? AND date(end_at) >= ?)))', args.first, args.first, args.first] )}
@@ -79,4 +79,17 @@ class Event < ApplicationRecord
       errors.add(:base, "You must specify an event name in at least one available language.")
     end
   end  
+  private
+
+    def update_image_attributes
+    if image.present? && image_changed?
+      if image.file.exists?
+        self.image_content_type = image.file.content_type
+        self.image_size = image.file.size
+        self.image_width, self.image_height = `identify -format "%wx%h" #{image.file.path}`.split(/x/)
+      end
+    end
+  end
+
+  
 end
