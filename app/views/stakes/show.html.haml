@@ -40,4 +40,4 @@
             = t(:share_on_twitter)
   .row
     .small-12.columns
-      #invoice_screen.lifted_box= render partial: 'invoice', locals: {stake: @stake}
+      #invoice_screen.lifted_box{class: @stake.paid ? :paid : false}= render partial: 'invoice', locals: {stake: @stake}

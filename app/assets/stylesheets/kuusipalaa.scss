@@ -165,6 +165,9 @@ a.not-active {
 
 .lifted_box {
 
+  &.paid {
+    background: url('/assets/paid.png') right top no-repeat;
+  }
   &.has_inner_button {
     padding-bottom: 3rem;
   }
