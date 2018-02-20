@@ -7,7 +7,20 @@
 
 
           = semantic_form_for @idea,url: "/ideas/#{@idea.id.to_s}/build/when", html: { method: :put, multipart: true, :'data-abide' => ''} do |f|
-            = f.input :timeslot_undetermined, as: :radio, collection: [[t(:undetermined_time), true, "required" => "required"], [t(:choose_from_calendar), false]], label: false, input_html: {required: ''}
+            %p
+              = radio_button_tag 'idea[timeslot_undetermined]', 'true',  false, {class: :radio }
+              %label.radio{for: :idea_timeslot_undetermined_true}
+              = t :undetermined_time 
+
+            %p.small= t :private_event_explanation
+            %p
+              = radio_button_tag 'idea[timeslot_undetermined]', 'false', false, { required: 'required',  class: :radio}
+              %label.radio{for: :idea_timeslot_undetermined_false}
+              = t :choose_from_calendar 
+            %p.small= t :public_event_explanation       
+
+
+
             = f.input :start_at, as: :hidden
             = hidden_field_tag :form_direction, "forward"
             .calendar{class: f.object.start_at.blank? ? false : 'not_hidden'}

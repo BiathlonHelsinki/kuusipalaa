@@ -16,6 +16,16 @@ namespace :kuusipalaa do
     account.external = false
     account.save!    
   end
+
+  desc 'load production biathlon info into db'
+  task reset_prod: :environment do
+    s = Setting.first
+    s.destroy!
+    Setting.create(options: {"network" => Figaro.env.network, "contract_address" => Figaro.env.contract_address, 
+          'coinbase' => Figaro.env.coinbase, 'node_abi' => Figaro.env.node_contract_abi, 'token_abi' => Figaro.env.token_contract_abi,
+      'nodelist_address' => Figaro.env.nodelist_address, 'token_address' => Figaro.env.token_address,
+      'latest_block' => 0})   
+  end
   
   desc 'get missing checkins back to activity field'
   task find_missing_activities: :environment do

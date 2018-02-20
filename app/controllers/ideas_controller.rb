@@ -1,4 +1,4 @@
-class IdeasController < ApplicationController
+ class IdeasController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
 
@@ -21,26 +21,26 @@ class IdeasController < ApplicationController
     end
   end
 
-  def create
-    if params[:step1] == 'event'
+  def new
+    # if params[:step1] == 'event'
       @idea = Idea.create(status: 'building', ideatype_id: 1, proposer: current_user, user: current_user)
       redirect_to idea_build_index_path(idea_id: @idea.id)
-    elsif params[:step1] == 'installation'
-      @idea = Idea.create(status: 'building', ideatype_id: 2, proposer: current_user, user: current_user)
-      redirect_to idea_thing_index_path(idea_id: @idea.id)
-    elsif params[:step1] == 'request'
-      @idea = Idea.create(status: 'building', ideatype_id: 3, proposer: current_user, user: current_user)
-      redirect_to idea_request_index_path(idea_id: @idea.id)
-    end
+    # elsif params[:step1] == 'installation'
+    #   @idea = Idea.create(status: 'building', ideatype_id: 2, proposer: current_user, user: current_user)
+    #   redirect_to idea_thing_index_path(idea_id: @idea.id)
+    # elsif params[:step1] == 'request'
+    #   @idea = Idea.create(status: 'building', ideatype_id: 3, proposer: current_user, user: current_user)
+    #   redirect_to idea_request_index_path(idea_id: @idea.id)
+    # end
   end
 
   def index
     @ideas = Idea.active.order(updated_at: :desc)
   end
 
-  def new
-    @idea = Idea.new(status: 'building')
-  end
+  # def new
+  #   @idea = Idea.new(status: 'building')
+  # end
 
   def publish_event
     @idea = Idea.friendly.find(params[:id])

@@ -3,25 +3,25 @@ class Event < ApplicationRecord
   belongs_to :idea, optional: true
   belongs_to :place
   belongs_to :primary_sponsor, polymorphic: true  
-  has_many :instances
+  has_many :instances, foreign_key: 'event_id', dependent: :destroy
   translates :name, :description, :fallbacks_for_empty_translations => true
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['name'].blank? && x['description'].blank? }
-  accepts_nested_attributes_for :instances
+  accepts_nested_attributes_for :instances, :reject_if => proc {|x| x['start_at'].blank? || x['end_at'].blank? }
 
-  belongs_to :idea
+
 
   extend FriendlyId
   friendly_id :name_en , :use => [ :slugged, :finders ] # :history]
   mount_uploader :image, ImageUploader
   process_in_background :image
 
-  validates_presence_of :place_id, :start_at, :primary_sponsor_id, :idea_id
+  validates_presence_of :place_id, :start_at, :primary_sponsor_id
   validate :name_present_in_at_least_one_locale
   before_save :update_image_attributes
   has_many :comments, as: :item, :dependent => :destroy
   has_many :pledges, -> { where item_type: "Event"}, foreign_key: :item_id, foreign_type: :item_type,   dependent: :destroy
   acts_as_nested_set
-  has_many :instances, foreign_key: 'event_id', dependent: :destroy
+
   # validate :at_least_one_instance
 
   scope :published, -> () { where(published: true) }

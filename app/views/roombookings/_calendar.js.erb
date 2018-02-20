@@ -8,10 +8,11 @@ var options = {
     right: 'month,agendaWeek,agendaDay'
   },
   defaultView: 'month',
-  contentHeight: '400px',
+
   locale: '<%= I18n.locale.to_s %>',
   contentHeight: 'auto',
   firstDay: 1,
+  height: 'auto',
   fixedWeekCount: false,
   slotMinutes: 30,
   eventOrder: "start",
@@ -64,7 +65,7 @@ var mobileOptions = {
     right: 'month,agendaWeek,agendaDay'
   },
   defaultView: 'listMonth',
-  contentHeight: '400px',
+
   locale: '<%= I18n.locale.to_s %>',
   contentHeight: 'auto',
   firstDay: 1,

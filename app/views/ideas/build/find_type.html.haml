@@ -7,11 +7,13 @@
           - if @idea.ideatype_id == 1
             = form_tag "/ideas/#{@idea.id.to_s}/build/find_type", method: :put, 'data-abide' => '' do 
               %p
-                = radio_button_tag 'idea[ideatype_id]', '4'
+                = radio_button_tag 'idea[ideatype_id]', '4',  false, {class: :radio }
+                %label.radio{for: :idea_ideatype_id_4}
                 = t :private_event
               %p.small= t :private_event_explanation
               %p
-                = radio_button_tag 'idea[ideatype_id]', '1', required: 'required'
+                = radio_button_tag 'idea[ideatype_id]', '1', false, { required: 'required',  class: :radio}
+                %label.radio{for: :idea_ideatype_id_1}
                 = t :public_event
               %p.small= t :public_event_explanation 
               = hidden_field_tag :form_direction, "forward"

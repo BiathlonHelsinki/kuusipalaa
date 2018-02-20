@@ -21,8 +21,9 @@ class Instance < ApplicationRecord
   scope :future, -> () {where(["published is true and cancelled is not true and end_at >=  ?", Time.now.utc.strftime('%Y/%m/%d %H:%M')]) }
   scope :past, -> () {where(["end_at <  ?", Time.now.utc.strftime('%Y/%m/%d %H:%M')]) }
   scope :current, -> () { where(["start_at <=  ? and end_at >= ?", Time.current.utc.strftime('%Y/%m/%d %H:%M'), Time.current.utc.strftime('%Y/%m/%d %H:%M') ]) }
-   extend FriendlyId
+  extend FriendlyId
   friendly_id :name_en , :use => [ :slugged, :finders, :history]
+  
   def as_json(options = {})
     {
       :id => self.id,
@@ -38,6 +39,9 @@ class Instance < ApplicationRecord
     } 
   end 
 
+  def name_en
+    name(:en)
+  end
   def responsible_people
     [event.primary_sponsor, organisers].flatten.compact.uniq
   end
