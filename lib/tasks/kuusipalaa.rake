@@ -28,7 +28,7 @@ namespace :kuusipalaa do
       if transaction['status'] == 'success'
         puts 'successfully awarded blockchain order for ' + stake.owner.display_name + ': ' + (stake.amount * 500).to_s
       else
-        puts 'ERROR: ' + transaction['message']
+        puts 'ERROR: ' + transaction.inspect
       end
     end
   end
