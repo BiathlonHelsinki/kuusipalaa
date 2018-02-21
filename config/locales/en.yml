@@ -908,7 +908,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   both: 'Both main room and small back room (+30% points needed)'
   both_rooms_short: 'Both rooms'
   proposal_review: 'Proposal review'
-  calendar_reserved_from: '(The calendar will be reserved for you starting from %{when})'
+  calendar_reserved_from: '(The calendar will be reserved for this starting from %{when})'
   back: 'Back'
   special_notes: 'Any extra notes or comments on this proposal?'
   special_notes_explanation: 'If you have some additional information that doesn''t fit in the actual proposal, enter it here.'
@@ -1042,3 +1042,5 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   venue: 'Venue:'
   x_of_x_so_far: '%{has}/%{needs} pledged'
   pledge_p: 'Pledge ᵽ'
+  you_are_editing_your_proposal: "You are editing your proposal. It has been removed from the active proposals page until you re-publish it."
+  organise_an_event: 'Organise an event'

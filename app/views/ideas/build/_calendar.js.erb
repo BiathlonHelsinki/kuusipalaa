@@ -32,6 +32,7 @@ var options = {
     eventAfterAllRender: (view) => {
       if ($('#idea_start_at').val() != '') {
         $('a.fc-event[href="choose_day/' + moment($('#idea_start_at').val()).format("YYYY-MM-DD") + '"]').css('background-color', '#f05e6b');
+        $fc.fullCalendar('gotoDate', moment($('#idea_start_at').val()).format("YYYY-MM-DD"))
       }  
       $('a.event').on('click', function(e) {
         e.preventDefault();

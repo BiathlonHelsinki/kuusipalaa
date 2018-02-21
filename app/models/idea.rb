@@ -42,7 +42,7 @@ class Idea < ApplicationRecord
       :id => self.id,
       :title =>  self.name,
       :description => self.short_description || "",
-      :start => start_at.nil? ? nil : start_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
+      :start => calendar_start_at.nil? ? nil : calendar_start_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
       :end => end_at.nil? ? nil : end_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
       :allDay => false, 
       :recurring => false,
@@ -51,6 +51,10 @@ class Idea < ApplicationRecord
       :url => Rails.application.routes.url_helpers.idea_path(self.slug)
     } 
   end 
+
+  def calendar_start_at
+    start_at - 1.hour
+  end
 
   def converted?
     !events.empty?

@@ -36,8 +36,9 @@
               .row
                 .small-6.columns= t(:still_needed, amount: @idea.points_still_needed)
                 .small-6.columns.pledge_list
-                  %em= t :pledges_from
-                  = raw @idea.pledges.select(&:persisted?).map{|x| [link_to(x.user.display_name, x.user, target: :_blank), "(#{x.pledge})"].join(' ')}.join(', ')
+                  - unless @idea.pledges.select(&:persisted?).empty?
+                    %em= t :pledges_from
+                    = raw @idea.pledges.select(&:persisted?).map{|x| [link_to(x.user.display_name, x.user, target: :_blank), "(#{x.pledge})"].join(' ')}.join(', ')
               - if user_signed_in?  
                 .row
                   .small-12.columns

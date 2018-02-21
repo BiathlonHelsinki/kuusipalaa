@@ -31,7 +31,7 @@ class Instance < ApplicationRecord
       :id => self.id,
       :title =>  self.name,
       :description => self.description || "",
-      :start => start_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
+      :start => calendar_start_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
       :end => end_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
       :allDay => false, 
       :recurring => false,
@@ -41,6 +41,10 @@ class Instance < ApplicationRecord
       :url => Rails.application.routes.url_helpers.event_instance_path(event.slug, slug)
     } 
   end 
+
+  def calendar_start_at
+    start_at  - 1.hour
+  end
 
   def name_en
     name(:en)

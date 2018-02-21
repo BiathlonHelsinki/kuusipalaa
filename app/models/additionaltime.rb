@@ -10,7 +10,7 @@ class Additionaltime < ApplicationRecord
       :id => self.id,
       :title =>  self.item.name,
       :description => self.item.short_description || "",
-      :start => start_at.nil? ? nil : start_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
+      :start => calendar_start_at.nil? ? nil : calendar_start_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
       :end => end_at.nil? ? nil : end_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
       :allDay => false, 
       :recurring => false,
@@ -19,6 +19,10 @@ class Additionaltime < ApplicationRecord
       :url => Rails.application.routes.url_helpers.idea_path(self.item.slug)
     } 
     
+  end
+
+  def calendar_start_at
+    start_at - 1.hour
   end
 
   def start_at_date

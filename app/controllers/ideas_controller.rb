@@ -25,6 +25,15 @@
     end
   end
 
+  def edit
+    @idea = Idea.friendly.find(params[:id])
+    if can? :edit, @idea
+      @idea.update_attribute(:status, 'name_and_info')
+      flash[:notice] = t(:you_are_editing_your_proposal)
+      redirect_to "/ideas/#{@idea.id.to_s}/build/name_and_info" 
+    end
+  end
+
   def new
     # if params[:step1] == 'event'
       @idea = Idea.create(status: 'building', ideatype_id: 1, proposer: current_user, user: current_user)
