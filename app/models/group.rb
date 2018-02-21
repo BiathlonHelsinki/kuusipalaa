@@ -13,10 +13,12 @@ class Group < ApplicationRecord
   # process_in_background :avatar
   validates_presence_of :name
   validate :uniqueness_of_a_name
+  before_validation :copy_password
   before_create :at_least_one_member
   after_create :add_to_activity_feed
   after_update :edit_to_activity_feed
   before_save :validate_vat
+  validates_presence_of :geth_pwd
   has_many :activities, as: :contributor
   rolify
   
@@ -45,6 +47,12 @@ class Group < ApplicationRecord
       else
         return 100
       end
+    end
+  end
+
+  def copy_password
+    if geth_pwd.blank?
+      self.geth_pwd = SecureRandom.hex(13)
     end
   end
 

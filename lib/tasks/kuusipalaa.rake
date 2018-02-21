@@ -17,6 +17,23 @@ namespace :kuusipalaa do
     account.save!    
   end
 
+
+  desc 'Award initial stakes (only ever do this once)'
+  task award_stakes: :environment do
+    api = BiathlonApi.new
+    Stake.where(paid: true).where(blockchain_transaction_id: nil).each do |stake|
+      transaction = api.api_get("/stakes/#{stake.id}/award_stake_points", {headers: {'X-User-Email': stake.bookedby.email,   
+        'X-User-Token': stake.bookedby.authentication_token}})
+
+      if transaction['status'] == 'success'
+        puts 'successfully awarded blockchain order for ' + stake.owner.display_name + ': ' + (stake.amount * 500).to_s
+      else
+        puts 'ERROR: ' + transaction['message']
+      end
+    end
+  end
+
+
   desc 'load production biathlon info into db'
   task reset_prod: :environment do
     s = Setting.first

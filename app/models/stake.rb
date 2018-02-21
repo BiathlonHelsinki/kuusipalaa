@@ -12,7 +12,8 @@ class Stake < ApplicationRecord
   after_create  :generate_invoice
   skip_callback :after_create, only: :generate_invoice
   has_many :activities, as: :item
-  
+  belongs_to :blockchain_transaction, autosave: true, optional: true
+
   scope :by_season, -> (x) { where(season_id: x)}
   scope :paid, ->() { where(paid: true)}
   scope :booked_unpaid,  ->() { where('paid is not true')}
@@ -22,6 +23,21 @@ class Stake < ApplicationRecord
     Activity.create(user: self.bookedby, item: self, description: "bought",  addition: 0,
         extra: (self.owner != self.bookedby ? self.owner : nil))
   end
+
+
+  def award_points!
+    if self.blockchain_transaction_id.nil? && self.paid == true && self.ethtransaction_id.nil?
+      api = BiathlonApi.new
+      transaction = api.api_get("/stakes/#{id}/award_stake_points", { headers: {'X-User-Email': bookedby.email, 'X-User-Token': bookedby.authentication_token}})
+
+      if transaction['status'] == 'success'
+        return true
+      else
+        return transaction['error']
+      end
+    end  
+  end
+
 
   def with_vat?
     owner.charge_vat?

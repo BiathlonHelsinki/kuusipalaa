@@ -38,6 +38,7 @@ class Admin::StakesController < Admin::BaseController
       if @stake.paid == true
         if @stake.owner.add_role :stakeholder
         end
+        @stake.award_points!
       end
       redirect_to admin_stakes_path
     else

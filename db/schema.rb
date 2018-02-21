@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180215124301) do
+ActiveRecord::Schema.define(version: 20180221130504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,9 @@ ActiveRecord::Schema.define(version: 20180215124301) do
     t.datetime "updated_at", null: false
     t.boolean "external"
     t.boolean "primary_account"
+    t.string "holder_type"
+    t.bigint "holder_id"
+    t.index ["holder_type", "holder_id"], name: "index_accounts_on_holder_type_and_holder_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
@@ -51,16 +54,6 @@ ActiveRecord::Schema.define(version: 20180215124301) do
     t.index ["extra_type", "extra_id"], name: "index_activities_on_extra_type_and_extra_id"
     t.index ["item_type", "item_id"], name: "index_activities_on_item_type_and_item_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
-  end
-
-  create_table "additionaltimes", force: :cascade do |t|
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.string "item_type"
-    t.bigint "item_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["item_type", "item_id"], name: "index_additionaltimes_on_item_type_and_item_id"
   end
 
   create_table "answer_translations", force: :cascade do |t|
@@ -279,11 +272,7 @@ ActiveRecord::Schema.define(version: 20180215124301) do
     t.integer "proposal_id"
     t.boolean "collapse_in_website", default: false, null: false
     t.boolean "stopped"
-    t.bigint "idea_id"
-    t.string "primary_sponsor_type"
-    t.index ["idea_id"], name: "index_events_on_idea_id"
     t.index ["place_id"], name: "index_events_on_place_id"
-    t.index ["primary_sponsor_id", "primary_sponsor_type"], name: "index_events_on_primary_sponsor_id_and_primary_sponsor_type"
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -360,68 +349,6 @@ ActiveRecord::Schema.define(version: 20180215124301) do
     t.index ["slug"], name: "index_hardwaretypes_on_slug", unique: true
   end
 
-  create_table "ideas", force: :cascade do |t|
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.boolean "has_other_timeslots"
-    t.boolean "timeslot_undetermined"
-    t.string "proposer_type"
-    t.bigint "proposer_id"
-    t.string "parent_type"
-    t.bigint "parent_id"
-    t.string "name"
-    t.text "short_description"
-    t.text "proposal_text"
-    t.integer "comment_count"
-    t.bigint "proposalstatus_id"
-    t.text "special_notes"
-    t.bigint "ideatype_id"
-    t.string "slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "status"
-    t.string "image"
-    t.integer "image_size"
-    t.string "image_content_type"
-    t.datetime "image_updated_at"
-    t.integer "image_width"
-    t.integer "image_height"
-    t.integer "room_needed"
-    t.boolean "allow_others"
-    t.float "price_public"
-    t.float "price_stakeholders"
-    t.integer "points_needed"
-    t.integer "hours_estimate"
-    t.bigint "user_id"
-    t.integer "thing_size"
-    t.boolean "notified"
-    t.string "converted_type"
-    t.bigint "converted_id"
-    t.index ["converted_type", "converted_id"], name: "index_ideas_on_converted_type_and_converted_id"
-    t.index ["ideatype_id"], name: "index_ideas_on_ideatype_id"
-    t.index ["parent_type", "parent_id"], name: "index_ideas_on_parent_type_and_parent_id"
-    t.index ["proposalstatus_id"], name: "index_ideas_on_proposalstatus_id"
-    t.index ["proposer_type", "proposer_id"], name: "index_ideas_on_proposer_type_and_proposer_id"
-    t.index ["user_id"], name: "index_ideas_on_user_id"
-  end
-
-  create_table "ideatype_translations", force: :cascade do |t|
-    t.integer "ideatype_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "name"
-    t.text "description"
-    t.index ["ideatype_id"], name: "index_ideatype_translations_on_ideatype_id"
-    t.index ["locale"], name: "index_ideatype_translations_on_locale"
-  end
-
-  create_table "ideatypes", force: :cascade do |t|
-    t.string "slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "images", id: :serial, force: :cascade do |t|
     t.string "image"
     t.string "image_content_type"
@@ -449,7 +376,7 @@ ActiveRecord::Schema.define(version: 20180215124301) do
   create_table "instances", id: :serial, force: :cascade do |t|
     t.integer "event_id", null: false
     t.integer "cost_bb"
-    t.float "price_public"
+    t.float "cost_euros"
     t.datetime "start_at"
     t.datetime "end_at"
     t.integer "place_id"
@@ -484,9 +411,6 @@ ActiveRecord::Schema.define(version: 20180215124301) do
     t.boolean "registration_open", default: true, null: false
     t.boolean "cancelled", default: false, null: false
     t.boolean "survey_locked"
-    t.float "price_stakeholders"
-    t.integer "room_needed"
-    t.boolean "allow_others"
     t.index ["event_id"], name: "index_instances_on_event_id"
     t.index ["place_id"], name: "index_instances_on_place_id"
     t.index ["proposal_id"], name: "index_instances_on_proposal_id"
@@ -550,7 +474,6 @@ ActiveRecord::Schema.define(version: 20180215124301) do
     t.integer "notification_level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "has_key", default: false, null: false
     t.index ["source_type", "source_id"], name: "index_members_on_source_type_and_source_id"
     t.index ["user_id"], name: "index_members_on_user_id"
   end
@@ -684,8 +607,10 @@ ActiveRecord::Schema.define(version: 20180215124301) do
     t.datetime "deleted_at"
     t.string "extra_info"
     t.integer "instance_id"
-    t.datetime "spent_at"
+    t.string "pledger_type"
+    t.bigint "pledger_id"
     t.index ["item_type", "item_id"], name: "index_pledges_on_item_type_and_item_id"
+    t.index ["pledger_type", "pledger_id"], name: "index_pledges_on_pledger_type_and_pledger_id"
     t.index ["user_id"], name: "index_pledges_on_user_id"
   end
 
@@ -853,17 +778,11 @@ ActiveRecord::Schema.define(version: 20180215124301) do
     t.date "day", null: false
     t.integer "user_id", null: false
     t.integer "ethtransaction_id"
-    t.integer "rate_id"
+    t.integer "rate_id", null: false
     t.string "purpose"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.string "booker_type"
-    t.bigint "booker_id"
-    t.integer "points_needed"
-    t.index ["booker_type", "booker_id"], name: "index_roombookings_on_booker_type_and_booker_id"
-    t.index ["day"], name: "index_roombookings_on_day"
+    t.index ["day"], name: "index_roombookings_on_day", unique: true
     t.index ["ethtransaction_id"], name: "index_roombookings_on_ethtransaction_id"
     t.index ["rate_id"], name: "index_roombookings_on_rate_id"
     t.index ["user_id"], name: "index_roombookings_on_user_id"
@@ -922,6 +841,9 @@ ActiveRecord::Schema.define(version: 20180215124301) do
     t.float "invoice_amount"
     t.integer "paymenttype_id", default: 1, null: false
     t.string "stripe_token"
+    t.bigint "ethtransaction_id"
+    t.integer "blockchain_transaction_id"
+    t.index ["ethtransaction_id"], name: "index_stakes_on_ethtransaction_id"
     t.index ["owner_type", "owner_id"], name: "index_stakes_on_owner_type_and_owner_id"
     t.index ["season_id"], name: "index_stakes_on_season_id"
   end
@@ -1078,12 +1000,8 @@ ActiveRecord::Schema.define(version: 20180215124301) do
   add_foreign_key "credits", "rates"
   add_foreign_key "credits", "users"
   add_foreign_key "ethtransactions", "transaction_types"
-  add_foreign_key "events", "ideas"
   add_foreign_key "events", "places"
   add_foreign_key "hardwares", "hardwaretypes"
-  add_foreign_key "ideas", "ideatypes"
-  add_foreign_key "ideas", "proposalstatuses"
-  add_foreign_key "ideas", "users"
   add_foreign_key "instances", "events"
   add_foreign_key "instances", "places"
   add_foreign_key "instances_organisers", "instances"
@@ -1108,6 +1026,7 @@ ActiveRecord::Schema.define(version: 20180215124301) do
   add_foreign_key "roombookings", "users"
   add_foreign_key "rsvps", "instances"
   add_foreign_key "rsvps", "users"
+  add_foreign_key "stakes", "ethtransactions"
   add_foreign_key "stakes", "seasons"
   add_foreign_key "surveys", "users"
   add_foreign_key "userlinks", "instances"

@@ -36,6 +36,7 @@ class ChargesController < ApplicationController
       @stake.update_attribute(:paid_at, Time.now.utc)
       @stake.update_attribute(:paymenttype_id, 2)
       @stake.update_attribute(:stripe_token, params[:stripeToken])
+      @stake.award_points!
       @season = @stake.season
       redirect_to season_stake_path(@stake.season, @stake)
     else
