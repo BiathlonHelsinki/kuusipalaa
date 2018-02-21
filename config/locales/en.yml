@@ -1040,3 +1040,5 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   proposed_length: 'Proposed length:'
   proposed_by_empty: 'Proposed by:'
   venue: 'Venue:'
+  x_of_x_so_far: '%{has}/%{needs} pledged'
+  pledge_p: 'Pledge ᵽ'

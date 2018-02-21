@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180220214327) do
+ActiveRecord::Schema.define(version: 20180221103259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -281,6 +281,7 @@ ActiveRecord::Schema.define(version: 20180220214327) do
     t.boolean "stopped"
     t.bigint "idea_id"
     t.string "primary_sponsor_type"
+    t.boolean "keep_going"
     t.index ["idea_id"], name: "index_events_on_idea_id"
     t.index ["place_id"], name: "index_events_on_place_id"
     t.index ["primary_sponsor_id", "primary_sponsor_type"], name: "index_events_on_primary_sponsor_id_and_primary_sponsor_type"

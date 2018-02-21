@@ -23,12 +23,11 @@
 
               .so_far
                 - if idea.ideatype_id != KuusiPalaa::Ideas::Request
-                  = t :x_needed, count: idea.points_needed
-                  |
-                - if idea.ideatype_id == KuusiPalaa::Ideas::Request
-                  = t(:x_comments, count: idea.comments.count, comment: t(:comment, count: idea.comments.count))
-                - else
-                  = t :x_so_far, count: idea.pledges.sum(&:pledge)
+                  = t :x_of_x_so_far, has: idea.pledged, needs: idea.points_needed
+                -# - if idea.ideatype_id == KuusiPalaa::Ideas::Request
+                -# = t(:x_comments, count: idea.comments.count, comment: t(:comment, count: idea.comments.count))
+              .pledge_corner
+                = link_to t(:pledge_p), idea
             - if idea.has_enough?
               .ready.text-center
                 = t :ready_to_be_published
