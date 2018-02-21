@@ -147,6 +147,7 @@ Rails.application.routes.draw do
     end
     resources :stakes
     resources :groups
+    resources :ideas
     member do
       get :get_avatar
       get :get_membership_details

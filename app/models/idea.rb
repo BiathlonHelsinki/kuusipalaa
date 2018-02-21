@@ -100,7 +100,7 @@ class Idea < ApplicationRecord
   end
 
   def has_enough?
-    pledged >= points_needed
+    active? && (    pledged.to_i >= points_needed.to_i  )
   end
 
   def active?

@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   has_many :activities
   has_many :onetimers
   has_many :nfcs
+  has_many :ideas, as: :proposer
   has_many :stakes, dependent: :destroy, as: :owner
   has_and_belongs_to_many :events
   scope :untagged, -> () { includes(:nfcs).where( nfcs: {user_id: nil}) }

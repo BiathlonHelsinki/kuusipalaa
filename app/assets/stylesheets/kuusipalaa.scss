@@ -53,13 +53,13 @@ span.translation_missing {
   color: white;
   font-weight: bold;
   &.alert-notice {
-    background-color: #00bc9e;
+    background-color: $alert;
     a {
       color: white;
     }
   }
   &.alert-alert {
-    background-color: #00bc9e;
+    background-color: $alert;
     a {
       color: white;
     }

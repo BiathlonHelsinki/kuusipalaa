@@ -71,25 +71,39 @@ article.ideas_index {
       }
     }
     .under {
-      min-height: 3rem;
+      min-height: 2.4rem;
       font-size: 0.8rem;
       font-family: $sourcecode;
       font-weight: bold;
       .needed {
-        padding: 15px;
+        padding: 10px;
+        max-width: 33%;
         float: left;
         border-right: 1px solid black;
       }
       .so_far {
-        padding: 15px;
+        padding: 10px;
+        max-width: 100%;
         float: left;
       }
       .pledge_corner {
+        max-width: 33%;
         background-color: black;
         a { color: white; }
-        padding: 15px;
+        padding: 10px;
         float: right;
       }
+    }
+    .draught {
+      border-top: 1px solid black;
+      min-height: 2rem;
+      font-size: 0.8rem;
+      padding: 0.5rem;
+      font-family: $montserrat;
+      font-weight: bold;
+      background-color: $alert;
+      color: white;
+
     }
     .ready {
       border-top: 1px solid black;
@@ -109,28 +123,114 @@ article.ideas_index {
 
 
 .idea_detail_view {
-  .has_enough {
-    padding: 0.75rem 1rem; 
-    .has_enough_banner {
-      font-size: 1.2rem;
-      font-weight: bold;
+  padding: 1.5rem 0;
+  .title_box {
+    border: 1px solid black;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    .title {
       font-family: $sourcecode;
- 
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 1.5rem;
     }
-    a {
-      margin: 1rem 0;
+  
+    .has_enough {
+      padding: 0.75rem 1rem; 
+      .has_enough_banner {
+        font-size: 1.2rem;
+        font-weight: bold;
+        font-family: $sourcecode;
+   
+      }
+      a {
+        margin: 1rem 0;
+        color: white;
+      }
+      font-family: $montserrat;
       color: white;
+      background-color: $pink;
     }
-    font-family: $montserrat;
-    color: white;
-    background-color: $pink;
+  }
+
+  .proposal_info {
+    .columns {
+      border: 1px solid black;
+      border-bottom: none;
+      border-right: none;
+      &.right {
+        border-right: 1px solid black;
+      }
+      &.last {
+        border-bottom: 1px solid black;
+      }
+      padding: 1rem;
+      .heading {
+        font-family: $sourcecode;
+        font-weight: bold;
+      } 
+      .value {
+        font-family: $montserrat;
+        &.indent {
+          margin-left: 2.5rem;
+        }
+        .avatar {
+          margin-right: 0.6rem;
+          img {
+            max-width: 25px;
+            height: auto;
+          }
+          float: left;
+        }
+      }
+    }
   }
   
   .points_stats {
-    font-family: $sourcecode;
-    font-weight: bold;
-    font-size: 1.2rem;
+    padding: 1rem 1rem 0 1rem;
+    font-family: $montserrat;
+    .slider_header {
+      font-size: 0.8rem;
+    }
+    .progress {
+      margin: 0.6rem 0;
+      height: 40px;
+
+    }
+
+    .point_count {
+      font-family: $sourcecode;
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+    .pledge_info {
+      border-top: 1px solid black;
+      .columns {
+        padding: 1rem;
+        &.leftborder {
+          border-left: 1px solid black;
+        }
+        .heading, .larger {
+          font-family: $sourcecode;
+          font-weight: bold;
+          button, a {
+            margin: 0;
+          }
+        } 
+        .value {
+          font-family: $sourcecode;
+          font-weight: bold;
+          font-size: 1.4rem;
+        }
+
+      }
+    }
+    
+    border: 1px solid black;
+   
     margin: 1.5rem 0;
+
+
   }
 
   .pledge_box, .bottom_box {

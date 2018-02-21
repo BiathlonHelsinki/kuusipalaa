@@ -2,6 +2,9 @@ class Group < ApplicationRecord
   has_many :members, dependent: :destroy, as: :source
   has_many :users, through: :members
   has_many :stakes, dependent: :destroy, as: :owner
+  before_save :validate_vat
+  has_many :activities, as: :contributor
+  has_many :ideas, as: :proposer
   has_many :owners,
    -> { where(members: { access_level: KuusiPalaa::Access::OWNER }) },
    through: :members,
@@ -20,8 +23,7 @@ class Group < ApplicationRecord
   before_create :at_least_one_member
   after_create :add_to_activity_feed
   after_update :edit_to_activity_feed
-  before_save :validate_vat
-  has_many :activities, as: :contributor
+
   rolify
   
 

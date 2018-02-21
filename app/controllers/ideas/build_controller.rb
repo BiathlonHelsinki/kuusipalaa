@@ -31,6 +31,7 @@ class Ideas::BuildController < ApplicationController
         end
         if params[:idea][:additionaltimes_attributes]
           params[:idea][:additionaltimes_attributes].permit!.to_hash.each_with_index do |pa, index|
+            next if params[:idea][:additionaltimes_attributes]["#{pa.first}"][:start_at].blank? || params[:idea][:additionaltimes_attributes]["#{pa.first}"][:end_at].blank?
             params[:idea][:additionaltimes_attributes]["#{pa.first}"][:start_at] = Time.parse(pa.last["start_at_date"] + ' ' + pa.last["start_at"]).getutc
             params[:idea][:additionaltimes_attributes]["#{pa.first}"][:end_at] = Time.parse(pa.last["end_at_date"] + ' ' + pa.last["end_at"]).getutc
           end

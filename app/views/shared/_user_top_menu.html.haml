@@ -32,6 +32,7 @@
       %li= link_to t(:edit_profile) , edit_user_path(current_user)
       %li= link_to t(:buy_a_stake) , new_season_stake_path(@current_season)
       %li= link_to t(:your_groups) , user_groups_path(current_user)
+      %li= link_to t(:your_proposals), user_ideas_path(current_user)
       %li= link_to t(:your_stakes), user_stakes_path(current_user)
       - if current_user.has_role?(:admin)
         %li= link_to 'admin side', '/admin'

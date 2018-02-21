@@ -1,76 +1,164 @@
-%article.member_services_index.idea_detail_view
+.idea_detail_view
   .row
-    .small-12.columns.lessright
-      .lifted_box
-        .title
-          = t(:proposal) + ' : '
-          = @idea.name
-        - if @idea.converted?
-          .has_enough.text-center
-            .has_enough_banner= t :this_proposal_was_scheduled
-            = link_to t(:please_see) + @idea.events.first.name, @idea.events.first
-        - elsif @idea.has_enough?
-          .has_enough.text-center
-            .has_enough_banner= t :this_proposal_has_enough_points
-            - if user_signed_in?
-              - if @idea.proposers.include?(current_user)
-                = link_to t(:publish_this_proposal), publish_event_idea_path(@idea), class: [:button, :bordered]
-              - else
-                %p= t :proposer_must_publish
-        .blurb.proposal_review
+    .small-12.columns.title_box
+      .title
+        = @idea.name
+      - if @idea.converted?
+        .has_enough.text-center
+          .has_enough_banner= t :this_proposal_was_scheduled
+          = link_to t(:please_see) + @idea.events.first.name, @idea.events.first
+      - elsif @idea.has_enough?
+        .has_enough.text-center
+          .has_enough_banner= t :this_proposal_has_enough_points
+          - if user_signed_in?
+            - if @idea.proposers.include?(current_user)
+              = link_to t(:publish_this_proposal), publish_event_idea_path(@idea), class: [:button, :bordered]
+            - else
+              %p= t :proposer_must_publish
+      
+  - if @idea.image?
+    .image_box
+      - if @idea.image_width
+        - if @idea.image_width > 800
+          = image_tag @idea.image.url(:twelvehundred)
+        - else
+          = image_tag @idea.image.url(:medium)
+      - else
+        = image_tag @idea.image
 
-          .tagline= @idea.short_description
-          .byline= raw t(:proposed_by, who: link_to(@idea.proposer.display_name, @idea_proposer, target: :_blank), when: l(@idea.created_at, format: :long))
+  .proposal_info.row
 
-          - if @idea.image?
-            .proposal_image= image_tag @idea.image.url(:medium)
-           
-          = render partial: "ideas/#{@idea.ideatype.slug}"
-          .points_stats
-            %strong= t(:points_required_for_this_event)
-            = @idea.points_needed
+    .small-12.medium-6.columns
+      .heading= t :proposed_on
+      .value= l @idea.updated_at, format: :short
 
-        - unless @idea.ideatype == KuusiPalaa::Ideas::Request || @idea.converted?
-          .pledge_box
-            .pledge_heading
-              .row
-                .small-6.columns= t(:still_needed, amount: @idea.points_still_needed)
-                .small-6.columns.pledge_list
-                  - unless @idea.pledges.select(&:persisted?).empty?
-                    %em= t :pledges_from
-                    = raw @idea.pledges.select(&:persisted?).map{|x| [link_to(x.user.display_name, x.user, target: :_blank), "(#{x.pledge})"].join(' ')}.join(', ')
-              - if user_signed_in?  
-                .row
-                  .small-12.columns
-                    = t(:you_can_pledge_a_max_of_x, max: @idea.max_for_user(current_user, @pledge))
-            - if user_signed_in?         
-              .row
-                .small-12.medium-8.columns
-                  .slider{"data-initial-start" => "#{@pledge.new_record? ? 0 : @pledge.pledge}", "data-start" => "0", "data-end" => "#{@idea.max_for_user(current_user, @pledge)}", "data-slider" => ""}
-                    %span.slider-handle{"aria-controls" => "pledge_pledge", "data-slider-handle" => "", :role => "slider", :tabindex => "1"}
-                    %span.slider-fill{"data-slider-fill" => ""}
-                .small-12.medium-4.columns
-                  = semantic_form_for [@idea, @pledge], html: {:"data-abide" => '' } do |f|
-                    = f.input :pledge, label: false
-                    -if @pledge.new_record?
-                      = f.submit t(:pledge_verb), class: [:bordered, :button]
-                    - else
-                      = f.submit t(:change_pledge), class: [:bordered, :button]
-        #comments_list
+    .small-12.medium-6.columns.right
+      .heading= t :proposed_by_empty
+      .value
+        .avatar= link_to image_tag(@idea.proposer.avatar.url(:thumb).gsub(/development/, 'production')), @idea_proposer
+        .who= link_to(@idea.proposer.display_name, @idea_proposer, target: :_blank)
 
-          .comments_title= t :discussion
-          - if @idea.discussion.size > 0
-            .small-12.columns
-              .comment_count
-                = t(:this_proposal_has_x_comments_x_pledges, count: @idea.comments.select(&:persisted?).size, comments: t(:comment, count: @idea.comments.select(&:persisted?).size), pledge_count: @idea.pledges.select(&:persisted?).size, pledges: t(:pledge, count: @idea.pledges.select(&:persisted?).size), pledged: @idea.pledged.to_s)
+    .small-12.medium-6.columns   
+      .heading
+        - if @idea.timeslot_undetermined == true
+          = t :proposed_length
+        - else
+          = t :when
+      .value
+        - if @idea.timeslot_undetermined == true
+          = t(:proposed_length_short, hours: @idea.hours_estimate)
+        - else
+          = date_range(@idea.start_at.localtime, @idea.end_at.localtime)
+          %br/
+          %small= t(:calendar_reserved_from, when: l(@idea.start_at.localtime - 1.hour, format: :short))
+          - unless @idea.additionaltimes.empty?
+            - @idea.additionaltimes.each do |t|
+              .additional
+                = " + "
+                = date_range(t.start_at.localtime, t.end_at.localtime)
+                %br/
+                %small= t(:calendar_reserved_from, when: l(t.start_at.localtime - 1.hour, format: :short))
+    
+    .small-12.medium-6.columns.right  
+      .heading= t :venue
+      .value
+        - case @idea.room_needed
+          - when 1
+            = t(:main_room)
+          - when 2
+            = t(:back_room_short)
+          - when 3
+            = t(:both_rooms_short)
+        - if @idea.allow_others == true
+          %br/
+          = t :others_are_allowed
 
+    .small-12.columns.right
+      .heading= t :short_description
+      .value= @idea.short_description
 
+    .small-12.columns.right.last
+      .heading= t :proposal_description
+      .value= @idea.proposal_text   
 
-          %ul.first= render(partial: 'shared/comment', collection: @idea.discussion.select(&:persisted?).sort_by(&:created_at), locals: {depth: 0, root: @idea, last: @idea.comments.last, commenting_open: !@idea.converted?})
-          #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @idea, depth: 0, commenting_open: !@idea.converted?}
-        - if @idea.converted?
-          .bottom_box= t :proposal_is_closed
-= content_for :jquery do
-  :plain
-    $('.comment_content').readmore({lessLink: '<a class="button readmore" href="#">[#{t(:close)}]</a>', moreLink: '<a class="button readmore" href="#">[#{t(:read_more)}]</a>'});
      
+
+  .row
+    .small-12.columns.points_stats
+      .row.slider_header
+        .small-3.columns= t :points_pledged
+        .small-6.columns &nbsp;
+        .small-3.columns.text-right.end= t :points_required
+      .row
+        .small-12.columns
+          .progress{role: 'progressbar', tabindex: 0, 'aria-valuenow' => @idea.pledged, 'aria-valuemin' => 0, 'aria-valuemax' => @idea.points_needed }
+            .progress-meter
+      .row.point_count
+        .small-3.columns= @idea.pledged.to_s
+        .small-6.columns &nbsp;
+        .small-3.columns.end.text-right= @idea.points_needed.to_s
+      .row.pledge_info
+        .small-12.medium-4.columns
+          .heading= t :still_needed_empty
+          .value
+            = raw(@idea.points_still_needed.to_s + tsign)
+
+        - if user_signed_in?
+          .small-12.medium-4.columns.leftborder
+          
+            .heading= t :you_can_pledge_a_max_empty
+            .value= @idea.max_for_user(current_user, @pledge).to_
+      
+          .small-12.medium-4.columns.leftborder
+            .heading= t :i_want_to_pledge
+
+        - else
+          .small-12.medium-8.columns.leftborder
+            .larger= link_to t(:you_should_join_to_pledge), '/users/sign_in' , class:[:button, :bordered]
+-#       %strong= t(:points_required_for_this_event)
+-#       = @idea.points_needed
+
+-#       - unless @idea.ideatype == KuusiPalaa::Ideas::Request || @idea.converted?
+-#         .pledge_box
+-#           .pledge_heading
+-#             .row
+-#               .small-6.columns= t(:still_needed, amount: @idea.points_still_needed)
+-#               .small-6.columns.pledge_list
+-#                 - unless @idea.pledges.select(&:persisted?).empty?
+-#                   %em= t :pledges_from
+-#                   = raw @idea.pledges.select(&:persisted?).map{|x| [link_to(x.user.display_name, x.user, target: :_blank), "(#{x.pledge})"].join(' ')}.join(', ')
+-#             - if user_signed_in?  
+-#               .row
+-#                 .small-12.columns
+-#                   = t(:you_can_pledge_a_max_of_x, max: @idea.max_for_user(current_user, @pledge))
+-#           - if user_signed_in?         
+-#             .row
+-#               .small-12.medium-8.columns
+-#                 .slider{"data-initial-start" => "#{@pledge.new_record? ? 0 : @pledge.pledge}", "data-start" => "0", "data-end" => "#{@idea.max_for_user(current_user, @pledge)}", "data-slider" => ""}
+-#                   %span.slider-handle{"aria-controls" => "pledge_pledge", "data-slider-handle" => "", :role => "slider", :tabindex => "1"}
+-#                   %span.slider-fill{"data-slider-fill" => ""}
+-#               .small-12.medium-4.columns
+-#                 = semantic_form_for [@idea, @pledge], html: {:"data-abide" => '' } do |f|
+-#                   = f.input :pledge, label: false
+-#                   -if @pledge.new_record?
+-#                     = f.submit t(:pledge_verb), class: [:bordered, :button]
+-#                   - else
+-#                     = f.submit t(:change_pledge), class: [:bordered, :button]
+-#         #comments_list
+
+-#           .comments_title= t :discussion
+-#           - if @idea.discussion.size > 0
+-#             .small-12.columns
+-#               .comment_count
+-#                 = t(:this_proposal_has_x_comments_x_pledges, count: @idea.comments.select(&:persisted?).size, comments: t(:comment, count: @idea.comments.select(&:persisted?).size), pledge_count: @idea.pledges.select(&:persisted?).size, pledges: t(:pledge, count: @idea.pledges.select(&:persisted?).size), pledged: @idea.pledged.to_s)
+
+
+
+-#           %ul.first= render(partial: 'shared/comment', collection: @idea.discussion.select(&:persisted?).sort_by(&:created_at), locals: {depth: 0, root: @idea, last: @idea.comments.last, commenting_open: !@idea.converted?})
+-#           #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @idea, depth: 0, commenting_open: !@idea.converted?}
+-#         - if @idea.converted?
+-#           .bottom_box= t :proposal_is_closed
+-# = content_for :jquery do
+-#   :plain
+-#     $('.comment_content').readmore({lessLink: '<a class="button readmore" href="#">[#{t(:close)}]</a>', moreLink: '<a class="button readmore" href="#">[#{t(:read_more)}]</a>'});
+-#      

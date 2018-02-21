@@ -48,7 +48,18 @@
   end
 
   def index
-    @ideas = Idea.active.order(updated_at: :desc)
+    if params[:user_id]
+      @user = User.friendly.find(params[:user_id])
+
+      @ideas = @user.ideas
+      @user.members.each do |member|
+        @ideas += member.source.ideas
+      end
+      @ideas.uniq!
+
+    else
+      @ideas = Idea.active.where(ideatype_id: 1).order(updated_at: :desc)
+    end
   end
 
   # def new

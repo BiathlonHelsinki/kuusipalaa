@@ -80,6 +80,7 @@ en:
   will_be_reviewed: "Will be reviewed for scheduling at next organisational meeting"
   view: 'View'
   still_needed: '%{amount} still needed'
+  still_needed_empty: 'Points still needed'
   pledge_verb: 'Pledge!'
   must_enter_valid_email: 'You must enter a valid email address to propose (or pledge towards) an experiment.'
   donate_to_temporary: 'Donate to Temporary!'
@@ -549,7 +550,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   take_the_survey: 'Take the survey...'
   temporary_ends_1_september: 'Temporary ends on 1 September 2017.'
   more_info: 'More info...'
-  you_should_join_to_pledge: 'To participate in and support this experiment, join the Temporary website now!'
+  you_should_join_to_pledge: 'To participate in and support this experiment, join the Kuusi Palaa website now!'
   join: 'Join!'
   temporary_closed: 'Temporary is closing on 1 September 2017. No further experiments will be scheduled, though you can still pledge Temps as supported experiments may form a starting programme for the post-Temporary project.'
   thanks_for_taking_survey: 'Thank you for completing the survey.'
@@ -975,6 +976,9 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   proposed_to_take_place_in: 'Proposed to take place in: '
   publish_proposal_as: 'Publish this as: '
   you_can_pledge_a_max_of_x: 'You can pledge a maximum of %{max} points to this.'
+  you_can_pledge_a_max_empty: 'You can pledge a maximum of'
+  i_want_to_pledge: 'I want to pledge'
+  as: ' as '
   thing:
     time_details: 'Times and dates'
     choose_dates: 'For how long do you wish to have this in ths Kuusi Palaa space?'
@@ -1044,3 +1048,10 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   pledge_p: 'Pledge ᵽ'
   you_are_editing_your_proposal: "You are editing your proposal. It has been removed from the active proposals page until you re-publish it."
   organise_an_event: 'Organise an event'
+  points_pledged: 'points pledged'
+  points_required: 'points required'
+  your_proposals: 'Your proposals'
+  proposals_for_user: 'Proposals belonging to %{user}:'
+  draught_mode: 'Draft mode (not visible to everyone)'
+  click_to_resume: 'Resume editing'
+  no_times_proposed_yet: 'No times proposed'

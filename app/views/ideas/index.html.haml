@@ -3,7 +3,11 @@
     .row
 
       .small-12.discussions
-        .header.text-center= t :all_active_proposals
+        .header.text-center
+          - if @user
+            = t :proposals_for_user, user: @user.display_name
+          - else
+            = t :all_active_proposals
 
     .row.small-up-1.large-up-3.medium-up-2
       - @ideas.each do |idea|
@@ -21,16 +25,25 @@
               .needed
                 = t((idea.ideatype.slug + '_category').to_sym)
 
-              .so_far
+              .so_far.text-center
                 - if idea.ideatype_id != KuusiPalaa::Ideas::Request
-                  = t :x_of_x_so_far, has: idea.pledged, needs: idea.points_needed
+                  - if idea.points_needed.nil?
+                    = t :no_times_proposed_yet
+                  - else
+                    = t :x_of_x_so_far, has: idea.pledged, needs: idea.points_needed
                 -# - if idea.ideatype_id == KuusiPalaa::Ideas::Request
                 -# = t(:x_comments, count: idea.comments.count, comment: t(:comment, count: idea.comments.count))
               .pledge_corner
                 = link_to t(:pledge_p), idea
+            - unless idea.active?
+              .draught.text-center
+                = t :draught_mode
+                - if can? :edit, idea
+                  = link_to t(:click_to_resume), edit_idea_path(idea)
             - if idea.has_enough?
               .ready.text-center
                 = t :ready_to_be_published
+
 
     .row
       .small-12.medium-6.columns.lessmargins.small-centered
