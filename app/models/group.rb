@@ -6,6 +6,10 @@ class Group < ApplicationRecord
    -> { where(members: { access_level: KuusiPalaa::Access::OWNER }) },
    through: :members,
    source: :user
+  has_many :privileged,
+   -> { where(members: { access_level: KuusiPalaa::Access::REGULAR_MEMBER..KuusiPalaa::Access::OWNER}) },
+   through: :members,
+   source: :user 
   extend FriendlyId
   friendly_id :name , :use => [ :slugged, :finders, :history]
   mount_uploader :avatar, ImageUploader

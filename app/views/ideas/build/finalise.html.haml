@@ -6,45 +6,66 @@
 
         .blurb.proposal_review
           %p= t :please_review_and_finalise_proposal
-          .final_title= @idea.name
-          .byline
-            = raw t(:proposed_by, who: link_to(@idea.proposer.display_name, @idea_proposer, target: :_blank), when: l(@idea.created_at, format: :long))
+
+          %table.proposal_review_table
+            %tr
+              %td{colspan: 2}
+                .heading= t :proposal_name
+                .value.indent= @idea.name
+              %td
+                .heading= t :proposed_on
+                .value= l @idea.updated_at, format: :long
+            %tr
+              %td
+                .heading= t :proposed_by_empty
+                .value.indent
+                  .avatar= link_to image_tag(@idea.proposer.avatar.url(:thumb).gsub(/development/, 'production')), @idea_proposer
+                  .who= link_to(@idea.proposer.display_name, @idea_proposer, target: :_blank)
+              %td
+                .heading
+                  - if @idea.timeslot_undetermined == true
+                    = t :proposed_length
+                  - else
+                    = t :when
+                .value
+                  - if @idea.timeslot_undetermined == true
+                    = t(:proposed_length_short, hours: @idea.hours_estimate)
+                  - else
+                    = date_range(@idea.start_at.localtime, @idea.end_at.localtime)
+                    %br/
+                    %small= t(:calendar_reserved_from, when: l(@idea.start_at.localtime - 1.hour, format: :short))
+                    - unless @idea.additionaltimes.empty?
+                      - @idea.additionaltimes.each do |t|
+                        .additional
+                          = " + "
+                          = date_range(t.start_at.localtime, t.end_at.localtime)
+                          %br/
+                          %small= t(:calendar_reserved_from, when: l(t.start_at.localtime - 1.hour, format: :short))
+              %td
+                .heading= t :venue
+                .value
+                  - case @idea.room_needed
+                    - when 1
+                      = t(:main_room)
+                    - when 2
+                      = t(:back_room_short)
+                    - when 3
+                      = t(:both_rooms_short)
+                  - if @idea.allow_others == true
+                    %br/
+                    = t :others_are_allowed
+            %tr
+              %td{colspan: 3}
+                .heading= t :proposal_short_description
+                .value.indent= @idea.short_description
+            %tr
+              %td{colspan: 3}
+                .heading= t :proposal_description
+                .value.indent= @idea.proposal_text
+
           - if @idea.image?
             .proposal_image= image_tag @idea.image.url(:medium)          
-          .short_description
-            %strong= t :proposal_short_description
-            = @idea.short_description
-          .when
-            - if @idea.timeslot_undetermined == true
-              = t(:pick_times_anyway)
-              = t(:proposed_length_is, hours: @idea.hours_estimate)
-            - else
-              = date_range(@idea.start_at.localtime, @idea.end_at.localtime)
-              %small= t(:calendar_reserved_from, when: l(@idea.start_at.localtime - 1.hour, format: :short))
-              - unless @idea.additionaltimes.empty?
-                - @idea.additionaltimes.each do |t|
-                  .additional
-                    = " + "
-                    = date_range(t.start_at.localtime, t.end_at.localtime)
-                    %small= t(:calendar_reserved_from, when: l(t.start_at.localtime - 1.hour, format: :short))
-          .other_meta
-            %p
-              %strong= t :room_needed
-              - case @idea.room_needed
-                - when 1
-                  = t(:main_room)
-                - when 2
-                  = t(:back_room)
-                - when 3
-                  = t(:both)
-            %p
-              - if @idea.allow_others == true
-                = t :others_are_allowed
 
-
-          .description
-            %strong= t :proposal_description
-            = @idea.proposal_text
 
           = semantic_nested_form_for @idea, url: "/ideas/#{@idea.id.to_s}/build/finalise", html: { method: :put, multipart: true, :'data-abide' => ''} do |f|
             = f.input :special_notes, label: t(:special_notes), hint: t(:special_notes_explanation)

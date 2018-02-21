@@ -441,9 +441,14 @@ a.not-active {
   }
 }
 form {
-  input[type=text], textarea {
+  input[type=text], textarea, input[type=number], input[type=email], input[type=password], input[type=checkbox] {
+    border: 1px solid black;
+    outline: none;
     margin-bottom: 0.2rem !important;
   } 
+  a.add_nested_fields {
+    margin-top: 1.5rem;
+  }
   li {
     margin-top: 1rem;
   }

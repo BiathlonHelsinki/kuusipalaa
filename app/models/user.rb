@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
     self.errors.add(:username, 'is already taken') if Group.where(["lower(name) = ?", self.username.downcase]).exists?
   end
 
+  def privileged
+    [self]
+  end
+  
   def charge_vat?
     false
   end

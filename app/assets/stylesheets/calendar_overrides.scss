@@ -13,16 +13,32 @@
   }
 }
 a.fc-event { 
+  padding: 0.5rem 0;
   border: 1px solid #999;
   background-color: #999;
   color: white;
+  &.event {
+    background-color: black;
+    pointer-events: none; 
+    &:hover {
+      background-color: black;
+    }
+  }
+  &.proposal {
+    pointer-events: none;
+    &:hover {
+      background-color: #999;
+    }
+  }
   &:hover {
     background-color: $pink;
   }
   .fc-content {
+    text-align: center;
     span.fc-title {
       font-family: $sourcecode;
       font-weight: bold;
+      white-space: initial;
     }
   }
 }

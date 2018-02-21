@@ -16,8 +16,9 @@ var options = {
     slotMinutes: 30,
     eventClick: function(calEvent, jsEvent, view) {
       $('#idea_start_at').val(calEvent.day);
-      $('.fc-event').css('background-color', 'black');
-      $(this).css('background-color', 'red');
+      $('.fc-event').css('background-color', '#AAA');
+      $(this).css('background-color', '#f05e6b');
+      $(window).scrollTo('#actions', {duration: 1000});
       return false;
     },
     eventSources: [
@@ -25,6 +26,22 @@ var options = {
         url: "/ideas/calendar.json"
       }
     ],
+    eventRender: (event, element, view) => {
+      element.addClass(event.class)          
+    },
+    eventAfterAllRender: (view) => {
+      if ($('#idea_start_at').val() != '') {
+        $('a.fc-event[href="choose_day/' + moment($('#idea_start_at').val()).format("YYYY-MM-DD") + '"]').css('background-color', '#f05e6b');
+      }  
+      $('a.event').on('click', function(e) {
+        e.preventDefault();
+        $(this).css({'pointer-events' : 'none'});
+      })
+      $('a.proposal').on('click', function(e) {
+        e.preventDefault();
+        $(this).css({'pointer-events' : 'none'});
+      })
+    },
     displayEventEnd: {
       month: true,
       basicWeek: true,
@@ -65,7 +82,12 @@ if (screenWidth < 700) {
   $fc.fullCalendar(mobileOptions);
   } else {
     $fc.fullCalendar(options);
-  };
+  }
+ var today = new Date();
+  var d = today.getFullYear()+'-0'+(today.getMonth()+1)+'-'+today.getDate();
+  if (d < '2018-03-01') {
+    $fc.fullCalendar('gotoDate', '2018-03-01');
+  }
 
 $(window).resize(function() {
   screenWidth = $(window).width(); 
@@ -75,4 +97,9 @@ $(window).resize(function() {
     } else {
       $fc.fullCalendar(options);
     };
+     var today = new Date();
+  var d = today.getFullYear()+'-0'+(today.getMonth()+1)+'-'+today.getDate();
+  if (d < '2018-03-01') {
+    $fc.fullCalendar('gotoDate', '2018-03-01');
+  }
 });

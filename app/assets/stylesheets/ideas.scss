@@ -240,3 +240,34 @@ article.ideas_index {
 
   }
 }
+
+table.proposal_review_table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  tbody tr:nth-child(even), tbody tr:nth-child(odd) {
+    background-color: white !important;
+  }
+  td {
+    vertical-align: top;
+    border: 1px solid black;
+    padding: 0.5rem;
+    .heading {
+      font-family: $sourcecode;
+      font-weight: bold;
+    }
+    .value {
+      font-family: $montserrat;
+      &.indent {
+        margin-left: 2.5rem;
+      }
+      .avatar {
+        margin-right: 0.6rem;
+        img {
+          max-width: 25px;
+          height: auto;
+        }
+        float: left;
+      }
+    }
+  }
+}

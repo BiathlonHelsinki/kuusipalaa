@@ -9,7 +9,7 @@ var options = {
       right: 'month,agendaWeek,agendaDay'
     },
     defaultView: 'month',
-    contentHeight: '400px',
+
     locale: '<%= I18n.locale.to_s %>',
     contentHeight: 'auto',
     firstDay: 1,
@@ -52,7 +52,7 @@ var mobileOptions = {
     right: 'month,agendaWeek,agendaDay'
   },
   defaultView: 'listMonth',
-  contentHeight: '400px',
+
   locale: '<%= I18n.locale.to_s %>',
   contentHeight: 'auto',
   firstDay: 1,
@@ -101,7 +101,11 @@ if (screenWidth < 700) {
   } else {
     $fc.fullCalendar(options);
   };
-
+  var today = new Date();
+  var d = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  if (d < '2018-03-01') {
+    $fc.fullCalendar('gotoDate', '2018-03-01');
+  }
 
 
 var updateEvent = function(the_event) {

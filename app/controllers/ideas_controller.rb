@@ -5,7 +5,7 @@
   def calendar
     #  build month
     @times = []
-    start = params['start'].to_date
+    start = [params['start'].to_date, '2018-03-01'.to_date].max
     enddate = params['end'].to_date
     (start..enddate).each do |day|
       next if day < Time.now.utc.to_date
@@ -14,7 +14,11 @@
     end
 
     #  add existing instances and probably proposals too
-    @times += Instance.published.between(params['start'], params['end']) if (params['start'] && params['end'])
+    @times += Instance.calendered.published.between(params['start'], params['end']) if (params['start'] && params['end'])
+    @times +=  Idea.active.timed.unconverted.between(params['start'], params['end'])  if (params['start'] && params['end'])
+    @times += Additionaltime.between(params['start'], params['end']).to_a.delete_if{|x| !x.item.converted_id.nil?}
+
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @times.flatten.uniq }

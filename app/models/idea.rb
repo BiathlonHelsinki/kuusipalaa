@@ -25,9 +25,31 @@ class Idea < ApplicationRecord
 
   mount_uploader :image, ImageUploader
   before_save :update_image_attributes
-
+  scope :between, -> (start_time, end_time) { 
+    where( [ "(start_at >= ?  AND  end_at <= ?) OR ( start_at >= ? AND end_at <= ? ) OR (start_at >= ? AND start_at <= ?)  OR (start_at < ? AND end_at > ? )",
+    start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), 
+    start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db)])
+  }
+  scope :timed, -> () { where(timeslot_undetermined: false)}
   scope :active, ->() { where(status: 'active')}
   scope :needing_to_be_published,  ->() { where(notified: :true).where(converted_id: nil)}
+  scope :converted, -> () { where("converted_id is not null")}
+  scope :unconverted, -> () { where(converted_id: nil)}
+  
+  def as_json(options = {})
+    {
+      :id => self.id,
+      :title =>  self.name,
+      :description => self.short_description || "",
+      :start => start_at.nil? ? nil : start_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
+      :end => end_at.nil? ? nil : end_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
+      :allDay => false, 
+      :recurring => false,
+      :temps => self.points_needed,
+      class: 'proposal',
+      :url => Rails.application.routes.url_helpers.idea_path(self.slug)
+    } 
+  end 
 
   def converted?
     !events.empty?

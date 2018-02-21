@@ -8,13 +8,13 @@
 
           = semantic_form_for @idea,url: "/ideas/#{@idea.id.to_s}/build/when", html: { method: :put, multipart: true, :'data-abide' => ''} do |f|
             %p
-              = radio_button_tag 'idea[timeslot_undetermined]', 'true',  false, {class: :radio }
+              = radio_button_tag 'idea[timeslot_undetermined]', 'true',  f.object.timeslot_undetermined, {class: :radio }
               %label.radio{for: :idea_timeslot_undetermined_true}
               = t :undetermined_time 
 
             %p.small= t :private_event_explanation
             %p
-              = radio_button_tag 'idea[timeslot_undetermined]', 'false', false, { required: 'required',  class: :radio}
+              = radio_button_tag 'idea[timeslot_undetermined]', 'false', f.object.timeslot_undetermined == false, { required: 'required',  class: :radio}
               %label.radio{for: :idea_timeslot_undetermined_false}
               = t :choose_from_calendar 
             %p.small= t :public_event_explanation       
@@ -30,12 +30,14 @@
                 :javascript
                   #{render partial: 'ideas/build/calendar', locals: {user: current_user.id }, formats: [:js]}
             .row
-              .small-12.columns
+              .small-12.columns#actions
                 = f.actions do
                   = f.action :submit, :label => raw("<i class='fa fa-caret-left icon-large'></i> ") + t(:back), :as => :button, button_html: {:class => [:button, :bordered], rel: :previous}
                   = f.action :submit, :label => raw(t(:next) + " <i class='fa fa-caret-right icon-large'></i> ") , :as => :button,button_html: {:class => [:button, :bordered] }
+
 = content_for :jquery do
   :plain
+
     $('form button').click(function() {
       if ($('#form_direction').val() == 'previous') {
         $('input, div, form').removeAttr('data-invalid'); 
@@ -49,7 +51,7 @@
 
           // call a function here, or do whatever now that the div is  visible
           #{render partial: 'ideas/build/calendar', locals: {user: current_user.id }, formats: [:js]}
-      
+              
       } else {
           setTimeout(pollVisibility, 500);
       }

@@ -5,7 +5,12 @@ class Ability
     user ||= User.new
     if user.has_role? :admin
       if user.is_a?(User)
-        can :manage, :all
+        can :manage, Idea,  proposer_type: 'User', proposer_id: user.id
+        can :manage, Idea do |idea|
+          idea.proposer.privileged.include?(user)
+        end
+
+ 
         can :manage, Page
         can :manage, Post
         # can :manage, Credit
@@ -18,10 +23,14 @@ class Ability
       can :manage, Post
       can :manage, Comment
       can :read, Stake, bookedby_id: user.id
-    else
-      can :read, Stake, bookedby_id: user.id
 
-      # can :read, :all
+    elsif user.is_a?(User)
+      can :manage, Idea, proposer_type: 'User', proposer_id: user.id
+      can :manage, Idea, proposer_type: 'Group' if  user.members.where("access_level >= 10" ).map(&:source_id).include?(:proposer_id)
+ 
+
+      can :read, Stake, bookedby_id: user.id
+     # can :read, :all
       can :manage, User, :id => user.id
       cannot :manage, Post
       # cannot :manage, Credit

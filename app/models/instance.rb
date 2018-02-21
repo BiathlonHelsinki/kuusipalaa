@@ -16,6 +16,7 @@ class Instance < ApplicationRecord
     start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db)])
   }
   scope :published, -> () { where(published: true) }
+  scope :calendered, -> () { where("open_time is not true")}
   scope :not_cancelled, -> { where('cancelled is not true') }
   scope :meetings, -> () {where(is_meeting: true)}
   scope :future, -> () {where(["published is true and cancelled is not true and end_at >=  ?", Time.now.utc.strftime('%Y/%m/%d %H:%M')]) }
@@ -35,6 +36,7 @@ class Instance < ApplicationRecord
       :recurring => false,
       :temps => self.cost_bb,
       :cancelled => self.cancelled,
+      class: 'event',
       :url => Rails.application.routes.url_helpers.event_instance_path(event.slug, slug)
     } 
   end 
