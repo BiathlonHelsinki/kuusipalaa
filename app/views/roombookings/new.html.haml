@@ -85,7 +85,22 @@
 
 
 
-    $('.datetimepicker').fdatetimepicker({ weekStart: 1, format: 'yyyy-mm-dd', minView: 2, startview:2 }).on('changeDate', () => {
+    $('.datetimepicker').fdatetimepicker({ weekStart: 1, format: 'yyyy-mm-dd', minView: 2, startview:2 }).on('changeDate', (event) => {
+        let called = event.target.id
 
+          $.get('/roombookings/calendar.json?start=' + $('#' + called).val() + '&end=' + $('#' + called).val(), (data) => {
+            let blacklist = []
+            data.forEach((d) => {
+              if (d.id) {
+                var start = d.start.split("T")[1].replace(/\.00.*$/, '');
+                var myend = d.end.split("T")[1].replace(/\.00.*$/, '');
+                console.log(myend)
+                blacklist.push([start, myend])
+              }
+            })
+            
+            $('.timepicker#' + called.replace(/_date$/, '')).timepicker('remove')
+            $('.timepicker#' + called.replace(/_date$/, '')).timepicker({ 'timeFormat': 'H:i', 'disableTimeRanges': blacklist});
+         })
         $(this).fdatetimepicker('hide')
       })

@@ -18,6 +18,7 @@ class Instance < ApplicationRecord
   scope :published, -> () { where(published: true) }
   scope :calendered, -> () { where("open_time is not true")}
   scope :not_cancelled, -> { where('cancelled is not true') }
+  scope :back_room, ->() {where("room_needed in (2,3)")}
   scope :meetings, -> () {where(is_meeting: true)}
   scope :future, -> () {where(["published is true and cancelled is not true and end_at >=  ?", Time.now.utc.strftime('%Y/%m/%d %H:%M')]) }
   scope :past, -> () {where(["end_at <  ?", Time.now.utc.strftime('%Y/%m/%d %H:%M')]) }

@@ -3,7 +3,7 @@ class RoombookingsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :cancel]
   
   def calendar
-    @roombookings = Roombooking.between(params['start'], params['end']) if (params['start'] && params['end'])
+    @roombookings = Roombooking.between([params['start'].to_date, '2018-03-01'.to_date].max, params['end']) if (params['start'] && params['end'])
 
     # @events += events.reject{|x| !x.one_day? }
     if params[:format] == 'ics'
@@ -28,9 +28,10 @@ class RoombookingsController < ApplicationController
     end
     set_meta_tags title: 'Calendar'
     #
-    # add booking links
+    # add existing proposals and events
+
     @roombookings = @roombookings.to_a
-    (params[:start].to_date..params[:end].to_date).each do |d|
+    ([params['start'].to_date, '2018-03-01'.to_date].max.to_date..params[:end].to_date).each do |d|
 
       next if d < Time.current.to_date
       # if user_signed_in?
@@ -44,10 +45,15 @@ class RoombookingsController < ApplicationController
       #   end
       # else
         
-        @roombookings << {id: nil, title: I18n.t(:book_this_day), start: d.strftime('%Y-%m-%d 00:00:01'),
+      @roombookings << {id: nil, title: I18n.t(:book_this_day), start: d.strftime('%Y-%m-%d 00:00:01'),
                           end: d.strftime('%Y-%m-%d 23:59:59'), allDay: true, day: d, url: new_roombooking_path(day: d)}
       # end
     end
+    @roombookings +=  Idea.active.timed.unconverted.back_room.between(params['start'], params['end'])  if (params['start'] && params['end'])
+    @roombookings += Additionaltime.between(params['start'], params['end']).to_a.delete_if{|x| !x.item.converted_id.nil?}.delete_if{|x| x.item.room_needed == 1}
+    @roombookings += Instance.calendered.published.back_room.between(params['start'], params['end']) if (params['start'] && params['end'])
+  
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @roombookings }

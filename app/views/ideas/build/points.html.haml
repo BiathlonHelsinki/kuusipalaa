@@ -112,7 +112,7 @@
         var dateField = field.find('.datetimepicker');
         // and activate datepicker on it
         dateField.fdatetimepicker({ weekStart: 1, initialDate : $('#idea_start_at_date').val(), format: 'yyyy-mm-dd', minView: 2, startview:2 }).on('changeDate', function(){
-          let called = $(this).attr ( "id" )
+          let called = $(this).attr("id")
           $.get('/events/calendar.json?start=' + $(this).val() + '&end=' + $(this).val(), (data) => {
             let blacklist = []
             data.forEach((d) => {

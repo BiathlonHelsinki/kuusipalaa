@@ -9,7 +9,7 @@ class EventsController < ApplicationController
     # events = Event.published.between(params['start'], params['end']) if (params['start'] && params['end'])
     @events = []
     # @events += events.map{|x| x.instances.published}.flatten
-    @events += Instance.published.between(params['start'], params['end']) if (params['start'] && params['end'])
+    @events += Instance.published.calendered.between(params['start'], params['end']) if (params['start'] && params['end'])
     @events.uniq!
     @events.flatten!
  

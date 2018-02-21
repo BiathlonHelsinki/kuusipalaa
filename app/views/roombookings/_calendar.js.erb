@@ -36,7 +36,7 @@ var options = {
     return updateEvent(event);
   },
   eventRender: function(copiedEventObject,element) {
-
+    element.addClass(copiedEventObject.class)          
     var icon = $(document.createElement('div'));
     if (copiedEventObject.icon_url) {
       icon.addClass('roomcalendar_icon');
@@ -115,9 +115,14 @@ var mobileOptions = {
 
 if (screenWidth < 700) {
   $fc.fullCalendar(mobileOptions);
-  } else {
-    $fc.fullCalendar(options);
-  };
+} else {
+  $fc.fullCalendar(options);
+}
+var today = new Date();
+var d = today.getFullYear()+'-0'+(today.getMonth()+1)+'-'+today.getDate();
+if (d < '2018-03-01') {
+  $fc.fullCalendar('gotoDate', '2018-03-01');
+}
 
 
 var updateEvent = function(the_event) {
@@ -137,8 +142,13 @@ $(window).resize(function() {
   $fc.fullCalendar('destroy');
   if (screenWidth < 700) {
     $fc.fullCalendar(mobileOptions);
-    } else {
-      $fc.fullCalendar(options);
-    };
+  } else {
+    $fc.fullCalendar(options);
+  }
+  var today = new Date();
+  var d = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  if (d < '2018-03-01') {
+    $fc.fullCalendar('gotoDate', '2018-03-01');
+  }
   
 });

@@ -102,7 +102,7 @@ if (screenWidth < 700) {
     $fc.fullCalendar(options);
   };
   var today = new Date();
-  var d = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var d = today.getFullYear()+'-0'+(today.getMonth()+1)+'-'+today.getDate();
   if (d < '2018-03-01') {
     $fc.fullCalendar('gotoDate', '2018-03-01');
   }

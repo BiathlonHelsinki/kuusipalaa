@@ -25,6 +25,7 @@ class Roombooking < ApplicationRecord
       :allDay => true, 
       :recurring => false,
       :temps => self.points_needed,
+      class: 'booking',
       :url => Rails.application.routes.url_helpers.user_path(self.user)
     }
     

@@ -17,7 +17,7 @@ a.fc-event {
   border: 1px solid #999;
   background-color: #999;
   color: white;
-  &.event {
+  &.event, &.booking {
     background-color: black;
     pointer-events: none; 
     &:hover {
@@ -115,6 +115,11 @@ a.fc-event {
                                 }
                               }
                             }
+                          }
+                        }
+                        tbody {
+                          td {
+                            background-color: white;
                           }
                         }
                       }
