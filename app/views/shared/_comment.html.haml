@@ -10,7 +10,7 @@
             .comment_body
               .comment_type
                 - if comment.class == Comment
-                  = raw t(:user_says_on, :user => comment.contributor.display_name, date: l(comment.created_at, format: :long))
+                  = raw t(:user_says_on, :user => link_to(comment.contributor.display_name, comment.contributor, target: :_blank), date: l(comment.created_at, format: :long))
                 - elsif comment.class == Pledge
                   = raw t(:has_pledged, user: link_to(comment.user.display_name, comment.user, target: :_blank), amount: comment.pledge)
                   - unless comment.extra_info.blank?
@@ -20,9 +20,7 @@
                 .comment_content
                   - link_filter = AutoHtml::Link.new(target: '_blank')
                   = raw link_filter.call(simple_format(comment.content_linked))
-                  - if user_signed_in?
-                    - if can?(:destroy, comment) && comment.comments.empty? && comment.class != Pledge && commenting_open
-                      = link_to fa_icon('trash'), comment, method: :delete, data: {confirm: t(:are_you_sure_delete_comment)} #, class: [:button, :tiny, :alert]
+
                   - if comment.image?
                     %br/
                     .image_attached= image_tag comment.image.url(:medium)
@@ -31,22 +29,23 @@
             - if comment.class == Comment  && commenting_open
               .row
                 .sma11-12.large-10.columns
-                  .row
-                    .small-4.columns.horizontal_line
-                    .small-8.columns
-                      %button.button{type: :button, :'data-toggle' => 'reply_dropdown_' + comment.id.to_s }= "Comment"
-                      .dropdown-pane{id:'reply_dropdown_' + comment.id.to_s, :'data-dropdown' => '', :'data-close-on-click' => true, :'data-auto-focus' => true}
-                        = link_to t(:comment_in_main_thread), '#', onclick: "$('.dropdown-pane').foundation('close');$(document).scrollTo('#main_thread', 800);return false;", class: [:button, :tiny, :secondary]
-                        %br/
-                        - if depth > 0
-                          - if depth == 1
-                            = link_to t(:comment_this_subthread), '#', onClick: "$('.dropdown-pane').foundation('close');$('#comment_#{comment.item.id.to_s}.occluded_form').slideToggle();$(document).scrollTo('#comment_#{comment.item.id.to_s}.occluded_form', 800);return false;", class: [:button, :tiny, :secondary]
+                  .avatar_spacer &nbsp;
+                  %button.button{type: :button, :'data-toggle' => 'reply_dropdown_' + comment.id.to_s }= t(:reply)
+                  - if user_signed_in?
+                    - if can?(:destroy, comment) && comment.comments.empty? && comment.class != Pledge && commenting_open
+                      = link_to fa_icon('trash'), comment, method: :delete, data: {confirm: t(:are_you_sure_delete_comment)} #, class: [:button, :tiny, :alert]
+                  .dropdown-pane{id:'reply_dropdown_' + comment.id.to_s, :'data-dropdown' => '', :'data-close-on-click' => true, :'data-auto-focus' => true}
+                    = link_to t(:comment_in_main_thread), '#', onclick: "$('.dropdown-pane').foundation('close');$(document).scrollTo('#main_thread', 800);return false;", class: [:button, :tiny, :secondary]
+                    %br/
+                    - if depth > 0
+                      - if depth == 1
+                        = link_to t(:comment_this_subthread), '#', onClick: "$('.dropdown-pane').foundation('close');$('#comment_#{comment.item.id.to_s}.occluded_form').slideToggle();$(document).scrollTo('#comment_#{comment.item.id.to_s}.occluded_form', 800);return false;", class: [:button, :tiny, :secondary]
 
-                          - else
-                            = link_to t(:comment_this_subthread), '#', onClick: "$('.dropdown-pane').foundation('close');$('#comment_#{comment.item.id.to_s}.occluded_form').slideToggle();$(document).scrollTo('#comment_#{comment.item.id.to_s}.occluded_form', 800);return false;", class: [:button, :tiny, :secondary]
-                          %br/
-                        - if comment.comments.empty? && depth < 2
-                          = link_to t(:start_new_thread), '#', onClick: "$('.dropdown-pane').foundation('close');$('#comment_#{comment.id.to_s}.occluded_form').slideToggle();return false;", class: [:button, :tiny, :secondary]
+                      - else
+                        = link_to t(:comment_this_subthread), '#', onClick: "$('.dropdown-pane').foundation('close');$('#comment_#{comment.item.id.to_s}.occluded_form').slideToggle();$(document).scrollTo('#comment_#{comment.item.id.to_s}.occluded_form', 800);return false;", class: [:button, :tiny, :secondary]
+                      %br/
+                    - if comment.comments.empty? && depth < 2
+                      = link_to t(:start_new_thread), '#', onClick: "$('.dropdown-pane').foundation('close');$('#comment_#{comment.id.to_s}.occluded_form').slideToggle();return false;", class: [:button, :tiny, :secondary]
 
         - if comment.class == Comment                   
           - unless comment.comments.empty?

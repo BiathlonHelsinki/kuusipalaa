@@ -103,6 +103,10 @@ class Idea < ApplicationRecord
     active? && (    pledged.to_i >= points_needed.to_i  )
   end
 
+  def draught?
+    !active?
+  end
+  
   def active?
     status == 'active'
   end

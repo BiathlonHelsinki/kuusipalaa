@@ -1,6 +1,6 @@
 .edit_profile
   .row
-    .medium-8.small-10.columns.small-centered
+    .small-10.columns.small-centered
       .lifted_box
         .title
           = t :your_profile
@@ -10,7 +10,7 @@
 
 
 
-          = semantic_nested_form_for @user, html: {multipart: true, :'data-abide' => ''} do |f|
+          = semantic_nested_form_for @user, html: {multipart: true, :'data-abide' => '', id: "user_form"} do |f|
             .row
               .small-10.medium-8.columns
                 = f.input :email, label: t(:email)
@@ -25,8 +25,9 @@
                   - unless f.object.authentications.select{|x| x.provider == 'twitter' }.empty?
                     = f.input :show_twitter_link, label: 'Show link to your Twitter feed on your public profile?'
 
+                = f.input :pin, label: t(:your_pin), hint: t(:pin_explanation), input_html: {value: '', maxlength: 6, type: :password, pattern: "^.{4,6}$", placeholder:  (f.object.pin.blank? ? t(:enter_pin) : t(:change_pin))}
                 .subsection
-                  %h3= t :contact_details
+                  .subtitle= t :contact_details
                   .info
                     = f.input :opt_in, label: t(:opt_in), hint:  t(:we_wont_do_this)
                     .row
@@ -48,4 +49,29 @@
 
 
             .row
-              .small-12.columns= f.submit t(:save), class: [:button, :small]
+
+              .small-12.columns= f.submit t(:save), class: [:button, :bordered], id: :submit_form
+= content_for :jquery do
+  :plain
+    $('#submit_form').on('click', () => {
+      if ($('#user_pin').val() == '') {
+        $('#user_pin').prop("disabled", true);
+
+      }
+      $('#user_form').submit();
+    })
+    $('#user_pin').keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+             // Allow: Ctrl+A, Command+A
+            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+             // Allow: home, end, left, right, down, up
+            (e.keyCode >= 35 && e.keyCode <= 40)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });

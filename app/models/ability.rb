@@ -9,7 +9,7 @@ class Ability
         can :manage, Idea do |idea|
           idea.proposer.privileged.include?(user)
         end
-
+        can :manage, Stake
  
         can :manage, Page
         can :manage, Post

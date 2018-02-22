@@ -5,6 +5,7 @@ class Group < ApplicationRecord
   before_save :validate_vat
   has_many :activities, as: :contributor
   has_many :ideas, as: :proposer
+  has_many :pledges, as: :pledger
   has_many :owners,
    -> { where(members: { access_level: KuusiPalaa::Access::OWNER }) },
    through: :members,
@@ -14,19 +15,30 @@ class Group < ApplicationRecord
    through: :members,
    source: :user 
   extend FriendlyId
+  has_many :accounts, as: :holder
   friendly_id :name , :use => [ :slugged, :finders, :history]
   mount_uploader :avatar, ImageUploader
   before_save :update_avatar_attributes
   # process_in_background :avatar
   validates_presence_of :name
   validate :uniqueness_of_a_name
+  before_validation :copy_password
   before_create :at_least_one_member
   after_create :add_to_activity_feed
   after_update :edit_to_activity_feed
+  validates_presence_of :geth_pwd
+
 
   rolify
   
+  def available_balance
+    latest_balance - pending_pledges.sum(&:pledge)
+  end
 
+  def pending_pledges
+     pledges.unconverted
+  end
+  
   def keys
     members.select{|x| x.has_key == true}.map(&:user)
   end
@@ -60,6 +72,12 @@ class Group < ApplicationRecord
       else
         return 100
       end
+    end
+  end
+
+  def copy_password
+    if geth_pwd.blank?
+      self.geth_pwd = SecureRandom.hex(13)
     end
   end
 

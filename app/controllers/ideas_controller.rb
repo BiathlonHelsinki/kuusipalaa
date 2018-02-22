@@ -59,6 +59,13 @@
 
     else
       @ideas = Idea.active.where(ideatype_id: 1).order(updated_at: :desc)
+      if user_signed_in?
+        @ideas += current_user.ideas
+        @current_user.members.each do |member|
+          @ideas += member.source.ideas
+        end
+        @ideas.uniq!
+      end
     end
   end
 
@@ -101,6 +108,7 @@
     @idea = Idea.friendly.find(params[:id])
     if user_signed_in?
       fill_collection
+      @pledger = current_user
       if current_user.pledges.unconverted.where(item: @idea).empty?
         @pledge = @idea.pledges.build
       else
@@ -108,6 +116,7 @@
         @pledge = current_user.pledges.unconverted.find_by(item: @idea)
       end 
     end 
+
     set_meta_tags title: @idea.name
     if @idea.status != 'active' && @idea.status != 'converted'
       flash[:error] = t(:idea_not_published_yet)

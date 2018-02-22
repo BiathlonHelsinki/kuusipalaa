@@ -78,6 +78,25 @@ class PledgesController < ApplicationController
     
   end
   
+  def find_pledge
+    if params[:pledger_type] =='Group'
+      @pledger = Group.find(params[:pledger_id])
+    elsif params[:pledger_type] == 'User'
+      @pledger = User.find(params[:pledger_id])
+    end
+    if params[:idea_id]
+      @item = Idea.friendly.find(params[:idea_id])
+      @idea = @item
+    end
+    if @pledger.pledges.unconverted.where(item: @item).empty?
+      @pledge = @item.pledges.build
+    else
+      @pledge = current_user.pledges.unconverted.find_by(item: @item)
+    end 
+    render partial: 'ideas/pledge_panel'
+  end
+
+
   def new
     if params[:proposal_id]
       @item = Proposal.includes(:pledges => [:user]).find(params[:proposal_id])
@@ -129,7 +148,7 @@ class PledgesController < ApplicationController
   protected
   
   def pledge_params
-    params.require(:pledge).permit(:item_id, :item_type, :pledge, :user_id, :comment)
+    params.require(:pledge).permit(:item_id, :item_type, :pledge, :pledger_type, :pledger_id, :user_id, :comment)
   end
   
 end

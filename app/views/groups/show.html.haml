@@ -55,7 +55,12 @@
                       = image_tag '/icons/user_missing.png'
                     .participant_overlay.text-center
                       = link_to member.user.display_name, member.user, target: :_blank
-
+              - unless @group.accounts.empty?
+                %br/
+                .ethereum
+                  %strong= t :ethereum_accounts
+                  - @group.accounts.each do |account|
+                    %p= link_to account.address, "https://#{Rails.env.development? ? 'testnet.' : ''}etherscan.io/token/#{Figaro.env.token_address}?a=#{account.address}", target: :_blank
 
 
 

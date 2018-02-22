@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221103259) do
+ActiveRecord::Schema.define(version: 20180222124213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,9 @@ ActiveRecord::Schema.define(version: 20180221103259) do
     t.datetime "updated_at", null: false
     t.boolean "external"
     t.boolean "primary_account"
+    t.string "holder_type"
+    t.bigint "holder_id"
+    t.index ["holder_type", "holder_id"], name: "index_accounts_on_holder_type_and_holder_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
@@ -325,6 +328,7 @@ ActiveRecord::Schema.define(version: 20180221103259) do
     t.string "postcode"
     t.string "country"
     t.boolean "valid_vat_number"
+    t.integer "latest_balance", default: 0, null: false
   end
 
   create_table "groups_roles", id: false, force: :cascade do |t|
@@ -687,7 +691,10 @@ ActiveRecord::Schema.define(version: 20180221103259) do
     t.string "extra_info"
     t.integer "instance_id"
     t.datetime "spent_at"
+    t.string "pledger_type"
+    t.bigint "pledger_id"
     t.index ["item_type", "item_id"], name: "index_pledges_on_item_type_and_item_id"
+    t.index ["pledger_type", "pledger_id"], name: "index_pledges_on_pledger_type_and_pledger_id"
     t.index ["user_id"], name: "index_pledges_on_user_id"
   end
 
@@ -924,6 +931,9 @@ ActiveRecord::Schema.define(version: 20180221103259) do
     t.float "invoice_amount"
     t.integer "paymenttype_id", default: 1, null: false
     t.string "stripe_token"
+    t.bigint "ethtransaction_id"
+    t.integer "blockchain_transaction_id"
+    t.index ["ethtransaction_id"], name: "index_stakes_on_ethtransaction_id"
     t.index ["owner_type", "owner_id"], name: "index_stakes_on_owner_type_and_owner_id"
     t.index ["season_id"], name: "index_stakes_on_season_id"
   end
@@ -1110,6 +1120,7 @@ ActiveRecord::Schema.define(version: 20180221103259) do
   add_foreign_key "roombookings", "users"
   add_foreign_key "rsvps", "instances"
   add_foreign_key "rsvps", "users"
+  add_foreign_key "stakes", "ethtransactions"
   add_foreign_key "stakes", "seasons"
   add_foreign_key "surveys", "users"
   add_foreign_key "userlinks", "instances"

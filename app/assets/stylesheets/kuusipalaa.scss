@@ -196,6 +196,9 @@ a.not-active {
   margin: 1.5rem 0;
 }
 
+.nopadding {
+  padding: 0;
+}
 .lessmargins {
   padding-right: 0.5375rem;
   padding-left: 0.5375rem;
@@ -209,6 +212,9 @@ a.not-active {
 
 .lifted_box {
 
+  &.paid {
+    background: url('/assets/paid.png') right top no-repeat;
+  }
   &.has_inner_button {
     padding-bottom: 3rem;
   }
@@ -245,6 +251,12 @@ a.not-active {
     font-size: 0.9rem;
     font-family: $montserrat;
 
+    .subtitle {
+      text-transform: uppercase;
+      font-weight: bold;
+      padding: 1rem;
+      font-family: $sourcecode;
+    }
     .question {
       font-weight: bold;
       font-family: $sourcecode;

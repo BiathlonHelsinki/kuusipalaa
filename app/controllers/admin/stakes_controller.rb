@@ -38,6 +38,13 @@ class Admin::StakesController < Admin::BaseController
       if @stake.paid == true
         if @stake.owner.add_role :stakeholder
         end
+        points = @stake.award_points!
+        if points['status'] == 'success'
+          flash[:notice] = 'Stake details updated and points awarded.'
+        else
+          @stake.update_column(:paid, false)
+          flash[:error] = 'The points could not be awarded: ' + points['message'].inspect + '; this stake is marked as unpaid still. Please try again.'
+        end
       end
       redirect_to admin_stakes_path
     else

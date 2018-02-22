@@ -1,0 +1,79 @@
+.small-12.columns.point_count_small
+  = raw t(:still_needed, amount: @idea.points_still_needed.to_s + tsign)
+  %br/
+  = raw t :who_can_pledge_a_max_of_x, who: @pledger.display_name, max: raw(@idea.max_for_user(@pledger, @pledge).to_s + tsign)
+
+- if user_signed_in?
+
+  :javascript
+
+    $('#pledge_pledger_select').on('change', function() {
+      $.ajax({
+          url: "/ideas/#{@idea.id.to_s}/pledges/find_pledge?pledger_type=" + $('#pledge_pledger_select option').filter(":selected").attr('rel') + "&pledger_id=" + $('#pledge_pledger_id').val(),
+          success: function(pledge_limit) {
+            $('#pledge_panel_wrapper').html(pledge_limit)
+          }
+      })
+
+      $('#pledge_pledger_type').val($('#pledge_pledger_select option').filter(":selected").attr('rel'));
+      $('#pledge_pledger_id').val($('#pledge_pledger_select').val());
+      $.ajax({
+        url: '/users/' + $('#pledge_pledger_select').val() + '/get_avatar?class=' + $('#pledge_pledger_type').val() + '&size=thumb',
+        success: function(image) {
+
+          $('#avatar_pledge_pledger img').attr('src', image);
+          $('#avatar_pledge_pledger img').attr('alt', $('#pledge_pledger_select option').filter(":selected").html());
+       
+         }
+     })
+    })
+    $(document).foundation()
+
+  = semantic_form_for [@idea, @pledge], html: {:"data-abide" => '', id: :this_pledge } do |f|
+    .row.slider_row
+      .small-12.medium-2.columns
+        - if @pledger.available_balance > 0
+          = f.input :pledge, label: false
+          :javascript
+            $('a#pledge_button_label').removeClass('disabled');
+            $('a#pledge_button_label').attr('onClick', '$("form#this_pledge").submit(); return false;')
+        - else
+          :javascript
+            $('a#pledge_button_label').addClass('disabled');
+            $('a#pledge_button_label').attr('onClick', 'return false;')
+
+      .medium-7.columns
+        - if @pledger.available_balance > 0
+          .slider{"data-initial-start" => "#{@pledge.new_record? ? 0 : @pledge.pledge}", "data-start" => "0", "data-end" => "#{@idea.max_for_user(@pledger, @pledge)}", "data-slider" => ""}
+            %span.slider-handle{"aria-controls" => "pledge_pledge", "data-slider-handle" => "", :role => "slider", :tabindex => "1"}
+              %span.slider-fill
+        - else
+          = t :get_points_methods
+      .small-12.medium-3.columns.third.nopadding
+        - if @collection_options.size < 2
+          .pledge_as= t :pledging_as
+          = f.hidden_field :pledger_type, value: 'User', 'required' => ''
+          = f.hidden_field :pledger_id, value: current_user.id , 'required' => ''
+          .avatar{id: "avatar_pledge_pledger"}= image_tag current_user.avatar.url(:thumb).gsub(/development/, 'production')
+
+          .who= link_to(current_user.display_name, current_user, target: :_blank) 
+        - else
+          .pledge_as= t :pledge_as
+          .avatar{id: "avatar_pledge_pledger"}= image_tag @pledger.avatar.url(:thumb).gsub(/development/, 'production')
+          = f.hidden_field :pledger_type, value: "#{@pledger.class.to_s}", 'required' => '', id: :pledge_pledger_type
+          = f.hidden_field :pledger_id,  value: "#{@pledger.id.to_s}", 'required' => '', id: :pledge_pledger_id
+          = f.input :pledger, as: :select, input_html: {id: :pledge_pledger_select}, label: false, collection: options_for_select(@collection_options.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }),  include_blank: false
+          :javascript
+            $("#pledge_pledger_select option[rel='#{@pledger.class.to_s}'][value='#{@pledger.id.to_s}']").prop('selected', true);
+          - if @pledge.new_record?
+            :javascript
+
+              $('#pledge_button_label').html("#{t(:pledge_verb)}")
+          - else
+            :javascript
+              $('#pledge_button_label').html("#{t(:change_pledge)}")
+
+
+- else
+  .small-12.medium-8.columns.leftborder
+    .larger= link_to t(:you_should_join_to_pledge), '/users/sign_in' , class:[:button, :bordered]

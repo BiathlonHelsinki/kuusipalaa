@@ -87,19 +87,19 @@ class ApplicationController < ActionController::Base
   def fill_collection
 
     @collection_options = []
-    @collection_options << [current_user.name, current_user.id, 'User', nil, 50, false]
+    @collection_options << [current_user.name  + " (#{current_user.available_balance}ᵽ)", current_user.id, 'User', nil, 50, false]
     last = ''
     unless current_user.members.empty?
       current_user.members.each do |m|
         if m.access_level >= KuusiPalaa::Access::ADMIN
           if @group
             if m.source == @group
-              last = [m.source.long_name.blank? ? m.source.name : m.source.long_name, m.source.id, 'Group', nil, m.source.stake_price, m.source.charge_vat?.to_s]
+              last = [m.source.long_name.blank? ? m.source.name + " (#{m.source.available_balance}ᵽ)" : m.source.long_name  + " (#{m.source.available_balance}ᵽ)", m.source.id, 'Group', nil, m.source.stake_price, m.source.charge_vat?.to_s]
             else
-              @collection_options << [m.source.long_name.blank? ? m.source.name : m.source.long_name, m.source.id, 'Group', nil,  m.source.stake_price, m.source.charge_vat?.to_s]
+              @collection_options << [m.source.long_name.blank? ? m.source.name + " (#{m.source.available_balance}ᵽ)" : m.source.long_name + " (#{m.source.available_balance}ᵽ)", m.source.id, 'Group', nil,  m.source.stake_price, m.source.charge_vat?.to_s]
             end
           else
-            @collection_options << [m.source.name, m.source.id, 'Group']
+            @collection_options << [m.source.name + " (#{m.source.available_balance}ᵽ)" , m.source.id, 'Group']
           end
 
         else

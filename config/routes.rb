@@ -74,7 +74,11 @@ Rails.application.routes.draw do
     member do
       get :publish_event
     end
-    resources :pledges
+    resources :pledges do
+      collection do
+        get :find_pledge
+      end
+    end
     resources :build, controller: 'ideas/build'
     resources :thing, controller: 'ideas/thing'
     resources :request, controller: 'ideas/request'

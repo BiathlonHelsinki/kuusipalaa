@@ -53,7 +53,7 @@
                 .ethereum
                   %strong= t :ethereum_accounts
                   - @user.accounts.each do |account|
-                    %p= link_to account.address, "https://#{Rails.env.development? ? 'testnet.' : ''}etherscan.io/token/#{Figaro.env.contract_address}?a=#{account.address}", target: :_blank
+                    %p= link_to account.address, "https://#{Rails.env.development? ? 'testnet.' : ''}etherscan.io/token/#{Figaro.env.token_address}?a=#{account.address}", target: :_blank
 
 
               - if user_signed_in?

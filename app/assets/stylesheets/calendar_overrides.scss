@@ -30,10 +30,14 @@ a.fc-event {
       background-color: #999;
     }
   }
+
+  color: white;
+
   &:hover {
     background-color: $pink;
   }
   .fc-content {
+
     text-align: center;
     span.fc-title {
       font-family: $sourcecode;
