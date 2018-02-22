@@ -161,7 +161,9 @@ article.ideas_index {
 
   .image_box {
     margin: 2rem 0;
-    border: 1px solid black;
+    img {
+      border: 1px solid black;
+    }
     float: left;
   }
 

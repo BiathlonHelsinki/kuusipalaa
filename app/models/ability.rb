@@ -7,7 +7,7 @@ class Ability
       if user.is_a?(User)
         can :manage, Idea
         can :manage, Stake
- 
+       can :manage, User, id: user.id 
         can :manage, Page
         can :manage, Post
         # can :manage, Credit
@@ -18,6 +18,7 @@ class Ability
     elsif user.has_role? :stakeholder
       can :manage, Meeting
       can :manage, Post
+      can :manage, User, id: user.id
       can :manage, Comment
       can :read, Stake, bookedby_id: user.id
 
@@ -28,7 +29,7 @@ class Ability
 
       can :read, Stake, bookedby_id: user.id
      # can :read, :all
-      can :manage, User, :id => user.id
+      can :manage, User, id: user.id
       cannot :manage, Post
       # cannot :manage, Credit
       cannot :manage, Page

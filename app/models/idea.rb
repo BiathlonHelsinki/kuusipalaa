@@ -15,6 +15,7 @@ class Idea < ApplicationRecord
   validates :start_at, :end_at, presence: true, if: :determined_time?
   validates :points_needed,  presence: true, if: :active_or_points?
   validates :slug, presence: true, if: :active?
+
   accepts_nested_attributes_for :additionaltimes, reject_if: proc {|x| x['start_at'].blank? || x['end_at'].blank? }, allow_destroy: true
 
   has_many :activities, as: :item
@@ -25,6 +26,7 @@ class Idea < ApplicationRecord
 
   mount_uploader :image, ImageUploader
   before_save :update_image_attributes, if: :active_or_name_and_info?
+  after_commit :add_to_activity_feed, if: :active?
   scope :between, -> (start_time, end_time) { 
     where( [ "(start_at >= ?  AND  end_at <= ?) OR ( start_at >= ? AND end_at <= ? ) OR (start_at >= ? AND start_at <= ?)  OR (start_at < ? AND end_at > ? )",
     start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), 
@@ -74,7 +76,9 @@ class Idea < ApplicationRecord
 
   def add_to_activity_feed
     if active?
-      Activity.create(user: user, item: self, description: ideatype_id == 3 ? 'requested' : 'proposed')
+      if Activity.last.item != self
+        Activity.create(user: user, item: self, description: ideatype_id == 3 ? 'requested' : 'proposed')
+      end
     end
   end
 
@@ -167,11 +171,12 @@ class Idea < ApplicationRecord
   def update_image_attributes
 
     if image.present? && image?
-
-      if image.file.exists?
-        self.image_content_type = image.file.content_type
-        self.image_size = image.file.size
-        self.image_width, self.image_height = `identify -format "%wx%h" #{image.file.path}`.split(/x/) rescue nil
+      if image_changed?
+        if image.file.exists?
+          self.image_content_type = image.file.content_type
+          self.image_size = image.file.size
+          self.image_width, self.image_height = `identify -format "%wx%h" #{image.file.path}`.split(/x/) rescue nil
+        end
       end
     end
   end

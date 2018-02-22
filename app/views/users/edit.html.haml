@@ -31,7 +31,7 @@
                   .info
                     = f.input :opt_in, label: t(:opt_in), hint:  t(:we_wont_do_this)
                     .row
-                      .small-12.columns= f.input :address, label: t(:postal_address)
+                      .small-12.columns= f.input :address, label: t(:postal_address), input_html: {required: @user.is_member? ? 'required' : false}
                     .row
                       .small-6.columns= f.input :city
                       .small-2.columns= f.input :postcode
