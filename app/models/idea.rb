@@ -68,6 +68,9 @@ class Idea < ApplicationRecord
     [pledges, comments].flatten.compact
   end
   
+  def description
+    proposal_text
+  end
 
   def add_to_activity_feed
     if active?

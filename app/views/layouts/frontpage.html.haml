@@ -91,17 +91,53 @@
         .small-12.columns.small-centered.text-center
           .banner_blurb= t(:opening_1_march)
 
+    
+    .row{:'data-equalizer' => '', :'data-equalize-on' => "medium"}
+      %article
+        .small-12.medium-6.large-4.columns.left_adjust
+          = link_to new_idea_path do
+            .lifted_box.invert{:'data-equalizer-watch' => ''}
+              .banner2_title= t :organise_an_event
+              .banner2_blurb
+                = t :organise_event_front
 
-      .row
-        .small-12.medium-6.columns.lessmargins
-          = link_to new_season_stake_path(@current_season.complete? ? @next_season : @current_season) do
-            .front_button.text-center
-              = t(:buy_a_stake)
+      %article
+        .small-12.medium-6.large-4.columns.left_adjust
+          .lifted_box.invert{:'data-equalizer-watch' => ''}
+            .banner2_title= t :season_1_funded
+            .banner2_blurb
+              %p= t :enough_stakes_for_season_1
+              %p= t :stakes_for_season_2
+      - @feed.shuffle.each do |feeditem|
+        %article
+          .small-12.medium-6.large-4.columns.left_adjust
+            = link_to feeditem.class == Instance ? event_path(feeditem.event) : feeditem  do
+              .lifted_box.feed{:'data-equalizer-watch' => '', style: feeditem.image? ?  "background: url(#{feeditem.image.url(:box)}) no-repeat center top;" : false}
+                .banner2_title
+                  = t feeditem.class.to_s.downcase.to_sym
+                  = feeditem.name
+                  - if feeditem.class == Idea
+                    .description= raw feeditem.short_description
+                  - elsif feeditem.class == Instance
+                    .description= date_range(feeditem.event.start_at, feeditem.event.end_at)
+                .banner2_blurb  
+                  - if feeditem.image?
+                    &nbsp;
+                  - else
+                    = raw truncate_html(feeditem.description, length: 250)
+              
 
-        .small-12.medium-6.columns.lessright
-          = link_to page_path('questions-and-answers') do
-            .front_button.text-center
-              =  t(:more_info)
+
+    .row
+      .small-12.medium-6.columns.lessmargins
+        = link_to new_season_stake_path(@current_season.complete? ? @next_season : @current_season) do
+          .front_button.text-center
+            = t(:buy_a_stake)
+
+      .small-12.medium-6.columns.lessright
+        = link_to page_path('questions-and-answers') do
+          .front_button.text-center
+            =  t(:more_info)
     %article
       .row.front_box
         .small-12.columns.text-center
@@ -110,11 +146,11 @@
 
     %article
       .row#progress_bar
-        .progress{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{@current_season.stakes.sum(&:amount)}", "aria-valuetext" => "#{@current_season.stakes.sum(&:amount)} percent", :role => "progressbar", :tabindex => "0"}
-          .progress-meter{:style => "width: #{[((@current_season.stakes.sum{|x| x.amount * x.price}/5000)*100), 100].min}%;"}
-      .row
+        -# .progress{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{@current_season.stakes.paid.sum(&:amount)}", "aria-valuetext" => "#{@current_season.stakes.sum(&:amount)} percent", :role => "progressbar", :tabindex => "0"}
+        -#   .progress-meter{:style => "width: #{[((@current_season.stakes.paid.sum{|x| x.amount * x.price}/5000)*100), 100].min}%;"}
+        -# .row
         .small-12.columns.text-center
-          %p.progress-meterbar-text.text-center= raw t(:euros_out_of_total, amount: @current_season.stakes.sum{|x| x.amount * x.price}.to_i, total: 5000) + '! Kiitos!'
+          %p.progress-meterbar-text.text-center= raw t(:euros_out_of_total, amount: @current_season.stakes.paid.sum{|x| x.amount * x.price}.to_i, total: 5000) + '! Kiitos!'
 
     / %article
     /   .row.stats_boxes{:'data-equalizer' => '', :'data-equalize-on' => "medium", id: :stats_boxes}

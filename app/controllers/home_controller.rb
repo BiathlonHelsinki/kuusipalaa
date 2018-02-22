@@ -4,6 +4,11 @@ class HomeController < ApplicationController
     @posts = Post.by_era(@era.id).published.order(updated_at: :desc, published_at: :desc)
     @meetings = Meeting.upcoming.order(start_at: :asc)
     @stakes = Stake.by_season(@next_season)
+
+    @feed = Idea.active.unconverted
+    @feed += @posts.reverse
+    @feed += Instance.calendered.future.published
+
     render layout: 'frontpage'
   end
 

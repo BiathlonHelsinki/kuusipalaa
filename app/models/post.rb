@@ -52,6 +52,10 @@ class Post < ApplicationRecord
     comments
   end
 
+  def description
+    body
+  end
+
   def title_en
     self.title(:en)
   end

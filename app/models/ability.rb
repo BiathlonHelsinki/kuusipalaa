@@ -5,10 +5,7 @@ class Ability
     user ||= User.new
     if user.has_role? :admin
       if user.is_a?(User)
-        can :manage, Idea,  proposer_type: 'User', proposer_id: user.id
-        can :manage, Idea do |idea|
-          idea.proposer.privileged.include?(user)
-        end
+        can :manage, Idea
         can :manage, Stake
  
         can :manage, Page

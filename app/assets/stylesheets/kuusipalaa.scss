@@ -211,7 +211,19 @@ a.not-active {
 
 
 .lifted_box {
+   &.feed { transition: background-image 1s linear;
+      &:hover {
+        background-image: none;
+        background-color: white;
 
+      }
+    }
+  &.invert { 
+    .title {
+      background-color: black;
+      color: white;
+    }
+  }
   &.paid {
     background: url('/assets/paid.png') right top no-repeat;
   }
@@ -244,7 +256,20 @@ a.not-active {
     text-transform: uppercase;
     font-weight: bold;
     padding: 1rem;
+    background-color: white;
     font-family: $sourcecode;
+
+    .description {
+      font-family: $montserrat;
+      text-transform: none;
+      font-weight: normal;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+  }
+  .banner2_blurb {
+    min-height: 180px;
+
   }
   .banner2_blurb, .blurb {
     padding: 1rem;
