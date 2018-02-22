@@ -1,5 +1,13 @@
 @import 'variables';
 
+#calendar.clickable {
+  a.fc-event { 
+    &.event {
+      pointer-events: initial;
+    }
+  }
+}
+
 .fc-toolbar {
   button {
     border: 1px solid black !important;

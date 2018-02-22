@@ -9,7 +9,8 @@ class EventsController < ApplicationController
     # events = Event.published.between(params['start'], params['end']) if (params['start'] && params['end'])
     @events = []
     # @events += events.map{|x| x.instances.published}.flatten
-    @events += Instance.published.calendered.between(params['start'], params['end']) if (params['start'] && params['end'])
+    @events += Instance.calendered.published.between(params['start'], params['end']) if (params['start'] && params['end'])
+
     @events.uniq!
     @events.flatten!
  
@@ -46,14 +47,25 @@ class EventsController < ApplicationController
   
 
   def create
+    if params[:event][:image]
+      die
+    else
+      #  no image upload so use idea image
+      idea = Idea.find(params[:event][:idea_id])
+      if idea.image?
+        params[:event][:remote_image_url] = idea.image.url
+      end
+    end
+
     api = BiathlonApi.new
     success = api.api_post("/events", {user_email: current_user.email,   
       user_token: current_user.authentication_token, event: params[:event].permit!.to_hash} 
       )
-    if success["data"]
-      redirect_to "/events/#{success['data']['id']}"
-    else
-      flash[:error] = success.to_s
+
+    if success["id"]
+      redirect_to "/events/#{success['id']}"
+    elsif success["error"]
+      flash[:error] = success["error"]
       redirect_to idea_path(params[:event][:idea_id])
     end
   end

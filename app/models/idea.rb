@@ -24,7 +24,7 @@ class Idea < ApplicationRecord
   friendly_id :name, use: [:slugged, :finders]
 
   mount_uploader :image, ImageUploader
-  before_save :update_image_attributes
+  before_save :update_image_attributes, if: :active_or_name_and_info?
   scope :between, -> (start_time, end_time) { 
     where( [ "(start_at >= ?  AND  end_at <= ?) OR ( start_at >= ? AND end_at <= ? ) OR (start_at >= ? AND start_at <= ?)  OR (start_at < ? AND end_at > ? )",
     start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), 
@@ -108,7 +108,7 @@ class Idea < ApplicationRecord
   end
   
   def active?
-    status == 'active'
+    status == 'active' 
   end
 
   def start_at_date
@@ -127,8 +127,8 @@ class Idea < ApplicationRecord
     points_needed - pledges.select(&:persisted?).select{|x| x != pledge}.sum(&:pledge)
   end
 
-  def max_for_user(user, pledge)
-    [user.available_balance, (points_needed * 0.9), pledges.select(&:persisted?).map(&:user).delete_if{|x| x == user}.uniq.size >= 2 ? points_still_needed_except(pledge) :
+  def max_for_user(pledger, pledge)
+    [pledger.available_balance, (points_needed * 0.9), pledges.select(&:persisted?).map(&:pledger).delete_if{|x| x.all_peers.include?(pledger)}.uniq.size >= 2 ? points_still_needed_except(pledge) :
      points_still_needed_except(pledge) - 1 ].min.to_i
   end
 

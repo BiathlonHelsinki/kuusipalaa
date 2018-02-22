@@ -50,15 +50,15 @@ class Pledge < ApplicationRecord
 
 
   def check_balance
-    user.update_balance_from_blockchain
-    if pledge < 1 || pledge > user.latest_balance
+    pledger.update_balance_from_blockchain
+    if pledge < 0 || pledge > pledger.latest_balance
       errors.add(:pledge, 'You cannot pledge this amount.')
     end
   end
   
   def one_per_user
-    unless item.pledges.where(user: user, converted: false).to_a.delete_if{|x| x == self}.empty?
-      errors.add(:user, 'You have already pledged to this. Please edit your pledge.') 
+    unless item.pledges.where(pledger: pledger, converted: false).to_a.delete_if{|x| x == self}.empty?
+      errors.add(:pledger, 'You have already pledged to this. Please edit your pledge.') 
     end
   end
 

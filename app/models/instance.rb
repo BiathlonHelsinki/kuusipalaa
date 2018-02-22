@@ -31,7 +31,8 @@ class Instance < ApplicationRecord
       :id => self.id,
       :title =>  self.name,
       :description => self.description || "",
-      :start => calendar_start_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
+      :calendar_start => calendar_start_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
+      start: start_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
       :end => end_at.localtime.strftime('%Y-%m-%d %H:%M:00'),
       :allDay => false, 
       :recurring => false,
@@ -46,6 +47,9 @@ class Instance < ApplicationRecord
     start_at  - 1.hour
   end
 
+  def other_instances
+    event.instances.where(["id <> ?", self.id])
+  end
   def name_en
     name(:en)
   end
@@ -53,6 +57,11 @@ class Instance < ApplicationRecord
     [event.primary_sponsor, organisers].flatten.compact.uniq
   end
 
+
+  def discussion
+    event.discussion
+  end
+  
   def idea
     event.idea
   end

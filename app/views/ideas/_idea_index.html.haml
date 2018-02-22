@@ -22,7 +22,7 @@
       -# = t(:x_comments, count: idea.comments.count, comment: t(:comment, count: idea.comments.count))
     .pledge_corner
       = link_to t(:pledge_p), idea
-  - unless idea.active?
+  - unless idea.active? || idea.converted?
     .draught.text-center
       = t :draught_mode
       - if can? :edit, idea
@@ -30,3 +30,8 @@
   - if idea.has_enough?
     .ready.text-center
       = t :ready_to_be_published
+  - if idea.converted?
+    .ready.text-center
+      = t :scheduled_as
+      %br/
+      = link_to idea.events.first.name, idea.events.first

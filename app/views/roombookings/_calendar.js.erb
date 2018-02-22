@@ -50,7 +50,7 @@ var options = {
 
   },
   eventAfterRender: function(event, element,view) {
-    if (moment(event.start).format('YYYY-M-D') == moment(new Date()).format('YYYY-M-D')) {
+    if (moment(event.calendar_start).format('YYYY-M-D') == moment(new Date()).format('YYYY-M-D')) {
       element.parent().addClass('fc-today');
     } 
 
@@ -71,7 +71,7 @@ var mobileOptions = {
   firstDay: 1,
   fixedWeekCount: false,
   slotMinutes: 30,
-  eventOrder: "start",
+  eventOrder: "calendar_start",
   eventSources: [
     {
       url: '/roombookings/calendar.json'

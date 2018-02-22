@@ -28,10 +28,12 @@
                 %p
                   = t :will_recur
                   %br/
-                  = radio_button_tag :recurs, '0', required: ''
+                  = radio_button_tag :recurs, '0', false, {required: '', class: :radio }
+                  %label.radio{for: :recurs_0}
                   = t(:recurs_no)
                   %br/
-                  = radio_button_tag :recurs, '1'
+                  = radio_button_tag :recurs, '1', false, {class: :radio }
+                  %label.radio{for: :recurs_1}
                   = t :recurs_yes
                 .project_name
                   = f.fields_for :translations do |t|
@@ -40,7 +42,7 @@
             .row.pad
               .small-8.columns
                 - if f.object.idea.image?
-                  = image_tag f.object.idea.image.url(:medium)
+                  = image_tag f.object.idea.image.url
                   = f.input :image, label: t(:change_image)
                 - else
                   = f.input :image
@@ -96,19 +98,21 @@
                       %span.slider-fill{"data-slider-fill" => ""}
                     = ff.input :cost_bb, label: false, hint: raw(t(:costbb_hint)), input_html: {class: :short_input}, wrapper_html: {class: :short_input}
 
-            = f.link_to_add t(:add_an_additional_meeting_time), :instances, class: [:button, :bordered]
+            .row.pad
+              .small-12.columns= f.link_to_add t(:add_an_additional_meeting_time), :instances, class: [:button, :bordered]
             %p.inline-hints= t :may_require_more_points
+            .row.pad
+              .small-12.columns
 
+                %p
+                  %strong= t(:points_available_for_event)
+                  %big= @event.idea.pledged.to_s
 
-            %p
-              %strong= t(:points_available_for_event)
-              %big= @event.idea.pledged.to_s
-
-            %p
-              %strong= t(:points_required_for_this_event)
-              %big#points_required
-              .explanation
-            = f.submit t(:publish_event)
+                %p
+                  %strong= t(:points_required_for_this_event)
+                  %big#points_required
+                  .explanation
+                = f.submit t(:publish_event)
 = content_for :jquery do
   :plain
      $('#event_primary_sponsor_select').on('change', function() {

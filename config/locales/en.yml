@@ -34,7 +34,7 @@ en:
   register: 'Register!'
   your_comment_was_added: 'Your comment was added.'
   your_comment_was_not_added: 'There was an error saving your comment.'
-  has_pledged: '%{user} pledged %{amount} to this proposal.'
+  has_pledged: '%{user} pledged %{amount}ᵽ to this proposal.'
   experiments: 'Experiments'
   sign_in: 'Sign in'
   sign_in_with_none: 'Or if none of the above, sign in with your email and password:'
@@ -481,7 +481,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   reason_for_transfer: 'Enter a reason for why you are sending them? (optional)'
   send: 'Send!'
   you_can_transfer_up_to: 'You can transfer up to %{number}Ŧ.'
-  this_experiment_has_x_comments: 'This experiment has %{count} %{comment}.'
+
   ex_organiser: "(ex-organiser)"
   remove_organiser: 'Remove as organiser'
   receive_email_notifications_question: 'Would you like to receive email notifications when this experiment is updated?'
@@ -1066,3 +1066,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   your_proposal_drafts: 'Your proposal drafts:'
   discussion_and_recent_activity: 'Discussion & recent activity'
   reply: 'Reply'
+  this_event_has_x_comments: 'This event has %{count} %{comment}.'
+  completed_proposals: 'Completed proposals'
+  scheduled_as: 'Scheduled as:'
+  event: 'Event'

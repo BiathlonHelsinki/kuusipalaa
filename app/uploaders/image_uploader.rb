@@ -12,7 +12,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def store_dir
-      "images/#{model.class.table_name.singularize.underscore}/#{mounted_as}/#{model.id}"
+    "images/#{model.class.table_name.singularize.underscore}/#{mounted_as}/#{model.id}"
   end
 
   version :wide do

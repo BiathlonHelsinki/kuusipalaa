@@ -80,7 +80,7 @@
       redirect_to @idea.events.first
     else
       if @idea.has_enough? && @idea.proposers.include?(current_user)
-        @event = Event.new(idea: @idea, place_id: 2, primary_sponsor: @idea.proposer, cost_euros: @idea.price_public, cost_bb: @idea.price_stakeholders, 
+        @event = Event.new(idea: @idea, place_id: 2, primary_sponsor: @idea.proposer, remote_image_url: @idea.image.url, cost_euros: @idea.price_public, cost_bb: @idea.price_stakeholders, 
           translations: [Event::Translation.new(locale: I18n.locale, name: @idea.name, description: @idea.proposal_text)])
         # if @idea.timeslot_undetermined == true
           

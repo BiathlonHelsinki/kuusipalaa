@@ -38,6 +38,25 @@ class Group < ApplicationRecord
   def pending_pledges
      pledges.unconverted
   end
+
+  def all_peers
+    members.to_a.delete_if{|x| x.access_level < 5 }.map(&:user).flatten.uniq
+  end
+
+
+  def update_balance_from_blockchain
+    api = BiathlonApi.new
+    balance = api.api_get("/users/#{id}/get_balance")
+    if balance
+      unless balance.class == Hash
+        latest_balance = balance.to_i
+        latest_balance_checked_at = Time.now.to_i
+        save(validate: false)
+      end
+    end
+
+  end
+
   
   def keys
     members.select{|x| x.has_key == true}.map(&:user)

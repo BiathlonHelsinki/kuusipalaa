@@ -26,7 +26,7 @@ class BiathlonApi
   
   def api_post(url = '/', options)
     begin
-      response = HTTParty.post(API_URL + url, body: options, timeout: 18)
+      response = HTTParty.post(API_URL + url, body: options, timeout: 40)
       if JSON.parse(response.body)['error']
         JSON.parse(response.body)
       else

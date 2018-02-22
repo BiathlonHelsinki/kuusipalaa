@@ -2,6 +2,8 @@
   .row
     .small-12.columns.title_box
       .title
+        = t :proposal
+        = ": "
         = @idea.name
     - if @idea.converted?
       .has_enough.columns.text-center
@@ -97,9 +99,9 @@
         .small-3.columns.point_count= @idea.pledged
         .small-6.columns &nbsp;
         .small-3.columns.point_count.text-right.end= @idea.points_needed
+      - if user_signed_in?
+        .row.pledge_info#pledge_panel_wrapper
 
-      .row.pledge_info#pledge_panel_wrapper
-        - if user_signed_in?
           = render partial: 'ideas/pledge_panel'
 
 

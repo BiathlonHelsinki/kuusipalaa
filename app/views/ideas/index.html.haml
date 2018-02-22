@@ -10,7 +10,7 @@
             = t :all_active_proposals
 
     .row.small-up-1.large-up-3.medium-up-2
-      - @ideas.select(&:active?).each do |idea|
+      - @ideas.select(&:active?).delete_if{|x| x.converted? }.each do |idea|
         .columns= render partial: 'ideas/idea_index', locals: {idea: idea}
 
 
@@ -26,12 +26,15 @@
       .small-12.discussions
         .header.text-center
           - if @user
-            = t :proposals_for_user, user: @user.display_name
+            - if @user == current_user
+              = t :your_proposal_drafts
+            - else
+              = t :proposals_for_user, user: @user.display_name
           - else
-            = t :your_proposal_drafts
+            = t :your_proposal_drafts 
 
     .row.small-up-1.large-up-3.medium-up-2
-      - @ideas.select(&:draught?).each do |idea|
+      - @ideas.select(&:draught?).delete_if{|x| x.converted? }.each do |idea|
         .columns= render partial: 'ideas/idea_index', locals: {idea: idea}
 
 
@@ -40,3 +43,16 @@
         = link_to new_idea_path do
           .front_button.text-center
             = t(:create_new_proposal)
+
+  - unless @ideas.select(&:converted?).empty?
+    .row
+
+      .small-12.discussions
+        .header.text-center
+          - if @user
+            = t :completed_proposals
+
+
+    .row.small-up-1.large-up-3.medium-up-2
+      - @ideas.select(&:converted?).each do |idea|
+        .columns= render partial: 'ideas/idea_index', locals: {idea: idea}  

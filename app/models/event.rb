@@ -7,7 +7,7 @@ class Event < ApplicationRecord
   translates :name, :description, :fallbacks_for_empty_translations => true
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['name'].blank? && x['description'].blank? }
   accepts_nested_attributes_for :instances, :reject_if => proc {|x| x['start_at'].blank? || x['end_at'].blank? }
-
+  has_many :notifications, as: :items
 
 
   extend FriendlyId
@@ -62,6 +62,14 @@ class Event < ApplicationRecord
     100
   end
   
+  def discussion
+    comments  
+  end
+
+  def root_comment
+    self
+  end
+
   def future?
     self.start_at >= Date.parse(Time.now.strftime('%Y/%m/%d'))
   end

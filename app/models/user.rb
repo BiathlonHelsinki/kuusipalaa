@@ -148,6 +148,10 @@ class User < ActiveRecord::Base
     false
   end
 
+  def all_peers
+    [groups.map{|x| x.members }.flatten.delete_if{|x| x.access_level < 5 }.map(&:user).flatten, groups].flatten
+  end
+
   def all_activities
     [activities, Activity.where(item: self)].flatten.compact.uniq
 

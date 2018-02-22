@@ -4,29 +4,22 @@ class PledgesController < ApplicationController
   
   
   def create
-    current_user.update_balance_from_blockchain
-    balance = current_user.latest_balance
-    if params[:proposal_id]
-      @proposal = Proposal.find(params[:proposal_id])
-      @item = @proposal
-    elsif params[:idea_id]
-      @idea = Idea.friendly.find(params[:idea_id])
-      @item = @idea
-    elsif params[:event_id]
-      @item = Event.friendly.find(params[:event_id])
-    end
-    if !current_user.pledges.unconverted.where(item: @item).empty? 
+
+    get_pledger_and_item
+
+    if !@pledger.pledges.unconverted.where(item: @item).empty? 
       flash[:notice] = t(:illegal_pledge)
+   
       redirect_to @item
     elsif @item.converted?
       flash[:notice] = t(:illegal_pledge)
       redirect_to @item
     else
-      if balance < params[:pledge][:pledge].to_i
+      if @balance < params[:pledge][:pledge].to_i
         flash[:error] = 'You do not have this many ' + ENV['currency_full_name']
         redirect_to new_proposal_pledge_path(@proposal)
       end
-      if params[:pledge][:pledge].to_i > @item.max_for_user(current_user, @pledge)
+      if params[:pledge][:pledge].to_i > @item.max_for_user(@pledger, @pledge)
         flash[:error] = t(:you_cannot_pledge_this_much)
         redirect_to @item
       else
@@ -38,6 +31,7 @@ class PledgesController < ApplicationController
         #   @pledge.item_type = @item.class.to_s
         # end
         @pledge.user = current_user
+        @pledge.pledger = @pledger
         @pledge.converted = false
         if @pledge.save
           unless @item.notifications.empty?
@@ -48,6 +42,7 @@ class PledgesController < ApplicationController
           end
           redirect_to @item
         else
+
           flash[:error] = 'There was an error saving your pledge: ' + @pledge.errors.messages.values.join('; ')
           redirect_to @item
         end
@@ -122,15 +117,9 @@ class PledgesController < ApplicationController
   
   
   def update
-    if params[:proposal_id]
-      @item = Proposal.find(params[:proposal_id])
-    elsif params[:event_id]
-      @item = Event.includes(:pledges => [:user]).find(params[:event_id])
-    elsif params[:idea_id]
-      @item = Idea.friendly.find(params[:idea_id])
-    end
+    get_pledger_and_item
     @pledge = @item.pledges.find(params[:id])
-    if params[:pledge][:pledge].to_i > @item.max_for_user(current_user, @pledge)
+    if params[:pledge][:pledge].to_i > @item.max_for_user(@pledger, @pledge)
       flash[:error] = 'You can\'t pledge this much!'
       redirect_to new_proposal_pledge_path(@item)
     else
@@ -139,7 +128,7 @@ class PledgesController < ApplicationController
         redirect_to @item
       else
         flash[:error] = 'There was an error saving your edited pledge: ' + @pledge.errors.values.join
-        render action: 'edit'
+        redirect_to @item
       end
     end
   end
@@ -147,6 +136,21 @@ class PledgesController < ApplicationController
     
   protected
   
+  def get_pledger_and_item
+    @pledger = params[:pledge][:pledger_type].constantize.find(params[:pledge][:pledger_id])
+    @pledger.update_balance_from_blockchain
+    @balance = @pledger.latest_balance
+    if params[:proposal_id]
+      @proposal = Proposal.find(params[:proposal_id])
+      @item = @proposal
+    elsif params[:idea_id]
+      @idea = Idea.friendly.find(params[:idea_id])
+      @item = @idea
+    elsif params[:event_id]
+      @item = Event.friendly.find(params[:event_id])
+    end
+  end
+
   def pledge_params
     params.require(:pledge).permit(:item_id, :item_type, :pledge, :pledger_type, :pledger_id, :user_id, :comment)
   end

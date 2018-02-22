@@ -157,7 +157,7 @@ Rails.application.routes.draw do
       get :get_membership_details
     end
   end
-
+  match '/calendar' => 'events#calendar', via: :get
   match '/users/auth/:provider/callback' => 'authentications#create', :via => :get
   delete '/users/signout' => 'devise/sessions#destroy', :as => :signout
   root to: 'home#index'

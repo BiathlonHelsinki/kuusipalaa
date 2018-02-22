@@ -50,9 +50,21 @@ class RoombookingsController < ApplicationController
       # end
     end
     @roombookings +=  Idea.active.timed.unconverted.back_room.between(params['start'], params['end'])  if (params['start'] && params['end'])
-    @roombookings += Additionaltime.between(params['start'], params['end']).to_a.delete_if{|x| !x.item.converted_id.nil?}.delete_if{|x| x.item.room_needed == 1}
-    @roombookings += Instance.calendered.published.back_room.between(params['start'], params['end']) if (params['start'] && params['end'])
-  
+
+    additionaltimes = Additionaltime.between(params['start'], params['end']).to_a.delete_if{|x| !x.item.converted_id.nil?}.delete_if{|x| x.item.room_needed == 1}
+    additionaltimes.each do |i|
+      newinstance = i
+      newinstance.start_at = i.start_at - 1.hour
+      @roombookings.push newinstance
+    end  
+
+    instances = Instance.calendered.published.back_room.between(params['start'], params['end']) if (params['start'] && params['end'])
+    instances.each do |i|
+      newinstance = i
+      newinstance.start_at = i.start_at - 1.hour
+      @roombookings.push newinstance
+    end    
+
 
     respond_to do |format|
       format.html # index.html.erb

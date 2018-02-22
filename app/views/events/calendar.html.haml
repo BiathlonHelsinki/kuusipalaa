@@ -10,9 +10,9 @@
               = link_to fa_icon('download') + ' ' + t(:download), calendar_events_path(format: 'ics'), class: [:button, :small]
           .row
 
-            #calendar.small-centered
+            #calendar.clickable.small-centered
           
           = content_for :jquery do
-            = render partial: 'calendar', formats: [:js]
+            = render partial: 'events/calendar', formats: [:js]
 
     

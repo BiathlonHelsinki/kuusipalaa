@@ -6,13 +6,16 @@
         .row
           .small-12.large-10.columns.end{class: comment.comments.empty? ? :divided : false}
             .comment_avatar
-              = link_to image_tag(comment.contributor.avatar.url(:box).gsub(/development/, 'production'), width: 45), comment.user, target: :_blank, class: :comment_avatar
+              - if comment.class == Comment
+                = link_to image_tag(comment.contributor.avatar.url(:thumb).gsub(/development/, 'production'), width: 45), comment.user, target: :_blank, class: :comment_avatar
+              - elsif comment.class == Pledge
+                = link_to image_tag(comment.pledger.avatar.url(:thumb).gsub(/development/, 'production'), width: 45), comment.pledger, target: :_blank, class: :comment_avatar
             .comment_body
               .comment_type
                 - if comment.class == Comment
                   = raw t(:user_says_on, :user => link_to(comment.contributor.display_name, comment.contributor, target: :_blank), date: l(comment.created_at, format: :long))
                 - elsif comment.class == Pledge
-                  = raw t(:has_pledged, user: link_to(comment.user.display_name, comment.user, target: :_blank), amount: comment.pledge)
+                  = raw t(:has_pledged, user: link_to(comment.pledger.display_name, comment.pledger, target: :_blank), amount: comment.pledge)
                   - unless comment.extra_info.blank?
                     .pledge_metadata
                       = t comment.extra_info.to_sym, when: comment.spent_at.localtime rescue ''
