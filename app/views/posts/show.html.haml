@@ -26,20 +26,20 @@
                 .place
                   = @post.meeting.place.name
                   %pre= @post.meeting.place.address
-          - if user_signed_in?
-            .small-12.columns.notification_form.medium-4
-              .notification_question= t(:receive_email_notifications_question_post)
+          -# - if user_signed_in?
+          -#   .small-12.columns.notification_form.medium-4
+          -#     .notification_question= t(:receive_email_notifications_question_post)
 
-              = semantic_form_for [@post, current_user, @post.notifications.by_user(current_user.id).empty? ? @post.notifications.build : @post.notifications.by_user(current_user.id).first], remote: true do |f|
-                %small= t(:send_me_an_email_when_there_is_a_new, email_address: current_user.email)
-                %br/
-                -#= f.input :pledges, label: t(:pledge, count: 1)
-                = f.input :comments, label: t(:comment, count: 1)
-                = f.input :scheduling, label: t(:scheduled_meeting)
-                - label = capture do
-                  = fa_icon 'envelope'
-                  = t(:update_email_preferences)
-                = f.button label, type: :submit, class: [:button, :small]
+          -#     = semantic_form_for [@post, current_user, @post.notifications.by_user(current_user.id).empty? ? @post.notifications.build : @post.notifications.by_user(current_user.id).first], remote: true do |f|
+          -#       %small= t(:send_me_an_email_when_there_is_a_new, email_address: current_user.email)
+          -#       %br/
+          -#       -#= f.input :pledges, label: t(:pledge, count: 1)
+          -#       = f.input :comments, label: t(:comment, count: 1)
+          -#       = f.input :scheduling, label: t(:scheduled_meeting)
+          -#       - label = capture do
+          -#         = fa_icon 'envelope'
+          -#         = t(:update_email_preferences)
+          -#       = f.button label, type: :submit, class: [:button, :small]
               #notifications_result
         #comments_list
           .row.expanded
@@ -51,8 +51,8 @@
                   = t(:this_experiment_has_x_comments, count:@post.discussion.size, comment: t(:comment, count: @post.discussion.size) )
 
 
-          %ul.first= render(partial: 'shared/comment', collection: @post.comments.order(:created_at), locals: {depth: 0, root: @post, last: @post.comments.last})
-          #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @post, depth: 0}
+          %ul.first= render(partial: 'shared/comment', collection: @post.comments.order(:created_at), locals: {depth: 0, root: @post, last: @post.comments.last, commenting_open: true})
+          #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @post, depth: 0, commenting_open: true}
 
 = content_for :jquery do
   :plain

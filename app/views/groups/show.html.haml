@@ -33,6 +33,11 @@
                 = semantic_form_for @group, html: {multipart: true } do |f|
                   = f.input :avatar, label: t(:change_this_image)
             .small-10.medium-8.columns
+              %div
+                %p
+                  %strong= t(:balance) + ": "
+                  = raw(@group.latest_balance.to_s + tsign)
+
               - unless @group.website.blank?
                 %div
                   %strong= t(:website) + ":"
@@ -60,7 +65,7 @@
                 .ethereum
                   %strong= t :ethereum_accounts
                   - @group.accounts.each do |account|
-                    %p= link_to account.address, "https://#{Rails.env.development? ? 'testnet.' : ''}etherscan.io/token/#{Figaro.env.token_address}?a=#{account.address}", target: :_blank
+                    %p= link_to account.address, "https://#{Rails.env.development? ? 'ropsten.' : ''}etherscan.io/token/#{Figaro.env.token_address}?a=#{account.address}", target: :_blank
 
 
 
