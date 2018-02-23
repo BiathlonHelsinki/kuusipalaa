@@ -24,6 +24,8 @@
             %td= stake.id.to_s
             %td
               = stake.owner.name
+              %p
+                %em= stake.owner.username
               - if stake.owner != stake.bookedby
                 %br/
                 %small
