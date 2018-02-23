@@ -1077,3 +1077,5 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   season_1_funded: 'Season 1 is funded!'
   enough_stakes_for_season_1: 'Kuusi Palaa members purchased enough stakes to guarantee that season 1 will take place - from March through June 2018.'
   stakes_for_season_2: 'Stakes can now be bought to ensure a second season (July - October); points received for these stakes can be used immediately and during season 1.'
+  free_entry: 'Free entry'
+  negative: 'No'

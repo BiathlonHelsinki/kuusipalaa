@@ -75,6 +75,17 @@
               - if @idea.allow_others == true
                 .subtext= t :others_are_allowed
         %tr
+          %td
+            .heading= t :price_public
+            .value
+              - if @idea.price_public == 0
+                = t :free_entry
+              - else
+                = number_to_currency(@idea.price_public, unit: raw("&euro;"), format: "%n %u")
+          %td
+            .heading= t :special_notes
+            .value= @idea.special_notes.blank? ? t(:negative) : @idea.special_notes
+        %tr
           %td{colspan: 2}
             .heading= t :short_description
             .value= @idea.short_description
