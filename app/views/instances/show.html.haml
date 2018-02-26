@@ -44,6 +44,13 @@
 
 
           %td.half
+            .heading= t :price_public
+            .value
+              - if @idea.price_public == 0
+                = t :free_entry
+              - else
+                = number_to_currency(@idea.price_public, unit: raw("&euro;"), format: "%n %u")
+          %td.half
             .heading= t :venue
             .value
               - case @instance.room_needed

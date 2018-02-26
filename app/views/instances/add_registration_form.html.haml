@@ -1,0 +1,36 @@
+%article.member_services_index
+  .row
+    .small-12.columns.lessmargins.lessright
+      .lifted_box.has_inner_button
+        .title
+          = t :add_registration_form
+          = ": #{@instance.name}"
+        .blurb
+          = semantic_form_for [@event, @instance] do |f|
+            .row
+              .small-10.medium-9.columns= f.input :request_registration, label: t(:registration_required), input_html: {'checked' => ''}, as: :boolean
+            .row
+              .small-10.medium-9.columns= f.input :max_attendees, label: t(:max_attendees), hint: t(:leave_blank_unlimited)
+            .row
+              .small-10.medium-9.columns= f.input :require_approval, label: t(:registration_require_approval) , as: :boolean
+            .row
+              .small-10.medium-9.columns= f.input :email_registrations_to, label: t(:email_registrations_to), hint: t(:default_is_email)
+            .row
+              .small-10.medium-9.columns 
+                %p= t :you_can_add_questions
+            .row
+              .small-10.medium-9.columns= f.input :question1_text, label: t(:optional_question_x, number: 1)
+            .row
+              .small-10.medium-9.columns= f.input :question2_text, label: t(:optional_question_x, number: 2)
+            .row
+              .small-10.medium-9.columns= f.input :question3_text, label: t(:optional_question_x, number: 3)
+            .row
+              .small-10.medium-9.columns= f.input :question4_text, label: t(:optional_question_x, number: 4)               
+            .row
+              .small-10.medium-9.columns= f.input :boolean1_text, label: t(:optional_yesno_question_x, number: 1)
+            .row
+              .small-10.medium-9.columns= f.input :boolean2_text, label: t(:optional_yesno_question_x, number: 2)
+            .row
+              .small-10.medium-9.columns= f.input :registration_open, label: t(:is_registration_open), hint: t(:untick_to_stop), as: :boolean
+            .row
+              .small-10.medium-9.columns= f.action :submit, label: t(:save) 

@@ -61,7 +61,7 @@
             %tr
               %td{colspan: 3}
                 .heading= t :proposal_description
-                .value.indent= @idea.proposal_text
+                .value.indent= simple_format @idea.proposal_text
 
           - if @idea.image?
             .proposal_image= image_tag @idea.image.url(:medium)          

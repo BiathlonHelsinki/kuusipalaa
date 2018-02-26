@@ -24,6 +24,9 @@ label.radio {
   cursor: pointer;
   background: white;
   position: relative;
+  &.is-invalid-label {
+    border: 2px solid red;
+  }
 }
 
 input.radio:checked+label.radio:before {
@@ -478,6 +481,12 @@ a.not-active {
   }
 }
 form {
+
+  input[type=submit] {
+    &.disabled {
+      pointer-events: none;
+    }
+  }
   input[type=text], textarea, input[type=number], input[type=email], input[type=password], input[type=checkbox] {
     border: 1px solid black;
     outline: none;
@@ -509,7 +518,9 @@ form {
     input[type=submit] {
       font-size: 0.85rem;
       padding: 0.25rem;
+
     }
+
   }
   &#new_stake_form {
     font-family: $sourcecode;
@@ -919,4 +930,28 @@ form {
     margin: 0.25rem 0 1.25rem;
     font-size: 0.8rem;
   }
+}
+
+#registration_form {
+  h4, h3, h5 {
+    margin-bottom: 1.5rem;
+    font-family: $sourcecode;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+}
+.registration_form {
+  display: none;
+  textarea {
+    height: 125px;
+  }
+  label.label {
+    font-family: $montserrat;
+  }
+}
+.registration_heading {
+  margin-bottom: 1.5rem;
+  font-family: $sourcecode;
+  font-weight: bold;
 }

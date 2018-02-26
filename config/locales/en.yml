@@ -218,6 +218,7 @@ en:
   why: '(why?)'
   name: 'Name'
   proposed_by: 'Proposed by'
+  organised_by: 'Organised by'
   when: 'When?'
   status: 'Status'
   multiple_meetings_proposed: 'Multiple meetings proposed'
@@ -387,7 +388,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   phone_is_optional: 'This is optional, though.'
   registration_form: 'Registration form'
   registration_is_full_waiting_list: 'Registration is currently full. However, you may register for the waiting list and you will be notified if a space is available.'
-  you_will_earn_x_for_participating: "You will earn %{number}Ŧ for participating!"
+  you_will_earn_x_for_participating: "You will earn %{number}ᵽ for participating!"
   for_the_waiting_list: ' for the waiting list'
   register_x: 'Register%{waiting_list_option}'
   i_plan_to_attend: 'I plan to attend!'
@@ -434,7 +435,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   you_are_going: 'You are going'
   x_person_has_rsvpd: "%{number} %{people} has RSVPd"
   experiment_news: 'Experiment news'
-
+  points_needed_session: 'Points needed for this session:'
   pledge_verb: 'Pledge!'
   make_organiser: 'Make an organiser!'
   related_experiments: 'Related experiments'
@@ -899,7 +900,8 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   room_needed: "Which room(s) do you want to hold your public event in?"
   room_needed_session: "Which room(s) do you want to hold this session of your event in?"
   allow_others: 'Is it OK for Kuusi Palaa to stay open for others to use during your event? (-25% on points for sharing the space)'
-  price_public: 'Entrance/ticket cost (in €) for public.'
+  price_public: 'Entrance/ticket cost (in €) for public'
+  ticket_price: 'Entrance/tickets'
   zero_for_free: 'Enter a zero to make this event free'
   price_stakeholders: 'Entrance/ticket cost for stakeholders.'
   if_not_free: 'This must be lower than the price for non-stakeholders (unless it''s already free entry, of course).'
@@ -926,7 +928,8 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   proposed_length_is: 'The proposed length of this event is %{hours} hour(s).'
   proposed_length_short: '%{hours} hour(s)'
   proposal_short_description: 'Proposal short description: '
-  proposal_description: 'Proposal full description: '
+  proposal_description: 'Proposal description'
+  event_description: 'Event description'
   proposed_by: 'proposed by %{who} on %{when}'
   please_review_and_finalise_proposal: 'Please review your event proposal below. When you click Publish, it goes live on the site and any Kuusi Palaa member can pledge to it. If you want to change anything, go back and do this now.'
   others_are_allowed: 'Kuusi Palaa can stay open for other people to use during this event, even if they are not participating in the event.'
@@ -1048,7 +1051,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   proposed_on: 'Proposed on:'
   proposed_length: 'Proposed length:'
   proposed_by_empty: 'Proposed by:'
-  venue: 'Venue:'
+  venue: 'Venue'
   x_of_x_so_far: '%{has}/%{needs} pledged'
   pledge_p: 'Pledge ᵽ'
   you_are_editing_your_proposal: "You are editing your proposal. It has been removed from the active proposals page until you re-publish it."
@@ -1079,3 +1082,21 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   stakes_for_season_2: 'Stakes can now be bought to ensure a second season (July - October); points received for these stakes can be used immediately and during season 1.'
   free_entry: 'Free entry'
   negative: 'No'
+  participation_details: 'Participation details'
+  registration: 'Registration'
+  registration_required: 'Registration is required?'
+  you_must_register_for_this_event: 'Registration is required.'
+  registration_not_required: 'Registration is not required. Just show up!'
+  add_registration_form: 'Add registration form'
+  change_registration_form: 'Change registration form'
+  default_is_email: 'Default is event main organiser email'
+  optional_question_x: "Optional question #%{number}"
+  optional_yesno_question_x: 'Optional yes/no question #%{number}'
+  you_can_add_questions: 'You can add up to 4 questions to the registration form which the registree can answer with text, and 2 that can be answered as yes/no.'
+  email_registrations_to: 'Send an email after each registration to:'
+  registration_require_approval: 'Do registrations have to be approved by an event organiser?'
+  is_registration_open: 'Is registration open?'
+  untick_to_stop: 'Un-tick this to stop sign-ups'
+  max_attendees: 'Maximum # of attendees'
+  leave_blank_unlimited: 'Leave blank to be unlimited'
+  event_has_been_updated: 'The event has been updated.'

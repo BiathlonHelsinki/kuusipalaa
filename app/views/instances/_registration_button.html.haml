@@ -1,0 +1,13 @@
+- if user_signed_in?
+  - if current_user.registered?(@instance)
+    - if @instance.start_at - Time.current >= 86400
+      = link_to t(:cancel_registration), '#', onclick:"javascript:$(document).scrollTo('#cancel_link', 800);return false;", class: [:button, :bordered]
+  - elsif !@instance.max_attendees.blank?
+    = link_to t(:register_x, waiting_list_option: (@instance.max_attendees - @instance.registrations.not_waiting.to_a.delete_if{|x| x.new_record? }.size) < 1 ? t(:for_the_waiting_list) : '' ), '#', onclick:"javascript:$('.registration_form').slideToggle();$(document).scrollTo('.registration_form', 800);return false;", class: [:button, :bordered]
+  - else
+    = link_to t(:register), '#', onclick:"javascript:$('.registration_form').slideToggle();$(document).scrollTo('.registration_form', 800);return false;", class: [:button, :bordered]
+- else
+  - if !@instance.max_attendees.blank?
+    = link_to t(:register_x, waiting_list_option: (@instance.max_attendees - @instance.registrations.not_waiting.to_a.delete_if{|x| x.new_record? }.size) < 1 ? t(:for_the_waiting_list) : '' ), '#', onclick:"javascript:$('.registration_form').slideToggle();$(document).scrollTo('#sign_in_to_register', 800);return false;", class: [:button, :bordered]
+  - else
+    = link_to t(:register), '/users/sign_in', class: [:button, :bordered]  

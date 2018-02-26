@@ -56,7 +56,10 @@
                     -# - if @event.idea.timeslot_undetermined == false
                     .small-6.large-4.columns= ff.input :start_at, as: :string, input_html: { class: :datetimepicker, value: ff.object.start_at.nil? ? '' : ff.object.start_at.localtime.strftime("%Y-%m-%d %H:%M"), required: ''  }
                     .small-6.large-4.columns.end= ff.input :end_at, as: :string, input_html: { class: :datetimepicker, value: ff.object.end_at.nil? ? '' : ff.object.end_at.localtime.strftime("%Y-%m-%d %H:%M"), required: '' }
-
+                  .row
+                    .small-12.columns
+                      %strong= t :points_needed_session
+                      .value{id: "points_needed_event_instances_attributes_#{ff.options[:child_index]}"}
                   - if ff.options[:child_index] != 0
                     .row
                       .small-12.columns= t :enter_different_names
@@ -77,7 +80,7 @@
                           .row
                             .small-10.columns
                               %b= "Description of event in #{t :locale_name, :locale => locale}"
-                              = en.cktext_area :description, value: @event.read_translated_attribute(:description, locale.to_sym).blank? ? '' : @event.description(locale.to_sym)
+                              = en.cktext_area :description, value: @event.read_translated_attribute(:description, locale.to_sym).blank? ? '' : simple_format(@event.description(locale.to_sym))
                 
 
                 .row.pad
@@ -93,7 +96,7 @@
                 .row.pad
                   .small-12.column
                     %p= t(:how_many_points)
-                    .slider{"data-initial-start" => "5", "data-start" => "#{ff.options[:child_index].to_s == "0" ? 1 : 0}", "data-end" => "15", "data-slider" => ""}
+                    .slider{"data-initial-start" => "#{ff.options[:child_index].to_s == "0" ? 5 : 0}", "data-start" => "#{ff.options[:child_index].to_s == "0" ? 1 : 0}", "data-end" => "15", "data-slider" => ""}
                       %span.slider-handle{"aria-controls" => "event_instances_attributes_#{ff.options[:child_index].to_s}_cost_bb", "data-slider-handle" => "", :role => "slider", :tabindex => "1"}
                       %span.slider-fill{"data-slider-fill" => ""}
                     = ff.input :cost_bb, label: false, hint: raw(t(:costbb_hint)), input_html: {class: :short_input}, wrapper_html: {class: :short_input}
@@ -106,20 +109,20 @@
 
                 %p
                   %strong= t(:points_available_for_event)
-                  %big= @event.idea.pledged.to_s
+                  %big#points_available= @event.idea.pledged.to_s
 
                 %p
                   %strong= t(:points_required_for_this_event)
                   %big#points_required
                   .explanation
-                = f.submit t(:publish_event)
+                = f.action :submit, label: t(:publish_event), button_html: {disabled: '', id: :publish_submit, class: [:disabled]}
 = content_for :jquery do
   :plain
      $('#event_primary_sponsor_select').on('change', function() {
-      $('#event_primary_sponsor_type').val($('#event_primary_sponsor_select option').filter(":selected").attr('rel'));
+      $('#event_primary_sponsor_type').val($('#event_primary_sponsor_select option').filter(":selected").attr('rel'))
       $('#event_primary_sponsor_id').val($('#event_primary_sponsor_select').val());
 
-    });
+    })
     $('input[name="recurs"]').change(() => {
       if ($('input#recurs_1').is(':checked')) {
         $('.project_name').slideDown();
@@ -132,6 +135,14 @@
         total += instance
         $('#event_instances_attributes_' + eyed + '_custom_bb_fee').val(instance)
       })
+      if (total <= parseInt($('#points_available').html())) {
+        $('#publish_submit').removeAttr('disabled');
+        $('#publish_submit').removeClass('disabled');
+      } else {
+     
+        $('#publish_submit').attr('disabled', 'disabled');
+        $('#publish_submit').addClass('disabled');
+      }
       return parseInt(total);
     }
     $('form input, form select').change(() => { 
@@ -145,10 +156,8 @@
     })
     $('#points_required').html(recalc(idarray));
     $('.datetimepicker').fdatetimepicker({ weekStart: 1, format: 'yyyy-mm-dd hh:ii'}).on('changeDate', function(){
-
           $(this).fdatetimepicker('hide');
     }) 
-
     $(document).on('nested:fieldAdded', function(event){     
       var field = event.field;  
       field.css('border-top', '1px solid black')
@@ -161,7 +170,7 @@
       // see if there are additional form times and calculate them, return an array of points needed
       $('.fields').each(function(index) {
         $(this).find('.subtimes').each(function(ids) { idarray.push($(this).attr('id')) });
-       });
+       })
 
       $('#points_required').html(recalc(idarray))
 
@@ -170,4 +179,9 @@
         $('#event_start_at').val($('#event_instances_attributes_0_start_at').val())
         $('#event_end_at').val($('#event_instances_attributes_0_start_at').val())
       }); 
+    })
+
+    $('#new_event').on('invalid.zf.abide', function(e) {
+      $(document).scrollTo('#new_event', {duration: 2000})
+      
     })

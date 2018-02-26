@@ -1,0 +1,78 @@
+- if @instance.in_future? # && @instance.registration_open == true
+  .row
+    .small-12.columns
+      - if user_signed_in?
+        - if current_user.registered?(@instance)
+          #cancel_link
+            %h5= t(:you_have_registered_see_you)
+    
+
+            - if @instance.start_at - Time.current >= 86400
+              %p= t :registration_cancel_blurb
+  
+              = link_to t(:cancel_registration), cancel_registration_event_instance_path(@instance.event, @instance), method: :post, class: [:button, :alert, :bordered], data: {confirm: t(:are_you_sure_you_want_to_cancel)}
+        - else
+          .registration_heading
+            %strong= t(:you_must_register_for_this_event)
+            - unless @instance.max_attendees.blank?
+              %br/
+              = t(:there_are_x_places_left, is_number_place: t(:place_in_registration, count: @instance.max_attendees - @instance.registrations.not_waiting.size))
+
+      
+      - else
+        #sign_in_to_register
+          %h4
+            = raw t(:if_you_want_to_register, sign_in: link_to(t(:sign_in).downcase, '/users/sign_in'))
+
+            %br/
+            = link_to t(:log_in_join), '/users/sign_in', class: [:button, :bordered]
+            %br/
+    
+  .row
+    .small-10.medium-8.columns
+
+      - if user_signed_in?
+        -  unless current_user.registered?(@instance)
+          = link_to t(:register_me), '#', onclick: 'javascript:$(".registration_form").slideToggle();return false;', class: [:button, :bordered]
+          .registration_form
+            .row
+              .small-12.columns
+                - unless @instance.max_attendees.blank?
+                  - if @instance.max_attendees.to_i - @instance.registrations.not_waiting.to_a.delete_if{|x| x.new_record? }.size < 1
+                    %h5= t(:registration_is_full_waiting_list)
+            = semantic_form_for  [ @instance.event, @instance,  @registration = @instance.registrations.build(user: current_user)], html: {:"data-abide" => '' } do |f|
+              = f.input :user_id, as: :hidden, data: {value: current_user.id}
+
+ 
+              - unless @instance.question1_text.blank?
+                .row
+                  .small-10.medium-8.columns= f.input :question1, label: @instance.question1_text, input_html: {required: ''}
+              - unless @instance.question2_text.blank?
+                .row
+                  .small-10.medium-8.columns= f.input :question2, label: @instance.question2_text, input_html: {required: ''}
+              - unless @instance.question3_text.blank?
+                .row
+                  .small-10.medium-8.columns= f.input :question3, label: @instance.question3_text, input_html: {required: ''}
+              - unless @instance.question4_text.blank?
+                .row
+                  .small-10.medium-8.columns= f.input :question4, label: @instance.question4_text , input_html: {required: ''}   
+              - unless @instance.boolean1_text.blank?
+                .row
+                  .small-10.medium-8.columns= f.input :boolean1, as: :boolean, label: @instance.boolean1_text 
+              - unless @instance.boolean2_text.blank?
+                .row
+                  .small-10.medium-8.columns= f.input :boolean2, as: :boolean, label: @instance.boolean2_text                            
+              .row
+                .small-10.medium-8.columns= f.input :phone, label: t(:registration_phone), hint: t(:phone_is_optional)
+              .row
+                .small-10.medium-8.columns= f.action :submit, label:  t(:register), button_html: {class: [:button, :bordered] }                                                                                             
+          
+- elsif @instance.in_future?
+  .row
+    .small-10.medium-8.columns
+      %h5= t(:registration_is_closed)
+
+- else
+  .row
+    .small-10.medium-8.columns
+      %h5= t :experiment_already_took_place

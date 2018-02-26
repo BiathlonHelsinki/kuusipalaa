@@ -81,6 +81,12 @@ GEM
       activemodel (= 5.1.4)
       activesupport (= 5.1.4)
       arel (~> 8.0)
+    activerecord-session_store (1.1.0)
+      actionpack (>= 4.0, < 5.2)
+      activerecord (>= 4.0, < 5.2)
+      multi_json (~> 1.11, >= 1.11.2)
+      rack (>= 1.5.2, < 3)
+      railties (>= 4.0, < 5.2)
     activesupport (5.1.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
@@ -532,6 +538,7 @@ PLATFORMS
 
 DEPENDENCIES
   activemodel-serializers-xml
+  activerecord-session_store
   audited (~> 4.5)
   auto_html
   awesome_nested_set

@@ -34,13 +34,19 @@
                     = " + "
                     = date_range(t.start_at.localtime, t.end_at.localtime)
           %td.half
-            .heading= t :proposed_by_empty
+            .heading= t :organised_by
             .value
-              .avatar= link_to image_tag(@event.idea.proposer.avatar.url(:thumb).gsub(/development/, 'production')), @event.idea.proposer
-              .who= link_to(@event.idea.proposer.display_name, @event.idea.proposer, target: :_blank)
+              .avatar= link_to image_tag(@event.primary_sponsor.avatar.url(:thumb).gsub(/development/, 'production')), @event.primary_sponsor
+              .who= link_to(@event.primary_sponsor.display_name, @event.primary_sponsor, target: :_blank)
         %tr
 
-
+          %td.half
+            .heading= t :ticket_price
+            .value
+              - if @event.instances.first.price_public == 0
+                = t :free_entry
+              - else
+                = number_to_currency(@event.instances.first.price_public, unit: raw("&euro;"), format: "%n %u")        
           %td.half
             .heading= t :venue
             .value
@@ -53,13 +59,34 @@
                   = t(:both_rooms_short)
               - if @event.instances.first.allow_others == true
                 .subtext= t :others_are_allowed
-
+        %tr
+          %td.half
+            .heading= t :participation_details
+            .value
+              = t :you_will_earn_x_for_participating, number: @event.instances.sum(&:cost_bb)
+          %td.half
+            .heading= t :registration
+            .value
+              - if @event.instances.map(&:request_registration).compact.include?(true)
+                %p= t :you_must_register_for_this_event
+                = render partial: 'registration_button'
+                - if user_signed_in?
+                  - if @event.instances.first.responsible_people.include?(current_user)
+                    = link_to t(:change_registration_form), add_registration_form_event_instance_path(@event, @event.instances.first) , class: [:button, :bordered]
+              - else
+                = t :registration_not_required
+                - if user_signed_in?
+                  - if @event.instances.first.responsible_people.include?(current_user)
+                    = link_to t(:add_registration_form), add_registration_form_event_instance_path(@event, @event.instances.first) , class: [:button, :bordered]
         %tr
           %td{colspan: 2}
-            .heading= t :proposal_description
-            .value= raw @event.instances.first.description   
-
-     
+            .heading= t :event_description
+            .value= simple_format(@event.instances.first.description)  
+  
+        - if @event.instances.map(&:request_registration).compact.include?(true)
+          %tr#registration_form
+            %td{colspan: 2}= render partial: 'registration_form'
+   
 
 
   .row#comments_list

@@ -28,9 +28,11 @@ Rails.application.routes.draw do
     end
     resources :comments
     resources :instances , path: '' do
+      resources :registrations, controller: :event_registrations
       member do
         post :rsvp
         post :register
+        get :add_registration_form
         post :cancel_rsvp
         post :cancel_registration
         get :stats

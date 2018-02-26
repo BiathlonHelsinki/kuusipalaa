@@ -53,7 +53,7 @@ class EventsController < ApplicationController
       #  no image upload so use idea image
       idea = Idea.find(params[:event][:idea_id])
       if idea.image?
-        params[:event][:remote_image_url] = idea.image.url
+        params[:event][:remote_image_url] = idea.image.url.gsub(/development/, 'production')
       end
     end
 

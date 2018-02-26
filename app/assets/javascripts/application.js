@@ -111,9 +111,20 @@ function check_additionals() {
       $('input[name="idea[additionaltimes_attributes][' + eyed + '][end_at_date]"]').val($('input[name="idea[additionaltimes_attributes][' + eyed + '][start_at_date]"]').val());
     } else {
       let base = calcSpan(start, endtime);
+      if ($('#idea_room_needed').val() == "2") {
+        base *= 0.6;
+      } else if ($('#idea_room_needed').val() == "3") {
+        base *= 1.3;
+      }
+
+      // discount for allowing others to be there
+      if ($('#idea_allow_others').is(":checked") && $('#idea_room_needed').val() != "2") {
+        base *= 0.75;
+      }
+
       var duration = moment.duration(endtime.diff(start));
 
-      $('#slotlength_' + eyed).html(endtime.preciseDiff(start) + '<Br />+' + base + " points needed")
+      $('#slotlength_' + eyed).html(endtime.preciseDiff(start) + '<Br />+' + parseInt(base) + " points needed")
       returned.push(base)
     }
   })
@@ -146,6 +157,7 @@ function checkNested() {
   let tomorrow  = moment(new Date()).add(1,'days')
 
   idarray.forEach(function(eyed) {
+    // calculatePoints('idea_additionaltimes_attributes_' + eyed)
     var start = moment($('input[name="idea[additionaltimes_attributes][' + eyed + '][start_at_date]"]').val() + ' ' + $('input[name="idea[additionaltimes_attributes][' + eyed + '][start_at]"]').val(), 'YYYY-MM-DD HH:mm');
     var endtime = moment($('input[name="idea[additionaltimes_attributes][' + eyed + '][end_at_date]"]').val() + ' ' + $('input[name="idea[additionaltimes_attributes][' + eyed + '][end_at]"]').val(), 'YYYY-MM-DD HH:mm');
  
@@ -263,9 +275,7 @@ function calculateCost() {
   // figure out how much of each time belongs to the three prices
   let base = calcSpan(start, endtime)
   //  get any additional times for new total
-  let returned = check_additionals();
-  let base_totaled = base + returned.reduce((a, b) => a + b, 0)
-  // discount for room needed
+    // discount for room needed
   if ($('#idea_room_needed').val() == "2") {
     base_totaled *= 0.6;
   } else if ($('#idea_room_needed').val() == "3") {
@@ -276,6 +286,12 @@ function calculateCost() {
   if ($('#idea_allow_others').is(":checked") && $('#idea_room_needed').val() != "2") {
     base_totaled *= 0.75;
   }
+
+  let returned = check_additionals();
+  let base_totaled = base + returned.reduce((a, b) => a + b, 0)
+
+
+
 
   $('#initial_time_length').html(endtime.preciseDiff(start) + '<Br />' + base + " base points needed")
   $('#points_total').html(parseInt(base_totaled))

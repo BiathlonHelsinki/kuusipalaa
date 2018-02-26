@@ -8,21 +8,22 @@ function calculatePoints(idstart) {
   // figure out how much of each time belongs to the three prices
   let base = calcSpan(start, endtime)
   //  get any additional times for new total
-  let returned = check_additionals();
-  let base_totaled = base + returned.reduce((a, b) => a + b, 0)
-  // discount for room needed
   if ($('#' + idstart + '_room_needed').val() == "2") {
-    base_totaled *= 0.6;
+    base *= 0.6;
   } else if ($('#' + idstart + '_room_needed').val() == "3") {
-    base_totaled *= 1.3;
+    base *= 1.3;
   }
 
   // discount for allowing others to be there
   if ($('#' + idstart + '_allow_others').is(":checked") && $('#' + idstart + '_room_needed').val() != "2") {
-    base_totaled *= 0.75;
+    base *= 0.75;
   }
+  let returned = check_additionals();
+  let base_totaled = parseInt(base) + parseInt(returned.reduce((a, b) => a + b, 0))
+  // discount for room needed
 
-  $('#initial_time_length').html(endtime.preciseDiff(start) + '<Br />' + base + " base points needed")
+
+  $('#initial_time_length').html(endtime.preciseDiff(start) + '<Br />' + parseInt(base) + " base points needed")
   $('#points_total').html(parseInt(base_totaled))
   $('#idea_points_needed').val(parseInt(base_totaled))
   
@@ -38,5 +39,7 @@ function calculatePoints(idstart) {
       $('#' + idstart + '_price_stakeholders').val(0)
     }
   }
+  $('#points_needed_' + idstart).html(parseInt(base_totaled))
+
   return parseInt(base_totaled)
 }

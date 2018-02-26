@@ -9,6 +9,7 @@ class Instance < ApplicationRecord
   has_many :users, through: :instances_users
   has_many :organisers, through: :instances_organisers
   has_many :onetimers, dependent: :destroy
+  has_many :registrations, dependent: :destroy
   has_many :rsvps
   scope :between, -> (start_time, end_time) { 
     where( [ "(start_at >= ?  AND  end_at <= ?) OR ( start_at >= ? AND end_at <= ? ) OR (start_at >= ? AND start_at <= ?)  OR (start_at < ? AND end_at > ? )",

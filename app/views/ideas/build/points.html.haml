@@ -91,11 +91,11 @@
           },
           idle: 1000
       })
-      calculateCost();
+      calculatePoints('idea')
       $(document).on('nested:fieldAdded', function(event){     
         var field = event.field;  
         $('form input, form select').change(() => {    
-          calculateCost();
+          calculatePoints('idea')
           checkLogic()
           .then(() => {
             return checkNested()
@@ -104,7 +104,7 @@
             callback()
           })
           .done(() => {
-            calculateCost();
+            calculatePoints('idea')
           })
         });   
         $('.timepicker').timepicker({ 'timeFormat': 'H:i' });
@@ -146,7 +146,7 @@
       }); 
 
       $('form input, form select').change(() => {      
-        calculateCost().then(() => {
+        calculatePoints('idea').then(() => {
 
           checkLogic().done((callback) => {
             callback();
@@ -155,7 +155,7 @@
       });
       $('form button').click(function() {
         checkLogic()
-        calculateCost()
+        calculatePoints('idea')
         $("#form_direction").val($(this).attr('rel'))
           if ($('#form_direction').val() == 'previous') {
             $('input, div, form').removeAttr('data-invalid'); 

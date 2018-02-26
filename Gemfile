@@ -83,7 +83,7 @@ gem 'capistrano-rvm'
 gem 'capistrano-bundler'#, '1.1.4'
 gem 'capistrano3-puma'
 
-
+gem 'activerecord-session_store'
 gem "audited", "~> 4.5"
 gem 'auto_html'
 gem 'awesome_nested_set'

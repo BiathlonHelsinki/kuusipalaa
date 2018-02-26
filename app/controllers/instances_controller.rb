@@ -1,6 +1,17 @@
 class InstancesController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
-  before_action :authenticate_user!, only: [:rsvp]
+  before_action :authenticate_user!, only: [:rsvp, :add_registration_form]
+
+  def add_registration_form
+    if params[:event_id]
+      @event = Event.friendly.find(params[:event_id])
+      @instance = @event.instances.friendly.find(params[:id])
+    end
+    if !@instance.responsible_people.include?(current_user)
+      flash[:error] = t(:not_authorized)
+      redirect_to event_instance_path(@event, @instance)
+    end
+  end
 
   def cancel_registration
     if params[:event_id]
@@ -90,8 +101,9 @@ class InstancesController < ApplicationController
     if params[:event_id]
       @event = Event.friendly.find(params[:event_id])
       @instance = @event.instances.friendly.find(params[:id])
-      if @instance.slug == @event.slug && @event.instances.published.size == 1
+      if @instance.slug == @event.slug && @event.keep_going != true
         redirect_to event_path(@event.slug)
+
       end
       set_meta_tags title: @instance.name
 
@@ -137,4 +149,30 @@ class InstancesController < ApplicationController
     end
   end
   
+  def update
+    if params[:event_id]
+      @event = Event.friendly.find(params[:event_id])
+      @instance = @event.instances.friendly.find(params[:id])
+    end
+    if can? :update, @instance
+      if @instance.update_attributes(instance_params)
+        flash[:notice] = t(:event_has_been_updated)   
+      end
+   else
+    flash[:error] = t(:not_authorized)
+  end
+  redirect_to event_instance_path(@event, @instance)
+    
+  end
+
+  protected
+
+    def instance_params
+      params.require(:instance).permit(:request_registration, :max_attendees, :require_approval, :email_registrations_to, 
+        :question1_text, :question2_text, :question3_text, :question4_text, :boolean1_text, :boolean2_text, 
+        :registration_open,  events_attributes: [:secondary_sponsor], organiser_ids: [], 
+        translations_attributes: [:name, :description, :instance_id, :locale, :id]
+        )
+    end
 end
+

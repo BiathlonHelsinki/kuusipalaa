@@ -564,7 +564,7 @@ fi:
   phone_is_optional: 'Puhelinnumeron antamnen on vapaaehtoista.'
   registration_form: 'Ilmoittautumislomake'
   registration_is_full_waiting_list: 'Ilmoittautuminen on tällä hetkellä täynnä. Voit halutessasi ilmoittautu odotuslistale. Saat viestiä, jos tapahtumaan vapautuu paikkoja.'
-  you_will_earn_x_for_participating: "Saat %{number}Ŧ osallistumisesta!"
+  you_will_earn_x_for_participating: "Saat %{number}ᵽ osallistumisesta!"
   for_the_waiting_list: ' odotuslistalle'
   register_x: 'Ilmoittaudu%{waiting_list_option}'
   i_plan_to_attend: 'Aion osallistua!'
