@@ -118,8 +118,12 @@
                   = feeditem.name
                   - if feeditem.class == Idea
                     .description= raw feeditem.short_description
-                  - elsif feeditem.class == Instance
-                    .description= date_range(feeditem.event.start_at, feeditem.event.end_at)
+                  - elsif feeditem.class == Event
+                    .description
+                      - feeditem.instances.order(:start_at).each do |instance|
+                        - next unless instance.in_future?
+                        = date_range(instance.start_at, instance.end_at)
+                        %br/
                 .banner2_blurb  
                   - if feeditem.image?
                     &nbsp;

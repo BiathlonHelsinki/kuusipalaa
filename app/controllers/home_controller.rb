@@ -7,7 +7,8 @@ class HomeController < ApplicationController
 
     @feed = Idea.active.unconverted
     @feed += @posts.reverse
-    @feed += Instance.calendered.future.published
+
+    @feed += Instance.calendered.future.published.map(&:event).uniq
 
     render layout: 'frontpage'
   end
