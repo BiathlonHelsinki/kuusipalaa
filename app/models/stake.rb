@@ -2,8 +2,8 @@ class Stake < ApplicationRecord
   belongs_to :owner, polymorphic: true
   belongs_to :season
   belongs_to :bookedby, class_name: 'User'
-  belongs_to :paymenttype
-  belongs_to :ethtransaction
+  belongs_to :paymenttype, optional: true
+  belongs_to :ethtransaction, optional: true
   mount_uploader :invoice, AttachmentUploader
   mount_uploader :paidconfirmation, AttachmentUploader
   before_validation :figure_special_fees
