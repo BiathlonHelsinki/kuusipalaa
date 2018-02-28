@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
   before_action :store_user_location!, if: :storable_location?
   before_action :get_pending_kuusipalaa #, if: :user_signed_in?
   before_action :fill_collection, if: :user_signed_in?
+  before_action :are_we_open?
+  before_action :check_pin, if: :user_signed_in?
+
   protected
 
   def after_sign_in_path_for(resource)
@@ -24,7 +27,10 @@ class ApplicationController < ActionController::Base
     
   end
 
-
+  def check_pin
+    @needs_pin = current_user.pin.blank?
+  end
+  
   def configure_permitted_parameters
     added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
@@ -72,6 +78,20 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  
+  def are_we_open?
+    unless request.xhr?
+      Opensession.uncached do
+        sesh = Opensession.by_node(1).find_by(closed_at: nil)
+      end
+      sesh = Opensession.by_node(1).find_by(closed_at: nil)
+      if sesh.nil?
+        @kp_is_open = false
+      else
+        @kp_is_open = true
+      end
+    end
+  end
 
   def storable_location?
 

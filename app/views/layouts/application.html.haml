@@ -69,6 +69,14 @@
             -#   %strong ENG
             -# %br/
             -# = link_to t(:sign_in), '/users/sign_in'
+    - if @needs_pin
+      %article
+        .row.front_box.alert
+          = link_to set_pin_user_path(current_user) do
+            .small-12.columns.small-centered.text-center
+              .banner_blurb= t :you_must_enter_a_pin
+              .smaller= t :enter_pin_for_id
+                    
     %article#main
 
       = yield

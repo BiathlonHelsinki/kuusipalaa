@@ -2,15 +2,7 @@
 .name.text-right<
   = current_user.display_name
   %br/
-  - if current_user.is_member?
-    - if current_user.has_role? :stakeholder
-      = t :stakeholder
-    - else
-      = t :member, count: 1
-    %br/
-  - else
-    = t :not_a_member
-    %br/
+
   - if current_user.stakes.empty?
     = link_to t(:no_stakes), user_stakes_path(current_user)
   - else

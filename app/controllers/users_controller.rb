@@ -30,6 +30,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def set_pin
+    @user = current_user
+  end
+
+
   def check_unique
     if User.where("lower(username) = ?", params[:username].downcase).exists? || Group.where("lower(name) = ?",  params[:username].downcase).exists?
       render json:{message: 'Username is taken'}, status: 422

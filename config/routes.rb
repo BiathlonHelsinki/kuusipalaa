@@ -156,6 +156,7 @@ Rails.application.routes.draw do
     resources :groups
     resources :ideas
     member do
+      get :set_pin
       get :get_avatar
       get :get_membership_details
     end

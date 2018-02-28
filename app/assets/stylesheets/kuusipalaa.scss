@@ -180,14 +180,32 @@ a.not-active {
   padding: 1.5rem 0;
 }
 
+article.divider {
+  margin-bottom: 3rem;
+  .columns {
+    border-bottom: 2px solid black;
+  }
+}
 .front_box {
   border: 1px solid black;
   padding: 1rem 3rem;
+  margin-top: 1.5rem; 
+  margin-bottom: 1.5rem;
+  &.alert {
+    background-color: $pink;
+    a {color: white; }
+  }
   font-family: $sourcecode;
   text-transform: uppercase;
-  font-size: 1.8rem;
+   &.false {
+      background-color: black;
+      color: white;
+    }
   font-weight: bold;
+  .banner_blurb {
+    font-size: 1.8rem;
 
+  }
   .smaller {
     font-size: 1rem;
     font-weight: normal;
