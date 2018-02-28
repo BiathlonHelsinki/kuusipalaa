@@ -75,6 +75,7 @@ Rails.application.routes.draw do
     end
     member do
       get :publish_event
+      get :original_proposal
     end
     resources :pledges do
       collection do

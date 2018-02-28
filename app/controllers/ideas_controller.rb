@@ -47,6 +47,18 @@
     # end
   end
 
+
+  def original_proposal
+    @idea = Idea.friendly.find(params[:id])
+    set_meta_tags title: @idea.name
+    unless @idea.converted?
+      redirect_to @idea
+    else
+      render template: 'ideas/show'
+    end
+  end
+
+
   def index
     if params[:user_id]
       @user = User.friendly.find(params[:user_id])
@@ -106,6 +118,9 @@
 
   def show
     @idea = Idea.friendly.find(params[:id])
+    if @idea.converted?
+      redirect_to @idea.converted
+    end
     if user_signed_in?
       fill_collection
       @pledger = current_user

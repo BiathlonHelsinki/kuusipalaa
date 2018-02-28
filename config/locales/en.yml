@@ -1100,3 +1100,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   max_attendees: 'Maximum # of attendees'
   leave_blank_unlimited: 'Leave blank to be unlimited'
   event_has_been_updated: 'The event has been updated.'
+  see_original_proposal: 'See original proposal'

@@ -31,7 +31,10 @@
             .heading= t :organised_by
             .value
               .avatar= link_to image_tag(@event.primary_sponsor.avatar.url(:thumb).gsub(/development/, 'production')), @event.primary_sponsor
-              .who= link_to(@event.primary_sponsor.display_name, @event.primary_sponsor, target: :_blank)
+              .who
+                = link_to(@event.primary_sponsor.display_name, @event.primary_sponsor, target: :_blank)
+                %br/
+                %small= link_to t(:see_original_proposal), original_proposal_idea_path(@event.idea), target: :_blank, class: [:button, :tiny, :bordered]
         %tr
 
           %td.half

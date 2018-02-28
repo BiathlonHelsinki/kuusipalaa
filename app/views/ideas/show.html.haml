@@ -110,13 +110,13 @@
         .small-3.columns.point_count= @idea.pledged
         .small-6.columns &nbsp;
         .small-3.columns.point_count.text-right.end= @idea.points_needed
-      - if user_signed_in?
+      - if user_signed_in? && !@idea.converted
         .row.pledge_info#pledge_panel_wrapper
 
           = render partial: 'ideas/pledge_panel'
 
 
-  - if user_signed_in?
+  - if user_signed_in? && !@idea.converted
     .row
       .small-12.columns.lessmargins.right_adjust
         -if @pledge.new_record?
