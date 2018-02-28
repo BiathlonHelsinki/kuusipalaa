@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
           :recoverable, :rememberable, :trackable, :confirmable,
           :omniauthable, :validatable, :authentication_keys => [:login]
 
-  has_many :accounts
+  has_many :accounts, as: :holder
   has_many :authentications, :dependent => :destroy
   # accepts_nested_attributes_for :authentications, :reject_if => proc { |attr| attr['username'].blank? }
   accepts_nested_attributes_for :accounts, reject_if: proc {|attr| attr['address'].blank? }

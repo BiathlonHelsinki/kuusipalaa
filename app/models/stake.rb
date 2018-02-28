@@ -3,6 +3,7 @@ class Stake < ApplicationRecord
   belongs_to :season
   belongs_to :bookedby, class_name: 'User'
   belongs_to :paymenttype
+  belongs_to :ethtransaction
   mount_uploader :invoice, AttachmentUploader
   mount_uploader :paidconfirmation, AttachmentUploader
   before_validation :figure_special_fees
