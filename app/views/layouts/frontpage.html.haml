@@ -140,6 +140,7 @@
               - else
                 = t :main_room_events_from, event: @main_room.to_s + ' '  + t(:event, count: @main_room)
               - if @event_count == 0
+                %br/
                 = t :kp_for_general_use
 
         .small-last.medium-4
