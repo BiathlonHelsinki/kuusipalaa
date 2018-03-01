@@ -1,0 +1,4 @@
+$("#organiser_info_<%= @user.id.to_s %>").html("<%= t(:organiser) %>");
+
+
+$("#organiser_info_<%= @user.id.to_s %>").append("<a href='<%= event_user_remove_organiser_path(@event, @instance, @user) %>' data-remote='true' class='button alert tiny'><%= t(:remove_organiser) %></a>");

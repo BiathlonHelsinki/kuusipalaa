@@ -2,7 +2,7 @@
   .row
     .small-12.columns.title_box
       .title
-        = t :event
+        = t :event, count: 1
         = ": "
         = @event.name
 
@@ -35,6 +35,14 @@
                 = link_to(@event.primary_sponsor.display_name, @event.primary_sponsor, target: :_blank)
                 %br/
                 %small= link_to t(:see_original_proposal), original_proposal_idea_path(@event.idea), target: :_blank, class: [:button, :tiny, :bordered]
+        %tr
+          %td{colspan: 2 }
+            .heading= t :where
+            .value
+              %strong= @instance.place.name
+              = @instance.place.address   
+              = @instance.place.city
+
         %tr
 
           %td.half
@@ -74,7 +82,36 @@
                 = t :registration_not_required
                 - if user_signed_in?
                   - if @event.instances.first.responsible_people.include?(current_user)
-                    = link_to t(:add_registration_form), add_registration_form_event_instance_path(@event, @event.instances.first) , class: [:button, :bordered]
+                    = link_to t(:add_registration_form), add_registration_form_event_instance_path(@event, @event.instances.first) , class: [:button, :bordered]     
+        - if user_signed_in?
+          - if @event.instances.first.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+            %tr
+              %td.registration_list{:colspan => 2}
+                .heading= t :registrations
+                .value.row.small-up-2.medium-up-4.large-up-6
+                  - @instance.registrations.each do |reg|
+                    .column
+                      = image_tag reg.user.avatar.url(:thumb)
+                      %br/
+                      = link_to reg.user.display_name, reg.user, target: :_blank
+                      %br/
+                      %small= reg.user.email
+                      %div{id: "organiser_info_#{reg.user.id.to_s}"}
+                        - if @instance.responsible_people.include?(reg.user)
+                          %br/
+                          = t(:organiser)
+                          - if @instance.event.primary_sponsor == reg.user 
+                            %br/
+                            = link_to t(:proposer), @instance.event.idea
+                          - else
+                            - if user_signed_in?
+                              - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+                                = link_to t(:remove_organiser), event_user_remove_organiser_path(@instance.event, @instance, reg.user), remote: true,  class: [:button, :alert, :tiny]
+                        - else
+                          - if user_signed_in?
+                            - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+                              = link_to t(:make_organiser), event_user_make_organiser_path(@instance.event, @instance, reg.user), remote: true,  class: [:button, :secondary, :tiny]
+
         %tr
           %td{colspan: 2}
             .heading= t :event_description
@@ -82,8 +119,9 @@
   
         - if @event.instances.map(&:request_registration).compact.include?(true)
           %tr#registration_form
-            %td{colspan: 2}= render partial: 'registration_form'
-   
+            %td{colspan: 2}
+              = render partial: 'registration_form'
+
 
 
   .row#comments_list

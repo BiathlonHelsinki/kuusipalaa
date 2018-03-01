@@ -40,8 +40,11 @@
               .avatar= link_to image_tag(@instance.idea.proposer.avatar.url(:thumb).gsub(/development/, 'production')), @instance.idea.proposer
               .who= link_to(@instance.idea.proposer.display_name, @instance.idea.proposer, target: :_blank)
         %tr
-
-
+          %td{colspan: 2 }
+            .heading= t :where
+            .value
+              %strong= @instance.place.name
+              = @instance.place.address
 
           %td.half
             .heading= t :price_public

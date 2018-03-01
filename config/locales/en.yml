@@ -1118,3 +1118,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   you_must_enter_a_pin: 'Please enter a PIN!'
   enter_pin_for_id: 'Beginning 1 March, all Kuusi Palaa users must set a PIN code in order to create and link an ID card.'
   set_pin: 'Set PIN'
+  where: 'Where'

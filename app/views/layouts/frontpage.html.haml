@@ -138,7 +138,7 @@
               - if @main_room.empty?
                 = t :main_room_free_all_day
               - else
-                = t :main_room_events_from, event: @main_room.to_s + ' '  + t(:event, count: @main_room)
+                = t :main_room_events_from, event: @main_room.size.to_s + ' '  + t(:event, count: @main_room.size)
               - if @event_count == 0
                 %br/
                 = t :kp_for_general_use
