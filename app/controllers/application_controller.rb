@@ -107,7 +107,7 @@ class ApplicationController < ActionController::Base
   def fill_collection
 
     @collection_options = []
-    @collection_options << [current_user.name  + " (#{current_user.available_balance}ᵽ)", current_user.id, 'User', nil, 50, false]
+    @collection_options << [current_user.name  + " (#{current_user.available_balance.to_i.to_s}ᵽ)", current_user.id, 'User', nil, 50, false]
     last = ''
     unless current_user.members.empty?
       current_user.members.each do |m|
