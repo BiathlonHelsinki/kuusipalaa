@@ -88,6 +88,10 @@ class MembersController < ApplicationController
     redirect_to @group
   end
 
+  def index
+    redirect_to new_group_member_path(params[:group_id])
+  end
+
   def new_group
     @group = Group.new
   end

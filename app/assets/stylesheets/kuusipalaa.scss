@@ -5,6 +5,31 @@ select {
   -webkit-border-radius: 0px;
 }
 
+.right {
+  float: right;
+}
+
+.send_options {
+  margin: 1.5rem 0;
+  .pledge_as {
+    font-family: $sourcecode;
+    font-weight: bold;
+    font-size: 0.8rem;          
+  }
+  #avatar_sender {
+    float: left;
+    margin-right: 10px;
+    img {
+      height: 60px;
+
+    }
+
+  }
+  #sender_select {
+    float: left;
+    max-width: 50%
+  }
+}
 
 input[type="radio"] {
   display: none;

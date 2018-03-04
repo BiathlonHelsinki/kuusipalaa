@@ -1,10 +1,9 @@
 .member_services_index
   .row
     .small-12.columns
-      %h2.text-center= t :member_services
-      %br/
-      %br/
-
+      .lifted_box
+        .title= t(:member_services) + ": " + @group.display_name
+        .blurb
   .row
     .small-12.columns.medium-8.large-3
       %h3.text-center= t :stakes

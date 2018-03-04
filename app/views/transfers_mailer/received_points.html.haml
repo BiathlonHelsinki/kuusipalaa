@@ -1,0 +1,25 @@
+%h1 You got points!
+
+%p
+  Hello 
+  = @recipient.display_name
+  = ","
+%p
+  = @sender.display_name
+  has sent you
+  = raw("#{@amount.to_s}#{ENV['currency_symbol']}!")
+
+- unless @reason.blank?
+  %p
+    The reason for this transaction was given as:
+    %br/
+    ="\"#{@reason}\""
+  
+  
+%p
+  Thank you for your support of the Kuusi Palaa/Biathlon concept!
+
+%p
+  Sincerely,
+
+%p Kuusi Palaa 

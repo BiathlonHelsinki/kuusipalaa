@@ -11,10 +11,15 @@
             - unless @user.authentications.select{|x| x.provider == 'twitter' }.empty?
               - if @user.show_twitter_link
                 = link_to fa_icon('twitter'), "http://twitter.com/#{@user.authentications.select{|x| x.provider == 'twitter'}.first.username}", target: :_blank
+          - if user_signed_in?
+            - if current_user != @user && current_user.latest_balance > 0
+              .right
+                = link_to raw(t(:send_p_to_user, username: @user.username)), send_points_user_transfers_path(@user), class: [:button, :bordered]
           %br/
           .since
             = t(:user_since, when: l(@user.created_at.to_date, format: :long))
             = " (#{time_ago_in_words(@user.created_at)})"
+
         .info_box.has_form
 
           .row.expanded
@@ -53,7 +58,7 @@
                 .ethereum
                   %strong= t :ethereum_accounts
                   - @user.accounts.each do |account|
-                    %p= link_to account.address, "https://#{Rails.env.development? ? 'testnet.' : ''}etherscan.io/token/#{Figaro.env.token_address}?a=#{account.address}", target: :_blank
+                    %p= link_to account.address, "https://#{Rails.env.development? ? 'ropsten.' : ''}etherscan.io/token/#{Figaro.env.token_address}?a=#{account.address}", target: :_blank
 
 
               - if user_signed_in?

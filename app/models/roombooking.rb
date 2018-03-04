@@ -17,7 +17,7 @@ class Roombooking < ApplicationRecord
   def as_json(options = {})
     {
       :id => self.id,
-      :title => self.user.display_name + "\n" + (self.purpose || '') + (self.purpose.blank? ? '' : "\n") + start_at.localtime.strftime("%H:%M") + ' - ' + end_at.localtime.strftime("%H:%M"),
+      :title => self.booker.display_name + "\n" + (self.purpose || '') + (self.purpose.blank? ? '' : "\n") + start_at.localtime.strftime("%H:%M") + ' - ' + end_at.localtime.strftime("%H:%M"),
       :description => self.purpose || "",
       icon_url: self.user.avatar.url(:thumb).gsub(/development/, 'production'),
       :start => start_at.localtime, #.strftime('%Y-%m-%d 00:00:01'),

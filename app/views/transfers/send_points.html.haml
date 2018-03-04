@@ -1,0 +1,58 @@
+.transfer_dialogue
+  .row
+    .small-9.columns.small-centered
+      .lifted_box
+
+        .title= t(:transfer_p)
+
+        .blurb
+          %p
+            = t(:you_can_transfer_up_to, number: current_user.available_balance)
+
+            
+          = form_tag post_points_user_transfers_path(@recipient), method: :post, :'data-abide' => '' do
+            .row
+              .small-12.columns
+                %label.label
+                  = t(:how_many_temps_to_tip, user: @recipient.display_name)
+            .row
+              .small-12.columns
+                = text_field_tag :points_to_send, nil, required: ''
+            .row
+              .small-12.columns
+                %label.label= t(:reason_for_transfer)
+                = text_field_tag :reason
+            .row
+              .small-12.medium-9.columns.send_options
+                - if @collection_options.size < 2
+                  .pledge_as= t :send_from
+                  = hidden_field_tag :sender_type, value: 'User', 'required' => '', id: :sender_type_input
+                  = hidden_field_tag :sender_id, value: current_user.id , 'required' => '', id: :sender_id_input
+                  .avatar{id: "avatar_sender"}= image_tag current_user.avatar.url(:thumb).gsub(/development/, 'production')
+
+                  .who= link_to(current_user.display_name, current_user, target: :_blank) 
+                - else
+                  .pledge_as= t :send_from
+                  .avatar{id: "avatar_sender"}= image_tag current_user.avatar.url(:thumb).gsub(/development/, 'production')
+                  = hidden_field_tag :sender_type, current_user.class.to_s, 'required' => '', id: :sender_type_input
+                  = hidden_field_tag :sender_id,  current_user.id.to_s, 'required' => '', id: :sender_id_input
+                  = select_tag :sender, options_for_select(@collection_options.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }), id: :sender_select 
+           
+
+            = submit_tag t(:send), class: [:button, :bordered]
+= content_for :jquery do
+  :plain
+     $('#sender_select').on('change', function() {
+        $('#sender_type_input').val($('#sender_select option').filter(":selected").attr('rel'))
+        $('#sender_id_input').val($('#sender_select').val())
+        $.ajax({
+          url: '/users/' + $('#sender_select').val() + '/get_avatar?class=' + $('#sender_type_input').val() + '&size=thumb',
+          success: function(image) {
+
+            $('#avatar_sender img').attr('src', image);
+            $('#avatar_sender img').attr('alt', $('#sender_select option').filter(":selected").html())
+         
+           }
+          });
+        }); 
+              

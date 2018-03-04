@@ -1,21 +1,32 @@
 
 .name.text-right<
   = current_user.display_name
-  %br/
-
+  = ": "
+  &nbsp;
   - if current_user.stakes.empty?
     = link_to t(:no_stakes), user_stakes_path(current_user)
   - else
     = link_to pluralize(current_user.stakes.sum(&:amount), t(:stake, count: current_user.stakes.sum(&:amount))), user_stakes_path(current_user)
-    - unless current_user.groups.empty?
-      - if current_user.groups.map{|x| x.has_role?(:stakeholder) }.include?(true)
-        = " / "
-        = link_to pluralize( current_user.groups.reject{|x| !x.has_role?(:stakeholder) }.map(&:stakes).flatten.sum(&:amount), t(:group_stake, count:  current_user.groups.reject{|x| !x.has_role?(:stakeholder) }.map(&:stakes).flatten.sum(&:amount))), user_groups_path(current_user)
-  %br/
+  = " / "
   = t(:x_points, count: current_user.available_balance)
 
   - unless current_user.available_balance == current_user.latest_balance
     %small= raw " (#{current_user.latest_balance}#{Figaro.env.currency_symbol} #{t(:total).downcase})"
+
+  - unless current_user.groups.empty?
+    - current_user.groups.each do |group|
+      .group_heading
+        = group.name 
+        = ": "
+        &nbsp;
+        - if group.has_role?(:stakeholder)
+          = link_to pluralize(group.stakes.paid.sum(&:amount), t(:stake, count: group.stakes.paid.sum(&:amount))), group_members_path(group)
+        = " /"
+        = t(:x_points, count: group.available_balance)
+    -# - if current_user.groups.map{|x| x.has_role?(:stakeholder) }.include?(true)
+    -#   = " / "
+    -#   = link_to pluralize( current_user.groups.reject{|x| !x.has_role?(:stakeholder) }.map(&:stakes).flatten.sum(&:amount), t(:group_stake, count:  current_user.groups.reject{|x| !x.has_role?(:stakeholder) }.map(&:stakes).flatten.sum(&:amount))), user_groups_path(current_user)
+
 %ul.dropdown.menu#user_dropdown_menu{:'data-dropdown-menu' => '', :'data-alignment' => 'left'}
   %li
     = link_to image_tag(current_user.avatar.url(:thumb).gsub(/development/, 'production')), '#'

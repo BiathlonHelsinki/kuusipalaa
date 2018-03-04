@@ -152,6 +152,12 @@ Rails.application.routes.draw do
 
       get :members_agreement
     end
+    resources :transfers  do
+      collection do
+        get :send_points
+        post :post_points
+      end
+    end
     resources :stakes
     resources :groups
     resources :ideas

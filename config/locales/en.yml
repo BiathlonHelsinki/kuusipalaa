@@ -295,7 +295,7 @@ en:
   authentications: 'Authentications'
   balance: 'Balance'
   participated_in: 'Participated in'
-  send_t_to_user: 'Send Ŧ to %{username}'
+  send_p_to_user: 'Send ᵽ to %{username}'
   user_since: 'User since %{when}'
   no_proposals_made: 'No proposals made'
   no_pledges_made: 'No pledges made'
@@ -306,7 +306,7 @@ en:
   number_transferred_from: '%{number} transferred from other users'
   number_transferred_to: "%{number} transferred to other users"
   number_pledged: "%{number} pledged"
-  number_currently_pledged: "%{number}Ŧ currently pledged"
+  number_currently_pledged: "%{number}ᵽ currently pledged"
   number_held_in_pledges: "%{number} currently held in escrow, pledged to pending proposals"
   totals: 'Totals'
   website: 'Website'
@@ -478,10 +478,10 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   how_many_temps_to_tip: 'How many Ŧ would you like to send to %{user}?'
   in_appreciation_for_a_photo: 'in appreciation for a photo from %{instance}'
   your_tip_was_sent: 'Your tip was sent!'
-  transfer_t: 'Transfer Ŧ'
+  transfer_p: 'Transfer ᵽ'
   reason_for_transfer: 'Enter a reason for why you are sending them? (optional)'
   send: 'Send!'
-  you_can_transfer_up_to: 'You can transfer up to %{number}Ŧ.'
+  you_can_transfer_up_to: 'You can transfer up to %{number}ᵽ.'
 
   ex_organiser: "(ex-organiser)"
   remove_organiser: 'Remove as organiser'
@@ -1119,3 +1119,5 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   enter_pin_for_id: 'Beginning 1 March, all Kuusi Palaa users must set a PIN code in order to create and link an ID card.'
   set_pin: 'Set PIN'
   where: 'Where'
+  send_from: 'Send from: '
+  generic_error: 'You cannot do that.'

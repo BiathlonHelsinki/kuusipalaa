@@ -129,16 +129,18 @@
             .big_num= @event_count.to_s
             .info
               %strong= t :events_today, event: t(:event, count: @event_count)
-              %br/
-              - unless @back_room.empty?
-                = t :back_room_booked_from
-                = @back_room.map{|rb| [rb.start_at.strftime("%H:%M") + ' - ' + rb.end_at.strftime("%H:%M")]}.join('; ')
 
               %br/
               - if @main_room.empty?
                 = t :main_room_free_all_day
               - else
                 = t :main_room_events_from, event: @main_room.size.to_s + ' '  + t(:event, count: @main_room.size)
+              %br/
+              - unless @back_room.empty?
+                = t :back_room_booked_from
+                = @back_room.map{|rb| [rb.start_at.strftime("%H:%M") + ' - ' + rb.end_at.strftime("%H:%M")]}.join('; ')
+                %br/
+              = link_to t(:book_the_back_room) + '!', '/roombookings'                
               - if @event_count == 0
                 %br/
                 = t :kp_for_general_use
