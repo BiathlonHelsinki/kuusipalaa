@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :stakes
   end
 
+  resources :activities
+  
   resources :charges
   
   resources :comments do
@@ -103,7 +105,11 @@ Rails.application.routes.draw do
     get :autocomplete_user_username, on: :collection
   end
 
-
+  resources :onetimers do
+    collection do
+      post :link_tag
+    end
+  end
 
   resources :pages do
     resources :questions do
@@ -167,6 +173,8 @@ Rails.application.routes.draw do
       get :get_membership_details
     end
   end
+
+  match '/redeem' => 'onetimers#link', via: :get
   match '/calendar' => 'events#calendar', via: :get
   match '/users/auth/:provider/callback' => 'authentications#create', :via => :get
   delete '/users/signout' => 'devise/sessions#destroy', :as => :signout

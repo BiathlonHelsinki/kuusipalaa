@@ -425,12 +425,12 @@ article.divider {
     border: 1px solid black;
     padding: 1rem;
 
-    .big_num {
+    .big_num, a .big_num {
       font-size: 3rem;
       font-weight: bold;
       font-family: $sourcecode;
     }
-    .info {
+    .info, a .info {
       font-family: $sourcecode;
       font-size: 0.75rem;
     }

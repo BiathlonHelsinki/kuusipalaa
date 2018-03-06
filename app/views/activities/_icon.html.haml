@@ -1,0 +1,4 @@
+- if activity.contributor.nil?
+  = image_tag activity.user.avatar.url(:thumb)
+- else
+  = image_tag activity.contributor.avatar.url(:thumb)

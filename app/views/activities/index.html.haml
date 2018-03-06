@@ -1,0 +1,11 @@
+.activities_index
+  - @activities.each do |activity|
+    .row.activity_row
+      .small-1.column.icon_class
+        = image_tag "activities/#{activity.icon_class}", width: 32
+      .small-11.columns.activity_box
+        .icon= render partial: "activities/icon", locals: {activity: activity}
+        .content
+          = activity.item.class.to_s.downcase
+          = render partial: "activities/class/#{activity.item.class.to_s.downcase}", locals: {activity: activity}
+        .tally= render partial: "activities/numbers", locals: {activity: activity}

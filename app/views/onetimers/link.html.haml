@@ -1,0 +1,12 @@
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :redeem_guest_ticket
+      .blurb
+        %p= t :enter_guest_ticket_tag
+        = form_tag  link_tag_onetimers_url(protocol: Rails.env.development? ? 'http' : 'https'), method: :post  do 
+          = t(:code) + ":"
+          .row
+            .small-4.columns= text_field_tag :code
+          .row
+            .small-4.columns= submit_tag t(:link), class:[:button, :bordered]      

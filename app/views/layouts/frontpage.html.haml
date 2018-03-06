@@ -126,15 +126,21 @@
 
         .small-12.medium-4
           .box{:'data-equalizer-watch' => ''}
-            .big_num= @event_count.to_s
+            = link_to '/events/calendar' do 
+              .big_num= @event_count.to_s
+              .info
+                %strong= t :events_today, event: t(:event, count: @event_count)
             .info
-              %strong= t :events_today, event: t(:event, count: @event_count)
-
               %br/
               - if @main_room.empty?
                 = t :main_room_free_all_day
               - else
                 = t :main_room_events_from, event: @main_room.size.to_s + ' '  + t(:event, count: @main_room.size)
+                = @main_room.map{|rb| [rb.start_at.strftime("%H:%M") + ' - ' + rb.end_at.strftime("%H:%M")]}.join('; ')
+                - if @main_room.map(&:allow_others).include?(true)
+                  %br/
+                  = t :allow_others_explanation
+
               %br/
               - unless @back_room.empty?
                 = t :back_room_booked_from

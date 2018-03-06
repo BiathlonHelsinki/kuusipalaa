@@ -1,0 +1,36 @@
+@import 'variables';
+
+.activities_index {
+  .activity_row {
+
+    margin-top: 1rem; 
+    margin-bottom: 1rem;
+    
+    .icon_class {
+      padding: 2rem 0;
+    }
+    .activity_box {
+      border: 1px solid black;
+      padding: 0.7rem;
+
+      .icon {
+        img {
+          border: 1px solid black;
+          height: 75px;
+        }
+        margin-right: 1.5rem;
+        float: left;
+      }
+
+      .content {
+        float: left;
+        font-family: $sourcecode;
+        a {
+          text-decoration: underline;
+        }
+      }
+    }
+
+  }
+
+}
