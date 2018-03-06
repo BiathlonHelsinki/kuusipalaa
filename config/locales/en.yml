@@ -1126,3 +1126,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   code: 'Code'
   link: 'Link!'
   your_ticket_was_converted: 'Your ticket was converted, thank you!'
+  tag_not_found: 'Tag not found! Be sure that you are entering 0s and Os correctly.'

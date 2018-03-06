@@ -13,7 +13,7 @@ class OnetimersController < ApplicationController
       success = api.api_post('/link_temporary_tag', {user_id: current_user.id, tag_id: tag.id})
       if success['error']
         flash[:error] = success['error']
-        redirect_to('/link_temporary')
+        redirect_to('/redeem')
       else
         current_user.latest_balance += tag.instance.cost_bb
         current_user.save(validate: false)
@@ -21,6 +21,9 @@ class OnetimersController < ApplicationController
         flash[:notice] = t(:your_ticket_was_converted)
         redirect_to('/')
       end
+    else
+      flash[:error] = t(:tag_not_found)
+      redirect_to('/redeem')
     end
   end
   
