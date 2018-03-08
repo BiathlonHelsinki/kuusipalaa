@@ -76,12 +76,19 @@
                 .subtext= t :others_are_allowed
         %tr
           %td
-            .heading= t :price_public
+            .heading= t :ticket_price
             .value
               - if @idea.price_public == 0
                 = t :free_entry
               - else
                 = number_to_currency(@idea.price_public, unit: raw("&euro;"), format: "%n %u")
+                %p
+                  %em
+                    = t :stakeholders_price
+                    = number_to_currency(@idea.price_stakeholders, unit: raw("&euro;"), format: "%n %u")
+                    - if user_signed_in?
+                      - if !current_user.is_stakeholder?
+                        = link_to t(:become_a_stakeholder), season_new_stake_path(@next_season)
           %td
             .heading= t :special_notes
             .value= @idea.special_notes.blank? ? t(:negative) : @idea.special_notes

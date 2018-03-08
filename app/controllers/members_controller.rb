@@ -33,7 +33,7 @@ class MembersController < ApplicationController
     if @member.save
       GroupMailer.new_member(@group, @member).deliver_now
       flash[:notice] = t(:member_has_been_added)
-      redirect_to @group
+      redirect_to new_group_member_path(@group)
     else
 
       flash[:error] = @member.errors.full_messages
@@ -50,7 +50,11 @@ class MembersController < ApplicationController
       redirect_to @group
     else
       if @member.destroy
-
+        if @member.user.gets_key? == false
+          unless @member.user.nfcs.find_by(keyholder: true).nil?
+            @member.user.nfcs.find_by(keyholder: true).update_column(:keyholder, false)
+          end
+        end
         flash[:notice] = t(:member_has_been_removed)
       end
 
@@ -68,6 +72,13 @@ class MembersController < ApplicationController
 
     @member = @group.members.find(params[:id])
     @member.toggle!(:has_key)
+    if @member.has_key == false
+      if @member.user.gets_key? == false
+        unless @member.user.nfcs.find_by(keyholder: true).nil?
+          @member.user.nfcs.find_by(keyholder: true).update_column(:keyholder, false)
+        end
+      end
+    end
     redirect_to new_group_member_path(@group)
   end
 
@@ -107,7 +118,7 @@ class MembersController < ApplicationController
     else
       flash[:error] = @member.errors.full_messages
     end
-    redirect_to @group
+    redirect_to new_group_member_path(@group)
   end
 
   protected
