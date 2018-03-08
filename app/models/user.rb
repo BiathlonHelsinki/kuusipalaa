@@ -75,7 +75,11 @@ class User < ActiveRecord::Base
   end
 
   def is_stakeholder?
-    !stakes.paid.empty?
+    !stakes.paid.empty? || !groups.map(&:stakes).flatten.delete_if{|x| x.paid != true}.empty?
+  end
+
+  def gets_key?
+    members.map(&:has_key).include?(true) || !stakes.paid.empty?
   end
 
   def is_member?

@@ -10,7 +10,7 @@ class NfcsController < ApplicationController
     end
     redirect_to user_nfcs_path(@nfc.user)
   end
-  
+
   def index
     @user = User.friendly.find(params[:user_id])
     if current_user != @user && !current_user.has_role?(:admin) 
@@ -22,12 +22,13 @@ class NfcsController < ApplicationController
 
   def toggle_key
     @nfc = Nfc.find(params[:id])
-    if can? :edit, @nfc
+    if can?(:edit, @nfc) && @nfc.user.gets_key?
       was = @nfc.keyholder
       @nfc.user.nfcs.each {|x| x.update_column(:keyholder, false) }
       @nfc.update_column(:keyholder, !was)
       flash[:notice] = t(:key_updated)
     else
+
       flash[:error] = t(:generic_error)
     end
     redirect_to user_nfcs_path(@nfc.user)

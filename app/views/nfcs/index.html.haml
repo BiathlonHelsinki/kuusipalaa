@@ -29,7 +29,8 @@
                 %td= l card.created_at.localtime, format: :long
                 %td= l card.last_used.localtime, format: :long rescue t(:never_used)
                 %td
-                  - if @user.is_stakeholder?
+
+                  - if @user.gets_key?
                     = link_to card.keyholder? ? t(:remove_key_access) : t(:make_key), "/nfcs/#{card.id.to_s}/toggle", class: [:button, :tiny, :bordered], data: {confirm: t(:are_you_sure_key) }
                   - if can? :destroy, card
                     = link_to t(:delete_card), card, method: :delete, class: [:button, :alert, :tiny, :bordered], data: {confirm: t(:are_you_sure_key_delete) }
