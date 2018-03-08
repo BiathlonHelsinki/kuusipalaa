@@ -12,7 +12,7 @@ class Stake < ApplicationRecord
   validates_presence_of :owner_id, :season_id, :bookedby_id, :owner_type, :price, :invoice_amount, :invoice_due
   after_create  :generate_invoice
   skip_callback :after_create, only: :generate_invoice
-  has_many :activities, as: :item
+  has_many :activities, as: :item, dependent: :destroy
   belongs_to :blockchain_transaction, autosave: true, optional: true
   scope :by_season, -> (x) { where(season_id: x)}
   scope :paid, ->() { where(paid: true)}

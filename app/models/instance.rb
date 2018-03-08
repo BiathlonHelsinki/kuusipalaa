@@ -11,10 +11,19 @@ class Instance < ApplicationRecord
   has_many :onetimers, dependent: :destroy
   has_many :registrations, dependent: :destroy
   has_many :rsvps
+  scope :on_day, -> (day) {
+     where( [ "(start_at >= ?  AND  start_at <= ?) OR ( end_at > ? AND end_at <= ? )   OR (start_at < ? AND end_at > ? )",
+    day.to_date.at_midnight.to_s(:db), day.to_date.end_of_day.to_s(:db),
+     day.to_date.at_midnight.to_s(:db), day.to_date.end_of_day.to_s(:db), 
+    day.to_date.at_midnight.to_s(:db), day.to_date.end_of_day.to_s(:db)])
+  }
+
   scope :between, -> (start_time, end_time) { 
     where( [ "(start_at >= ?  AND  end_at <= ?) OR ( start_at >= ? AND end_at <= ? ) OR (start_at >= ? AND start_at <= ?)  OR (start_at < ? AND end_at > ? )",
-    start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), 
-    start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db)])
+    start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db),
+     start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), 
+    start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), 
+    start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db)])
   }
   scope :published, -> () { where(published: true) }
   scope :calendered, -> () { where("open_time is not true")}

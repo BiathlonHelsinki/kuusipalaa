@@ -3,34 +3,70 @@
 .activities_index {
   .activity_row {
 
-    margin-top: 1rem; 
-    margin-bottom: 1rem;
+
     
     .icon_class {
-      padding: 2rem 0;
-    }
-    .activity_box {
-      border: 1px solid black;
-      padding: 0.7rem;
 
-      .icon {
-        img {
-          border: 1px solid black;
-          height: 75px;
+      padding: 3rem 0 2rem 0;
+      background: white url(/assets/activities/grid2.png) 16px center no-repeat;
+    }
+    .activity_box_wrapper {
+      padding: 0.5rem 0;
+
+      .activity_box {
+        border: 1px solid black;
+        padding: 0.7rem;
+        margin: 0;
+        .flex {
+          display:flex;
         }
-        margin-right: 1.5rem;
-        float: left;
+        .icon {
+          img {
+            border: 1px solid black;
+            height: 75px;
+          }
+          max-width: 12%;
+          float: left;
+        }
+        .adjacent {
+          float: left;
+          max-width: 20%;
+          margin: auto 0;
+          img {
+            border: 1px solid black;
+            height: 55px;
+          }   
+        }
+        .content {
+
+          float: left;
+          font-family: $sourcecode;
+          margin: auto 0;
+          .has_icons {
+            float: left;
+            max-width: 80%;
+            margin: auto 0;
+          }
+
+          a {
+            text-decoration: underline;
+          }
+
+        }
       }
 
-      .content {
-        float: left;
+      .tally {
+        margin: auto 0;
         font-family: $sourcecode;
-        a {
-          text-decoration: underline;
+        max-width: 20%;
+        font-size: 0.8rem;
+        .value {
+          
+          font-size: 1.25rem;
+          font-weight: bold;
+          float: right;
         }
       }
     }
-
   }
-
 }

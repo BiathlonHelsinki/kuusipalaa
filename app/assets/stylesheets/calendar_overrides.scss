@@ -66,7 +66,7 @@ a.fc-event {
 
 #calendar {
   padding: 1rem;
-}
+
 
 .fc-view-container {
   .fc-view {
@@ -123,7 +123,9 @@ a.fc-event {
                               border-bottom: 4px solid white;
                               &.fc-other-month {
                                 span.fc-day-number {
-                                  display: none;
+                                  color: white;
+
+
                                 }
                               }
                             }
@@ -188,4 +190,211 @@ tr {
     text-transform: uppercase;
   }
 
+}
+
+}
+
+.minicalendar {
+  font-family: $sourcecode;
+  background-color: black;
+  color: white;
+  .fc-day-grid-container.fc-scroller {
+      height: auto!important;
+      overflow-y: auto;
+  }
+  .fc td {
+    border: none !important;
+  }
+  table {
+      table-layout: fixed;
+  }
+  thead, table, tbody, tr {
+    background: transparent !important;
+  }
+
+  span.fc-day-number {
+    color: #AAA !important;
+    font-family: $sourcecode;
+    font-size: 1.3rem;
+  }
+  td.fc-day-top {
+    text-align: center;
+  }
+  td.fc-day-top:hover {
+    span.fc-day-number{
+     
+      padding: 0.3rem;
+      outline: 1px dotted white !important;     
+    }
+  }
+  .fc-state-highlight {
+    span {
+      padding: 0.3rem;
+      background-color: #AAA;
+      color: black !important;
+      outline: 1px solid white !important;
+    }
+  }
+  .fc-toolbar {
+    margin-left: 3.65rem;
+    .fc-left, .fc-center {
+      float: left;
+      padding: 1rem 0.2rem 0.2rem 0.2rem;
+      button {
+        background-color: black !important;
+        color: white;
+        font-size: 2rem;
+        line-height: 2rem;
+        height: initial;
+        font-family: $sourcecode;
+        &:focus {
+          outline: none;
+        }
+        font-weight: bold;
+      }
+    }
+    .fc-right {
+      padding-top: 1rem;
+      float: left;
+      h2 {
+  
+        font-size: 1.3rem;
+        font-weight: bold;
+        font-family: $sourcecode;
+
+        margin: 0;
+        text-transform: uppercase;
+      }
+    }
+    .fc-right {
+      button {
+        float: left;
+        border: none;
+        outline: none;
+        font-weight: bold;
+//        display: none;
+      }
+      .fc-button-group {
+//        display: none;
+      }
+    }
+  }
+  
+  .fc-basic-view .fc-body .fc-row {
+    min-height: 2.5rem;
+  }
+  .fc-view {
+    table {
+      float: left;
+      tr {
+        background-color: white;
+      }
+      thead.fc-head {
+        display: none;
+        border-spacing: 0;
+        border: none;
+        tr {
+          td.fc-head-container {
+            padding: 0;
+            border: none !important;
+            .fc-widget-header {
+              table {
+                margin-bottom: 0;
+                thead {
+                  border: none;
+                  th.fc-day-header {
+                    span {  color: white; 
+
+                      }
+
+         
+                    padding: 0;
+                    border: none;
+//                    width: 43px;
+                    .ct-day {
+             
+                      font-size: 1.875rem;
+                      line-height: 1;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    .fc-bg {
+      display: none;
+    }
+    .fc-body {
+      border: none;
+      .fc-widget-content {
+        padding: 0;
+        border: none !important;
+    
+        .fc-day-grid-container {
+          border-collapse: inherit;
+          .fc-day-grid {
+            .fc-row {
+              height: initial !important;
+            }
+          }
+          .fc-content-skeleton {
+            table {
+              margin-bottom: 0;
+              border-spacing: 0;
+              padding: 0;
+              border-collapse: inherit;
+              thead {
+                border: none;
+                tr {
+       
+                  cursor: pointer;
+                  box-model: border-box;
+              
+                }
+                td {
+                  &.fc-day-top {
+                    padding: 0;
+                    
+                    font-size: 0.925rem;
+                    line-height: 1rem;
+                  }
+                  &.fc-other-month {
+                    
+                  }
+                }
+              }
+              tbody {
+                border: none;
+                tr {
+                  td {
+                    padding: 0.15rem 0.625rem;
+                    &.fc-event-container {
+                      vertical-align: top;
+                      a.fc-event {
+                        color: black;
+                        .fc-content {
+                          font-size: 0.925rem;
+                          line-height: 1.02rem;
+                     
+                          span.fc-title {
+                           
+                            
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
 }

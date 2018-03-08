@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'settings';
 
 body.frontpage {
 
@@ -19,6 +20,7 @@ body.frontpage {
       font-size: 1rem;
       font-weight: bold;
       margin-bottom: 1rem;
+
     }
     .banner2_blurb {
       font-size: 0.9rem;
@@ -27,7 +29,16 @@ body.frontpage {
     }
 
   }
-
+.lifted_box.feed {
+  .banner2_title {
+    .proposed_by_front {
+      text-transform: none;
+      font-size: 0.8rem;
+      border-top: 1px solid black;
+      padding: 0.4rem 0;
+    }
+  }
+}
 
   #banner {
 
@@ -53,3 +64,146 @@ body.frontpage {
   }
 }
 
+.article_slider { 
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.calendar_list {
+  font-family: $sourcecode;
+  border: 1px solid black;
+  padding-left: 0;
+  padding-right: 0;
+  .heading {
+    padding: 1rem;
+    #day_of_week {
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    
+  }
+  .body {
+    padding: 1rem;
+
+    // background: rgba(0, 0, 0, 0.6) url(/assets/front/element2-whitenoise.jpg);
+    background-color: #AAA;
+    .event_row {
+      font-weight: bold;
+      text-transform: uppercase;
+      border-bottom: 1px solid black;
+      clear: both;
+      float: left;
+      a { &:hover { color: #444; text-decoration: none;}  }
+      margin-bottom: 0.4rem;
+      .icon {
+        float: left;
+        margin-right: 0.8rem;
+      }
+      .name {
+        @include breakpoint(small only) {
+          max-width: 80%;
+        }
+        float: left;
+      }
+
+    }
+    .button_row {
+      padding: 1.5rem 0;
+      clear: both;
+      .front_button:hover {
+        background-color: white;
+      }
+    }
+  }
+}
+
+.proposal_activity_box {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  .columns {
+    padding-left: 0; padding-right: 0;
+  }
+  .title {
+    padding: 1rem;
+    text-transform: uppercase;
+    font-family: $sourcecode;
+    border: 1px solid black;
+    font-weight: bold;
+    &.activities {
+      border-left: none;
+      border-bottom: none;
+    }
+    @include breakpoint(small only) {
+       &.activities {
+        border-left: 1px solid black;
+
+      }
+    }
+  }
+  .body {
+    min-height: 300px;
+    padding: 1rem;
+    background: black url(/assets/front/element3-blacknoise.jpg);
+    color: white;
+    font-family: $sourcecode;
+    font-weight: bold;
+    float: left;
+    width: 100%;
+
+    .button_row {
+      padding: 1.5rem;
+      clear: both;
+    }
+    .proposal_row {
+      border-bottom: 1px solid white;
+      clear: both;
+      float: left;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      a { color: white; &:hover { color: #AAA; } }
+      margin-bottom: 0.4rem;
+      .icon {
+        float: left;
+        margin-right: 0.8rem;
+      }
+      .name {
+        float: left;
+        @include breakpoint(small only) {
+          max-width: 80%;
+        }
+      }
+    }
+ 
+  }
+  .activities_index {
+    border: 1px solid black;
+    padding: 0 0.5rem;
+    .activity_row {
+      padding: 0 1rem;
+      .icon_class {
+        padding: 2rem 0px;
+        background: white url(/assets/activities/grid2.png) 16px -131px no-repeat;
+      }
+      .activity_box_wrapper {
+        .activity_box {
+          .icon {
+            margin: auto 0.5rem;
+            img {
+              height: initial;
+            }
+          }
+          .content {
+            font-size: 0.8rem;
+          }
+          .tally {
+            padding-right: 15px;
+            .clock {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

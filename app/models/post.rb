@@ -12,6 +12,8 @@ class Post < ApplicationRecord
   scope :published, -> () { where(published: true) }
   scope :sticky, -> () { where(sticky: true) }
   scope :not_sticky, -> () { where("sticky is not true") }
+  scope :front, -> () { where("hide_from_front is not true")}
+  
   scope :by_era, ->(era_id) { where(era_id: era_id)}
   validates_presence_of :era_id
 

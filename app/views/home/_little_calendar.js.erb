@@ -1,0 +1,56 @@
+$('#calendar_grid').fullCalendar({
+      contentHeight: 110,
+      locale: '#{I18n.locale.to_s}',
+      firstDay: 1,
+      customButtons: {
+        prev: {
+            text: '<'
+        },
+        next: {
+          text: '>'
+        }
+      },
+      header: {
+        left: 'prev',
+        right: 'title',
+        center: 'next'
+      },
+      columnHeaderFormat: 'd',
+      fixedWeekCount: false,
+      titleFormat: "MMMM",
+      eventAfterAllRender: function() {
+        // $('#minicalendar .fc-scroller').css('height', 'initial');
+        $('#minicalendar td.fc-day-top').css('background', 'transparent');
+        $('#minicalendar .fc-content-skeleton tr').click(function() {
+          $('#calendar').fullCalendar('gotoDate', $(this).find('td').eq(0).attr('data-date'));
+        });
+        $('#calendar td.fc-day').each(function() {
+          $('#minicalendar td.fc-day-top[data-date=' + $(this).attr('data-date') + ']').css('background-color', 'white');
+        });
+
+        
+        // $('#minicalendar td.fc-day-top.fc-today').siblings().css('background-color', 'white');
+      }
+      
+    });
+$('#calendar_grid .fc-next-button').click(function(){
+  $('#calendar_grid').fullCalendar('next')
+})
+$('#calendar_grid .fc-prev-button').click(function() {
+  $('#calendar_grid').fullCalendar('prev')
+})
+
+$('#calendar_grid td.fc-day-top').on('click', function() {
+  $.ajax({
+    url: '/home/front_calendar?day=' + $(this).attr('data-date'),
+    success : function(data) {
+      console.log(data)
+
+    },
+    error: function(data, errorThrown) {
+      console.log(data)
+      console.log(errorThrown)
+    }
+  })
+ 
+})

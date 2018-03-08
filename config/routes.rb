@@ -177,6 +177,7 @@ Rails.application.routes.draw do
   match '/redeem' => 'onetimers#link', via: :get
   match '/calendar' => 'events#calendar', via: :get
   match '/users/auth/:provider/callback' => 'authentications#create', :via => :get
+  match '/home/front_calendar/' => 'home#front_calendar', via: :get
   delete '/users/signout' => 'devise/sessions#destroy', :as => :signout
   root to: 'home#index'
 end

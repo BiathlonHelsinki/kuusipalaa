@@ -1,0 +1,28 @@
+.clock
+  = image_tag 'activities/icon-clock.png', width: 20
+  = l activity.updated_at, format: :long
+
+- if activity.value
+  .value
+    - unless activity.value.nil?
+      - if activity.addition == 1
+        = fa_icon('plus')
+      - if activity.addition == 0
+        - if activity.description =~ /received/
+          = fa_icon('arrows-h')
+        - if activity.description =~ /pledged/
+          = fa_icon('smile-o')
+        - if activity.description =~ /withdrew/
+          = fa_icon('frown-o')
+      - if activity.addition == -1
+        = fa_icon('minus')
+    - if activity.ethtransaction
+
+      = link_to activity.value.to_s + "ᵽ", "https://#{Rails.env.development? ? 'ropsten.' : ''}etherscan.io/tx/#{activity.ethtransaction.txaddress}", target: :_blank
+    - else
+      = activity.value.to_s + "ᵽ"
+- else
+  %br/
+  &nbsp;
+  %br/
+  %br/

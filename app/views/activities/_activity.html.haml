@@ -1,0 +1,22 @@
+.row.activity_row{:'data-equalizer' => 'activity', :"data-equalize-on" => "small", class: activity.item_type.downcase}[activity]
+  .small-1.column.icon_class{:'data-equalizer-watch' => 'activity'}
+    = image_tag "activities/#{activity.icon_class}", width: 32
+  
+  .small-11.columns.activity_box_wrapper{:'data-equalizer-watch' => 'activity'}
+    .activity_box
+      .row.flex
+        .columns.icon= render partial: "activities/icon", locals: {activity: activity}
+        .columns.content= render partial: "activities/class/#{activity.item.class.to_s.downcase}", locals: {activity: activity}
+        - if activity.description == 'received_from'
+          .adjacent.columns
+            = fa_icon('arrow-right')
+            = link_to image_tag(activity.item.avatar.url(:thumb)), activity.item, target: :_blank
+        - elsif activity.description == 'was_added_to_the_group'
+          .adjacent.columns
+            = fa_icon('arrow-right')
+            = link_to image_tag(activity.item.avatar.url(:thumb)), activity.item, target: :_blank
+        - elsif activity.description == 'was_mentioned_by'
+          .adjacent.columns
+            = fa_icon('arrow-left')
+            = link_to image_tag(activity.item.avatar.url(:thumb)), activity.item, target: :_blank
+        .columns.tally.text-right= render partial: "activities/numbers", locals: {activity: activity}

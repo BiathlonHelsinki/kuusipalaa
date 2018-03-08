@@ -1,4 +1,7 @@
 - if activity.contributor.nil?
-  = image_tag activity.user.avatar.url(:thumb)
+  - if activity.user.nil?
+    = image_tag 'user_missing_large.png'
+  - else
+    = image_tag activity.user.avatar.url(:thumb).gsub(/development/, 'production')
 - else
-  = image_tag activity.contributor.avatar.url(:thumb)
+  = image_tag activity.contributor.avatar.url(:thumb).gsub(/development/, 'production')

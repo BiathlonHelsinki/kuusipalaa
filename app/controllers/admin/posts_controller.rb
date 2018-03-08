@@ -45,7 +45,7 @@ class Admin::PostsController < Admin::BaseController
 
   def post_params
     params.require(:post).permit(:published, :era_id, :user_id, :sticky, :meeting_id, :instance_id,
-     :published_at, :image, :remove_image, :postcategory_id,
+     :published_at, :image, :remove_image, :postcategory_id, :hide_from_front,
       translations_attributes: [:id, :locale, :title, :body ]
       )
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180226155906) do
+ActiveRecord::Schema.define(version: 20180307175244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -742,6 +742,7 @@ ActiveRecord::Schema.define(version: 20180226155906) do
     t.integer "postcategory_id"
     t.integer "era_id"
     t.integer "meeting_id"
+    t.boolean "hide_from_front"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 

@@ -1,0 +1,4 @@
+$('td.fc-day-top:not(.fc-state-highlight) span').css('outline', 'none')
+$('.calendar_list').html('<%= escape_javascript(render partial: 'home/text_calendar') %>')
+$('td.fc-day-top[data-date="<%= @today %>"] span').css('outline', '1px solid #BBB')
+$('td.fc-day-top[data-date="<%= @today %>"] span').css('padding', '0.3rem')

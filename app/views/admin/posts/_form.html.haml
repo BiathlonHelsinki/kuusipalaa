@@ -40,6 +40,8 @@
     .row
       .small-10.medium-8.columns= f.input :published
     .row
+      .small-10.medium-8.columns= f.input :hide_from_front, label: 'Hide from frontpage?'      
+    .row
       .small-10.medium-8.columns= f.input :published_at, :as => :string, :input_html => {:class => "datetimepicker", value: f.object.new_record? ? '' : (f.object.published_at.nil? ? '' : f.object.published_at.strftime('%Y-%m-%d %H:%M'))}
   .row
     .small-10.medium-8.columns= f.submit 'Save', :class => [:button, :round]

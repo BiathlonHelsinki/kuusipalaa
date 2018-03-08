@@ -298,7 +298,6 @@ fi:
   pledged: 'tuki'
   pledged_to: 'tuki %{numerical_value}Ŧ'
   proposed: 'ehdotti'
-  received_from: 'vastaanotti Ŧ'
   registered_for: 'rekisteröityi'
   spent_a_pledge_on: 'käytti %{numerical_value}Ŧ seuraavaan'
   was_credited_for: 'sai tunnustusta'

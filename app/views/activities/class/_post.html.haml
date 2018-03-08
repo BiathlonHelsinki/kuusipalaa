@@ -1,3 +1,3 @@
 = link_to activity.user.display_name, activity.user, target: :_blank
 = t activity.description
-= activity.item.amount.to_s +  ' stake' + (activity.item.amount > 1 ? 's' : '')
+= link_to activity.item.name, activity.item

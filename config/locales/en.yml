@@ -1,5 +1,15 @@
 en:
   locale_name: 'English'
+  date:
+    formats:
+      default: "%d %B %Y"
+      long: "%d %B %Y"
+      short: "%d %b"    
+  time:
+    formats:
+      default: "%Y-%m-%d"
+      long: "%d %B %Y"
+      short: "%d %b"
   activerecord:
     errors:
       models:
@@ -107,7 +117,7 @@ en:
   accepting_more_pledges_now: 'ACCEPTING MORE PLEDGES NOW:'
   ready_to_schedule: 'READY TO SCHEDULE:'
   attended: 'attended'
-  attended_anonymously: 'attended anonymously'
+  attended_anonymously: 'anonymously attended'
   booked_the_back_room_on: 'booked the back room for '
   changed_the_status_of: 'changed the status of '
   commented_on: 'commented on'
@@ -122,7 +132,6 @@ en:
   pledged: 'pledged'
   pledged_to: 'pledged %{numerical_value}Ŧ to'
   proposed: 'proposed'
-  received_from: 'received Ŧ from'
   registered_for: 'registered for'
   spent_a_pledge_on: 'spent a pledge of %{numerical_value}Ŧ on'
   was_credited_for: 'was credited for'
@@ -383,7 +392,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   organiser_requested_rsvp: 'The organiser of this experiment has requested that you RSVP if you are attending.'
   you_have_rsvpd: 'You have RSVPd to this event. Thank you, and we will see you there!'
   registration_is_closed: 'Sorry, registration is currently closed.'
-  experiment_already_took_place: 'This experiment already took place.'
+  experiment_already_took_place: 'This event already took place.'
   registration_phone: 'Please enter your phone number so the experiment organiser can contact you if there are any issues or problems or last-minute changes'
   phone_is_optional: 'This is optional, though.'
   registration_form: 'Registration form'
@@ -1127,3 +1136,26 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   link: 'Link!'
   your_ticket_was_converted: 'Your ticket was converted, thank you!'
   tag_not_found: 'Tag not found! Be sure that you are entering 0s and Os correctly.'
+  someone: 'Someone '
+  privately_left_the_group: 'left the group '
+  created_the_group: 'created the group '
+  edited_the_group: 'edited the description of the group '
+  was_added_to_the_group: 'was added to the group '
+  bought: 'bought'
+  asked_the_question: 'asked the question '
+  answered_the_question: 'answered the question '
+  on_behalf_of: ' on behalf of '
+  via_user: " (via %{user})"
+  migrated_temps_from_temporary: 'had their Temps migrated to Kuusi Palaa points because'
+  received_stake_points: 'received points for '
+  visited: 'visited'
+  received_from: 'sent ᵽ to '
+  an_id_card: ' an ID card'
+  something_that_was_later_deleted: 'something that was later deleted'
+  open_24_7: '24/7 : Kuusi Palaa is open'
+  propose_a_public_event: 'Propose a public event'
+  book_private_room: 'Book the private room'
+  recent_proposals: 'Recent proposals'
+  see_proposals: 'See all proposals'
+  latest_activities: 'Latest activities at Kuusi Palaa'
+  proposed_for: ' for %{when}'

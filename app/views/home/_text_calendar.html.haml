@@ -1,0 +1,34 @@
+.heading
+  #day_of_week= I18n.l(@today.to_date, format: '%A')
+  #date_in_question= I18n.l(@today.to_date, format:  "%-d.%-m.%Y")
+.body
+  - if @events.empty?
+    = t :no_events
+  - else
+    - @events.reverse.each do |event|
+      .event_row
+        .icon
+          - if event.class == Roombooking
+            = fa_icon ('calendar-times')
+          - else
+            = fa_icon('calendar')
+        .name
+          = link_to event_instance_path(event.event, event) do
+            - if event.open_time == true
+              = t :open_24_7
+            - else
+              = event.start_at.localtime.strftime("%H:%M")
+              = " - "
+              = event.end_at.localtime.strftime("%H:%M")
+              = ": "
+              = event.name
+  .button_row
+    .row
+      .small-5.columns
+        = link_to new_idea_path do
+          .front_button.text-center
+            = t(:propose_a_public_event)
+      .small-5.columns.end
+        = link_to '/roombookings' do
+          .front_button.text-center
+            = t(:book_private_room)  

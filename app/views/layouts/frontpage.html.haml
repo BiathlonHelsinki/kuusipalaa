@@ -119,9 +119,10 @@
       .row.stats_boxes{:'data-equalizer' => '', :'data-equalize-on' => "medium", id: :stats_boxes}
         .small-12.medium-4
           .box{:'data-equalizer-watch' => ''}
-            .big_num= @visitors_so_far.to_s
-            .info
-              %strong= t :visitors_so_far
+            = link_to activities_path do 
+              .big_num= @visitors_so_far.to_s
+              .info
+                %strong= t :visitors_so_far
 
 
         .small-12.medium-4
@@ -151,14 +152,15 @@
                 %br/
                 = t :kp_for_general_use
 
-        .small-last.medium-4
+        .small-12.last.medium-4
           .box{:'data-equalizer-watch' => ''}
-            .big_num= Stake.all.map(&:owner).to_a.reject{|x| !x.accepted_agreement}.count
-            .info
-              %strong= t :x_members_of_cooperative
-              %br/
-              %br/
-              = link_to t(:get_your_stake), new_season_stake_path(@current_season.complete? ? @next_season : @current_season) 
+            = link_to  new_season_stake_path(@current_season.complete? ? @next_season : @current_season)  do
+              .big_num= Stake.all.map(&:owner).to_a.reject{|x| !x.accepted_agreement}.count
+              .info
+                %strong= t :x_members_of_cooperative
+                %br/
+                %br/
+                =  t(:get_your_stake)
     %article.divider
       .row
         .small-12.columns &nbsp;
@@ -171,7 +173,7 @@
             = ": "
             = date_range(@current_season.start_at, @current_season.end_at, format: :long)
     
-    .row.article_slider
+    .row.article_slider{:'data-equalizer' => '', :'data-equalize-on' => "medium"}
       - @feed.shuffle.each do |feeditem|
         .columns.small-12.medium-6.large-4.left_adjust
           = link_to feeditem.class == Instance ? event_path(feeditem.event) : feeditem  do
@@ -181,6 +183,12 @@
                 = feeditem.name
                 - if feeditem.class == Idea
                   .description= raw feeditem.short_description
+                  .proposed_by_front
+                    = t :proposed_by_person, link: feeditem.proposer.display_name
+                    - if feeditem.timeslot_undetermined != true
+                      = t :proposed_for, when: l(feeditem.start_at.to_date, format: :short)
+                    = raw "&mdash;"
+                    = t :still_needed, amount: feeditem.points_still_needed.to_s + 'ᵽ'
                 - elsif feeditem.class == Event
                   .description
                     - feeditem.instances.order(:start_at).each do |instance|
@@ -193,15 +201,16 @@
                 - else
                   = raw truncate_html(feeditem.description, length: 250)
 
-    .row{:'data-equalizer' => '', :'data-equalize-on' => "medium"}
-      %article
-        .small-12.medium-6.large-4.columns.left_adjust
-          = link_to new_idea_path do
-            .lifted_box.invert{:'data-equalizer-watch' => ''}
-              .banner2_title= t :organise_an_event
-              .banner2_blurb
-                = t :organise_event_front
+ 
 
+      .small-12.medium-6.large-4.columns.left_adjust
+        = link_to new_idea_path do
+          .lifted_box.invert{:'data-equalizer-watch' => ''}
+            .banner2_title= t :organise_an_event
+            .banner2_blurb
+              = t :organise_event_front
+    = yield
+    
     %article#stakeholder_banner
       .row
         .small-12.columns.lessmargins.right_adjust
@@ -277,8 +286,40 @@
     = render 'cookies_eu/consent_banner'
     = render partial: 'shared/footer'
     :javascript
-          $(document).ready(function() {
-            $("#kp_headline").fitText(0.7);
+      $(document).ready(function() {
+        $("#kp_headline").fitText(0.7);
+        $('.article_slider').slick({
+          responsive: [
+            {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+              dots: true
+            }
+            },
+            {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2
+              }
+            },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1
+                }
+              } 
+            ],
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,  
+            autoplay: true,
+            autoplaySpeed: 3000
+        })
 
-            #{yield :jquery}
-          });
+        #{yield :jquery}
+      })

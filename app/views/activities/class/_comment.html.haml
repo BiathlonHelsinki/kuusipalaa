@@ -4,11 +4,5 @@
   = raw t(:via_user, user: link_to(activity.user.display_name, activity.user, target: :_blank))
 - else
   = link_to(activity.user.display_name, activity.user, target: :_blank)
-
 = t activity.description
-- unless activity.user == activity.item
-  = link_to activity.item.display_name, "/" + activity.item_type.downcase +  "s/#{activity.item.slug.to_s}"
-
-- if activity.extra
-  = t(actvity.extra_info)
-
+= link_to activity.item.name, activity.item.item

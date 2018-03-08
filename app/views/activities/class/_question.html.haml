@@ -1,0 +1,5 @@
+- if activity.user
+  = link_to activity.user.display_name, activity.user, target: :_blank
+
+= t activity.description
+= link_to activity.item.question, page_path(activity.item.page.slug)

@@ -998,3 +998,9 @@ form {
   font-family: $sourcecode;
   font-weight: bold;
 }
+nav.pagination {
+  margin: 2rem 0;
+  * {
+    float: left;
+  }
+}
