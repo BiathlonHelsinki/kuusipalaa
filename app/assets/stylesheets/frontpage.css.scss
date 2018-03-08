@@ -141,7 +141,7 @@ body.frontpage {
     .body {
       min-height: 300px;
       padding: 1rem;
-      background: black url('front/element3-blacknoise.jpg');
+      background: black image-url('front/element3-blacknoise.jpg');
       color: white;
       font-family: $sourcecode;
       font-weight: bold;
@@ -181,7 +181,7 @@ body.frontpage {
           padding: 0 1rem;
           .icon_class {
             padding: 2rem 0px;
-            background: white url("activities/grid2.png") 16px -131px no-repeat;
+            background: white image-url("activities/grid2.png") 16px -131px no-repeat;
           }
           .activity_box_wrapper {
             .activity_box {
