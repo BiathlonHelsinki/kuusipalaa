@@ -1,5 +1,9 @@
 - if activity.user
-  = link_to activity.user.display_name, activity.user, target: :_blank
+  - if activity.contributor != activity.user && !activity.contributor.nil?
+    = link_to activity.contributor.display_name, activity.contributor, target: :_blank
+    = raw t(:via_user, user: link_to(activity.user.display_name, activity.user, target: :_blank))
+  - else
+    = link_to(activity.user.display_name, activity.user, target: :_blank)
 
 = t activity.description
 = link_to activity.item.question.question, page_path(activity.item.question.page.slug)

@@ -26,7 +26,7 @@ class Idea < ApplicationRecord
 
   mount_uploader :image, ImageUploader
   before_save :update_image_attributes, if: :active_or_name_and_info?
-  after_commit :add_to_activity_feed, if: :active?
+  # before_commit :add_to_activity_feed, if: :active?
   scope :between, -> (start_time, end_time) { 
     where( [ "(start_at >= ?  AND  end_at <= ?) OR ( start_at >= ? AND end_at <= ? ) OR (start_at >= ? AND start_at <= ?)  OR (start_at < ? AND end_at > ? )",
     start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db), 
@@ -75,13 +75,11 @@ class Idea < ApplicationRecord
   end
 
   def add_to_activity_feed
-    if active?
 
       if Activity.last.item != self
         Activity.create(user: user, item: self, description: ideatype_id == 3 ? 'requested' : 'proposed')
       end
 
-    end
   end
 
   def active_or_find_type?
