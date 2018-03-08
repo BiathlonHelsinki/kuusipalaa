@@ -8,7 +8,7 @@ en:
   time:
     formats:
       default: "%Y-%m-%d"
-      long: "%d %B %Y"
+      long: "%d %B %Y %H:%M"
       short: "%d %b"
   activerecord:
     errors:
@@ -299,8 +299,8 @@ en:
   ethereum_accounts: 'Ethereum accounts'
   id_cards: 'ID cards'
   address: 'address'
-  created: 'created'
-  last_used: 'last used?'
+  created: 'Created'
+  last_used: 'Last used?'
   authentications: 'Authentications'
   balance: 'Balance'
   participated_in: 'Participated in'
@@ -1159,3 +1159,18 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   see_proposals: 'See all proposals'
   latest_activities: 'Latest activities at Kuusi Palaa'
   proposed_for: ' for %{when}'
+  your_id_cards: 'Your ID cards'
+  not_your_cards: 'You cannot edit another user''s ID cards.'
+  id_cards: 'ID cards'
+  manage_id_cards: 'You can manage your ID cards for Kuusi Palaa here. You can create the cards at the check-in kiosk located just inside Kuusi Palaa. Stakeholders have ID cards that also function as a key to Kuusi Palaa. You can have as many ID cards as you want, but only one of them can be an active key.'
+  please_delete_lost_cards: 'If you lose your ID card or it becomes damaged, PLEASE delete it from here as soon as possible, especially if it is a key!'
+  new_cards_cost_1: 'New cards can be obtained as Kuusi Palaa. We ask for a 1€ donation to cover the cost of the card + chip.'
+  card_id: "Card ID#"
+  remove_key_access: 'Remove key access'
+  never_used: 'Never used'
+  make_key: 'Make key'
+  are_you_sure_key: 'Are you sure? You can only have one active keycard so this will affect any keys you already are using.'
+  are_you_sure_key_delete: 'Are you sure you wish to delete this card? It will be removed from the KP database and no longer work, though you can always re-link it at the kiosk.'
+  key_updated: 'Key updated.'
+  delete_card: 'Delete card'
+  card_deleted: 'Card deleted.'

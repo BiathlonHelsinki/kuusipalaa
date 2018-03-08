@@ -1,0 +1,36 @@
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :id_cards
+      .blurb
+        %p= t :manage_id_cards
+        %p= t :please_delete_lost_cards
+        %p= t :new_cards_cost_1
+
+    .lifted_box
+      .title
+        = @user.display_name
+        = ": "
+        = t :your_id_cards
+      .blurb
+        %table
+          %thead
+            %th= t :card_id
+            %th= t :created
+            %th= t :last_used
+            %th
+          %tbody
+            - @user.nfcs.each do |card|
+              %tr
+                %td
+                  = card.tag_address
+                  - if card.keyholder?
+                    = fa_icon 'key'
+                %td= l card.created_at.localtime, format: :long
+                %td= l card.last_used.localtime, format: :long rescue t(:never_used)
+                %td
+                  - if @user.is_stakeholder?
+                    = link_to card.keyholder? ? t(:remove_key_access) : t(:make_key), "/nfcs/#{card.id.to_s}/toggle", class: [:button, :tiny, :bordered], data: {confirm: t(:are_you_sure_key) }
+                  - if can? :destroy, card
+                    = link_to t(:delete_card), card, method: :delete, class: [:button, :alert, :tiny, :bordered], data: {confirm: t(:are_you_sure_key_delete) }
+

@@ -74,6 +74,10 @@ class User < ActiveRecord::Base
     false
   end
 
+  def is_stakeholder?
+    !stakes.paid.empty?
+  end
+
   def is_member?
     !stakes.where(includes_share: true).empty? && accepted_agreement == true
   end

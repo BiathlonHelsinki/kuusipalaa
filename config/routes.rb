@@ -126,6 +126,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :nfcs, only: [:index, :destroy]
+
   resources :roombookings do
     collection do
       get :calendar
@@ -158,6 +160,7 @@ Rails.application.routes.draw do
 
       get :members_agreement
     end
+    resources :nfcs
     resources :transfers  do
       collection do
         get :send_points
@@ -179,5 +182,6 @@ Rails.application.routes.draw do
   match '/users/auth/:provider/callback' => 'authentications#create', :via => :get
   match '/home/front_calendar/' => 'home#front_calendar', via: :get
   delete '/users/signout' => 'devise/sessions#destroy', :as => :signout
+  match '/nfcs/:id/toggle' => 'nfcs#toggle_key', via: :get
   root to: 'home#index'
 end
