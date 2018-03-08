@@ -76,11 +76,11 @@ class Idea < ApplicationRecord
 
   def add_to_activity_feed
     if active?
-      if status_changed?
-        if Activity.last.item != self
-          Activity.create(user: user, item: self, description: ideatype_id == 3 ? 'requested' : 'proposed')
-        end
+
+      if Activity.last.item != self
+        Activity.create(user: user, item: self, description: ideatype_id == 3 ? 'requested' : 'proposed')
       end
+
     end
   end
 
