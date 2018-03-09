@@ -218,7 +218,16 @@ article.ideas_index {
     .progress {
       margin: 0.6rem 0;
       height: 40px;
-
+      .progress-meter.completed {
+        display: flex;
+        span {
+          margin: auto;
+          font-family: $sourcecode;
+          font-weight: bold;
+          text-transform: uppercase;
+          color: white;
+        }
+      }
     }
 
     .point_count {

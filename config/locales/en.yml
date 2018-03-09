@@ -1178,3 +1178,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   points_funded_waiting: 'All required points pledged! Waiting to be scheduled...'
   kuusi_palaa_is_open_for_free_use: 'Kuusi Palaa is open for free use!'
   kuusi_palaa_not_currently_open: 'Kuusi Palaa is not open at this moment!'
+  pledging_completed: 'Pleding completed!'

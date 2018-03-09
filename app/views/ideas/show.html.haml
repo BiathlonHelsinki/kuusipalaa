@@ -112,7 +112,9 @@
       .row
         .small-12.columns
           .progress{role: 'progressbar', tabindex: 0, 'aria-valuenow' => @idea.pledged, 'aria-valuemin' => 0, 'aria-valuemax' => @idea.points_needed }
-            .progress-meter{style: "width: #{((@idea.pledged.to_f / @idea.points_needed.to_f)*100)}%"} 
+            .progress-meter{style: "width: #{((@idea.pledged.to_f / @idea.points_needed.to_f)*100)}%", class: @idea.points_still_needed == 0 ? :completed : false} 
+              - if @idea.points_still_needed == 0
+                %span= t :pledging_completed
       .row.bottom
         .small-3.columns.point_count= @idea.pledged
         .small-6.columns &nbsp;
