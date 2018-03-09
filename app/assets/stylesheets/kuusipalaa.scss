@@ -225,6 +225,9 @@ article.divider {
    &.false {
       background-color: black;
       color: white;
+      a { 
+        color: white;
+      }
     }
   font-weight: bold;
   .banner_blurb {
@@ -321,7 +324,20 @@ article.divider {
     padding: 1rem;
     font-size: 0.9rem;
     font-family: $montserrat;
-
+    &.open_time {
+      h4 {
+        font-size: 1.2rem;
+        font-family: $sourcecode;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+      a {
+        text-decoration: underline;
+        &:hover {
+          color: #666;
+        }
+      }
+    }
     .subtitle {
       text-transform: uppercase;
       font-weight: bold;

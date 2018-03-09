@@ -1,0 +1,20 @@
+%article
+  .row.front_box{class: @kp_is_open.to_s}
+    .small-12.columns.small-centered.text-center
+      .banner_blurb
+        - if @kp_is_open
+          = t :kp_is_currently_open
+          .smaller= t :all_are_welcome
+        - else
+          = t :kp_is_currently_closed
+          .smaller= t :not_a_stakeholder_come_some_other_time
+.row
+  .small-12.columns
+    .lifted_box
+      .title
+        - if @kp_is_open
+          = t :kuusi_palaa_is_open_for_free_use
+        - else
+          = t :kuusi_palaa_not_currently_open
+      .blurb.open_time
+        = raw @page.body

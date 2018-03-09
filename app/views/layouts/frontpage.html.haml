@@ -35,7 +35,7 @@
     %header
       .row
         .small-12.columns.icons.text-right
-          = link_to fa_icon('envelope'), "mailto:admin at temporary.fi"
+          = link_to fa_icon('envelope'), "mailto:info at kuusipalaa.fi"
           = link_to fa_icon('twitter'), 'https://twitter.com/search?q=%23KuusiPalaa&src=typd'
           = link_to fa_icon('facebook'), 'https://www.facebook.com/groups/375784559552164/'
           |
@@ -107,13 +107,14 @@
     %article
       .row.front_box{class: @kp_is_open.to_s}
         .small-12.columns.small-centered.text-center
-          .banner_blurb
-            - if @kp_is_open
-              = t :kp_is_currently_open
-              .smaller= t :all_are_welcome
-            - else
-              = t :kp_is_currently_closed
-              .smaller= t :not_a_stakeholder_come_some_other_time
+          = link_to event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1') do
+            .banner_blurb
+              - if @kp_is_open
+                = t :kp_is_currently_open
+                .smaller= t :all_are_welcome
+              - else
+                = t :kp_is_currently_closed
+                .smaller= t :not_a_stakeholder_come_some_other_time
 
     %article
       .row.stats_boxes{:'data-equalizer' => '', :'data-equalize-on' => "medium", id: :stats_boxes}
@@ -187,8 +188,12 @@
                     = t :proposed_by_person, link: feeditem.proposer.display_name
                     - if feeditem.timeslot_undetermined != true
                       = t :proposed_for, when: l(feeditem.start_at.to_date, format: :short)
-                    = raw "&mdash;"
-                    = t :still_needed, amount: feeditem.points_still_needed.to_s + 'ᵽ'
+                    - if feeditem.points_still_needed > 0
+                      = raw "&mdash;"
+                      = t :still_needed, amount: feeditem.points_still_needed.to_s + 'ᵽ'
+                    - else
+                      %br/
+                      = t :points_funded_waiting
                 - elsif feeditem.class == Event
                   .description
                     - feeditem.instances.order(:start_at).each do |instance|
