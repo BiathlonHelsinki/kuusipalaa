@@ -3,13 +3,13 @@ class Question < ApplicationRecord
   belongs_to :era
   translates :question
   has_many :answers
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :contributor, polymorphic:true, optional: true
   extend FriendlyId
   friendly_id :title_en , :use => [ :slugged, :finders, :history]
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['question'].blank?  }
   accepts_nested_attributes_for :answers, reject_if: :has_translation? 
-  validates_presence_of :user_id
+  validates :user_id, presence: true, on: :create
 
   after_create :update_activity_feed
 

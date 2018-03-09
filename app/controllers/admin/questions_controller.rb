@@ -31,6 +31,7 @@ class Admin::QuestionsController < Admin::BaseController
       redirect_to admin_questions_path
     else
       flash[:error] = 'Error updating question'
+      die
     end
   end
   

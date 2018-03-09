@@ -7,7 +7,9 @@ class Ability
       if user.is_a?(User)
         can :manage, Idea
         can :manage, Stake
-       can :manage, User, id: user.id 
+        can :manage, Question
+        can :manage, Answer
+        can :manage, User, id: user.id 
         can :manage, Page
         can :manage, Post
         # can :manage, Credit

@@ -6,6 +6,7 @@ class Answer < ApplicationRecord
   validates_presence_of :question_id
   after_create :update_activity_feed
   belongs_to :user, optional: true # store user as well as contributor, to attribute authorship later
+  
   def update_activity_feed
     Activity.create(user: user,contributor: contributor, item: self, description: "answered_the_question",  addition: 0)
   end
