@@ -6,8 +6,15 @@
         .blurb
           .row
             .small-12.columns
-              = link_to fa_icon('list') + ' ' + t(:view_as_list), events_path, class: [:button]
+              -#= link_to fa_icon('list') + ' ' + t(:view_as_list), events_path, class: [:button]
               = link_to fa_icon('download') + ' ' + t(:download), calendar_events_path(format: 'ics'), class: [:button, :small]
+              .float-right.legend
+                %span.event= t :event, count: 1
+                %span.proposal
+                  = t :proposal_legend
+                  
+                  %small= t :not_confirmed
+                %span.booking= t :back_room_legend
           .row
 
             #calendar.clickable.small-centered

@@ -1186,3 +1186,6 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   next_season_asterisk: "* = this is a rough estimate; the final amount required for the next has not yet been decided"
   support_kp_and_become_stakeholder: 'Support Kuusi Palaa and become a stakeholder'
   kuusi_palaa_funders_and_supporters: 'Kuusi Palaa funders and supporters'
+  proposal_legend: 'proposal'
+  not_confirmed: '(not confirmed)'
+  back_room_legend: 'back room booking'

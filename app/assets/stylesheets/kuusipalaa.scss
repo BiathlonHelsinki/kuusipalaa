@@ -1020,3 +1020,29 @@ nav.pagination {
     float: left;
   }
 }
+
+.legend {
+  span {
+    padding: 0.5rem;
+    margin: 0 0.25rem;
+  }
+  span.event {
+    background-color: black;
+    color: white;
+
+
+  }
+
+  span.proposal {
+    background-color: #CCC;
+    color: black;
+    font-weight: bold;
+    small {
+      font-size: 0.6rem;
+    }
+  }
+  span.booking {
+   background-color: #999;
+   color: white;
+  }
+}

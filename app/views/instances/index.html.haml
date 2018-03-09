@@ -20,10 +20,12 @@
             .heading
               = t :when
             .value
-              = date_range(@event.instances.first.start_at.localtime, @event.instances.first.end_at.localtime)
+              = date_range(@event.instances.order(:start_at).first.start_at.localtime, @event.instances.order(:start_at).first.end_at.localtime)
+
 
               - unless @event.instances.size == 1
-                - @event.instances[1..-1].each do |t|
+                - @event.instances.order(:start_at).each do |t|
+                  - next if t == @event.instances.first
                   .additional
                     = " + "
                     = date_range(t.start_at.localtime, t.end_at.localtime)

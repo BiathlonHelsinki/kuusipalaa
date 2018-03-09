@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :events do
     collection do
       get :calendar
+      get :fullcalendar
     end
     resources :comments
     resources :instances , path: '' do

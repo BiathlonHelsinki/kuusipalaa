@@ -18,6 +18,7 @@ class Instance < ApplicationRecord
     day.to_date.at_midnight.to_s(:db), day.to_date.end_of_day.to_s(:db)])
   }
 
+  scope :kuusi_palaa, -> () { where("start_at >= '2018-03-01'")}
   scope :between, -> (start_time, end_time) { 
     where( [ "(start_at >= ?  AND  end_at <= ?) OR ( start_at >= ? AND end_at <= ? ) OR (start_at >= ? AND start_at <= ?)  OR (start_at < ? AND end_at > ? )",
     start_time.to_date.at_midnight.to_s(:db), end_time.to_date.end_of_day.to_s(:db),

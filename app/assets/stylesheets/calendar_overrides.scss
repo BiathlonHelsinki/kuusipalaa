@@ -25,17 +25,26 @@ a.fc-event {
   border: 1px solid #999;
   background-color: #999;
   color: white;
-  &.event, &.booking {
+  &.event {
     background-color: black;
     pointer-events: none; 
     &:hover {
       background-color: black;
     }
   }
-  &.proposal {
-    pointer-events: none;
+  &.booking {
+    background-color: #999;
+    pointer-events: none; 
     &:hover {
-      background-color: #999;
+      background-color: #CCC;
+    }
+  }  
+  &.proposal {
+  // pointer-events: none;
+   background-color: #CCC;
+   color: black;
+    &:hover {
+      background-color: #FFF;
     }
   }
 
