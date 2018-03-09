@@ -711,13 +711,13 @@ footer {
   font-weight: bold;
   .row {
     padding: 2rem 0;
-    border-top: 2px dashed $black;
+    border-top: 2px solid $black;
     font-family: $sourcecode;
     border-bottom: 2px solid black;
     .address {
-      margin: 1rem 0;
+      margin-top: 1rem;
       font-weight: normal;
-      font-size:0.9rem;
+      font-size:0.8rem;
     }
   }
 }

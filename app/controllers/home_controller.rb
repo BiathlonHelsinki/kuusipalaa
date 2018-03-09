@@ -17,12 +17,17 @@ class HomeController < ApplicationController
     @today = Time.current.localtime.to_date
     @activities = Activity.order(id: :desc).limit(4)
     @proposals = Idea.unconverted.active.where(ideatype_id: 1).order(updated_at: :desc).limit(5)
+    @season = @current_season
     render layout: 'frontpage'
   end
 
   def front_calendar
     @events = [Instance.on_day(params[:day]), Roombooking.between(params[:day],params[:day])].flatten
     @today = params[:day]
+  end
+
+  def funders_update
+    @season = Season.find(params[:season_id])
   end
 
 end

@@ -181,6 +181,7 @@ Rails.application.routes.draw do
   match '/calendar' => 'events#calendar', via: :get
   match '/users/auth/:provider/callback' => 'authentications#create', :via => :get
   match '/home/front_calendar/' => 'home#front_calendar', via: :get
+  match '/home/funders_update' => 'home#funders_update', via: :get
   delete '/users/signout' => 'devise/sessions#destroy', :as => :signout
   match '/nfcs/:id/toggle' => 'nfcs#toggle_key', via: :get
   root to: 'home#index'

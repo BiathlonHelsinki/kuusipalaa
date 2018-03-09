@@ -22,7 +22,7 @@
                 = " / "
                 = season.stakes.sum(&:amount)
               %td
-                = season.stakes.paid.size * KuusiPalaa::Stakes::STAKE_PRICE
+                = number_to_currency(season.stakes.paid.sum(&:price), unit: raw("&euro;"), format: "%n%u")
                 = " / "
                 = number_to_currency((season.stake_count * KuusiPalaa::Stakes::STAKE_PRICE).to_i, unit: raw("&euro;"), format: "%n%u")
               %td

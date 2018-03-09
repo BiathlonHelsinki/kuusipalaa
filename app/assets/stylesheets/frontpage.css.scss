@@ -68,6 +68,7 @@ body.frontpage {
     }
   }
 
+ 
   .calendar_list {
     font-family: $sourcecode;
     border: 1px solid black;
@@ -116,7 +117,7 @@ body.frontpage {
 
 
   .proposal_activity_box {
-    margin-top: 2.5rem;
+    margin-top: 6.5rem;
     margin-bottom: 2.5rem;
     .columns {
       padding-left: 0; padding-right: 0;
@@ -209,3 +210,83 @@ body.frontpage {
 }
 
 
+#supporters_banner {
+  margin: 2rem 0 0 0;
+
+  ul {
+    text-align: center;
+    margin: 0;
+    li {
+      list-style-type: none;
+      display: inline-block;
+      padding-right: 0.8rem;
+      border-right: 2px solid black;
+      &:last-child {
+        border-right: none;
+      }
+      a {
+        color: #AAA;
+        &:hover {
+          color: black;
+        }
+      }
+      &.active {
+        a {
+          color: black;
+        }
+      }
+    }
+  }
+  .bordered {
+
+    font-family: $sourcecode;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 0.5rem 0;
+  }
+  .funders_and_supporters {
+    padding: 0.5rem 0;
+
+    .stake_box {
+
+      float: left;
+      width: 65px;
+      height: 65px;
+      &.organisation {
+        width: 98px;
+      }
+      cursor: pointer;
+      margin: 2px;
+      border: 1px solid rgba(0, 0, 0, .2);
+      .overlay {
+        display: none;
+        background-color: white;
+        font-size: 0.7rem;
+        font-family: Source Code Pro;
+
+      }
+      &:hover {
+        .overlay {
+          display: block;
+        }
+      }
+    }
+
+    .green {
+      background: green;
+    }
+
+    .unpaid {
+      background: yellow;
+      opacity: 0.4;
+    }
+
+    .grey {
+      background: #777;
+
+    }
+  }
+
+}

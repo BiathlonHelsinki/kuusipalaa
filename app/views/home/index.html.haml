@@ -1,8 +1,13 @@
-.row{:'data-equalizer' => 'upper'}
+.row.calendar_container{:'data-equalizer' => 'upper'}
   .small-12.large-8.columns.calendar_list{:'data-equalizer-watch' => 'upper'}= render partial: 'home/text_calendar'        
 
-  .small-12.columns.large-4#calendar_grid.minicalendar{:'data-equalizer-watch' => 'upper'}
-    
+  .small-12.columns.large-4.minicalendar{:'data-equalizer-watch' => 'upper'}
+    #calendar_grid
+    .row
+      .small-10.columns.small-offset-1
+        = link_to '/events/calendar' do
+          .front_button.text-center.white
+            = t(:full_calendar)
 
 .proposal_activity_box.row
 
@@ -29,9 +34,43 @@
       - @activities.each do |activity|
         = render partial: 'activities/activity', locals: {activity: activity}
 
+%article.divider
+  .row
+    .small-12.columns &nbsp;
+
+%article
+  .row.front_box
+    .small-12.columns.small-centered.text-center
+      = link_to new_season_stake_path(@next_season) do
+        .banner_blurb
+          = t :upcoming_season_front_box, number: @next_season.number.to_s, range: date_range(@next_season.start_at, @next_season.end_at)
+          .smaller= t(:so_far_next_season, has: @next_season.stakes.paid.sum(&:price).to_i, needs: @next_season.amount_needed, paid_stakes: @next_season.stakes.paid.sum(&:amount), needed_stakes: @next_season.stake_count)
+          .smaller
+            %small= t :next_season_asterisk
+     
+%article#stakeholder_banner
+  .row
+    .small-12.columns.lessmargins.right_adjust
+      = link_to new_season_stake_path(@next_season) do
+        .front_button.text-center
+          = t(:support_kp_and_become_stakeholder)
+
+%article#supporters_banner
+  .row
+    .small-12.columns.lessmargins.right_adjust.bordered.text-center
+      = t :kuusi_palaa_funders_and_supporters
+      %br/
+      %ul.horizontal.text-center
+        - Season.all.order(:number).each_with_index do |season, index|
+          %li.supporter_selector{class: season == @season ? :active : false}[season]= link_to t(:season_x, number: season.number), '/home/funders_update?season_id=' + season.number.to_s, remote: true
+  .row
+    .small-12.columns.lessmargins.right_adjust.funders_and_supporters= render partial: 'home/funders_and_supporters'
+
+
 = content_for :jquery do 
   = render partial: 'home/little_calendar', formats: [:js]
   :plain
+
     $('.proposal_activity_box .body').height($('.activities_index').height() - 30)
     $(window).on('resize', function(){
       $('.proposal_activity_box .body').height($('.activities_index').height() - 31)
