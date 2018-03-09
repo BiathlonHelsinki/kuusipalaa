@@ -52,7 +52,9 @@ class Stake < ApplicationRecord
   end
 
   def figure_special_fees
-    self.invoice_due = 2.weeks.since
+    if self.invoice_due.blank?
+      self.invoice_due = 2.weeks.since
+    end
     self.invoice_amount = amount * price
 
     if owner.charge_vat?

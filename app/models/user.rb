@@ -243,6 +243,10 @@ class User < ActiveRecord::Base
      user
    end
 
+  def valid_vat_number
+    false
+  end
+
   def rsvpd?(instance)
     !rsvps.find_by(instance: instance).nil?
   end

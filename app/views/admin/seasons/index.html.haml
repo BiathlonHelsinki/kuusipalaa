@@ -18,9 +18,9 @@
               %td= season.number
               %td= season.stake_count
               %td
-                = season.stakes.paid.size
+                = season.stakes.paid.sum(&:amount)
                 = " / "
-                = season.stakes.size
+                = season.stakes.sum(&:amount)
               %td
                 = season.stakes.paid.size * KuusiPalaa::Stakes::STAKE_PRICE
                 = " / "

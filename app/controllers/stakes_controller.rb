@@ -61,7 +61,7 @@ class StakesController < ApplicationController
         fill_collection
         if @group.members.map(&:user).include?(current_user)
           if @group.members.find_by(user: current_user).access_level > KuusiPalaa::Access::REGULAR_MEMBER
-            @stake.price = @group.is_member ? 75 : (@group.taxid.blank? ? 50 : 100)
+            @stake.price = @group.is_member ? 60.48 : (@group.taxid.blank? ? 40.32 : 100)
             render template: 'stakes/group_stakes'
           else
             flash[:error] = t(:must_be_admin_to_buy_stakes)
