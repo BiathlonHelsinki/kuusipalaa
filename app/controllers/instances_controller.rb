@@ -105,39 +105,40 @@ class InstancesController < ApplicationController
 
       if @instance.slug == @event.slug && @event.keep_going != true
         redirect_to event_path(@event.slug)
-      end
-
-      set_meta_tags title: @instance.name
-
-      if params[:format] == 'ics'
-        require 'icalendar/tzinfo'
-        @cal = Icalendar::Calendar.new
-        @cal.prodid = '-//Kuusi Palaa, Helsinki//NONSGML ExportToCalendar//EN'
-
-        tzid = "Europe/Helsinki"
-        @cal.event do |e|
-          e.dtstart     = Icalendar::Values::DateTime.new(@instance.start_at, 'tzid' => tzid)
-          e.dtend       = Icalendar::Values::DateTime.new(@instance.end_at, 'tzid' => tzid)
-          e.summary     = @instance.name
-          e.location  = 'Kuusi Palaa, Kolmas linja 7, Helsinki'
-          e.description = strip_tags @instance.description
-          e.ip_class = 'PUBLIC'
-          e.url = e.uid = 'https://kuusipalaa.fi/events/' + @instance.event.slug + '/' + @instance.slug
-        end
-        @cal.publish
-      end
-
-      if @instance.open_time == true
-        @page = Page.friendly.find('kuusi-palaa-open-time')
-        render template: 'instances/open_time'
-
       else
-        respond_to do |format|
-          format.html { render  template: 'instances/index' }
-          format.ics { send_data @cal.to_ical, type: 'text/calendar', disposition: 'attachment', filename: @instance.slug + ".ics" }
+
+        set_meta_tags title: @instance.name
+
+        if params[:format] == 'ics'
+          require 'icalendar/tzinfo'
+          @cal = Icalendar::Calendar.new
+          @cal.prodid = '-//Kuusi Palaa, Helsinki//NONSGML ExportToCalendar//EN'
+
+          tzid = "Europe/Helsinki"
+          @cal.event do |e|
+            e.dtstart     = Icalendar::Values::DateTime.new(@instance.start_at, 'tzid' => tzid)
+            e.dtend       = Icalendar::Values::DateTime.new(@instance.end_at, 'tzid' => tzid)
+            e.summary     = @instance.name
+            e.location  = 'Kuusi Palaa, Kolmas linja 7, Helsinki'
+            e.description = strip_tags @instance.description
+            e.ip_class = 'PUBLIC'
+            e.url = e.uid = 'https://kuusipalaa.fi/events/' + @instance.event.slug + '/' + @instance.slug
+          end
+          @cal.publish
         end
-      end
-    end 
+
+        if @instance.open_time == true
+          @page = Page.friendly.find('kuusi-palaa-open-time')
+          render template: 'instances/open_time'
+
+        else
+          respond_to do |format|
+            format.html { render  template: 'instances/index' }
+            format.ics { send_data @cal.to_ical, type: 'text/calendar', disposition: 'attachment', filename: @instance.slug + ".ics" }
+          end
+        end
+      end 
+    end
     
   end
   
