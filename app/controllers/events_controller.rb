@@ -53,7 +53,7 @@ class EventsController < ApplicationController
 
   def create
     if params[:event][:image]
-      die
+      
     else
       #  no image upload so use idea image
       idea = Idea.find(params[:event][:idea_id])
@@ -68,6 +68,7 @@ class EventsController < ApplicationController
       )
 
     if success["id"]
+       Activity.create(item: Event.find(success['id']).instances.first, user: current_user, contributor_type: params['event']['primary_sponsor_type'], contributor_id: params['event']['primary_sponsor_id'], description: 'published_event')
       redirect_to "/events/#{success['id']}"
     elsif success["error"]
       flash[:error] = success["error"]

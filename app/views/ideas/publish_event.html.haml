@@ -45,7 +45,7 @@
                   = image_tag f.object.idea.image.url
                   = f.input :image, label: t(:change_image)
                 - else
-                  = f.input :image
+                  = f.input :image, input_html: {required: ''}, label: t(:please_attach_an_image)
             = f.fields_for :instances do |ff|
               %div{id: ff.options[:child_index], class: [:subtimes, cycle('odd', 'even'), (f.object.idea.additionaltimes.map(&:start_at).include?(ff.object.start_at) ? :bordered : false)] }
                 .pad
@@ -118,9 +118,9 @@
                 = f.action :submit, label: t(:publish_event), button_html: {disabled: '', id: :publish_submit, class: [:disabled]}
 = content_for :jquery do
   :plain
-     $('#event_primary_sponsor_select').on('change', function() {
-      $('#event_primary_sponsor_type').val($('#event_primary_sponsor_select option').filter(":selected").attr('rel'))
-      $('#event_primary_sponsor_id').val($('#event_primary_sponsor_select').val());
+     $('#idea_primary_sponsor_select').on('change', function() {
+      $('#event_primary_sponsor_type').val($('#idea_primary_sponsor_select option').filter(":selected").attr('rel'))
+      $('#event_primary_sponsor_id').val($('#idea_primary_sponsor_select').val());
 
     })
     $('input[name="recurs"]').change(() => {
