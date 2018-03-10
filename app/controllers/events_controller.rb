@@ -120,13 +120,33 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.friendly.find(params[:id])
+
     set_meta_tags title: @event.name
+  end
+
+  def update
+    if can? :update, @event
+      if @event.update_attributes(event_params)
+        flash[:notice] = t(:event_has_been_updated)
+      else
+        flash[:error] = t(:error_updating_event) + @event.errors.full_messages
+      end
+    else
+      flash[:error] = t(:generic_error)
+    end
+    redirect_to @event
   end
 
   private
 
   def event_params
-    #  none, send everything to the biathlon API to create it
+    params.require(:event).permit(:place_id, :start_at, :end_at, :sequence, :published, :image, :primary_sponsor_id, :primary_sponsor_type,
+        :secondary_sponsor_id, :cost_euros, :cost_bb, :idea_id, :remote_image_url,
+        instances_attributes: [:id, :_destroy, :event_id, :cost_bb, :price_public, :start_at, :end_at, :image, 
+                                :custom_bb_fee,
+                                :room_needed, :allow_others, :price_stakeholders, :place_id, 
+                                translations_attributes: [:id, :locale, :_destroy, :name, :description]],
+                              translations_attributes: [:name, :description, :id, :locale])
   end
 
 

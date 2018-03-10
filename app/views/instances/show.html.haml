@@ -2,7 +2,7 @@
   .row
     .small-12.columns.title_box
       .title
-        = t :event
+        = t :event, count: 1
         = ": "
         = @instance.name
 
@@ -47,12 +47,12 @@
               = @instance.place.address
 
           %td.half
-            .heading= t :price_public
+            .heading= t :ticket_price
             .value
-              - if @idea.price_public == 0
+              - if @event.instances.first.price_public == 0
                 = t :free_entry
               - else
-                = number_to_currency(@idea.price_public, unit: raw("&euro;"), format: "%n %u")
+                = number_to_currency(@event.instances.first.price_public, unit: raw("&euro;"), format: "%n %u")
           %td.half
             .heading= t :venue
             .value

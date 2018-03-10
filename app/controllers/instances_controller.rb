@@ -99,13 +99,14 @@ class InstancesController < ApplicationController
     
   def show
     if params[:event_id]
+
       @event = Event.friendly.find(params[:event_id])
       @instance = @event.instances.friendly.find(params[:id])
 
       if @instance.slug == @event.slug && @event.keep_going != true
         redirect_to event_path(@event.slug)
-
       end
+
       set_meta_tags title: @instance.name
 
       if params[:format] == 'ics'
@@ -125,17 +126,18 @@ class InstancesController < ApplicationController
         end
         @cal.publish
       end
+
       if @instance.open_time == true
         @page = Page.friendly.find('kuusi-palaa-open-time')
         render template: 'instances/open_time'
+
       else
- 
         respond_to do |format|
-          format.html # index.html.erb
+          format.html { render  template: 'instances/index' }
           format.ics { send_data @cal.to_ical, type: 'text/calendar', disposition: 'attachment', filename: @instance.slug + ".ics" }
         end
       end
-    end
+    end 
     
   end
   
@@ -148,15 +150,18 @@ class InstancesController < ApplicationController
     end
     set_meta_tags title: @event.name
     @instance = @event.instances.published.first
-    if @event.instances.published.size == 1
-       render template: 'instances/show' 
-    end
+    # if @event.instances.published.size == 1
+    #    render template: 'instances/show' 
+    # end
   end
   
   def update
+
     if params[:event_id]
       @event = Event.friendly.find(params[:event_id])
       @instance = @event.instances.friendly.find(params[:id])
+    else
+      @instance = Instance.friendly.find(params[:id])
     end
     if can? :update, @instance
       if @instance.update_attributes(instance_params)
@@ -165,7 +170,7 @@ class InstancesController < ApplicationController
    else
     flash[:error] = t(:not_authorized)
   end
-  redirect_to event_instance_path(@event, @instance)
+  redirect_to event_instance_path(@instance.event, @instance)
     
   end
 

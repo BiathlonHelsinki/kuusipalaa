@@ -1,0 +1,7 @@
+- if user_signed_in?
+  - if can? :edit, item
+    - if item.read_translated_attribute(attribute, session[:locale]).blank? 
+      .translate
+        = link_to t(:no_translation_in_lang, obj: '', lang: t(:locale_name))
+        %p= link_to t(:add_a_translation_for_lang, lang: t(:locale_name)), '#', onClick: "$('##{item.class.to_s.downcase}_#{item.id.to_s}').slideToggle();return false;", class: [:button, :tiny, :bordered]
+      = render partial: 'shared/translate_field', locals: {object: item, field: attribute}

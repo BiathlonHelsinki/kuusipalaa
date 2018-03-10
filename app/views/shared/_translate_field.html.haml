@@ -1,0 +1,13 @@
+.translate_small_form[object]
+  = semantic_nested_form_for object, html: {:'data-abide' => ''} do |f|
+    - I18n.available_locales.each_with_index do |locale, i|
+      = f.globalize_fields_for locale do |ff|
+        = field.to_s
+        = " : "
+        = t :locale_name, :locale => locale
+        - if object.translations.first.class.columns_hash[field.to_s].type == :string
+          = ff.text_field field, {required: ''}
+        - elsif object.translations.first.class.columns_hash[field.to_s].type == :text
+          = ff.cktext_area field, {required: ''}
+
+    = f.submit t(:save_translation), class: [:bordered, :tiny, :button]

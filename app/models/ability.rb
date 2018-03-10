@@ -16,7 +16,8 @@ class Ability
         # can :manage, Email
         can :manage, Comment
         can :manage, Nfc
-
+        can :manage, Event
+        can :manage, Instance
         # can :manage, Proposalstatus
       end
     elsif user.has_role? :stakeholder

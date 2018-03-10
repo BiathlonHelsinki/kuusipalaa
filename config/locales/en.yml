@@ -861,6 +861,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   no_translation_in_lang: 'There is no translation available for this %{obj} in %{lang}.'
   question: 'question'
   contribute_a_translation_into_lang: 'Help us by contributing a translation!'
+  add_a_translation_for_lang: 'Add a translation for %{lang}'
   submit: 'Submit'
   answer_contributed_by: 'Answer contributed by %{name}.'
   ask_a_question: 'Ask a question'
@@ -1191,3 +1192,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   back_room_legend: 'back room booking'
   please_attach_an_image: 'Please attach an image to this event:'
   published_event: 'published the event'
+  see_on_map: 'See on map'
+  save_translation: 'Save translation'
+  event_has_been_updated: "The event has been updated."
+  error_updating_event: 'There was an error updating this event: '

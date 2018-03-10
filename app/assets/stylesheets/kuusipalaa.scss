@@ -662,6 +662,21 @@ form {
 
 }
 
+.translate_small_form {
+  display: none;
+  padding-left: 2.5rem;
+  form {
+    input[type=text] {
+      max-width: 40%;
+      font-size: 1rem;
+      height: 1.4rem;
+    }
+    textarea {
+      width: 60%;
+      height: 250px;
+    }
+  }
+}
 
 a.bordered, button.bordered {
   font-family: $sourcecode;
@@ -672,6 +687,19 @@ a.bordered, button.bordered {
   color: white;
   position: relative;
   padding: 1rem;
+  &.tiny {
+    font-size: 0.65rem;
+    margin: 0 0.35rem;
+    background-color: #333;
+    padding: 0.4rem;
+    &:after {
+      top: 3px;
+      left: -3px;
+      right: 3px;
+      bottom: -3px;
+      outline: 1px solid #333;
+    }
+  }
   &.disabled {
     border: 1px solid black;
     color: white;

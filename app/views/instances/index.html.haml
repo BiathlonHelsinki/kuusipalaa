@@ -5,7 +5,8 @@
         = t :event, count: 1
         = ": "
         = @event.name
-
+        .smaller= render partial: 'shared/translate_link', locals: {item: @event, attribute: :name}
+        
       
   - if @event.image?
     .row
@@ -43,7 +44,7 @@
             .value
               %strong= @instance.place.name
               = @instance.place.address   
-              = @instance.place.city
+              = link_to t(:see_on_map), 'https://osm.org/go/0xPLvWONL?layers=N&m=', target: :_blank, class: [:button, :tiny, :bordered]
 
         %tr
 
@@ -53,7 +54,14 @@
               - if @event.instances.first.price_public == 0
                 = t :free_entry
               - else
-                = number_to_currency(@event.instances.first.price_public, unit: raw("&euro;"), format: "%n %u")        
+                = number_to_currency(@event.instances.first.price_public, unit: raw("&euro;"), format: "%n %u")
+                %p
+                  %em
+                    = t :stakeholders_price
+                    = number_to_currency(@event.instances.first.price_stakeholders, unit: raw("&euro;"), format: "%n %u")
+                    - if user_signed_in?
+                      - if !current_user.is_stakeholder?
+                        = link_to t(:become_a_stakeholder), season_new_stake_path(@next_season)      
           %td.half
             .heading= t :venue
             .value
@@ -85,7 +93,7 @@
                 - if user_signed_in?
                   - if @event.instances.first.responsible_people.include?(current_user)
                     = link_to t(:add_registration_form), add_registration_form_event_instance_path(@event, @event.instances.first) , class: [:button, :bordered]     
-        - if user_signed_in?
+        - if user_signed_in? && @event.instances.map(&:request_registration).compact.include?(true)
           - if @event.instances.first.responsible_people.include?(current_user) || current_user.has_role?(:admin)
             %tr
               %td.registration_list{:colspan => 2}
@@ -117,7 +125,10 @@
         %tr
           %td{colspan: 2}
             .heading= t :event_description
-            .value= simple_format(@event.instances.first.description)  
+            .value
+              = simple_format(@event.instances.first.description)
+              .smaller= render partial: 'shared/translate_link', locals: {item: @event.instances.first, attribute: :description}
+
   
         - if @event.instances.map(&:request_registration).compact.include?(true)
           %tr#registration_form

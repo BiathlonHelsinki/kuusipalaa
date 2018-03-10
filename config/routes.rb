@@ -47,6 +47,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :instances, only: :update
+  
   resources :groups do
     collection do
       get :check_vat
