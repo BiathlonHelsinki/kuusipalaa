@@ -178,7 +178,7 @@
       - @feed.shuffle.each do |feeditem|
         .columns.small-12.medium-6.large-4.left_adjust
           = link_to feeditem.class == Instance ? event_path(feeditem.event) : feeditem  do
-            .lifted_box.feed{:'data-equalizer-watch' => '', style: feeditem.image? ?  "background: url(#{feeditem.image.url(:box)}) no-repeat center top;" : false}
+            .lifted_box.feed{:'data-equalizer-watch' => '', style: feeditem.image? ?  "background: url(#{feeditem.image.url(:box)}) no-repeat center top; background-size: cover;" : false}
               .banner2_title
                 = t feeditem.class.to_s.downcase.to_sym, count: 1
                 = feeditem.name
