@@ -20,16 +20,16 @@ class Ability
         can :manage, Instance
         # can :manage, Proposalstatus
       end
-    elsif user.has_role? :stakeholder
+    end
+    if user.has_role? :stakeholder
       can :manage, Meeting
       can :manage, Post
       can :manage, User, id: user.id
       can :manage, Comment
       can :manage, Nfc, user_id: user.id
-
       can :read, Stake, bookedby_id: user.id
+    end
 
-    elsif user.is_a?(User)
       can :manage, Idea, proposer_type: 'User', proposer_id: user.id
       can :manage, Idea, proposer_type: 'Group' if  user.members.where("access_level >= 10" ).map(&:source_id).include?(:proposer_id)
       can :manage, Event, idea: {proposer_type: 'User', proposer_id: user.id}
@@ -52,6 +52,6 @@ class Ability
       can :create, Comment
       # can :manage, Rsvp, user_id: user.id
       can :manage, Comment, :user_id => user.id
-    end
+ 
   end
 end
