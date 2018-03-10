@@ -67,11 +67,11 @@
                     %p.inline-hints= t :multiple_languages
                   %ul.tabs{"data-tabs" => "", id: "tabs_#{ff.options[:child_index]}"}
                     - I18n.available_locales.each_with_index do |locale, i|
-                      %li.tabs-title{:class => (i == 0 ? "is-active" : false)}
+                      %li.tabs-title{:class => (!@event.read_translated_attribute(:name, locale.to_sym).blank? ? "is-active" : false)}
                         = link_to t(:locale_name, :locale => locale), "##{locale}_#{ff.options[:child_index]}"
                   .tabs-content{:'data-tabs-content' => "tabs_#{ff.options[:child_index]}"}
                     - I18n.available_locales.each_with_index do |locale, i|
-                      .tabs-panel{:class => (i == 0 ? "is-active" : false), :id => "#{locale}_#{ff.options[:child_index]}"}
+                      .tabs-panel{:class => (!@event.read_translated_attribute(:name, locale.to_sym).blank? ? "is-active" : false), :id => "#{locale}_#{ff.options[:child_index]}"}
                         = ff.globalize_fields_for locale do |en|
                           .row
                             .small-10.columns
