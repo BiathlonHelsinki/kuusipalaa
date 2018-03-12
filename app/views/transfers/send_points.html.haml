@@ -10,7 +10,7 @@
             = t(:you_can_transfer_up_to, number: current_user.available_balance)
 
             
-          = form_tag post_points_user_transfers_path(@recipient), method: :post, :'data-abide' => '' do
+          = form_tag @recipient.class == User ?  post_points_user_transfers_path(@recipient) : post_points_group_transfers_path(@recipient), method: :post, :'data-abide' => '' do
             .row
               .small-12.columns
                 %label.label
@@ -26,8 +26,8 @@
               .small-12.medium-9.columns.send_options
                 - if @collection_options.size < 2
                   .pledge_as= t :send_from
-                  = hidden_field_tag :sender_type, value: 'User', 'required' => '', id: :sender_type_input
-                  = hidden_field_tag :sender_id, value: current_user.id , 'required' => '', id: :sender_id_input
+                  = hidden_field_tag :sender_type, 'User', 'required' => '', id: :sender_type_input
+                  = hidden_field_tag :sender_id,  current_user.id , 'required' => '', id: :sender_id_input
                   .avatar{id: "avatar_sender"}= image_tag current_user.avatar.url(:thumb).gsub(/development/, 'production')
 
                   .who= link_to(current_user.display_name, current_user, target: :_blank) 

@@ -7,10 +7,17 @@ class TransfersMailer < ActionMailer::Base
     @recipient = recipient
     @amount = amount
     @reason = reason
-    unless recipient.email =~ /change@me/
-      mail(to: recipient.email,  subject: "You've got points! (from #{@sender.display_name})")
-    end    
+    if recipient.class == User
+      unless recipient.email =~ /change@me/
+        mail(to: recipient.email,  subject: "You've got points! (from #{@sender.display_name})")
+      end    
+    elsif recipient.class == Group
+      recipient.owners.each do |owner|
+        unless owner.email =~ /change@me/
+          mail(to: owner.email,  subject: "#{recipient.name} has received points! (from #{@sender.display_name})")
+        end 
+      end
+    end
   end
-
-
+  
 end

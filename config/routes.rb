@@ -71,6 +71,12 @@ Rails.application.routes.draw do
         post :remove
       end
     end
+    resources :transfers  do
+      collection do
+        get :send_points
+        post :post_points
+      end
+    end
   end
 
   resources :ideas do

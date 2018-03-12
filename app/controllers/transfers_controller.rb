@@ -3,8 +3,12 @@ class TransfersController < ApplicationController
   before_action :authenticate_user!
   
   def send_points
-    @recipient = User.friendly.find(params[:user_id])
-    
+    if params[:user_id]
+      @recipient = User.friendly.find(params[:user_id])
+    elsif params[:group_id]
+      @recipient = Group.friendly.find(params[:group_id])
+    end
+
     if @api_status == false #|| @dapp_status == false
       flash[:error] = 'The Biathlon API is currently down. Please try again later.'
       redirect_to @recipient
@@ -24,8 +28,14 @@ class TransfersController < ApplicationController
         redirect_to @sender
       end
     end
+    if params[:user_id]
+      @recipient = User.friendly.find(params[:user_id])
+      url = "/users/#{params[:user_id]}/transfers/send_biathlon"
+    elsif params[:group_id]
+      @recipient = Group.friendly.find(params[:group_id])
+      url = "/groups/#{params[:group_id]}/transfers/send_biathlon"
+    end
 
-    @recipient = User.friendly.find(params[:user_id])
     @photo = params[:userphoto_id].nil? ? nil : params[:userphoto_id]
     if @api_status == false 
       flash[:error] = 'The Biathlon API is currently down. Please try again later.'
@@ -40,7 +50,7 @@ class TransfersController < ApplicationController
       else
         api = BiathlonApi.new
         
-        success = api.api_post("/users/#{params[:user_id]}/transfers/send_biathlon",
+        success = api.api_post(url,
                                {user_email: current_user.email, 
                                 user_token: current_user.authentication_token,
                                 from_account: @sender.accounts.first.address,
