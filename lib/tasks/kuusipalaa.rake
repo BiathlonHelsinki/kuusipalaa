@@ -1,4 +1,12 @@
 namespace :kuusipalaa do
+
+  desc 'notify invoices unpaid after > 3 weeks'
+  task late_invoices: :environment do
+    Stake.really_late.each do |stake|
+      StakeMailer.late_stake(stake).deliver_now
+    end
+  end
+
   desc 'reset development environment from db dump'
   task reset_dev: :environment do
     s = Setting.first

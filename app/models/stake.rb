@@ -18,6 +18,7 @@ class Stake < ApplicationRecord
   scope :paid, ->() { where(paid: true)}
   scope :booked_unpaid,  ->() { where('paid is not true')}
   scope :past_year, ->() { where(["created_at >= ?",  1.year.ago.strftime("%Y-%m-%d")])}
+  scope :really_late, ->() { where(["paid is not true and invoice_due <= ?", 3.weeks.ago.strftime("%Y-%m-%d")])}
 
   def add_to_activity_feed
     Activity.create(user: self.bookedby, item: self, description: "bought",  addition: 0,

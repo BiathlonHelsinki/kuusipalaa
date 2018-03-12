@@ -14,7 +14,7 @@
 <p>
   Your stake<%= @stake.amount > 1 ? 's' : ''%> will be applied to funding season #<%= @stake.season.number.to_s %> of Kuusi Palaa, which will run from
   <%= @stake.season.start_at.strftime('%-d %b') %> until <%= @stake.season.end_at.strftime('%-d %b') %>. If not enough stakes are sold to fund season #<%= @stake.season.number.to_s %>
-  and Kuusi Palaa ends, your money will be refunded (minus any small administrative costs, which will be spread evenly across all members).
+  and Kuusi Palaa ends, your money will be refunded (minus any administrative costs, which will be spread evenly across the refunds of all members).
 </p>
 
 <p>
@@ -27,12 +27,8 @@
 </p>
 
 <p>
-  You will receive 500 points per stake to use in producing the activities at Kuusi Palaa.
-  As the first season of Kuusi Palaa is not yet funded, points aren't awarded yet, but will be closer to the launch date.
-</p>
+  You will receive 500 points per stake, which you can use for producing activities at Kuusi Palaa. Points will be awarded as soon as payment is received.
 
-<p>
-  If you wish to cancel this stake order, please email info@kuusipalaa.fi as soon as possible.
 </p>
 
 
@@ -44,5 +40,5 @@
 </p>
 
 <p>
-  Thank you again for investing in the Kuusi Palaa project. Together we can make this happen!
+  Thank you again for investing in the Kuusi Palaa project, and we will see you there!
 </p>

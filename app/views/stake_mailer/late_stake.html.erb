@@ -1,0 +1,45 @@
+<p>Dear <%= @stake.bookedby.display_name %>,</p>
+
+<p>
+  You purchased <%= @stake.amount.to_s %> stake<%= @stake.amount > 1 ? 's' : ''%> for
+  <%= @stake.owner.display_name %>
+  at Kuusi Palaa on <%= @stake.created_at.strftime("%-d %b %Y") %>.
+</p>
+
+<p>
+  Kuusi Palaa has not yet received payment for <a href="https://kuusipalaa.fi/seasons/<%= @stake.season_id.to_s %>/stakes/<%= @stake.id %>">this invoice</a>, which was due on <%= @stake.invoice_due.strftime('%-d %b %Y') %>. Please pay the amount due as soon as possible.
+</p>
+
+<p>
+  Your cooperative membership and stakeholder status will be activated upon receipt of payment.
+</p>
+
+<p>
+  You can also pay this immediately online via credit card. Simply log into the Kuusi Palaa website, and <a href="https://kuusipalaa.fi/seasons/<%= @stake.season_id.to_s %>/stakes/<%= @stake.id %>">view this invoice</a>. There is a button on that screen to pay by card.
+</p>
+
+
+<p>
+  Payment of this invoice indicates your acceptance of the terms of the membership agreement. If you would like to review these terms,
+  you can view them <a href="https://kuusipalaa.fi/pages/membership-agreement<%= @stake.owner_type == "Group" ? '-organisations' : '' %>">here</a>. The link also appears on the footer of every page on the Kuusi Palaa website if you are logged in.
+</p>
+
+<p>
+  You will receive 500 points per stake to use in producing the activities at Kuusi Palaa.
+</p>
+
+<p>
+  If you believe we have made an error and you have sent payment, please contact info@kuusipalaa.fi as soon as possible.
+</p>
+
+
+<p>
+  If you don't want to receive any emails from Kuusi Palaa, you can unsubscribe from notifications from your
+  <%= link_to 'user profile page', edit_user_url(@user) %>. You will still receive emails regarding stakes you buy.
+  <br />
+  If you do want to receive these emails, make sure info@kuusipalaa.fi is whitelisted in your email client.
+</p>
+
+<p>
+  Thank you again for investing in the Kuusi Palaa project, and we hope to see you there!
+</p>
