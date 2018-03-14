@@ -1196,3 +1196,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   save_translation: 'Save translation'
   event_has_been_updated: "The event has been updated."
   error_updating_event: 'There was an error updating this event: '
+  you_can_always_book_the_back_room: 'You can always book the back room!'

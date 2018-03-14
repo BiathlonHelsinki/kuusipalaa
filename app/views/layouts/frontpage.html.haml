@@ -135,7 +135,7 @@
             .info
               %br/
               - if @main_room.empty?
-                = t :main_room_free_all_day
+                = link_to  t(:main_room_free_all_day), event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1')
               - else
                 = t :main_room_events_from, event: @main_room.size.to_s + ' '  + t(:event, count: @main_room.size)
                 = @main_room.map{|rb| [rb.start_at.strftime("%H:%M") + ' - ' + rb.end_at.strftime("%H:%M")]}.join('; ')
@@ -148,7 +148,7 @@
                 = t :back_room_booked_from
                 = @back_room.map{|rb| [rb.start_at.strftime("%H:%M") + ' - ' + rb.end_at.strftime("%H:%M")]}.join('; ')
                 %br/
-              = link_to t(:book_the_back_room) + '!', '/roombookings'                
+              = link_to t(:you_can_always_book_the_back_room) + '!', '/roombookings'                
               - if @event_count == 0
                 %br/
                 = t :kp_for_general_use

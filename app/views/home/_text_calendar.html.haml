@@ -1,6 +1,12 @@
 .heading
-  #day_of_week= I18n.l(@today.to_date, format: '%A')
-  #date_in_question= I18n.l(@today.to_date, format:  "%-d.%-m.%Y")
+  .row
+    .small-6.columns
+      #day_of_week= I18n.l(@today.to_date, format: '%A')
+      #date_in_question= I18n.l(@today.to_date, format:  "%-d.%-m.%Y")
+    .small-6.columns
+      = link_to '/events/calendar' do
+        .front_button.text-center.white.thin
+          = t(:full_calendar)
 .body
   - if @events.empty?
     = t :no_events
@@ -13,7 +19,7 @@
           - else
             = fa_icon('calendar')
         .name
-          = link_to event_instance_path(event.event, event) do
+          = link_to event.class == Roombooking ? '/roombookings' : event_instance_path(event.event, event) do
             - if event.open_time == true
               = t :open_24_7
             - else

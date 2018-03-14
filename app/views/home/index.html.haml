@@ -3,11 +3,8 @@
 
   .small-12.columns.large-4.minicalendar{:'data-equalizer-watch' => 'upper'}
     #calendar_grid
-    .row
-      .small-10.columns.small-offset-1
-        = link_to '/events/calendar' do
-          .front_button.text-center.white
-            = t(:full_calendar)
+
+
 
 .proposal_activity_box.row
 
@@ -28,6 +25,7 @@
             = link_to ideas_path do
               .front_button.text-center
                 = t(:see_proposals)
+
   .small-12.large-6.columns.activity_feed
     .title.activities=  link_to t(:latest_activities), activities_path
     .activities_index

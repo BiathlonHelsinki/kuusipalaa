@@ -31,6 +31,13 @@ class Roombooking < ApplicationRecord
     
   end
 
+  def open_time
+    false
+  end
+
+  def name
+    booker.display_name
+  end
 
   def start_at_date
     start_at.nil? ? nil : start_at.strftime('%Y-%m-%d')
