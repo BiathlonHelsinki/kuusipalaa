@@ -9,7 +9,7 @@ class HomeController < ApplicationController
     @feed += @posts.reverse
 
     @feed += Instance.calendered.future.published.map(&:event).uniq
-    @visitors_so_far = InstancesUser.where(visit_date: Time.current.to_date).size
+    @visitors_so_far = InstancesUser.where(visit_date: Time.current.to_date).size + Onetimer.unclaimed.where(["created_at >= ? and created_at <= ?", Time.current.to_date, Time.current.to_date]).size
     @back_room =  Roombooking.between(Time.current.to_date,Time.current.to_date) + Instance.calendered.between(Time.current.to_date, Time.current.to_date).where("room_needed <> 1")
     @main_room = Instance.calendered.between(Time.current.to_date, Time.current.to_date).where("room_needed <> 2")
     @event_count = [@back_room , @main_room].flatten.uniq.size
