@@ -152,8 +152,10 @@
   = content_for :jquery do
     :plain
       $('#pledge_pledger_select').on('change', function() {
+        let ns = $(this).val();
+
         $.ajax({
-            url: "/ideas/#{@idea.id.to_s}/pledges/find_pledge?pledger_type=" + $('#pledge_pledger_select option').filter(":selected").attr('rel') + "&pledger_id=" + $('#pledge_pledger_id').val(),
+            url: "/ideas/#{@idea.id.to_s}/pledges/find_pledge?pledger_type=" + $('#pledge_pledger_select option').filter(":selected").attr('rel') + "&pledger_id=" + ns,
             success: function(pledge_limit) {
               $('#pledge_panel_wrapper').html(pledge_limit)
             }
