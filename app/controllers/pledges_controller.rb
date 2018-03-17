@@ -86,7 +86,7 @@ class PledgesController < ApplicationController
     if @pledger.pledges.unconverted.where(item: @item).empty?
       @pledge = @item.pledges.build
     else
-      @pledge = current_user.pledges.unconverted.find_by(item: @item)
+      @pledge = @pledger.pledges.unconverted.find_by(item: @item)
     end 
     render partial: 'ideas/pledge_panel'
   end
