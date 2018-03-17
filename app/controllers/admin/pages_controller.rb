@@ -36,7 +36,7 @@ class Admin::PagesController < Admin::BaseController
   private
   
   def page_params
-    params.require(:page).permit(:slug, :image, :published, :remove_image, translations_attributes: [:id, :locale, :page_id, :title, :body])    
+    params.require(:page).permit(:slug, :image, :published, :remove_image, :only_stakeholders, :pdf, translations_attributes: [:id, :locale, :page_id, :title, :body])    
   end
   
 end

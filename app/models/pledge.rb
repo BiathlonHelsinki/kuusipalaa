@@ -65,9 +65,9 @@ class Pledge < ApplicationRecord
   def update_activity_feed
     if created_at == updated_at
       # assume it's new
-      Activity.create(user_id: user_id, item: self, description: "pledged_to", numerical_value: pledge, extra_info: pledge, addition: 0)
+      Activity.create(user_id: user_id, contributor: pledger, item: self, description: "pledged_to", numerical_value: pledge, extra_info: pledge, addition: 0)
     else
-      Activity.create(user: user, item: self, description: "edited_their_pledge_to", extra_info: pledge, addition: 0)
+      Activity.create(user: user, item: self, contributor: pledger, description: "edited_their_pledge_to", extra_info: pledge, addition: 0)
     end
     if item.class == Proposal
       item.update_column_caches
@@ -77,8 +77,8 @@ class Pledge < ApplicationRecord
   end
   
   def withdraw_activity
-    item.comments << Comment.create(user: user, content: "Pledge of #{pledge.to_s}#{ENV['currency_symbol']} withdrawn.",  systemflag: true)
-    Activity.create(user: user, item: item, description: "withdrew_a_pledge", extra_info: "#{pledge.to_s}", addition: 0)
+    item.comments << Comment.create(user: user, contributor: pledger, content: "Pledge of #{pledge.to_s}#{ENV['currency_symbol']} withdrawn.",  systemflag: true)
+    Activity.create(user: user, contributor: pledger, item: item, description: "withdrew_a_pledge", extra_info: "#{pledge.to_s}", addition: 0)
   end
 
 end

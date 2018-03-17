@@ -4,6 +4,8 @@
       .lifted_box
         .title
           = @page.title
+          - if @page.pdf?
+            = link_to t(:download_as_pdf), @page.pdf.url, class: [:button, :bordered]
         .blurb
 
           - unless @page.questions.empty?

@@ -1,5 +1,9 @@
 class HomeController < ApplicationController
 
+  def stakeholders
+    # stakeholders area
+  end
+  
   def index
     @posts = Post.front.by_era(@era.id).published.order(updated_at: :desc, published_at: :desc)
     @meetings = Meeting.upcoming.order(start_at: :asc)

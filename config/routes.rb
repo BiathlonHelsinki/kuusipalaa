@@ -162,6 +162,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :hardware
+
   resources :users do
     collection do
       get :check_unique
@@ -193,5 +195,6 @@ Rails.application.routes.draw do
   match '/home/funders_update' => 'home#funders_update', via: :get
   delete '/users/signout' => 'devise/sessions#destroy', :as => :signout
   match '/nfcs/:id/toggle' => 'nfcs#toggle_key', via: :get
+  match '/stakeholders' => 'home#stakeholders', via: :get
   root to: 'home#index'
 end

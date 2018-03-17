@@ -4,6 +4,7 @@ class Page < ApplicationRecord
   extend FriendlyId
   friendly_id :title_en , :use => [ :slugged, :finders, :history]
   mount_uploader :image, ImageUploader
+  mount_uploader :pdf, AttachmentUploader
   # process_in_background :image
 
   translates :title, :body
@@ -44,4 +45,12 @@ class Page < ApplicationRecord
     end
   end
 
+  def update_pdf_attributes
+    if pdf.present? && pdf_changed?
+      if pdf.file.exists?
+        self.pdf_content_type = pdf.file.content_type
+        self.pdf_size = pdf.file.size
+      end
+    end
+  end
 end

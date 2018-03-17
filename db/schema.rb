@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180309190631) do
+ActiveRecord::Schema.define(version: 20180317113808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -639,6 +639,10 @@ ActiveRecord::Schema.define(version: 20180309190631) do
     t.integer "image_width"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "only_stakeholders", default: false, null: false
+    t.string "pdf"
+    t.integer "pdf_size"
+    t.string "pdf_content_type"
   end
 
   create_table "paymenttypes", force: :cascade do |t|
@@ -744,6 +748,7 @@ ActiveRecord::Schema.define(version: 20180309190631) do
     t.integer "era_id"
     t.integer "meeting_id"
     t.boolean "hide_from_front"
+    t.boolean "only_stakeholders", default: false, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -1065,6 +1070,7 @@ ActiveRecord::Schema.define(version: 20180309190631) do
     t.string "contact_phone"
     t.boolean "accepted_agreement", default: false, null: false
     t.string "pin"
+    t.boolean "has_physical_key", default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

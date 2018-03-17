@@ -14,6 +14,11 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = t(:generic_error)
+    redirect_to '/'
+  end
+
   def after_sign_in_path_for(resource)
     
     stored_location_for(resource) || request.env['omniauth.origin'] ||  root_path
@@ -93,6 +98,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate_stakeholder!
+    redirect_to root_path unless current_user.is_stakeholder?
+  end
+  
   def storable_location?
 
     request.get? && is_navigational_format? && !devise_controller? && !request.xhr? && request.path !~ /callback$/

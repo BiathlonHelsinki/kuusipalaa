@@ -1,12 +1,12 @@
 = semantic_form_for [:admin, @page], html: {multipart: true} do |f|
   .row
-    %dl.tabs{"data-tab" => ""}
+    %ul.tabs{"data-tabs" => "", id: 'tabs'}
       - I18n.available_locales.each_with_index do |locale, i|
-        %dd{:class => (i == 0 ? :active : false)}
+        %li.tabs-title{:class => (i == 0 ? "is-active" : false)}
           = link_to t(:locale_name, :locale => locale), "##{locale}"
-    .tabs-content
+    .tabs-content{:'data-tabs-content' => "tabs"}
       - I18n.available_locales.each_with_index do |locale, i|
-        .content{:class => (i == 0 ? :active : false), :id => "#{locale}"}
+        .tabs-panel{:class => (i == 0 ? "is-active" : false), :id => "#{locale}"}
           = f.globalize_fields_for locale do |en|
             .row
               .small-12.columns
@@ -23,6 +23,12 @@
           = image_tag f.object.image.url(:medium)
           = f.input :remove_image, as: :boolean
         = f.input :image
+    .row
+      .small-10.medium-8.columns= f.input :pdf, label: 'Attach a PDF download version of this?'
+
+    .row
+      .small-10.medium-8.columns= f.input :only_stakeholders
+
     .row
       .small-10.medium-8.columns= f.input :slug
     .row
