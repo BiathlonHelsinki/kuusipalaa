@@ -1,11 +1,11 @@
-%article.post_single
+%article.post_single.page_single
   .row
     .small-12.columns.lessmargins.lessright
       .lifted_box
         .title
           = @page.title
           - if @page.pdf?
-            = link_to t(:download_as_pdf), @page.pdf.url, class: [:button, :bordered]
+            .float-right.page_pdf= link_to t(:download_as_pdf), @page.pdf.url, class: [:button, :bordered]
         .blurb
 
           - unless @page.questions.empty?

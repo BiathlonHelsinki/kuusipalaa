@@ -1255,3 +1255,31 @@ table.small_stakeholder_posts {
 
   }
 }
+
+.page_single {
+  .title {
+    .page_pdf {
+      margin-top: -0.6rem;
+      a.bordered {
+        padding: 0.7rem;
+      }
+    }
+  }
+  .blurb {
+    h3 {
+      font-family: $sourcecode;
+      font-weight: bold;
+      font-size: 1.15rem;
+      border-top: 1px solid black;
+      padding-top: 1rem;
+      text-transform: uppercase;
+    }
+    h4 {
+      font-family: $sourcecode;
+      font-weight: bold;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+  }
+}

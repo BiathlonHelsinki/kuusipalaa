@@ -34,12 +34,13 @@
             = link_to new_post_path(only_stakeholders: true) do
               .front_button.text-center
                 = t :create_new_post
+
   - @pages.each do |page|
     %article.columns.small-12.medium-6.large-4
       = link_to page do
         .lifted_box.feed{:'data-equalizer-watch' => ''}
           .banner2_title= page.name
-          .banner2_blurb= truncate_html(page.body, length: 250)
+          .banner2_blurb= truncate_html(sanitize(page.body), length: 230)
 
   %article.columns.small-12.medium-6.large-4.end
     = link_to '/hardware' do
