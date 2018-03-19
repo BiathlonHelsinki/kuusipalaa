@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180319093454) do
+ActiveRecord::Schema.define(version: 20180319174056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,37 @@ ActiveRecord::Schema.define(version: 20180319093454) do
     t.index ["account_id"], name: "index_blockchain_transactions_on_account_id"
     t.index ["ethtransaction_id"], name: "index_blockchain_transactions_on_ethtransaction_id"
     t.index ["transaction_type_id"], name: "index_blockchain_transactions_on_transaction_type_id"
+  end
+
+  create_table "budget_proposals", force: :cascade do |t|
+    t.bigint "season_id"
+    t.string "proposer_type"
+    t.bigint "proposer_id"
+    t.bigint "user_id"
+    t.string "name"
+    t.string "description"
+    t.float "amount"
+    t.string "link"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposer_type", "proposer_id"], name: "index_budget_proposals_on_proposer_type_and_proposer_id"
+    t.index ["season_id"], name: "index_budget_proposals_on_season_id"
+    t.index ["user_id"], name: "index_budget_proposals_on_user_id"
+  end
+
+  create_table "budgetproposal_votes", force: :cascade do |t|
+    t.string "voter_type"
+    t.bigint "voter_id"
+    t.bigint "budget_proposal_id"
+    t.bigint "user_id"
+    t.boolean "vote"
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["budget_proposal_id"], name: "index_budgetproposal_votes_on_budget_proposal_id"
+    t.index ["user_id"], name: "index_budgetproposal_votes_on_user_id"
+    t.index ["voter_type", "voter_id"], name: "index_budgetproposal_votes_on_voter_type_and_voter_id"
   end
 
   create_table "ckeditor_assets", id: :serial, force: :cascade do |t|
@@ -1103,6 +1134,9 @@ ActiveRecord::Schema.define(version: 20180319093454) do
   add_foreign_key "blockchain_transactions", "accounts"
   add_foreign_key "blockchain_transactions", "ethtransactions"
   add_foreign_key "blockchain_transactions", "transaction_types"
+  add_foreign_key "budget_proposals", "seasons"
+  add_foreign_key "budgetproposal_votes", "budget_proposals"
+  add_foreign_key "budgetproposal_votes", "users"
   add_foreign_key "comments", "users"
   add_foreign_key "credits", "ethtransactions"
   add_foreign_key "credits", "rates"

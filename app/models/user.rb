@@ -63,7 +63,11 @@ class User < ActiveRecord::Base
   end
 
   def uniqueness_of_a_name
-    self.errors.add(:username, 'is already taken') if Group.where(["lower(name) = ?", self.username.downcase]).exists?
+    if self.username.nil?
+      self.errors.add(:username, 'cannot be blank')
+    else
+      self.errors.add(:username, 'is already taken') if Group.where(["lower(name) = ?", self.username.downcase]).exists?
+    end
   end
 
   def privileged

@@ -220,6 +220,11 @@ GEM
     execjs (2.7.0)
     factory_bot (4.8.2)
       activesupport (>= 3.0.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
+      railties (>= 3.0.0)
+    faker (1.8.7)
+      i18n (>= 0.7)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.21)
@@ -563,7 +568,8 @@ DEPENDENCIES
   delayed_job_active_record
   devise
   error_page_assets
-  factory_bot
+  factory_bot_rails
+  faker
   figaro
   fittextjs_rails
   font-awesome-rails

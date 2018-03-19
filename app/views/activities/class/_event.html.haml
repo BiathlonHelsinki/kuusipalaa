@@ -1,0 +1,20 @@
+- if activity.contributor != activity.user && !activity.contributor.nil?
+  = link_to activity.contributor.display_name, activity.contributor, target: :_blank
+  = raw t(:via_user, user: link_to(activity.user.display_name, activity.user, target: :_blank))
+
+- elsif activity.description == 'attended_anonymously'
+  = t :someone
+- else
+  = link_to(activity.user.display_name, activity.user, target: :_blank)
+
+- if activity.value
+
+  = t activity.description, numerical_value: activity.value.to_s
+- else
+  = t activity.description
+
+
+= link_to activity.item.name, event_path(activity.item), target: :_blank, target: :_blank
+- if activity.description == 'published_event'
+  %small= date_range(activity.item.start_at, activity.item.end_at)
+
