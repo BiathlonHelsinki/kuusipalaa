@@ -143,24 +143,9 @@ article.ideas_index {
     background-color: $pink;
   }
 
-  .title_box {
-    border: 1px solid black;
-    padding: 1rem;
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
 
-    .title {
-      font-family: $sourcecode;
-      font-weight: bold;
-      text-transform: uppercase;
-      font-size: 1.5rem;
-      .smaller {
-        font-size: 0.7rem;
-      }
-    }
   
 
-  }
 
   .image_box {
     margin: 2rem 0;
@@ -336,109 +321,7 @@ article.ideas_index {
 
 
   }
-  #comments_list {
-    margin-top: 1.5rem;
-    border: 1px solid black;
-    .comment_avatar {
-      float: left;
-      width: 60px;
-      margin-right: 0.4rem;
-    }
-    .avatar_spacer {
-      width: 55px;
-      float: left;
-    }
-    .comment_body {
-      width: 80%;
-      float: left;
-      clear: right;
-      .comment_type {
-        .pledge_metadata {
-          font-size: 0.7rem;
-        }
-      }
-      .comment_content {
-        &[data-readmore] {
-          overflow-y: hidden;
-        }
-        p { font-size: 0.9rem; }
-        color: #444;
-        padding: 0.9rem 1.8rem 0.9rem 0;
-        p {
-          font-size: 0.9rem;
-          line-height: 1.8;
-          font-family: $montserrat;
-        }
-        p img {
-          max-height: 30px;
-          margin-left: 0.4rem;
-        }
-      }
-    
-    }
-    .comments_title {
-      text-transform: uppercase;
-      font-weight: bold;
-      padding: 1rem;
-      font-family: $sourcecode;
-      border-top: 1px solid black;
-    }
-    .comment_count {
-      font-family: $montserrat;
-      margin:  0 0 1rem 0;
-    }
-    ul.first {
- 
-      li {
-        margin: 0.6rem 0;
-        list-style-type: none;
-        .comment.entry {
-          padding: 1rem;
-        }
-        &.top-level {
-          border-bottom: 1px solid black;
-          ul {
-            border-top: 1px solid black;
-            border-left: 1px solid black;
-            border-right: 1px solid black;
-            li {
-              border-bottom: 1px solid black;
-            }
-          }
-        }
-      }
-    }
-    .comment {
-    
-      .comment_type {
-        font-size: 0.8rem;
-        margin-bottom: 0.8rem;
-        font-family: $sourcecode;
-        font-weight: bold;
-        a {
-          text-decoration: underline;
-        }
-
-      }
-      .comment_content {
-        font-family: $montserrat;
-      }
-      .occluded_form {
-        padding: 1rem 0;
-        display: none;
-      }
-      ul {
-        margin-left: 3.5rem;
-        &.mentioned-user-list {
-          margin-left: 6.3rem;
-        }
-      }
-
-      .comment_form {
-        margin-left: 5.5rem;
-      }
-    }
-  }
+  
 }
 
 

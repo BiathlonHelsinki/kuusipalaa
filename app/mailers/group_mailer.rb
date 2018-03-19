@@ -1,6 +1,6 @@
 class GroupMailer < ActionMailer::Base
   default from: "info@kuusipalaa.fi"
-
+  default "Message-ID" => lambda {"<#{SecureRandom.uuid}@kuusipalaa.fi>"}
 
   def new_member(group, member)
     recipient = member.user

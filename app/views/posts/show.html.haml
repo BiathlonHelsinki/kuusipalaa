@@ -41,18 +41,17 @@
           -#         = t(:update_email_preferences)
           -#       = f.button label, type: :submit, class: [:button, :small]
               #notifications_result
-        #comments_list
-          .row.expanded
-            .small-12.columns
-              %h3= t :discussion
-            - if @post.discussion.size > 0
-              .small-12.columns
-                .comment_count
-                  = t(:this_experiment_has_x_comments, count:@post.discussion.size, comment: t(:comment, count: @post.discussion.size) )
 
+  .row
+    .small-12.columns.nopadding.title_box
+      .title= t :discussion         
+      - if @post.discussion.size > 0
+        .comment_count
+          = t(:this_post_has_x_comments, count: @post.discussion.size, comments: t(:comment, count: @post.discussion.size) )
 
-          %ul.first= render(partial: 'shared/comment', collection: @post.comments.order(:created_at), locals: {depth: 0, root: @post, last: @post.comments.last, commenting_open: true})
-          #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @post, depth: 0, commenting_open: true}
+  .row#comments_list
+    %ul.first= render(partial: 'shared/comment', collection: @post.comments.order(:created_at), locals: {depth: 0, root: @post, last: @post.comments.last, commenting_open: true})
+    #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @post, depth: 0, commenting_open: true}
 
 = content_for :jquery do
   :plain

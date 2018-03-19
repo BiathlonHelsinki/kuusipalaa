@@ -30,16 +30,34 @@ select {
     max-width: 50%
   }
 }
-
+ 
 input[type="radio"] {
   display: none;
 
 }
+li.choice label.radio {
+  width: initial;
+  height: initial;
+  border: none;
+  input[type="radio"] {
+    display: block;
+    float: left;
+  }
+  display: block;
+  &:before {
+    opacity: 1;
+    position: initial;
+    background: transparent;
+    content: initial;
+
+  }
+}
+
 label.radio {
-   float: left;
+  float: left;
   width: 20px;
   height: 20px;
-  border-radius: 2;
+  border-radius: 2px;
   border: 1px black solid;
   display: block;
   line-height: 22px;
@@ -203,6 +221,30 @@ a.not-active {
 
 .post_single, .meeting_single {
   padding: 1.5rem 0;
+
+  .post {
+    .title {
+      font-family: $sourcecode;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 1rem;
+    }
+  }
+  form {
+    border: none !important;
+    fieldset {
+      legend.label {
+        background-color: white;
+        color: black;
+        font-family: $sourcecode;
+        font-weight: bold;
+
+      }
+      label.radio {
+        font-size: 1rem;
+      }
+    }
+  }
 }
 
 article.divider {
@@ -258,6 +300,129 @@ article.divider {
   padding-left: 0.5375rem;
 }
 
+.title_box {
+  border: 1px solid black;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+
+  .title {
+    font-family: $sourcecode;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    .smaller {
+      font-size: 0.7rem;
+    }
+  }
+}
+
+#comments_list {
+  margin-top: 1.5rem;
+  border: 1px solid black;
+  #main_thread .row:first-child {
+    padding-top: 1.5rem;
+  }
+  .comment_avatar {
+    float: left;
+    width: 60px;
+    margin-right: 0.4rem;
+  }
+  .avatar_spacer {
+    width: 55px;
+    float: left;
+  }
+  .comment_body {
+    width: 80%;
+    float: left;
+    clear: right;
+    .comment_type {
+      .pledge_metadata {
+        font-size: 0.7rem;
+      }
+    }
+    .comment_content {
+      &[data-readmore] {
+        overflow-y: hidden;
+      }
+      p { font-size: 0.9rem; }
+      color: #444;
+      padding: 0.9rem 1.8rem 0.9rem 0;
+      p {
+        font-size: 0.9rem;
+        line-height: 1.8;
+        font-family: $montserrat;
+      }
+      p img {
+        max-height: 30px;
+        margin-left: 0.4rem;
+      }
+    }
+  
+  }
+  .comments_title {
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 1rem;
+    font-family: $sourcecode;
+    border-top: 1px solid black;
+  }
+  .comment_count {
+    font-family: $montserrat;
+    margin:  0 0 1rem 0;
+  }
+  ul.first {
+
+    li {
+      margin: 0.6rem 0;
+      list-style-type: none;
+      .comment.entry {
+        padding: 1rem;
+      }
+      &.top-level {
+        border-bottom: 1px solid black;
+        ul {
+          border-top: 1px solid black;
+          border-left: 1px solid black;
+          border-right: 1px solid black;
+          li {
+            border-bottom: 1px solid black;
+          }
+        }
+      }
+    }
+  }
+  .comment {
+  
+    .comment_type {
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
+      font-family: $sourcecode;
+      font-weight: bold;
+      a {
+        text-decoration: underline;
+      }
+
+    }
+    .comment_content {
+      font-family: $montserrat;
+    }
+    .occluded_form {
+      padding: 1rem 0;
+      display: none;
+    }
+    ul {
+      margin-left: 3.5rem;
+      &.mentioned-user-list {
+        margin-left: 6.3rem;
+      }
+    }
+
+    .comment_form {
+      margin-left: 5.5rem;
+    }
+  }
+}
 
 .lifted_box {
    &.feed { transition: background-image 1s linear;
@@ -720,11 +885,12 @@ a.bordered, button.bordered {
   }
 }
 
-table.group_list {
+table {
   td {
     border-collapse: border-collapse;
     font-size: 0.9rem;
     &.avatar {
+      width: 120px;
       img {
         height: 100px;
       }
@@ -1075,5 +1241,17 @@ nav.pagination {
   span.booking {
    background-color: #999;
    color: white;
+  }
+}
+
+table.small_stakeholder_posts {
+  border-collapse: collapse;
+  td.avatar {
+    width: 45px;
+    img {
+      width: 40px;
+      height: auto;
+    }
+
   }
 }

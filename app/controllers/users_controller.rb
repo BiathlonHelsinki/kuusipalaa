@@ -144,7 +144,7 @@ class UsersController < ApplicationController
   protected
 
   def user_params
-    params.require(:user).permit(:email, :name, :username, :show_name, :pin, :avatar,  :opt_in, :website, :twitter_name,
+    params.require(:user).permit(:email, :name, :username, :phone, :show_name, :pin, :avatar,  :opt_in, :website, :twitter_name,
     :address, :postcode, :city, :country, :accepted_agreement, :show_twitter_link, :contact_phone, :show_facebook_link, :buy_stakes_after_edit,
                       accounts_attributes: [:address, :primary_account, :external])
   end

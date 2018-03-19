@@ -99,7 +99,11 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_stakeholder!
-    redirect_to root_path unless current_user.is_stakeholder?
+    if user_signed_in?
+      redirect_to root_path unless current_user.is_stakeholder?
+    else
+      redirect_to root_path 
+    end
   end
   
   def storable_location?

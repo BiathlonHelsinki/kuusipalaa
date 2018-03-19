@@ -1,6 +1,6 @@
 class IdeaMailer < ActionMailer::Base
   default from: "info@kuusipalaa.fi"
-  
+  default "Message-ID" => lambda {"<#{SecureRandom.uuid}@kuusipalaa.fi>"} 
   def proposal_for_review(idea)
     @idea = idea
     if @idea.proposer_type == 'Group'

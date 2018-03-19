@@ -4,7 +4,7 @@
   = ": "
   &nbsp;
   - if current_user.stakes.empty?
-    = link_to t(:no_stakes), user_stakes_path(current_user)
+    = link_to t(:no_stakes), new_season_stake_path(@next_season)
   - else
     = link_to pluralize(current_user.stakes.sum(&:amount), t(:stake, count: current_user.stakes.sum(&:amount))), user_stakes_path(current_user)
   = " / "
@@ -27,18 +27,43 @@
     -#   = " / "
     -#   = link_to pluralize( current_user.groups.reject{|x| !x.has_role?(:stakeholder) }.map(&:stakes).flatten.sum(&:amount), t(:group_stake, count:  current_user.groups.reject{|x| !x.has_role?(:stakeholder) }.map(&:stakes).flatten.sum(&:amount))), user_groups_path(current_user)
 
-%ul.dropdown.menu#user_dropdown_menu{:'data-dropdown-menu' => '', :'data-alignment' => 'left'}
+%ul.dropdown.drilldown.menu#user_dropdown_menu{:'data-dropdown-menu' => '', :'data-alignment' => 'left'}
   %li
     = link_to image_tag(current_user.avatar.url(:thumb).gsub(/development/, 'production')), '#'
-    %ul.vertical.menu
-      %li= link_to t(:organise_an_event), new_idea_path
-      %li= link_to t(:edit_profile) , edit_user_path(current_user)
-      %li= link_to t(:buy_a_stake) , new_season_stake_path(@next_season)
-      %li= link_to t(:your_groups) , user_groups_path(current_user)
-      %li= link_to t(:your_proposals), user_ideas_path(current_user)
-      %li= link_to t(:your_stakes), user_stakes_path(current_user)
-      %li= link_to t(:your_id_cards), user_nfcs_path(current_user)
-      %li= link_to t(:redeem_guest_ticket), '/redeem'
+    %ul.vertical.menu      
+      %li
+        = link_to t(:at_kuusi_palaa), '#'
+        %ul.menu.vertical.nested
+          %li= link_to t(:visit_kuusi_palaa), '/events/kuusi-palaa/kuusi-palaa-season-1'
+          %li= link_to t(:organise_an_event), new_idea_path
+          %li= link_to t(:activity_feed_name), activities_path
+          %li= link_to t(:book_the_back_room), '/roombookings'
+          %li= link_to t(:full_calendar), '/events/calendar'
+          %li= link_to t(:all_proposals), ideas_path
+      %li= link_to t(:questions_and_answers), page_path('questions-and-answers')
+      - if user_signed_in?
+        - if current_user.is_stakeholder?
+          %li= link_to t(:stakeholders_area), '/stakeholders'
+
+        - else
+          %li= link_to t(:buy_a_stake) , new_season_stake_path(@next_season)
+      - else
+        %li= link_to t(:buy_a_stake) , new_season_stake_path(@next_season)
+      %li
+        = link_to t(:your_account), '#'
+        %ul.menu.vertical.nested
+          %li= link_to t(:edit_profile) , edit_user_path(current_user)  
+          %li= link_to t(:your_stakes), user_stakes_path(current_user)        
+          %li= link_to t(:your_groups) , user_groups_path(current_user)
+          %li= link_to t(:your_proposals), user_ideas_path(current_user)
+          %li= link_to t(:your_id_cards), user_nfcs_path(current_user)
+          - if user_signed_in?
+            - if current_user.is_stakeholder?
+              %li= link_to t(:buy_another_stake) , new_season_stake_path(@next_season)
+            - else
+              %li= link_to t(:buy_a_stake) , new_season_stake_path(@next_season)
+          
+          %li= link_to t(:redeem_guest_ticket), '/redeem'
       - if current_user.has_role?(:admin)
         %li= link_to 'admin side', '/admin'
       %li= link_to t(:sign_out), '/users/sign_out', method: :delete

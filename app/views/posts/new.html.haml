@@ -10,11 +10,14 @@
 
             = f.input :user_id, as: :hidden,  input_html: {value: current_user.id}
             = f.input :era_id, as: :hidden,  input_html: {value: @era.id}
+
             = f.globalize_fields_for :en do |ff|
               %label.label= t :title
               = ff.text_field :title, 'required' => ''
               %label.label= t :topic_description
               = ff.text_area :body,  'required' => ''
-              %p.inline-hints= t(:description_blurb)
-            = f.input :meeting, as: :select, label: t(:topic_meeting), hint: t(:can_add_later)
+              -#%p.inline-hints= t(:description_blurb)
+            - if current_user.is_stakeholder?
+              = f.input :only_stakeholders, as: :radio, label: t(:post_visibility), collection: {t(:only_stakeholders) => true, t(:post_to_frontpage) => false }
+              %br/
             = f.submit t(:post_topic)

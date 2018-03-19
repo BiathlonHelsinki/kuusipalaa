@@ -4,10 +4,13 @@ class Ability
   def initialize(user)
     # user ||= User.new
     can :read, Page, only_stakeholders: false
+    can :read, Post, only_stakeholders: false
     return unless user.present?
-
+    cannot :manage, Post
     cannot :read, Page, only_stakeholders: true
+    cannot :read, Post, only_stakeholders: true
     can :read, Page, only_stakeholders: false
+    can :read, Post, only_stakeholders: false
     can :manage, Idea, proposer_type: 'User', proposer_id: user.id
     can :manage, Idea, proposer_type: 'Group' if  user.members.where("access_level >= 10" ).map(&:source_id).include?(:proposer_id)
     can :manage, Event, idea: {proposer_type: 'User', proposer_id: user.id}
@@ -22,7 +25,7 @@ class Ability
     can :read, Stake, bookedby_id: user.id
    # can :read, :all
     can :manage, User, id: user.id
-    cannot :manage, Post
+
     # cannot :manage, Credit
 
     # cannot :manage, Email
@@ -50,13 +53,14 @@ class Ability
     end
     if user.has_role? :stakeholder
       can :manage, Meeting
-      can :manage, Post
+      can :manage, Post, only_stakeholders: true
       can :manage, User, id: user.id
       can :manage, Comment
       can :manage, Nfc, user_id: user.id
       can :read, Stake, bookedby_id: user.id
       can :read, Page
-      can :read, Page, only_stakeholders: true
+      can :manage, Page, only_stakeholders: true
+
     end 
  
   end

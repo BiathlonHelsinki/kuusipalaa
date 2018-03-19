@@ -1,0 +1,39 @@
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :hardware_and_infrastructure
+      .blurb
+        %p= t :infrastructure_blurb
+
+        %table
+          %thead
+            %tr
+              %th Device Name
+              %th Description
+              %th Last seen alive?
+          %tbody
+            - @hardware.each do |hardware|
+              %tr
+                %td= hardware.name
+                %td= hardware.description
+                %td
+                  = l hardware.last_checked_at, format: :long
+                  %br/
+                  %em= time_ago_in_words(hardware.last_checked_at)
+
+        %h4= t :troubleshooting
+        %p= t :troubleshooting_explanation
+        %p= t :call_these_people_if
+
+        %table
+          %thead
+            %tr
+
+              %th{colspan: 2} Name
+              %th Phone number
+          %tbody
+            - @physical_keyholders.each do |pk|
+              %tr
+                %td.avatar= link_to image_tag(pk.avatar.url(:thumb)), pk
+                %td= link_to pk.display_name, pk
+                %td= pk.phone unless pk.phone.blank?

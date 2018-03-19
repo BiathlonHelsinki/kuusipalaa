@@ -1,0 +1,50 @@
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :stakeholders_area
+      .blurb= t :stakeholders_area_explanation
+
+.row.article_slider{:'data-equalizer' => '', :'data-equalize-on' => "medium"}
+  %article.columns.small-12.medium-12.large-8.end
+    .lifted_box.feed{:'data-equalizer-watch' => ''}
+      .banner2_title= link_to t(:stakeholders_forum), stakeholders_posts_path
+      .banner2_blurb
+        = t :stakeholders_forum_text
+        %table.small_stakeholder_posts
+          %thead
+            %tr
+              %th= t :title
+              %th{colspan: 2}= t :who
+              %th= t :when
+          %tbody
+            - @posts.each do |post|
+              %tr
+                %td= link_to post.title, post
+                %td.avatar
+                  = image_tag post.user.avatar.url.gsub(/development/, 'production')
+                %td
+                  = link_to(post.user.display_name, post.user)
+                %td= l post.created_at, format: :long
+        .row
+          .small-12.medium-6.columns
+            = link_to stakeholders_posts_path do
+              .front_button.text-center
+                = t :see_all
+          .small-12.medium-6.columns
+            = link_to new_post_path(only_stakeholders: true) do
+              .front_button.text-center
+                = t :create_new_post
+  - @pages.each do |page|
+    %article.columns.small-12.medium-6.large-4
+      = link_to page do
+        .lifted_box.feed{:'data-equalizer-watch' => ''}
+          .banner2_title= page.name
+          .banner2_blurb= truncate_html(page.body, length: 250)
+
+  %article.columns.small-12.medium-6.large-4.end
+    = link_to '/hardware' do
+      .lifted_box.feed{:'data-equalizer-watch' => ''}
+        .banner2_title= t(:hardware_and_infrastructure)
+        .banner2_blurb= t(:infrastructure_blurb)              
+
+

@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy, :create, :update]
+  before_action :authenticate_stakeholder!, only: [:stakeholders]
 
   def create
     @post = Post.new(post_params)
@@ -7,7 +8,7 @@ class PostsController < ApplicationController
     if @post.save
       @post.notifications << Notification.new(user: current_user, comments: true)
       flash[:notice] = 'Post saved.'
-      redirect_to '/'
+      redirect_to @post.only_stakeholders == true ? stakeholders_posts_path : '/'
     else
       flash[:error] = "Error saving post: " + @post.errors.inspect
       render template: 'posts/new'
@@ -25,21 +26,32 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.published.by_era(@era.id).order(updated_at: :desc)
+    @posts = Post.published.by_era(@era.id).not_stakeholders.order(updated_at: :desc)
+    @stakeholders = false
     # @posts += Comment.frontpage
     set_meta_tags title: 'Topics'
   end
 
   def new
     @post = Post.new
+    @post.only_stakeholders = params[:only_stakeholders]
 
   end
 
   def show
     @post = Post.friendly.find(params[:id])
-    set_meta_tags title: @post.title
+    if cannot? :read, @post
+      redirect_to posts_path
+    else
+      set_meta_tags title: @post.title
+    end
   end
 
+  def stakeholders
+    @posts = Post.published.stakeholders
+    @stakeholders = true
+    render template: 'posts/index'
+  end
 
   def update
     @post = Post.friendly.find(params[:id])
@@ -55,7 +67,7 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit( :era_id, :user_id,  :meeting_id,
-     :published_at,
+     :published_at, :only_stakeholders, 
       translations_attributes: [:id, :locale, :title, :body ]
       )
   end

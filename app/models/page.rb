@@ -11,6 +11,7 @@ class Page < ApplicationRecord
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['title'].blank? && x['body'].blank? }
   before_save :update_image_attributes
   validate :title_present_in_at_least_one_locale
+  scope :stakeholders, -> () {where(only_stakeholders: true)}
   scope :published, -> () { where(published: true) }
   has_many :questions
 
@@ -18,7 +19,10 @@ class Page < ApplicationRecord
     self.title(:en)
   end
 
-
+  def name
+    title
+  end
+  
   def notifications
     []
   end

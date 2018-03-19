@@ -11,6 +11,8 @@ class Post < ApplicationRecord
   has_many :activities, as: :item, dependent: :destroy
   scope :published, -> () { where(published: true) }
   scope :sticky, -> () { where(sticky: true) }
+  scope :stakeholders, -> () { where(only_stakeholders: true) }
+  scope :not_stakeholders, ->() { where(only_stakeholders: false)}
   scope :not_sticky, -> () { where("sticky is not true") }
   scope :front, -> () { where("hide_from_front is not true")}
   

@@ -129,6 +129,9 @@ Rails.application.routes.draw do
   end
 
   resources :posts do
+    collection do
+      get :stakeholders
+    end
     resources :comments
     resources :users do
       resources :notifications

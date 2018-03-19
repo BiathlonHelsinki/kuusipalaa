@@ -2,10 +2,12 @@ class HomeController < ApplicationController
 
   def stakeholders
     # stakeholders area
+    @pages = Page.published.stakeholders
+    @posts = Post.published.stakeholders.order(updated_at: :desc).limit(3)
   end
   
   def index
-    @posts = Post.front.by_era(@era.id).published.order(updated_at: :desc, published_at: :desc)
+    @posts = Post.front.by_era(@era.id).published.not_stakeholders.order(updated_at: :desc, published_at: :desc)
     @meetings = Meeting.upcoming.order(start_at: :asc)
     @stakes = Stake.by_season(@next_season)
 

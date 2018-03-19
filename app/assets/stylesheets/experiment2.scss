@@ -189,7 +189,7 @@ article.post_single, article.meeting_single {
     border: 1px solid $black;
     position: relative;
     background-color: white;
-    padding: 0; margin: 0;
+    padding: 0 0 4rem 0; margin: 0;
     &:after {
       content: '';
       position: absolute;
@@ -274,12 +274,13 @@ article.post_single, article.meeting_single {
       font-family: $sourcecode;
       padding: 0.8rem 1rem;
       font-weight: bold;
+      font-size: 0.9rem;
       a {
-        text-transform: uppercase;
-        text-decoration: underline;
+
+
         &:hover {
           background-color: $black;
-          color: white;
+          color: #666;
         }
       }
       .posted_by {
@@ -295,7 +296,7 @@ article.post_single, article.meeting_single {
     }
     .title {
       font-family: $sourcecode;
-      font-size: 1.8rem;
+
       font-weight: bold;
       border-bottom: 1px solid black;
       padding: 1rem;
@@ -306,7 +307,7 @@ article.post_single, article.meeting_single {
     .body {
       padding: 1rem;
       .description {
-
+        margin-left: 36px;
         font-size: 1rem;
         color: $black;
         font-family: $montserrat;

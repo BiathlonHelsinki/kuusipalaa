@@ -1,3 +1,9 @@
 = link_to activity.user.display_name, activity.user, target: :_blank
 = t activity.description
-= link_to activity.item.name, activity.item
+- if activity.item.only_stakeholders 
+  - if can? :read, activity.item
+    = link_to activity.item.name, activity.item
+  - else
+    = link_to t(:stakeholder_only_discussion), new_season_stake_path(@next_season)
+- else
+  = link_to activity.item.name, activity.item

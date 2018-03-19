@@ -4,5 +4,5 @@
 - else
   = link_to(activity.user.display_name, activity.user, target: :_blank)
 
-= t activity.description, numerical_value: activity.item.pledge
+= t activity.description, numerical_value: activity.numerical_value
 = link_to activity.item.item.name, activity.item.item

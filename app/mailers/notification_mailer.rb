@@ -1,6 +1,6 @@
 class NotificationMailer < ActionMailer::Base
   default from: "info@kuusipalaa.fi"
-
+  default "Message-ID" => lambda {"<#{SecureRandom.uuid}@kuusipalaa.fi>"}
 
   def new_comment(item, comment, recipient)
     @item = item
