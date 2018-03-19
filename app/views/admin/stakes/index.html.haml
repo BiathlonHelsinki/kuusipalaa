@@ -23,14 +23,14 @@
           %tr
             %td= stake.id.to_s
             %td
-              = stake.owner.name
+              = link_to stake.owner.name, stake.owner, target: :_blank
               %p
                 %em= stake.bookedby.username
               - if stake.owner != stake.bookedby
                 %br/
                 %small
                   booked by
-                  = stake.bookedby.name
+                  = link_to stake.bookedby.name, stake.bookedby, target: :_blank
             %td= stake.amount.to_s
             %td= stake.season.number
             %td= number_to_currency(stake.invoice_amount, unit: raw('&euro;'), format: "%n %u")

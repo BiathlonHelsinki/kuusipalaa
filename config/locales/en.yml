@@ -1222,3 +1222,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   your_account: 'Your account'
   buy_another_stake: 'Buy another stake'
   visit_kuusi_palaa: 'Visit Kuusi Palaa'
+  for_x: 'for %{x}'
