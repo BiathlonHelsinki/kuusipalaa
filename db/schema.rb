@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180320105425) do
+ActiveRecord::Schema.define(version: 20180320162737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,16 @@ ActiveRecord::Schema.define(version: 20180320105425) do
     t.datetime "updated_at", null: false
     t.index ["user_id", "provider", "uid"], name: "index_authentications_on_user_id_and_provider_and_uid", unique: true
     t.index ["user_id"], name: "index_authentications_on_user_id"
+  end
+
+  create_table "bankstatements", force: :cascade do |t|
+    t.integer "month"
+    t.integer "year"
+    t.string "pdf"
+    t.string "pdf_content_type"
+    t.integer "pdf_size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "blockchain_transactions", id: :serial, force: :cascade do |t|

@@ -98,6 +98,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate_admin!
+    redirect_to root_path unless current_user.has_role? :admin
+  end
+
   def authenticate_stakeholder!
     if user_signed_in?
       redirect_to root_path unless current_user.is_stakeholder?

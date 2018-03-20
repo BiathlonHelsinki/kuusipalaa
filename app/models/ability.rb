@@ -5,6 +5,7 @@ class Ability
     # user ||= User.new
     can :read, Page, only_stakeholders: false
     can :read, Post, only_stakeholders: false
+    cannot :read, Bankstatement
     return unless user.present?
     cannot :manage, Post
     cannot :read, Page, only_stakeholders: true
@@ -33,6 +34,18 @@ class Ability
     can :create, Comment
     # can :manage, Rsvp, user_id: user.id
     can :manage, Comment, :user_id => user.id
+    if user.has_role? :stakeholder
+      can :manage, Meeting
+      can :manage, Post, only_stakeholders: true
+      can :manage, User, id: user.id
+      can :manage, Comment
+      can :manage, Nfc, user_id: user.id
+      can :read, Stake, bookedby_id: user.id
+      can :read, Page
+      can :read, Bankstatement
+      can :manage, Page, only_stakeholders: true
+    end 
+
     if user.has_role? :admin
       if user.is_a?(User)
         can :manage, Idea
@@ -42,6 +55,7 @@ class Ability
         can :manage, User, id: user.id 
         can :manage, Page
         can :manage, Post
+        can :manage, Bankstatement
         # can :manage, Credit
         # can :manage, Email
         can :manage, Comment
@@ -51,17 +65,7 @@ class Ability
         # can :manage, Proposalstatus
       end
     end
-    if user.has_role? :stakeholder
-      can :manage, Meeting
-      can :manage, Post, only_stakeholders: true
-      can :manage, User, id: user.id
-      can :manage, Comment
-      can :manage, Nfc, user_id: user.id
-      can :read, Stake, bookedby_id: user.id
-      can :read, Page
-      can :manage, Page, only_stakeholders: true
 
-    end 
  
   end
 end

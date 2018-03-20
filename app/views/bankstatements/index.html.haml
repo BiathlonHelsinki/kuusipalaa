@@ -1,0 +1,27 @@
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :bank_statements
+      .blurb
+        %table
+          %thead
+            %tr
+              %th= t :when
+              %th{colspan: 2}
+          %tbody
+            - @bankstatements.each do |bs|
+              %tr
+                %td
+                  = Date::MONTHNAMES[bs.month]
+                  = bs.year
+                %th= link_to t(:download_as_pdf), bs.pdf.url, class: [:button, :bordered, :tiny]
+                %th
+                  - if can? :edit, bs
+                    = link_to t(:edit), edit_bankstatement_path(bs), class: [:button, :bordered]
+                  - if can? :destroy, bs
+                    = link_to t(:delete), bs, method: :delete, class: [:button, :bordered, :alert]
+
+- if can? :create, Bankstatement
+  .row
+    .small-12.columns
+      = link_to t(:upload_new_statement), new_bankstatement_path, class: [:button, :bordered]                

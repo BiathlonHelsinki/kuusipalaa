@@ -1,0 +1,14 @@
+.row  
+  .small-12.columns
+    .lifted_box
+      .title= t :upload_new_statement
+      .blurb
+        = semantic_form_for @bankstatement, html: {multipart: true} do |f|
+          = f.input :year
+          = f.input :month
+          - if f.object.pdf
+            = f.object['pdf']
+            = f.object.pdf_size.to_s + ' bytes'
+            = link_to t(:download), f.object.pdf.url, class: [:button, :tiny]
+          = f.input :pdf
+          = f.submit

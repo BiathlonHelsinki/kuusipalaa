@@ -1260,3 +1260,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   changed_their_vote_on: 'changed their vote on the budget proposal: '
   proposed_for_the_budget: "proposed for next season's budget: "
   this_season_has_already_begun: 'That season has already started.'
+  bank_statements: 'Bank statements'
+  upload_new_statement: 'Upload new statement'
+  edit: 'Edit'
+  delete: 'Delete'
