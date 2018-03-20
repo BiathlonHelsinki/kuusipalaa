@@ -10,6 +10,8 @@
                 = link_to image_tag(comment.contributor.avatar.url(:thumb).gsub(/development/, 'production'), width: 45), comment.user, target: :_blank, class: :comment_avatar
               - elsif comment.class == Pledge
                 = link_to image_tag(comment.pledger.avatar.url(:thumb).gsub(/development/, 'production'), width: 45), comment.pledger, target: :_blank, class: :comment_avatar
+              - elsif comment.class == BudgetproposalVote
+                = link_to image_tag(comment.voter.avatar.url(:thumb).gsub(/development/, 'production'), width: 45), comment.voter, target: :_blank, class: :comment_avatar
             .comment_body
               .comment_type
                 - if comment.class == Comment
@@ -19,6 +21,11 @@
                   - unless comment.extra_info.blank?
                     .pledge_metadata
                       = t comment.extra_info.to_sym, when: comment.spent_at.localtime rescue ''
+                - elsif comment.class == BudgetproposalVote
+                  = raw t(:has_voted, user: link_to(comment.voter.display_name, comment.voter, target: :_blank), value: comment.vote == true ? t(:positive) : t(:negative))
+                  .pledge_metadata
+                    = l comment.updated_at, format: :long
+
               - if comment.class == Comment    
                 .comment_content
                   - link_filter = AutoHtml::Link.new(target: '_blank')

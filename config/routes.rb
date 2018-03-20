@@ -152,11 +152,29 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :budgetproposals do
+    resources :comments
+    member do
+      get :find_vote
+    end
+  end
+  
   resources :seasons do
     resources :groups do
       resources :stakes
 
     end
+
+    resources :budgetproposals do
+      resources :budgetproposal_votes
+      member do
+        post :vote
+        get :discuss
+        resources :comments
+
+      end
+    end
+
     resources :stakes do
       collection do
         get :for_self

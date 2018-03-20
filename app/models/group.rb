@@ -27,7 +27,8 @@ class Group < ApplicationRecord
   after_create :add_to_activity_feed
   after_update :edit_to_activity_feed
   validates_presence_of :geth_pwd
-
+  has_many :budgetproposal_votes, as: :voter
+  has_many :budgetproposals, as: :proposer
 
   rolify
   
@@ -57,6 +58,17 @@ class Group < ApplicationRecord
 
   end
 
+  def is_stakeholder?
+    if is_member && !taxid.blank?
+      return !stakes.paid.empty?
+    else
+      if taxid.blank?
+        return !stakes.paid.empty?
+      else
+        return false
+      end
+    end
+  end
   
   def keys
     members.select{|x| x.has_key == true}.map(&:user)

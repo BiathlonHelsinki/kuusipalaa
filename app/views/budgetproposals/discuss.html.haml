@@ -1,0 +1,44 @@
+.row
+  .small-12.columns
+    .lifted_box
+      .title
+        = t(:season_x, number: @season.number) 
+        = ": "
+        = @budgetproposal.name
+      .blurb
+        %p= raw @budgetproposal.description
+        .amount= number_to_currency(@budgetproposal.amount, unit: raw("&euro;"), format: "%n %u")
+        - if @budgetproposal.link
+          .url= link_to t(:more_info), @budgetproposal.link, class: [:button, :bordered]
+        - if @budgetproposal.fixed == true
+          %strong= t(:fixed_cost)
+
+        - else
+          .proposed_by= raw t(:proposed_by, who: link_to(@budgetproposal.proposer.display_name, @budgetproposal.proposer, target: :_blank), when: l(@budgetproposal.created_at, format: :short))
+
+- unless @budgetproposal.fixed == true
+  .row
+    .small-12.columns.nopadding.title_box
+      .title= t :vote_verb
+      .blurb#vote_panel
+        = render partial: 'budgetproposals/vote_panel'
+.row
+  .small-12.columns.nopadding.title_box
+    .title= t :votes_and_discussion         
+    - if @budgetproposal.discussion.size > 0
+      .comment_count
+        = t(:this_proposal_has_x_comments_x_votes, count: @budgetproposal.comments.size, comments: t(:comment, count: @budgetproposal.comments.size), vote_count: @budgetproposal.budgetproposal_votes.to_a.delete_if{|x| x.new_record? }.size, votes: t(:vote, count: @budgetproposal.budgetproposal_votes.to_a.delete_if{|x| x.new_record? }.size)) 
+
+.row#comments_list
+  %ul.first= render(partial: 'shared/comment', collection: @budgetproposal.discussion.sort_by(&:created_at), locals: {depth: 0, root: @budgetproposal, last: @budgetproposal.discussion.last, commenting_open: true})
+  #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @budgetproposal, depth: 0, commenting_open: true}
+
+.row
+  .small-12.columns.nopadding.title_box
+    .title
+      = link_to season_budgetproposals_path(@budgetproposal.season) do
+        = fa_icon 'arrow-left'
+        = t :back_to_all_season_x_budgetproposals, season: @budgetproposal.season.number
+= content_for :jquery do
+  :plain
+    $('.comment_content').readmore({lessLink: '<a class="button readmore" href="#">[#{t(:close)}]</a>', moreLink: '<a class="button readmore" href="#">[#{t(:read_more)}]</a>'});        

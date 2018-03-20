@@ -17,7 +17,9 @@ class CommentsController < ApplicationController
     if params[:idea_id]
       @master = Idea.friendly.find(params[:idea_id])
     end
-
+    if params[:budgetproposal_id]
+      @master = Budgetproposal.find(params[:budgetproposal_id])
+    end
     if params[:event_id]
       @master= Event.friendly.find(params[:event_id])
       if comment_params[:frontpage] == "1"

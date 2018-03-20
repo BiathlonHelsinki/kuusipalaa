@@ -35,10 +35,24 @@ input[type="radio"] {
   display: none;
 
 }
+
+li.radio  {
+  fieldset {
+    border: none;
+    legend {
+      background-color: white;
+      color: black;
+    }
+    label {
+      margin-right: 15px;
+    }
+  }
+}
 li.choice label.radio {
   width: initial;
   height: initial;
   border: none;
+  font-size: 1rem;
   input[type="radio"] {
     display: block;
     float: left;
@@ -887,7 +901,7 @@ a.bordered, button.bordered {
 
 table {
   td {
-    border-collapse: border-collapse;
+    border-collapse: collapse;
     font-size: 0.9rem;
     &.avatar {
       width: 120px;
@@ -1281,5 +1295,29 @@ table.small_stakeholder_posts {
       text-transform: uppercase;
       margin-bottom: 0.25rem;
     }
+  }
+}
+
+table.budget_proposals {
+  tr.vat {
+    th {
+      font-weight: 200;
+      font-style: italic;
+
+    }
+  }
+  td.cost, th.cost {
+    white-space: nowrap;
+  }
+  
+}
+#vote_panel {
+  .avatar {
+    float: left;
+  }
+  li.select {
+    float: left;
+    width: 70%;
+    margin: 0 1rem;
   }
 }

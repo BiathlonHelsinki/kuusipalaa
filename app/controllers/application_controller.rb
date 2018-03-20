@@ -117,6 +117,26 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def fill_stake_collection
+    @stake_collection = []
+    if current_user.is_stakeholder?
+      @stake_collection << [current_user.name  + " (#{current_user.stakes.paid.sum(&:amount)} #{t(:stake, count: current_user.stakes.paid.sum(&:amount))})", current_user.id, 'User', nil, current_user.stakes.paid.sum(&:amount), false]
+    end
+    last = ''
+    unless current_user.members.empty?
+      current_user.members.each do |m|
+        if m.access_level >= KuusiPalaa::Access::ADMIN
+          next unless m.source.is_stakeholder?
+          @stake_collection << [m.source.name + " (#{m.source.stakes.paid.sum(&:amount)} #{t(:stake, count: m.source.stakes.paid.sum(&:amount))})" , m.source.id, 'Group', nil, m.source.stakes.paid.sum(&:amount), false]
+        end
+      end
+    end
+    # unless last.blank?
+    #   @collection_options.unshift(last)
+    # end
+  end
+    
+
   def fill_collection
 
     @collection_options = []

@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   has_many :activities
   has_many :onetimers
   has_many :nfcs
+
   has_many :ideas, as: :proposer
   has_many :stakes, dependent: :destroy, as: :owner
   has_and_belongs_to_many :events
@@ -51,6 +52,9 @@ class User < ActiveRecord::Base
   has_one :survey
   has_many :members, dependent: :destroy
   has_many :groups, through: :members, source: :source, source_type: 'Group'
+  has_many :budgetproposal_votes, as: :voter
+  # has_many :votes, through: :budgetproposal_votes,  source_type: 'Budgetproposal'
+  has_many :budgetproposals, as: :proposer
   # validates :pin, length: {minimum: 4, maximum: 6}, allow_blank: true
   # validates :pin, format: { with: /\A\d+\z/, message: "Numbers only." }
   

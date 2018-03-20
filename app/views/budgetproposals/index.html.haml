@@ -1,0 +1,63 @@
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :budget_proposals_for_season_x, season: @season.number
+      .blurb
+        %p= t :budget_proposals_explanation
+        %p= t :budget_suggestions
+        - total = 0
+        %table.budget_proposals
+          %thead
+            %tr
+              %th= t :item
+              %th.cost= t :cost_in_euros
+              %th= t :details
+              %th= t :votes_yes_no
+              %th= t :discussion
+          - @budgetproposals.each do |bp|
+            %tr
+              %td= bp.name
+              %td.cost
+                = number_to_currency(bp.amount, unit: raw("&euro;"), format: "%n %u")
+                - total += bp.amount
+              %td= bp.description
+              %td
+                - if bp.fixed
+                  %strong
+                    = t :fixed_cost_not_votable
+                - else
+                  = bp.budgetproposal_votes.where(vote: true).size.to_s + ' / ' + bp.budgetproposal_votes.where(vote: false).size.to_s
+              %td
+                - if bp.fixed
+                  = link_to t(:discuss), discuss_season_budgetproposal_path(@season, bp), class: [:button, :secondary, :bordered, :tiny]
+                - else
+                  = link_to t(:discuss_vote), discuss_season_budgetproposal_path(@season, bp), class: [:button, :secondary, :bordered, :tiny]
+          %tfoot
+            %tr.vat
+              %th= t :vat_line
+              %th.cost
+                = number_to_currency(total * 0.24, unit: raw("&euro;"), format: "%n %u")
+                - total *= 1.24
+              %th{colspan: 3}= t :vat_explanation
+            %tr
+              %th= t(:total_if_all_vote_yes)
+              %th.cost= number_to_currency(total, unit: raw("&euro;"), format: "%n %u")
+              %th{colspan: 3}
+                = t(:approximately_x_stakes_needed, x: (total / 50).round.to_s)
+                %br/
+                = t(:so_far_next_season_budget, has: @next_season.stakes.paid.sum(&:price).to_i, paid_stakes: @next_season.stakes.paid.sum(&:amount))
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :propose_item
+      .blurb
+        = semantic_form_for [ @season, @budgetproposal], html: {:'data-abide' => ''} do |f|
+          = f.input :user_id, as: :hidden
+          = f.input :proposer_id, as: :hidden
+          = f.input :proposer_type, as: :hidden
+          = f.input :season_id, as: :hidden
+          = f.input :name, input_html: {required: ''}
+          = f.input :description, input_html: {required: ''}
+          = f.input :amount, label: t(:cost_in_euros), input_html: {required: ''}
+          = f.input :link
+          = f.submit t(:propose_item)

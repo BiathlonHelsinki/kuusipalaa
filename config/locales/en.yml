@@ -1183,6 +1183,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   full_calendar: "See full calendar"
   upcoming_season_front_box: "Upcoming season #%{number}: %{range}"
   so_far_next_season: 'So far %{has}€ out of %{needs}€* raised; %{paid_stakes} out of %{needed_stakes} stakes sold.'
+  so_far_next_season_budget: 'So far %{has}€ raised; %{paid_stakes} stakes have been sold & paid.'
   next_season_asterisk: "* = this is a rough estimate; the final amount required for the next season has not yet been decided"
   support_kp_and_become_stakeholder: 'Support Kuusi Palaa and become a stakeholder'
   kuusi_palaa_funders_and_supporters: 'Kuusi Palaa funders and supporters'
@@ -1223,3 +1224,39 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   buy_another_stake: 'Buy another stake'
   visit_kuusi_palaa: 'Visit Kuusi Palaa'
   for_x: 'for %{x}'
+  budget_proposals_for_season_x: 'Budget proposals for season %{season}'
+  budget_proposals_explanation: 'All stakeholders are free to propose budget items for the next season of Kuusi Palaa. All stakeholders vote on the budget items before the deadline and the final budget determines the number of stakes needed to be sold to continue Kuusi Palaa.'
+  budget_suggestions: 'Feel free to suggest items that Kuusi Palaa should buy; include an example and a price. Please remember, the more money Kuusi Palaa needs to operate, the more difficult it will be to raise the funds.'
+  propose_item: 'Propose item'
+  cost_in_euros: 'Cost in €'
+  discuss: 'Discuss'
+  discuss_vote: 'Discuss/vote'
+  fixed_cost: 'Fixed cost'
+  fixed_cost_not_votable: 'Fixed cost, no voting'
+  back_to_all_season_x_budgetproposals: 'Back to all Season #%{season} budget proposals'
+  should_this_item_be_in_budget: 'Should this item be added to the budget for season #%{season}?'
+  vote_verb: 'Vote!'
+  vote:
+    zero: 'votes'
+    one: 'vote'
+    other: 'votes'
+  vote_as: 'Voting as:'
+  voting_error: 'There was an error saving your budget proposal vote.'
+  voting_success: 'Your vote has been recorded.'
+  votes_and_discussion: 'Votes and discussion'
+  this_proposal_has_x_comments_x_votes: 'This proposal has %{count} %{comments} and %{vote_count} %{votes}.'
+  has_voted: '%{user} voted %{value}!'
+  positive: 'Yes!'
+  negative: 'No!'
+  item: 'Item'
+  details: 'Details'
+  votes_yes_no: 'Votes yes/no'
+  vat_line: '+ 24% ALV that must be collected'
+  vat_explanation: 'The tax office ruled that Kuusi Palaa must collect 24% VAT (ALV) on all stakes. The 50€ stake price already is calculated to include this, so we must add it on to what is needed.'
+  approximately_x_stakes_needed: "Approximately %{x} stakes will need to be sold for this season to happen"
+  total_if_all_vote_yes: 'Total needed if all proposals are accepted'
+  edited_their_budget_proposal: "edited the proposal (for the next season's) budget of:  "
+  voted_on: 'voted on the budget proposal:'
+  changed_their_vote_on: 'changed their vote on the budget proposal: '
+  proposed_for_the_budget: "proposed for next season's budget: "
+  this_season_has_already_begun: 'That season has already started.'

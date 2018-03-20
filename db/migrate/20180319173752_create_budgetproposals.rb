@@ -1,6 +1,6 @@
-class CreateBudgetProposals < ActiveRecord::Migration[5.1]
+class CreateBudgetproposals < ActiveRecord::Migration[5.1]
   def change
-    create_table :budget_proposals do |t|
+    create_table :budgetproposals do |t|
       t.references :season, foreign_key: true
       t.references :proposer, polymorphic: true
       t.references :user
