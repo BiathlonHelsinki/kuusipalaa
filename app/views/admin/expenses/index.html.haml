@@ -1,0 +1,50 @@
+.row
+  .small-12.columns
+    %h3= t :expenses
+
+.row
+  .small-12.columns
+    = link_to t(:add_new_expense), new_admin_expense_path, class: [:button, :bordered]
+.row
+  .small-12.columns
+    %table
+      %thead
+        %tr
+          %th= t :when
+          %th= t :recipient
+          %th= t :description
+          %th= t :amount
+          %th= t :alv
+          %th= t :total
+          %th
+      %tbody
+        - totalbase = 0
+        - totalalv = 0
+        - @expenses.each do |exp|
+          %tr
+            %td= l exp.date_spent, format: :short
+            %td= exp.recipient
+            %td= exp.description
+            %th
+              = number_to_currency(exp.amount, unit: raw('&euro;'), format: '%n %u')
+              - totalbase += exp.amount
+            %th
+              = number_to_currency(exp.alv, unit: raw('&euro;'), format: '%n %u')
+              - totalalv += exp.alv
+            %th= number_to_currency(exp.amount + exp.alv, unit: raw('&euro;'), format: '%n %u')
+            %th
+              - if exp.receipt?
+                = link_to t(:download), exp.receipt.url
+              - if can? :edit, exp
+                = link_to t(:edit), edit_admin_expense_path(exp), class: [:button, :bordered, :tiny]
+              - if can? :destroy, exp
+                = link_to t(:delete), [:admin, exp], method: :delete, data: {confirm: 'Are you sure?'}, class: [:button, :bordered, :tiny, :alert]                
+      %tfoot
+        %tr
+          %td.text-right{colspan: 3}= t :totals
+          %td= number_to_currency(totalbase, unit: raw('&euro;'), format: '%n %u')
+          %td= number_to_currency(totalalv, unit: raw('&euro;'), format: '%n %u')
+          %td= number_to_currency(totalbase + totalalv, unit: raw('&euro;'), format: '%n %u')
+          %td &nbsp;
+
+

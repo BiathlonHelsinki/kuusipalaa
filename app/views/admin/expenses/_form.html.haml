@@ -1,0 +1,16 @@
+.row
+  .small-12.columns
+    %h3= t :expense
+    = semantic_form_for [:admin, @expense], html: {multipart: true, :'data-abide' => ''} do |f|
+      = f.input :date_spent, as: :string, input_html: {class: :datepicker, 'required' => ''}
+      = f.input :recipient, input_html: {'required' => ''}
+      = f.input :description
+      = f.input :amount, input_html: {'required' => ''}
+      = f.input :alv, input_html: {'required' => ''}
+      = f.input :receipt
+      = f.input :notes
+      = f.submit t(:save)
+
+= content_for :jquery do
+  :plain
+    $('.datepicker').fdatetimepicker({ weekStart: 1, format: 'yyyy-mm-dd' })      

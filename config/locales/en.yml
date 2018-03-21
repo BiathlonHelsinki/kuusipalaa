@@ -1264,3 +1264,6 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   upload_new_statement: 'Upload new statement'
   edit: 'Edit'
   delete: 'Delete'
+  expense: 'Expense'
+  expenses: 'Expenses'
+  

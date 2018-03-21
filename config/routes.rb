@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: 'base#home'
+    resources :expenses
     resources :posts
     resources :pages
     resources :meetings
@@ -19,7 +20,7 @@ Rails.application.routes.draw do
   resources :activities
   
   resources :bankstatements
-  
+
   resources :charges
   
   resources :comments do

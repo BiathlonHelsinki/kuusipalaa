@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180320162737) do
+ActiveRecord::Schema.define(version: 20180321084844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -331,6 +331,20 @@ ActiveRecord::Schema.define(version: 20180320162737) do
     t.index ["idea_id"], name: "index_events_on_idea_id"
     t.index ["place_id"], name: "index_events_on_place_id"
     t.index ["primary_sponsor_id", "primary_sponsor_type"], name: "index_events_on_primary_sponsor_id_and_primary_sponsor_type"
+  end
+
+  create_table "expenses", force: :cascade do |t|
+    t.date "date_spent"
+    t.string "recipient"
+    t.string "description"
+    t.float "amount"
+    t.float "alv"
+    t.string "receipt"
+    t.string "receipt_content_type"
+    t.integer "receipt_size"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
