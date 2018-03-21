@@ -1,5 +1,19 @@
 class HomeController < ApplicationController
 
+  before_action :authenticate_stakeholder!, only: [:stakeholders, :raha]
+
+
+  def raha
+    @expenses = Expense.all.order(date_spent: :asc)
+    @paid_stakes = Stake.paid
+    @osuukset = Stake.paid.to_a.delete_if{|x| x.amount_osuus == 0}
+    @membership_fees = Stake.paid.to_a.delete_if{|x| x.amount_liittymismaksu == 0}
+    @stakes_themselves = Stake.paid.to_a.delete_if{|x| x.amount_stake_without_alv == 0}
+    @unpaid_stakes_not_late = Stake.booked_unpaid.where(["invoice_due >= ?", 3.weeks.ago])
+    @unpaid_stakes_late = Stake.booked_unpaid.where(["invoice_due < ?", 3.weeks.ago])
+    @bankstatements = Bankstatement.order(updated_at: :desc)
+  end
+
   def stakeholders
     # stakeholders area
     @pages = Page.published.stakeholders

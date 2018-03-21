@@ -39,6 +39,35 @@ class Stake < ApplicationRecord
     end  
   end
 
+  def amount_osuus
+    includes_share  ? 10 : 0
+  end
+
+  def amount_liittymismaksu
+    includes_membership_fee  ? (40 / 1.24).to_f.round(2) : 0
+  end
+
+  def amount_together_without_alv
+    (amount * price)   - amount_alv
+  end
+
+  def amount_stake_without_alv
+    if amount == 1 || includes_membership_fee
+      if includes_share && includes_membership_fee 
+        return (((price * amount) - 50) / 1.24).to_f.round(2)
+      elsif includes_membership_fee && !includes_share
+        return (((price * amount) - 40) / 1.24).to_f.round(2)
+      else
+        return ((price * amount) / 1.24).to_f.round(2)
+      end
+    else
+      return ((price * amount) / 1.24).to_f.round(2)
+    end
+  end
+
+  def amount_alv
+    ((amount_liittymismaksu + amount_stake_without_alv) * 0.24).to_f.round(2)
+  end
 
   def with_vat?
     owner.charge_vat?

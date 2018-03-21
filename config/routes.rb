@@ -220,5 +220,6 @@ Rails.application.routes.draw do
   delete '/users/signout' => 'devise/sessions#destroy', :as => :signout
   match '/nfcs/:id/toggle' => 'nfcs#toggle_key', via: :get
   match '/stakeholders' => 'home#stakeholders', via: :get
+  match '/raha' => 'home#raha', via: :get
   root to: 'home#index'
 end

@@ -874,6 +874,9 @@ a.bordered, button.bordered {
     margin: 0 0.35rem;
     background-color: #333;
     padding: 0.4rem;
+    &.alert {
+      background-color: $pink;
+    }
     &:after {
       top: 3px;
       left: -3px;
@@ -1298,7 +1301,8 @@ table.small_stakeholder_posts {
   }
 }
 
-table.budget_proposals {
+table.budget_proposals, table.money {
+  border-collapse: collapse;
   tr.vat {
     th {
       font-weight: 200;
@@ -1306,7 +1310,11 @@ table.budget_proposals {
 
     }
   }
+  tr.bad {
+    border: 1px solid $pink;
+  }
   td.cost, th.cost {
+    text-align: right;
     white-space: nowrap;
   }
   

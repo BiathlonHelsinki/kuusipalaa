@@ -23,7 +23,7 @@ class Admin::ExpensesController < Admin::BaseController
   end
 
   def index
-    @expenses = Expense.order(created_at: :asc)
+    @expenses = Expense.order(date_spent: :desc)
     set_meta_tags title: 'News'
   end
 

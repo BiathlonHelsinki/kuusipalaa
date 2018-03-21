@@ -1266,4 +1266,24 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   delete: 'Delete'
   expense: 'Expense'
   expenses: 'Expenses'
-  
+  finances_and_money: 'Finances'
+  finances_and_money_explanation: 'Here, stakeholders can review the current state of Kuusi Palaa''s finances, including income, expenses, and bank statements.'
+  recipient: 'Recipient'
+  alv: 'ALV/VAT'
+  income: 'Income'
+  as_of_date: " (as of %{date})"
+  what: 'What?'
+  should_save_osuus: 'Should be saved for equity (or budgeted into next season)'
+  cooperative_share:
+    zero: 'cooperative shares'
+    one: 'cooperative share'
+    other: 'cooperative shares'
+  membership_fee:
+    zero: 'membership fees'
+    one: 'membership fee'
+    other: 'membership fees'
+  first_stake_has_fees: '(Everyone''s first 50€ stake is the osuus + membership fee, this line is only actual stakes billed over that)'
+  unpaid_stakes: 'Unpaid stakes'
+  booked_but_not_paid_yet: 'Not yet overdue'
+  booked_but_late: 'Payment overdue - not received after 3 weeks'
+  total_unpaid: 'Unpaid totals'

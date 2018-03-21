@@ -1,0 +1,179 @@
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :finances_and_money
+      .blurb= t :finances_and_money_explanation
+
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :income
+      .blurb
+        %table.money
+          %thead
+            %tr
+              %th= t :when
+              %th= t :what
+              %th.cost= t :amount
+              %th.cost= t :alv
+              %th.cost= t :total
+              %th
+          %tbody
+            - totalsold = 0
+            - totalvat = 0
+            %tr
+              %td
+              %td= pluralize(@osuukset.size, t(:cooperative_share, count: @osuukset.size))
+              %td.cost
+                = number_to_currency(@osuukset.sum(&:amount_osuus), unit: raw('&euro;'), format: '%n %u')
+                - totalsold += @osuukset.sum(&:amount_osuus)
+              %td.cost= number_to_currency(0, unit: raw('&euro;'), format: '%n %u')
+              %td.cost= number_to_currency(@osuukset.sum(&:amount_osuus), unit: raw('&euro;'), format: '%n %u')
+              %td
+                %small= t :should_save_osuus
+            %tr
+              %td
+              %td= pluralize(@membership_fees.size, t(:membership_fee, count: @membership_fees.size))
+              %td.cost
+                = number_to_currency(@membership_fees.sum(&:amount_liittymismaksu), unit: raw('&euro;'), format: '%n %u')
+                - totalsold += @membership_fees.sum(&:amount_liittymismaksu)
+              %td.cost
+                = number_to_currency(@membership_fees.sum(&:amount_liittymismaksu) * 0.24, unit: raw('&euro;'), format: '%n %u')
+                - totalvat += @membership_fees.sum(&:amount_liittymismaksu) * 0.24
+              %td.cost= number_to_currency(@membership_fees.sum(&:amount_liittymismaksu) * 1.24 , unit: raw('&euro;'), format: '%n %u')
+              %td &nbsp;           
+            %tr
+              %td &nbsp;
+              %td
+                = pluralize(@paid_stakes.sum(&:amount), t(:paid_stake, count: @paid_stakes.size * @paid_stakes.sum(&:amount)))
+                %small
+                  = t :as_of_date, date: l(Time.current.to_date, format: :long)
+              %td.cost
+                = number_to_currency(@paid_stakes.sum(&:amount_stake_without_alv), unit: raw('&euro;'), format: '%n %u')
+                - totalsold += @paid_stakes.sum(&:amount_stake_without_alv)
+              %td.cost
+                = number_to_currency(@paid_stakes.sum(&:amount_stake_without_alv) * 0.24, unit: raw('&euro;'), format: '%n %u')
+                - totalvat += @paid_stakes.sum(&:amount_stake_without_alv) * 0.24
+              %td.cost= number_to_currency(@paid_stakes.sum(&:amount_stake_without_alv) * 1.24, unit: raw('&euro;'), format: '%n %u')
+              %td
+                %small= t :first_stake_has_fees
+          %tfoot
+            %tr
+              %th
+              %th.text-right= t :totals
+              %th.cost= number_to_currency(totalsold, unit: raw('&euro;'), format: '%n %u')
+              %th.cost= number_to_currency(totalvat, unit: raw('&euro;'), format: '%n %u')
+              %th.cost= number_to_currency(totalsold + totalvat, unit: raw('&euro;'), format: '%n %u')
+              %th &nbsp;
+
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :unpaid_stakes
+      .blurb
+        %table.money
+          %thead
+            %tr
+              %th #
+              %th= t :what
+              %th.cost= t :amount
+              %th.cost= t :alv
+              %th.cost= t :total
+          %tbody
+            - totalunpaid = 0
+            - totalunpaidalv =  0
+            %tr
+              %td= pluralize(@unpaid_stakes_not_late.sum(&:amount), t(:stake, count: @unpaid_stakes_not_late.sum(&:amount)))
+              %td= t :booked_but_not_paid_yet
+              %td.cost
+                = number_to_currency(@unpaid_stakes_not_late.sum(&:amount_together_without_alv), unit: raw('&euro;'), format: '%n %u')
+                - totalunpaid += @unpaid_stakes_not_late.sum(&:amount_together_without_alv)
+              %td.cost
+                = number_to_currency(@unpaid_stakes_not_late.sum(&:amount_alv), unit: raw('&euro;'), format: '%n %u') 
+                - totalunpaidalv += @unpaid_stakes_not_late.sum(&:amount_alv)
+              %td.cost= number_to_currency(@unpaid_stakes_not_late.sum(&:amount_alv) + @unpaid_stakes_not_late.sum(&:amount_together_without_alv), unit: raw('&euro;'), format: '%n %u')
+            %tr.bad
+              %td= pluralize(@unpaid_stakes_late.sum(&:amount), t(:stake, count: @unpaid_stakes_late.sum(&:amount)))
+              %td= t :booked_but_late
+              %td.cost
+                = number_to_currency(@unpaid_stakes_late.sum(&:amount_together_without_alv), unit: raw('&euro;'), format: '%n %u') 
+                - totalunpaid += @unpaid_stakes_late.sum(&:amount_together_without_alv)
+              %td.cost
+                = number_to_currency(@unpaid_stakes_late.sum(&:amount_alv), unit: raw('&euro;'), format: '%n %u') 
+                - totalunpaidalv += @unpaid_stakes_late.sum(&:amount_alv)
+              %td.cost= number_to_currency(@unpaid_stakes_late.sum(&:amount_alv) + @unpaid_stakes_late.sum(&:amount_together_without_alv), unit: raw('&euro;'), format: '%n %u')               
+          %tfoot
+            %tr
+              %th &nbsp;
+              %th.text-right= t :total_unpaid
+              %th.cost= number_to_currency(totalunpaid, unit: raw('&euro;'), format: '%n %u')
+              %th.cost= number_to_currency(totalunpaidalv, unit: raw('&euro;'), format: '%n %u')
+              %th.cost= number_to_currency(totalunpaid + totalunpaidalv, unit: raw('&euro;'), format: '%n %u') 
+
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :expenses
+      .blurb
+        %table.money
+          %thead
+            %tr
+              %th= t :when
+              %th= t :recipient
+              %th= t :description
+              %th.cost= t :amount
+              %th.cost= t :alv
+              %th.cost= t :total
+              %th
+          %tbody
+            - totalbase = 0
+            - totalalv = 0
+            - @expenses.each do |exp|
+              %tr
+                %td= l exp.date_spent, format: :short
+                %td= exp.recipient
+                %td= exp.description
+                %td.cost
+                  = number_to_currency(exp.amount, unit: raw('&euro;'), format: '%n %u')
+                  - totalbase += exp.amount
+                %td.cost
+                  = number_to_currency(exp.alv, unit: raw('&euro;'), format: '%n %u')
+                  - totalalv += exp.alv
+                %td.cost= number_to_currency(exp.amount + exp.alv, unit: raw('&euro;'), format: '%n %u')
+                %th
+                  - if exp.receipt?
+                    = link_to t(:download), exp.receipt.url
+                  - if can? :edit, exp
+                    = link_to t(:edit), edit_admin_expense_path(exp), class: [:button, :bordered, :tiny]
+                  - if can? :destroy, exp
+                    = link_to t(:delete), [:admin, exp], method: :delete, data: {confirm: 'Are you sure?'}, class: [:button, :bordered, :tiny, :alert]                
+          %tfoot
+            %tr
+              %th.text-right{colspan: 3}= t :totals
+              %th.cost= number_to_currency(totalbase, unit: raw('&euro;'), format: '%n %u')
+              %th.cost= number_to_currency(totalalv, unit: raw('&euro;'), format: '%n %u')
+              %th.cost= number_to_currency(totalbase + totalalv, unit: raw('&euro;'), format: '%n %u')
+              %th &nbsp;
+
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :bank_statements
+      .blurb
+        %table
+          %thead
+            %tr
+              %th= t :when
+              %th{colspan: 2}
+          %tbody
+            - @bankstatements.each do |bs|
+              %tr
+                %td
+                  = Date::MONTHNAMES[bs.month]
+                  = bs.year
+                %th= link_to t(:download_as_pdf), bs.pdf.url, class: [:button, :bordered]
+                %th
+                  - if can? :edit, bs
+                    = link_to t(:edit), edit_bankstatement_path(bs), class: [:button, :bordered, :tiny]
+                  - if can? :destroy, bs
+                    = link_to t(:delete), bs, method: :delete, class: [:button, :bordered, :alert, :tiny]              
