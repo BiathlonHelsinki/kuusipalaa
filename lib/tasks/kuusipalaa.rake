@@ -9,6 +9,7 @@ namespace :kuusipalaa do
 
   desc 'send weekly email'
   task weekly_email: :environment  do
+
     @email = Email.unsent.order(send_at: :asc).last
     if @email['send_at'] > Time.current.localtime
       abort("needs to send at " + @email['send_at'].to_s + " but it is " + Time.current.localtime.to_s)
@@ -39,6 +40,8 @@ namespace :kuusipalaa do
         EmailsMailer.announcement(recipient, @email, @user, @emailannouncements, @upcoming_events, @future_events, @open_time, @new_proposals, @still_needing_pledges, @markdown).deliver_now
       end
       @email.sent = true
+      @user = nil
+
     else
       mailing_list.each do |recipient|
         @user = recipient
@@ -51,6 +54,8 @@ namespace :kuusipalaa do
       end
       @email.sent = true
 
+
+
       # newemail = Email.create(send_at: @email.send_at + 1.week, body: 'test', subject: 'This week at Kuusi Palaa - ' + (@email.send_at + 1.week).strftime('%d %B %Y'))
 
     end
@@ -58,7 +63,7 @@ namespace :kuusipalaa do
     @email.sent_number = mailing_list.size
     @email.sent_at = Time.current  
     newemail = Email.create(send_at: @email.send_at + 1.week, body: 'test', subject: 'This week at Kuusi Palaa - ' + (@email.send_at + 1.week).strftime('%d %B %Y'))
-    @email.save
+    @email.save!
   end
 
   desc 'reset development environment from db dump'

@@ -67,8 +67,7 @@ class Admin::EmailsController < Admin::BaseController
 
     # body = ERB.new(@email.body).result(binding).html_safe
     EmailsMailer.test_email(params[:email_address], @email, @user, @emailannouncements, @upcoming_events, @future_events, @open_time, @new_proposals, @still_needing_pledges, @markdown).deliver_now
-    
-    flash[:notice] = 'Email sent to ' + @user.email
+    flash[:notice] = 'Email sent'
     redirect_to admin_emails_path
   end
   
@@ -108,9 +107,9 @@ class Admin::EmailsController < Admin::BaseController
           EmailsMailer.announcement(recipient, @email, @user, @emailannouncements, @upcoming_events, @future_events, @open_time, @new_proposals, @still_needing_pledges, @markdown).deliver_later
         end
         @email.sent = true
-
-        newemail = Email.create(send_at: @email.send_at + 1.week, body: 'test', subject: 'This week at Kuusi Palaa - ' + (@email.send_at + 1.week).strftime('%d %B %Y'))
-        @email.save
+    
+        @user = nil
+        @email.body = render_to_string "emails/show", layout: false
       end
       flash[:notice] = 'Sending emails to ' + mailing_list.size.to_s + " users"
       @email.sent_number = mailing_list.size

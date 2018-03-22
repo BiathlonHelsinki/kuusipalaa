@@ -40,7 +40,7 @@ class EmailsMailer < ActionMailer::Base
     @current_season =  Season.find(1)
     headers['List-Unsubscribe'] = '<mailto:info@kuusipalaa.fi>'
     mail(to: address, subject: @email.subject)  do |format|
-      #format.html
+      format.html
       format.text
     end
   end
