@@ -1,0 +1,19 @@
+<%= event.name %>: <%= event_instance_url(event.event, event) %>
+<%= date_range(event.start_at.localtime, event.end_at.localtime) %>
+<% unless event.other_instances.empty? %>
+  <% event.other_instances.each do |t| %>
+    + <%= date_range(t.start_at.localtime, t.end_at.localtime) %>
+  <% end %>
+<% end %>
+<%= "@ #{event.place.name}, #{event.place.address}" %>
+
+<% if event.price_public == 0 %>
+<%= t :free_entry %>
+<% else %>
+<%= number_to_currency(event.price_public, unit: raw("&euro;"), format: "%n %u") %>
+<% end %>
+<%= t :organised_by %>
+<%= event.responsible_people.map{|x| x.display_name}.join(', ') %>
+
+<%= truncate_html(strip_tags(event.description), length: 500) %>
+

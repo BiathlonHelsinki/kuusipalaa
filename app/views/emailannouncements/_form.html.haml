@@ -1,0 +1,52 @@
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :new_email_announcement
+      .blurb
+        %p= t :your_email_announcement_will_be_sent
+        %p= t :next_email_sent_at, when: l(@next_email.send_at.localtime, format: :long)
+
+        = semantic_form_for @emailannouncement, html: {:'data-abide' => ''} do |f|
+          = f.input :subject
+          = f.input :message
+          = f.input :email_id, as: :hidden
+          = f.input :user_id, as: :hidden
+          - if @stake_collection.size < 1
+            .post_as= t :post_as
+            = f.hidden_field :announcer_type, value: 'User', 'required' => ''
+            = f.hidden_field :announcer_id, value: current_user.id , 'required' => ''
+            .avatar{id: "avatar_announce_announcer"}= image_tag current_user.avatar.url(:thumb).gsub(/development/, 'production')
+
+            .who= link_to(current_user.display_name, current_user, target: :_blank) 
+          - else
+            .post_as= t :post_as
+            .avatar{id: "avatar_announce_announcer"}= image_tag @emailannouncement.announcer.avatar.url(:thumb).gsub(/development/, 'production')
+            = f.hidden_field :announcer_type, value: "#{@emailannouncement.announcer_type}", 'required' => '', id: :announce_announcer_type
+            = f.hidden_field :announcer_id,  value: "#{@emailannouncement.announcer_id}", 'required' => '', id: :announce_announcer_id
+            = f.input :announcer, as: :select, input_html: {id: :announce_announcer_select}, label: false, collection: options_for_select(@stake_collection.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }),  include_blank: false
+            :javascript
+              $("#announce_announcer_select option[rel='#{@emailannouncement.announcer_type}'][value='#{@emailannouncement.announcer_id}']").prop('selected', true);
+          = f.input :only_stakeholders, label: t(:only_stakeholders_can_see), hint: t(:only_stakeholders_hint)
+          = f.submit t(:post_verb)
+
+
+- if user_signed_in?
+  = content_for :jquery do
+    :plain
+
+      $('#announce_announcer_select').on('change', function() {
+        var thisone = $(this).attr('id')
+
+        $('#announce_announcer_type').val($('#' + thisone  + ' option').filter(":selected").attr('rel'));
+        $('#announce_announcer_id').val($('#' + thisone).val());
+        $.ajax({
+          url: '/users/' + $('#announce_announcer_select').val() + '/get_avatar?class=' + $('#' + thisone  + ' option').filter(":selected").attr('rel') + '&size=thumb',
+          success: function(image) {
+
+            $('#avatar_announce_announcer img').attr('src', image);
+            $('#avatar_announce_announcer img').attr('alt', $('#announce_announcer_select option').filter(":selected").html());
+         
+           }
+          });
+      }); 
+   

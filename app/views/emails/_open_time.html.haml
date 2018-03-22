@@ -1,0 +1,13 @@
+
+%strong= link_to t(:kuusi_palaa_is_open_for_free_use), event_instance_url(event.event, event)
+%br/
+= t (:open_all_other_times)
+= "@ #{event.place.name}, #{event.place.address}"
+%br/
+- if event.price_public == 0
+  = t :free_entry
+- else
+  = number_to_currency(event.price_public, unit: raw("&euro;"), format: "%n %u")
+  
+%p.email_p= t :open_time_everyone
+

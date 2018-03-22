@@ -1,0 +1,57 @@
+article.email_announcement  {
+  font-family: 'Montserrat', sans-serif;
+}
+
+article.email_announcement a {
+  color: black;
+  text-decoration: underline;
+}
+
+article.email_announcement a:hover {
+  color: #666;
+}
+article.email_announcement img {
+  margin: 1.5rem 0 0.5rem 0;
+}
+article.email_announcement h3 {
+  font-family: 'Source Code Pro', serif;
+  font-weight: bold;
+  font-size: 1.15rem;
+  border-top: 1px solid black;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+}
+article.email_announcement h3.top {
+  padding-top: 0;
+  border-top: none;
+}
+article.email_announcement a {
+  text-decoration: underline;
+}
+article.email_announcement blockquote, article.email_announcement blockquote p {
+  color: black;
+  font-size: 0.9rem;
+}
+article.email_announcement p.email_p {
+  margin: 0.5rem 0;
+  font-family: 'Montserrat', sans-serif;
+}
+article.email_announcement ul li.proposal {
+  margin-bottom: 1rem;
+}
+article.email_announcement .announcement {
+  margin: 1.5rem 0;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px dotted #333;
+}
+article.email_announcement .announcement.small {
+  font-size: 0.75rem;
+}
+article.email_announcement .announcement.small strong {
+  color: #666;
+}
+article.email_announcement .announcement:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}

@@ -632,6 +632,7 @@ DEPENDENCIES
   rails (= 5.1.4)
   rails-jquery-autocomplete
   recaptcha
+  redcarpet
   rolify
   rollbar
   rspec-rails

@@ -43,6 +43,11 @@ class Ability
       can :read, Stake, bookedby_id: user.id
       can :read, Page
       can :read, Bankstatement
+      can :manage, Emailannouncement  do |ea|
+        ea.announcer_type == 'Group' &&
+          user.members.where("access_level >= 10" ).map(&:source_id).include?(ea.announcer_id) 
+      end
+      can :manage, Emailannouncement, announcer_type: 'User', announcer_id: user.id
       can :manage, Page, only_stakeholders: true
     end 
 

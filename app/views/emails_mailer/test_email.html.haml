@@ -1,0 +1,81 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Montserrat|Source+Code+Pro", :rel => "stylesheet"}/
+    %link{:href => "https://kuusipalaa.fi/assets/email.css", :media => "screen", :rel => "stylesheet"}/
+    %style{:media => "screen", :type => "text/css"}
+      :cdata
+        h3 { color: #f00; }
+        ul { list-style: none; }
+  %body
+    %article.email_announcement
+      %p
+        - if @user
+          = t :dear_user, user: @user.display_name
+        - else
+          = t :hello
+      %p
+        = t :email_disclaimer
+        = t :visit_kuusi_palaa_email
+        
+      - unless @emailannouncements.empty?
+        %h3.top= t :news_from_stakeholders
+        .announcements
+          - @emailannouncements.each do |ea|
+            = render partial: 'emails/announcement', locals: {announcement: ea}
+          .announcement.small
+            %strong= t :any_stakeholder_can_post_here
+            %p
+              - if @user
+                - if @user.is_stakeholder?
+                  = raw t(:to_make_announcements, link: link_to(t(:stakeholders_area), '/stakeholders'))
+                - else
+                  = t :to_become_a_stakeholder
+              - else
+                = t :to_become_a_stakeholder
+
+      %h3
+        = t :this_week_at_kuusi_palaa
+        = " - "
+        = l @email.send_at.to_date, format: :long
+      - if @upcoming_events.empty?
+        %p= t :no_events_this_week
+      - else
+        - @upcoming_events.each do |ue|
+          = render partial: 'emails/event', locals: { event: ue}
+      = render partial: 'emails/open_time', locals: { event: @open_time.first }
+
+      - unless @new_proposals.empty?
+        %h3= t :new_proposals
+        %ul.proposal_list
+          - @new_proposals.each do |p|
+            = render partial: 'emails/proposal', locals: {proposal: p}
+
+      - unless @still_needing_pledges.empty?
+        %h3= t :proposals_still_needing_support
+        %ul.proposal_list
+          - @still_needing_pledges.each do |p|
+            = render partial: 'emails/proposal', locals: {proposal: p}
+
+      - unless @future_events.empty?
+        %h3= t :future_events
+        %ul.events
+          - @future_events.each do |fe|
+            = render partial: 'emails/smallevent', locals: { event: fe}
+      - if @is_email == true
+        %h3= t :the_future_of_kuusi_palaa 
+        %p
+          - if @next_season.complete?
+            = t :kuusi_palaa_is_funded_for_season_x, x: @next_season.number.to_s
+          - else
+            = t :kuusi_palaa_will_close_on_x, x: l(@current_season.end_at, format: :long)
+        - unless @next_season.final_budget
+          %p= t :budget_not_yet_set, x: @next_season.number.to_s
+        %p= t :to_support_kuusi_palaa_buy_stakes
+
+      %h3= t :thank_you_for_reading
+      %p= t :email_end_blurb
+      - if @is_email == true
+        %hr
+        %p= t :email_footer_blurb

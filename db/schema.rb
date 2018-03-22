@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180321084844) do
+ActiveRecord::Schema.define(version: 20180322104219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -253,6 +253,25 @@ ActiveRecord::Schema.define(version: 20180321084844) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "emailannouncements", force: :cascade do |t|
+    t.string "announcer_type"
+    t.bigint "announcer_id"
+    t.bigint "user_id"
+    t.string "reference_type"
+    t.bigint "reference_id"
+    t.bigint "email_id"
+    t.boolean "only_stakeholders"
+    t.text "message"
+    t.boolean "published"
+    t.string "subject"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["announcer_type", "announcer_id"], name: "index_emailannouncements_on_announcer_type_and_announcer_id"
+    t.index ["email_id"], name: "index_emailannouncements_on_email_id"
+    t.index ["reference_type", "reference_id"], name: "index_emailannouncements_on_reference_type_and_reference_id"
+    t.index ["user_id"], name: "index_emailannouncements_on_user_id"
+  end
+
   create_table "emails", id: :serial, force: :cascade do |t|
     t.datetime "sent_at"
     t.boolean "sent", default: false, null: false
@@ -262,6 +281,7 @@ ActiveRecord::Schema.define(version: 20180321084844) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "sent_number"
+    t.datetime "send_at"
   end
 
   create_table "eras", force: :cascade do |t|
@@ -962,6 +982,7 @@ ActiveRecord::Schema.define(version: 20180321084844) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "amount_needed"
+    t.boolean "final_budget", default: false, null: false
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -1167,6 +1188,8 @@ ActiveRecord::Schema.define(version: 20180321084844) do
   add_foreign_key "credits", "ethtransactions"
   add_foreign_key "credits", "rates"
   add_foreign_key "credits", "users"
+  add_foreign_key "emailannouncements", "emails"
+  add_foreign_key "emailannouncements", "users"
   add_foreign_key "ethtransactions", "transaction_types"
   add_foreign_key "events", "ideas"
   add_foreign_key "events", "places"

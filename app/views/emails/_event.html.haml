@@ -1,0 +1,27 @@
+- if @is_email == true
+- else
+  = image_tag event.event.image.url(:small).gsub(/development/, 'production')
+
+%strong= link_to event.name, event_instance_url(event.event, event)
+%br/
+= date_range(event.start_at.localtime, event.end_at.localtime)
+- unless event.other_instances.empty?
+  - event.other_instances.each do |t|
+    .additional
+      = " + "
+      = date_range(t.start_at.localtime, t.end_at.localtime)
+= "@ #{event.place.name}, #{event.place.address}"
+%br/
+- if event.price_public == 0
+  = t :free_entry
+- else
+  = number_to_currency(event.price_public, unit: raw("&euro;"), format: "%n %u")
+%br/
+= t :organised_by
+= event.responsible_people.map{|x| x.display_name}.join(', ')
+%br/
+
+%p.email_p
+  = truncate_html strip_tags(event.description), length: 500
+  = link_to t(:read_more), event_url(event.event), class: [:button, :tiny, :bordered]
+%p &nbsp;

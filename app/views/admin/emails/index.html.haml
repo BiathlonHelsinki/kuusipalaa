@@ -1,0 +1,41 @@
+.row.expanded
+  .small-12.columns
+    %h2 Email newsletters
+    
+.row.expanded
+  .small-12.columns
+    = link_to 'Create new email', new_admin_email_path, class: [:button]
+
+.row.expanded
+  .small-10.columns
+    %table
+      %thead
+        %th Date sent?
+        %th Sent to:
+        %th Subject
+        %th status
+        %th
+      %tbody
+        - @emails.each do |email|
+          %tr
+            %td=l email.sent == true ? email.try(:sent_at) : email.updated_at, format: :short
+            %td= email.try(:sent_number)
+            %td= email.subject
+            %td
+              = email.sent == true ? 'SENT!' : 'not'
+              - if email.sent != true
+                = link_to 'Send!', send_to_list_admin_email_path(email), class: [:button, :small] 
+              %br/
+              .reveal[email]{:"data-reveal" => ''}
+                = form_tag send_test_address_admin_email_path(email) do
+                  %p Enter address to send email to:
+                  = text_field_tag :email_address
+                  = submit_tag 'send'
+              = link_to 'Send test', '#', class: [:button, :small, :secondary], :'data-open' => "email_#{email.id.to_s}" 
+            %td
+              = link_to 'Preview', "/announcements/#{email.id}", target: :_blank, class: [:button, :small, :secondary]
+              - if can? :edit, email
+                = link_to 'Edit', edit_admin_email_path(email), class: [:button, :small]
+              - if can? :destroy, email  
+                = link_to 'Delete', [:admin, email], method: :delete, class: [:button, :alert, :small], data: {confirm: 'Are you sure?'}
+          

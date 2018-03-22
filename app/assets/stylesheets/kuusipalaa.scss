@@ -1319,13 +1319,74 @@ table.budget_proposals, table.money {
   }
   
 }
-#vote_panel {
+#vote_panel, form.emailannouncement {
+
+  .post_as {
+    margin: 1.5rem 0;
+    clear: both;
+  }
+
   .avatar {
     float: left;
+  }
+  li.boolean {
+    margin: 1.5rem 0;
+    clear: both;
   }
   li.select {
     float: left;
     width: 70%;
     margin: 0 1rem;
+  }
+}
+
+article.email_announcement {
+  img {
+    margin: 1.5rem 0 0.5rem 0;
+  }
+  h3 {
+    font-family: $sourcecode;
+    font-weight: bold;
+    font-size: 1.15rem;
+    border-top: 1px solid black;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    text-transform: uppercase;
+    &.top {
+      padding-top: 0;
+      border-top:none;
+    }
+  }
+  a {
+    text-decoration: underline;
+  }
+  blockquote, blockquote p {
+    color: black;
+  }
+  p.email_p {
+    margin: 0.5rem 0;
+    font-family: $montserrat;
+
+  }
+  ul {
+    li.proposal {
+
+      margin-bottom: 1rem;
+    }
+  }
+  .announcement {
+    &.small {
+      font-size: 0.75rem;
+      strong {
+        color: #666;
+      }
+    }
+    margin: 1.5rem 0;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dotted #333;
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
   }
 }

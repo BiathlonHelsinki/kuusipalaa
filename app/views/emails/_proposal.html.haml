@@ -1,0 +1,14 @@
+%li.proposal
+  = link_to proposal.name, proposal
+  - unless proposal.timeslot_undetermined
+    = " - "
+    = l proposal.start_at.to_date, format: :short
+  %br/
+  = t :proposed_by_person, link: proposal.proposer.display_name
+
+  %br/
+  .description
+    = truncate_html strip_tags(proposal.description), length: 150
+    %br/
+    %small
+      = t :still_needed, amount: proposal.points_needed.to_s + 'ᵽ'

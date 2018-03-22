@@ -1,0 +1,1 @@
+<%=  proposal.name %> : <%= idea_url(proposal) %> <% unless proposal.timeslot_undetermined %> -- <%= l proposal.start_at.to_date, format: :short %><% end %>

@@ -1,0 +1,7 @@
+–-<%= announcement.subject %>
+  <%= t :posted_by_with_time, user: announcement.announcer.display_name, when: l(announcement.updated_at, format: :long) %>
+  
+  "<%= raw strip_tags(@markdown.render(announcement.message)) %>"
+  <% if announcement.only_stakeholders %>
+    -- (<%= t :only_stakeholders_can_see_this %>)
+  <% end %>  

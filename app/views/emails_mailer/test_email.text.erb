@@ -1,0 +1,79 @@
+<% if @user %>
+<%= t :dear_user, user: @user.display_name %>
+<% else %>
+  <%= t :hello %>
+<% end %>
+
+<%= t :email_disclaimer %><%= t :visit_kuusi_palaa_email %>
+
+<% unless @emailannouncements.empty? %>
+***<%= t :news_from_stakeholders %>***
+
+<% @emailannouncements.each do |ea| %>
+<%= render partial: 'emails/announcement', locals: {announcement: ea} %>
+----------------------------------
+<% end %>
+<%= t :any_stakeholder_can_post_here %>
+<% if @user %>
+  <% if @user.is_stakeholder? %>
+<%= raw t(:to_make_announcements, link: link_to(t(:stakeholders_area), '/stakeholders')) %>
+  <% else %>
+<%= t :to_become_a_stakeholder %>
+  <% end %>
+<% else %>
+<%= t :to_become_a_stakeholder %>
+<% end %>
+
+<% end %>
+
+***<%= t :this_week_at_kuusi_palaa %><%= " - " %><%= l @email.send_at.to_date, format: :long %>***
+
+<% if @upcoming_events.empty? %>
+<%= t :no_events_this_week %>
+<% else %>
+  <% @upcoming_events.each do |ue| %>
+<%= render partial: 'emails/event', locals: { event: ue} %>
+  <% end %>
+<% end %>
+<%= render partial: 'emails/open_time', locals: { event: @open_time.first } %>
+<% unless @new_proposals.empty? %>
+***<%= t :new_proposals %>***
+<% @new_proposals.each do |p| %>
+  * <%= render partial: 'emails/proposal', locals: {proposal: p} %>
+<% end %>
+<% end %>
+
+<% unless @still_needing_pledges.empty? %>
+***<%= t :proposals_still_needing_support %>***
+<% @still_needing_pledges.each do |p| %>
+  * <%= render partial: 'emails/proposal', locals: {proposal: p} %>
+<% end %>
+<% end %>
+<% unless @future_events.empty? %>
+***<%= t :future_events %>***
+<% @future_events.each do |fe| %>
+  * <%= render partial: 'emails/smallevent', locals: { event: fe} %>
+<% end %>
+<% end %>
+<% if @is_email == true %>
+***<%= t :the_future_of_kuusi_palaa  %>***
+<% if @next_season.complete? %>
+  <%= t :kuusi_palaa_is_funded_for_season_x, x: @next_season.number.to_s %>
+<% else %>
+  <%= t :kuusi_palaa_will_close_on_x, x: l(@current_season.end_at, format: :long) %>
+<% end %>
+<% unless @next_season.final_budget %>
+  <%= t :budget_not_yet_set, x: @next_season.number.to_s %>
+<% end %>
+  <%= t :to_support_kuusi_palaa_buy_stakes %>
+
+<% end %>
+<%= t :thank_you_for_reading %>
+<%= t :email_end_blurb %>
+
+<% if @is_email == true %>
+
+<%= t :email_footer_blurb %>
+
+<% end %>
+

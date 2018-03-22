@@ -1,0 +1,35 @@
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :email_announcements
+      .blurb
+        %p= t :email_announcements_explanation
+        %p= t :next_email_sent_at, when: l(@next_email.send_at.localtime, format: :long)
+        - total = 0
+        %table.budget_proposals
+          %thead
+            %tr
+              %th{colspan: 2}= t :who
+              %th= t :subject
+              %th= t :details
+              %th
+          %tbody
+            - @emailannouncements.each do |ea|
+              %tr
+                %td.avatar= image_tag ea.announcer.avatar.url(:thumb).gsub(/development/, 'production')
+                %td= ea.announcer.display_name
+                %td= ea.subject
+                %td= truncate_html(ea.message, length: 150)
+                %td
+                  - if ea.email.sent == false
+                    - if can? :edit, ea 
+                      = link_to t(:edit), edit_emailannouncement_path(ea), class: [:button, :bordered, :tiny]
+                    - if can? :destroy, ea
+                      = link_to t(:delete), ea, method: :delete, data: {confirm: t(:are_you_sure)}, class: [:button, :bordered, :tiny, :alert]
+
+        .row
+          .small-6.large-3.columns 
+            = link_to new_emailannouncement_path do
+              .front_button.text-center
+                = t(:write_annoucement)
+          

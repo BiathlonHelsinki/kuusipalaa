@@ -8,6 +8,13 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: 'base#home'
+    resources :emails do
+      member do
+        get :send_to_list
+        get :send_test
+        post :send_test_address
+      end
+    end
     resources :expenses
     resources :posts
     resources :pages
@@ -27,6 +34,8 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  resources :emailannouncements
+  
   resources :events do
     collection do
       get :calendar
@@ -221,5 +230,8 @@ Rails.application.routes.draw do
   match '/nfcs/:id/toggle' => 'nfcs#toggle_key', via: :get
   match '/stakeholders' => 'home#stakeholders', via: :get
   match '/raha' => 'home#raha', via: :get
+  match '/announcements/next_week' => 'emails#next_week', via: :get
+  match '/announcements/this_week' => 'emails#this_week', via: :get
+  match '/announcements/:id' => 'emails#show', via: :get
   root to: 'home#index'
 end

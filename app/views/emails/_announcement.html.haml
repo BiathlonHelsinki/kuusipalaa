@@ -1,0 +1,13 @@
+.announcement
+  %strong
+    = " –"
+    = announcement.subject
+
+  %br
+  %small= t :posted_by_with_time, user: announcement.announcer.display_name, when: l(announcement.updated_at, format: :long)
+  %p.email_p
+  %blockquote= raw @markdown.render(announcement.message)
+  - if announcement.only_stakeholders
+    %br/
+    %strong
+      %em= " - #{t :only_stakeholders_can_see_this}"  

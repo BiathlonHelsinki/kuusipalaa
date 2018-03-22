@@ -1,0 +1,7 @@
+.row.expanded
+  .small-12.columns
+    = semantic_form_for [:admin, @email], html: {multipart: true} do |f|
+      = f.input :subject
+      = f.input :body, label: 'Body - write as .ERB syntax'
+      = f.submit 'Save'
+    
