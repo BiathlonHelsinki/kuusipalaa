@@ -50,7 +50,7 @@ namespace :kuusipalaa do
         else
           @emailannouncements = @email.emailannouncements.reject(&:only_stakeholders)
         end
-        EmailsMailer.announcement(recipient, @email, @user, @emailannouncements, @upcoming_events, @future_events, @open_time, @new_proposals, @still_needing_pledges, @markdown).deliver_later
+        EmailsMailer.announcement(recipient, @email, @user, @emailannouncements, @upcoming_events, @future_events, @open_time, @new_proposals, @still_needing_pledges, @markdown).deliver_now
       end
       @email.sent = true
 
