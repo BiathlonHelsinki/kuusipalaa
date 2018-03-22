@@ -20,7 +20,11 @@
                   %td.avatar= image_tag ea.announcer.avatar.url(:thumb).gsub(/development/, 'production')
                   %td= ea.announcer.display_name
                   %td= ea.subject
-                  %td= truncate_html(ea.message, length: 150)
+                  %td
+                    - if ea.only_stakeholders
+                      %strong= t :only_stakeholders
+                      %br/
+                    = truncate_html(ea.message, length: 150)
                   %td
                     - if ea.email.sent == false
                       - if can? :edit, ea 
@@ -56,7 +60,11 @@
                   %td.avatar= image_tag ea.announcer.avatar.url(:thumb).gsub(/development/, 'production')
                   %td= ea.announcer.display_name
                   %td= ea.subject
-                  %td= truncate_html(ea.message, length: 150)
+                  %td
+                    - if ea.only_stakeholders
+                      %strong= t :only_stakeholders
+                      %br/
+                    = truncate_html(ea.message, length: 150)
                   %td
                     = l ea.email.sent_at.to_date, format: :long
                     %br/
