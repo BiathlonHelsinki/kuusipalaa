@@ -396,7 +396,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   phone_is_optional: 'This is optional, though.'
   registration_form: 'Registration form'
   registration_is_full_waiting_list: 'Registration is currently full. However, you may register for the waiting list and you will be notified if a space is available.'
-  you_will_earn_x_for_participating: "You will earn %{number}ᵽ for participating!"
+  you_will_earn_x_for_participating: "You will earn %{number}ᵽ for participating"
   for_the_waiting_list: ' for the waiting list'
   register_x: 'Register%{waiting_list_option}'
   i_plan_to_attend: 'I plan to attend!'
@@ -1325,3 +1325,6 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   hello: 'Hello!'
   posted_by_with_time: 'Posted by %{user} at %{when}'
   visit_kuusi_palaa_email: "Kuusi Palaa is located at Kolmas linja 7 in Kallio, where Temporary was. You can visit and use Kuusi Palaa any time it is open - please check www.kuusipalaa.fi to see if it's open at any given moment."
+  previous_announcements: 'Previous announcements'
+  these_announcements_were_sent_in_past_emails: 'These announcements were already sent in previous emails.'
+  sent_at: 'Sent'

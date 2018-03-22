@@ -7,6 +7,57 @@ namespace :kuusipalaa do
     end
   end
 
+  desc 'send weekly email'
+  task weekly_email: :environment  do
+    @email = Email.unsent.order(send_at: :asc).last
+    if @email['send_at'] > Time.current.localtime
+      abort("needs to send at " + @email['send_at'].to_s + " but it is " + Time.current.localtime.to_s)
+    end
+    if @email.nil?
+      abort("email not found")
+    end
+    @upcoming_events = Instance.calendered.published.between(@email.send_at, (@email.send_at + 1.week).end_of_day)
+    @open_time = Instance.where(open_time: true).between(@email.send_at, (@email.send_at + 1.week).end_of_day)
+    @body = ERB.new(@email.body).result(binding).html_safe
+    @new_proposals = Idea.active.unconverted.where(["created_at >= ? ", @email.send_at - 1.week])
+    @still_needing_pledges = Idea.active.unconverted.except(@new_proposals).reject(&:has_enough?)
+    @future_events = Instance.calendered.published.between((@email.send_at + 1.week).end_of_day, '2099-01-31 10:00:00')
+    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+    @is_email = true
+    mailing_list = User.where(opt_in: true).where("email not like 'change@me%'")
+    if Rails.env.development?
+      mailing_list[3..7].each do |recipient|
+        @user = recipient
+        if @user.is_stakeholder?
+          @emailannouncements = @email.emailannouncements
+        else
+          @emailannouncements = @email.emailannouncements.reject(&:only_stakeholders)
+        end
+        EmailsMailer.announcement(recipient, @email, @user, @emailannouncements, @upcoming_events, @future_events, @open_time, @new_proposals, @still_needing_pledges, @markdown).deliver_now
+      end
+      @email.sent = true
+    else
+      mailing_list.each do |recipient|
+        @user = recipient
+        if @user.is_stakeholder?
+          @emailannouncements = @email.emailannouncements
+        else
+          @emailannouncements = @email.emailannouncements.reject(&:only_stakeholders)
+        end
+        EmailsMailer.announcement(recipient, @email, @user, @emailannouncements, @upcoming_events, @future_events, @open_time, @new_proposals, @still_needing_pledges, @markdown).deliver_later
+      end
+      @email.sent = true
+
+      # newemail = Email.create(send_at: @email.send_at + 1.week, body: 'test', subject: 'This week at Kuusi Palaa - ' + (@email.send_at + 1.week).strftime('%d %B %Y'))
+
+    end
+
+    @email.sent_number = mailing_list.size
+    @email.sent_at = Time.current  
+    newemail = Email.create(send_at: @email.send_at + 1.week, body: 'test', subject: 'This week at Kuusi Palaa - ' + (@email.send_at + 1.week).strftime('%d %B %Y'))
+    @email.save
+  end
+
   desc 'reset development environment from db dump'
   task reset_dev: :environment do
     s = Setting.first

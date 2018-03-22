@@ -14,22 +14,51 @@
               %th= t :details
               %th
           %tbody
-            - @emailannouncements.each do |ea|
-              %tr
-                %td.avatar= image_tag ea.announcer.avatar.url(:thumb).gsub(/development/, 'production')
-                %td= ea.announcer.display_name
-                %td= ea.subject
-                %td= truncate_html(ea.message, length: 150)
-                %td
-                  - if ea.email.sent == false
-                    - if can? :edit, ea 
-                      = link_to t(:edit), edit_emailannouncement_path(ea), class: [:button, :bordered, :tiny]
-                    - if can? :destroy, ea
-                      = link_to t(:delete), ea, method: :delete, data: {confirm: t(:are_you_sure)}, class: [:button, :bordered, :tiny, :alert]
+            - unless @emailannouncements[false].nil?
+              - @emailannouncements[false].last.each do |ea|
+                %tr
+                  %td.avatar= image_tag ea.announcer.avatar.url(:thumb).gsub(/development/, 'production')
+                  %td= ea.announcer.display_name
+                  %td= ea.subject
+                  %td= truncate_html(ea.message, length: 150)
+                  %td
+                    - if ea.email.sent == false
+                      - if can? :edit, ea 
+                        = link_to t(:edit), edit_emailannouncement_path(ea), class: [:button, :bordered, :tiny]
+                      - if can? :destroy, ea
+                        = link_to t(:delete), ea, method: :delete, data: {confirm: t(:are_you_sure)}, class: [:button, :bordered, :tiny, :alert]
 
         .row
           .small-6.large-3.columns 
             = link_to new_emailannouncement_path do
               .front_button.text-center
                 = t(:write_annoucement)
-          
+
+
+.row
+  .small-12.columns
+    .lifted_box
+      .title= t :previous_announcements
+      .blurb
+        %p= t :these_announcements_were_sent_in_past_emails
+        - total = 0
+        %table.budget_proposals
+          %thead
+            %tr
+              %th{colspan: 2}= t :who
+              %th= t :subject
+              %th= t :details
+              %th= t :sent_at
+          %tbody
+            - unless @emailannouncements[true].nil?
+              - @emailannouncements[true].each do |ea|
+                %tr
+                  %td.avatar= image_tag ea.announcer.avatar.url(:thumb).gsub(/development/, 'production')
+                  %td= ea.announcer.display_name
+                  %td= ea.subject
+                  %td= truncate_html(ea.message, length: 150)
+                  %td
+                    = l ea.email.sent_at.to_date, format: :long
+                    %br/
+                    = link_to t(:view), '/announcements/' + ea.email.slug, target: :_blank, class: [:button, :bordered, :tiny]
+         

@@ -22,7 +22,11 @@ class EmailsController < ApplicationController
   
   private
     def prepare_email
-      @email = Email.unsent.order(send_at: :asc).last
+      if params[:id]
+        @email = Email.friendly.find(params[:id])
+      else
+        @email = Email.unsent.order(send_at: :asc).last
+      end
       @user = current_user
       @upcoming_events = Instance.calendered.published.between(@email.send_at, (@email.send_at + 1.week).end_of_day)
       @open_time = Instance.where(open_time: true).between(@email.send_at, (@email.send_at + 1.week).end_of_day)

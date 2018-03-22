@@ -1,7 +1,7 @@
 - if @is_email == true
 - else
   = image_tag event.event.image.url(:small).gsub(/development/, 'production')
-
+  %br/
 %strong= link_to event.name, event_instance_url(event.event, event)
 %br/
 = date_range(event.start_at.localtime, event.end_at.localtime)
@@ -16,6 +16,8 @@
   = t :free_entry
 - else
   = number_to_currency(event.price_public, unit: raw("&euro;"), format: "%n %u")
+= " ; "
+= t :you_will_earn_x_for_participating, number: event.cost_bb
 %br/
 = t :organised_by
 = event.responsible_people.map{|x| x.display_name}.join(', ')

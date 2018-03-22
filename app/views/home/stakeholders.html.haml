@@ -42,17 +42,23 @@
           .banner2_title= page.name
           .banner2_blurb= truncate_html(sanitize(page.body), length: 230)
 
-  %article.columns.small-12.medium-6.large-4.end
+  %article.columns.small-12.medium-6.large-4
     = link_to '/raha/' do
       .lifted_box.feed{:'data-equalizer-watch' => ''}
         .banner2_title= t :finances_and_money
         .banner2_blurb= t(:finances_and_money_explanation) 
 
-  %article.columns.small-12.medium-6.large-4.end
+  %article.columns.small-12.medium-6.large-4
     = link_to season_budgetproposals_path(@next_season) do
       .lifted_box.feed{:'data-equalizer-watch' => ''}
         .banner2_title= t :budget_proposals_for_season_x, season: @next_season.number
         .banner2_blurb= t(:budget_proposals_explanation) 
+
+  %article.columns.small-12.medium-6.large-4
+    = link_to emailannouncements_path do
+      .lifted_box.feed{:'data-equalizer-watch' => ''}
+        .banner2_title= t :email_announcements
+        .banner2_blurb= t(:email_announcements_explanation) 
 
   %article.columns.small-12.medium-6.large-4.end
     = link_to '/hardware' do

@@ -18,9 +18,8 @@ class EmailannouncementsController < ApplicationController
 
   def destroy
     emailannouncement = Emailannouncement.find(params[:id])
-    season = emailannouncement.season
     emailannouncement.destroy!
-    redirect_to season_emailannouncements_path(season)
+    redirect_to emailannouncements_path(season)
   end
 
   def discuss
@@ -68,7 +67,7 @@ class EmailannouncementsController < ApplicationController
   end
 
   def index
-    @emailannouncements = Emailannouncement.all
+    @emailannouncements = Emailannouncement.all.group_by{|x| x.email.sent}
     @next_email = Email.unsent.order(:send_at).last
   end
 
