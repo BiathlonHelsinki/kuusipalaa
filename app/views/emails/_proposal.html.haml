@@ -11,4 +11,4 @@
     = truncate_html strip_tags(proposal.description), length: 150
     %br/
     %small
-      = t :still_needed, amount: proposal.points_needed.to_s + 'ᵽ'
+      = t :still_needed, amount: proposal.points_still_needed.to_s + 'ᵽ'
