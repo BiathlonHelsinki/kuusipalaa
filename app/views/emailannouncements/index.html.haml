@@ -15,7 +15,7 @@
               %th
           %tbody
             - unless @emailannouncements[false].nil?
-              - @emailannouncements[false].last.each do |ea|
+              - @emailannouncements[false].each do |ea|
                 %tr
                   %td.avatar= image_tag ea.announcer.avatar.url(:thumb).gsub(/development/, 'production')
                   %td= ea.announcer.display_name
