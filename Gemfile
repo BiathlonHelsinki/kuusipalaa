@@ -115,6 +115,7 @@ gem 'httmultiparty'
 gem 'icalendar'
 gem "jquery-slick-rails"
 gem 'kaminari'
+gem 'mailgun_rails'
 gem 'meta-tags'
 gem 'migration_data'
 gem 'mimemagic'
