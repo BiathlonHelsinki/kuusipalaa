@@ -17,6 +17,9 @@ namespace :kuusipalaa do
       abort("email not found")
     end
     @upcoming_events = Instance.calendered.published.between(@email.send_at, (@email.send_at + 1.week).end_of_day)
+    if @upcoming_events.empty?
+      abort("no events this week")
+    end
     @open_time = Instance.where(open_time: true).between(@email.send_at, (@email.send_at + 1.week).end_of_day)
     @body = ERB.new(@email.body).result(binding).html_safe
     @new_proposals = Idea.active.unconverted.where(["created_at >= ? ", @email.send_at - 1.week])
