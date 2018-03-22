@@ -22,7 +22,7 @@
                   %td= ea.subject
                   %td
                     - if ea.only_stakeholders
-                      %strong= t :only_stakeholders
+                      %strong= t :only_stakeholders_can_see_this
                       %br/
                     = truncate_html(ea.message, length: 150)
                   %td
@@ -62,7 +62,7 @@
                   %td= ea.subject
                   %td
                     - if ea.only_stakeholders
-                      %strong= t :only_stakeholders
+                      %strong= t :only_stakeholders_can_see_this
                       %br/
                     = truncate_html(ea.message, length: 150)
                   %td
