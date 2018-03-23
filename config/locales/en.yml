@@ -33,7 +33,7 @@ en:
       same_day_no_time: "%{from_day} %{from_month} %{year}"
       different_months_same_year: "%{from_day} %{from_month} %{sep} %{until_day} %{until_month} %{year}"
       different_years: "%{from_day} %{from_month} %{from_year} %{sep} %{until_day} %{until_month} %{until_year}"
-      same_month: "%{from_day} %{sep} %{until_day} %{month} %{year}"
+      same_month: "%{from_day} %{month} %{start_time} %{sep}  %{until_day} %{month} %{end_time} (%{year})"
       same_month_no_time: "%{from_day} %{sep} %{until_day} %{month} %{year}"
   what_do_you_think_about_this: 'What do you think about this?'
   discussion: 'Discussion:'

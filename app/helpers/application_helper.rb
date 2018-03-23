@@ -47,7 +47,8 @@ module ApplicationHelper
         elsif from_date.class == Date && until_date.class == Date
           I18n.t("date_range.#{format}.same_month_no_time", from_day: from_date.day, until_day: until_date.day, month: from_month, year: from_year, sep: separator, start_time: nil, end_time: nil)
         else
-          I18n.t("date_range.#{format}.same_month", from_day: from_date.day, until_day: until_date.day, month: from_month, year: from_year, sep: separator, start_time: from_date.range_time, end_time: until_date.range_time)
+
+          I18n.t("date_range.#{format}.same_month", from_day: from_date.day, until_day: until_date.day, month: from_month, year: from_year, sep: separator, start_time: from_date.strftime("%H:%M"), end_time: until_date.strftime("%H:%M"))
         end
       else
         until_month = month_names[until_date.month]

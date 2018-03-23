@@ -1,6 +1,6 @@
 class Ideas::BuildController < ApplicationController
   include Wicked::Wizard
-
+  before_action :authenticate_user!
   steps :find_type, :name_and_info, :when, :points, :finalise
 
   def show
