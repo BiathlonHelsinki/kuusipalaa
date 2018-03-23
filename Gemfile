@@ -137,11 +137,13 @@ gem "recaptcha", require: "recaptcha/rails"
 gem 'redcarpet'
 gem 'rolify'
 gem 'rollbar'
+gem 'serviceworker-rails'
 gem 'simple_token_authentication', git: 'https://github.com/gonzalo-bulnes/simple_token_authentication.git', branch: 'master'
 gem 'stripe'
 gem 'truncate_html'
 gem 'valvat'
 gem 'viitenumero', github: 'bittisiirto/viitenumero', branch: :master
+gem 'webpush'
 gem 'wicked'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'

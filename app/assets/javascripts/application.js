@@ -28,7 +28,8 @@
 //= require fullcalendar
 //= require jquery.idle.min
 //= require points
-//= require_tree .
+//= require readmore.min
+//= require serviceworker-companion
 
 function getContent(id){
   var div_val = $('#ci_' + id).html();
@@ -312,3 +313,4 @@ function calculateCost() {
 }
 
 $(function(){ $(document).foundation(); });
+//= require serviceworker-companion

@@ -12,9 +12,26 @@
             - else
               = t :kp_is_currently_closed
               .smaller= t :not_a_stakeholder_come_some_other_time
-                
+  = link_to 'Subscribe', '#', class: :'webpush-button'         
   - @activities.each do |activity|
     = render partial: 'activities/activity', locals: {activity: activity}
 
 .row
   .small-12.columns= paginate @activities
+
+= render partial: 'vapid'
+
+= content_for :jquery do
+  :plain
+    $('.webpush-button').on('click', (e) => {
+      navigator.serviceWorker.ready
+      .then((serviceWorkerRegistration) => {
+        serviceWorkerRegistration.pushManager.getSubscription()
+        .then((subscription) => {
+          $.post('/push', {
+            subscription: subscription.toJSON(),
+            message: 'You clicked a button!'
+          });
+        });
+      });
+    });
