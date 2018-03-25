@@ -1,0 +1,14 @@
+%article.member_services_index.publish_event
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title
+          = t :cancel_proposal
+          = ": "
+          = @idea.name
+        .blurb
+          %p= t :about_cancel
+          %p= t :can_be_resuscitated
+          = semantic_form_for @idea, html: {:'data-abide' => ''} do |f|
+            = f.input :cancel_reason, label: t(:reason_for_cancelling), input_html: {:required => ''}
+            = f.submit t(:cancel_proposal)

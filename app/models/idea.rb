@@ -25,6 +25,7 @@ class Idea < ApplicationRecord
   friendly_id :name, use: [:slugged, :finders]
 
   mount_uploader :image, ImageUploader
+  before_save :announce_cancellation, if: :cancelled?
   before_save :update_image_attributes, if: :active_or_name_and_info?
   # before_commit :add_to_activity_feed, if: :active?
   scope :between, -> (start_time, end_time) { 
@@ -53,6 +54,21 @@ class Idea < ApplicationRecord
       :url => Rails.application.routes.url_helpers.idea_path(self.slug)
     } 
   end 
+
+  def announce_cancellation
+    if status == 'cancelled' && status_changed?
+      comments << Comment.create(user: user, contributor: user, content: "this_proposal_has_been_cancelled" , systemflag: true)
+      Activity.create(user: user, contributor: user, item: self, description: "cancelled_proposal", extra_info: cancel_reason)
+
+    end
+  end
+
+  def cancel_pledges
+    pledges.each do |p|
+      p.cancel_activity
+      p.delete
+    end
+  end
 
   def calendar_start_at
     start_at - 1.hour
@@ -111,9 +127,13 @@ class Idea < ApplicationRecord
   end
 
   def draught?
-    !active?
+    !active? && !cancelled?
   end
   
+  def cancelled?
+    status == 'cancelled'
+  end
+
   def active?
     status == 'active' 
   end

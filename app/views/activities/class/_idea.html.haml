@@ -11,3 +11,6 @@
   = t activity.description
   
 = link_to activity.item.name, activity.item
+- if activity.extra_info
+  - if activity.description == 'cancelled_proposal'
+    = t(:activity_list_reason, reason:  activity.extra_info)

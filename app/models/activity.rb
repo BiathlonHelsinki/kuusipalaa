@@ -136,7 +136,7 @@ class Activity < ApplicationRecord
       blockchain_transaction.value.to_i
     elsif ethtransaction
       ethtransaction.value.to_i
-    elsif extra.nil? && (description !~ /changed/ && description !~ /status/)
+    elsif extra.nil? && (description !~ /changed/ && description !~ /status/ && description !~ /cancelled/)
       extra_info
     else
       nil

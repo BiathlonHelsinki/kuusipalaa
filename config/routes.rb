@@ -99,6 +99,7 @@ Rails.application.routes.draw do
     member do
       get :publish_event
       get :original_proposal
+      get :cancel
     end
     resources :pledges do
       collection do

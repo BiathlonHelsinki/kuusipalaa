@@ -87,12 +87,12 @@
                 = render partial: 'registration_button'
                 - if user_signed_in?
                   - if @event.instances.first.responsible_people.include?(current_user)
-                    = link_to t(:change_registration_form), add_registration_form_event_instance_path(@event, @event.instances.first) , class: [:button, :bordered]
+                    = link_to t(:change_registration_form), add_registration_form_event_instance_path(@event, @event.instances.first) , class: [:button, :tiny, :bordered]
               - else
                 = t :registration_not_required
                 - if user_signed_in?
                   - if @event.instances.first.responsible_people.include?(current_user)
-                    = link_to t(:add_registration_form), add_registration_form_event_instance_path(@event, @event.instances.first) , class: [:button, :bordered]     
+                    = link_to t(:add_registration_form), add_registration_form_event_instance_path(@event, @event.instances.first) , class: [:button,:tiny, :bordered]     
         - if user_signed_in? && @event.instances.map(&:request_registration).compact.include?(true)
           - if @event.instances.first.responsible_people.include?(current_user) || current_user.has_role?(:admin)
             %tr

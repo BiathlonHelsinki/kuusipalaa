@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180322104219) do
+ActiveRecord::Schema.define(version: 20180323141810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -479,6 +479,7 @@ ActiveRecord::Schema.define(version: 20180322104219) do
     t.boolean "notified"
     t.string "converted_type"
     t.bigint "converted_id"
+    t.string "cancel_reason"
     t.index ["converted_type", "converted_id"], name: "index_ideas_on_converted_type_and_converted_id"
     t.index ["ideatype_id"], name: "index_ideas_on_ideatype_id"
     t.index ["parent_type", "parent_id"], name: "index_ideas_on_parent_type_and_parent_id"

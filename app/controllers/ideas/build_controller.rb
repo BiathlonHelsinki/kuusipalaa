@@ -63,10 +63,10 @@ class Ideas::BuildController < ApplicationController
 
   private
 
-  def idea_params
-    params.require(:idea).permit([:ideatype_id, :status, :form_direction, :timeslot_undetermined, :start_at, :end_at, :price_public, :room_needed, :price_stakeholders, :allow_others, :name, :short_description, :proposal_text,
-                                  :proposer_id, :proposer_type, :special_notes, :image, :hours_estimate,
-                                  :points_needed, additionaltimes_attributes: [:id, :_destroy, :start_at, :end_at]])
-  end
+    def idea_params
+      params.require(:idea).permit([:ideatype_id, :status, :form_direction, :timeslot_undetermined, :start_at, :end_at, :price_public, :room_needed, :price_stakeholders, :allow_others, :name, :short_description, :proposal_text,
+                                    :proposer_id, :proposer_type, :special_notes, :image, :hours_estimate,
+                                    :points_needed, additionaltimes_attributes: [:id, :_destroy, :start_at, :end_at]])
+    end
 end
 

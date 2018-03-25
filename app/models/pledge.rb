@@ -46,6 +46,10 @@ class Pledge < ApplicationRecord
     comment
   end
 
+  def cancel_activity
+    Activity.create(user: user, contributor: pledger, item: self, description: "pledge_cancelled", numerical_value: pledge, extra: item, addition: 0)
+  end
+  
   private
 
 
@@ -75,10 +79,12 @@ class Pledge < ApplicationRecord
     end
 
   end
+
+
   
   def withdraw_activity
     item.comments << Comment.create(user: user, contributor: pledger, content: "Pledge of #{pledge.to_s}#{ENV['currency_symbol']} withdrawn.",  systemflag: true)
-    Activity.create(user: user, contributor: pledger, item: item, description: "withdrew_a_pledge", extra_info: "#{pledge.to_s}", addition: 0)
+    Activity.create(user: user, contributor: pledger, item: item, description: "withdrew_a_pledge", numerical_value: pledge, addition: 0)
   end
 
 end

@@ -1,5 +1,7 @@
 = link_to activity.user.display_name, activity.user, target: :_blank
-= t activity.description
-
-= t :something_that_was_later_deleted
-= " (#{activity.item_type})"
+= t activity.description, numerical_value:  activity.numerical_value
+- if activity.description == 'pledge_cancelled'
+  = link_to activity.extra.name, activity.extra
+- else
+  = t :something_that_was_later_deleted
+  = " (#{activity.item_type})"

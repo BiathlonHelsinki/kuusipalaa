@@ -135,4 +135,15 @@ namespace :kuusipalaa do
   end
   
 
+
+  desc "removes stale and inactive proposals from the database"
+  task :clean_proposals => :environment do
+    # Find all the products older than yesterday, that are not active yet
+    stale_products = Idea.where("DATE(created_at) < DATE(?)", Date.yesterday - 6.days).where("status != 'active' and status != 'cancelled' and status != 'converted' and short_description is null")
+
+    # delete them
+    stale_products.map(&:destroy)
+  end
+
+
 end

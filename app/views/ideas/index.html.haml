@@ -54,4 +54,16 @@
 
     .row.small-up-1.large-up-3.medium-up-2
       - @ideas.select(&:converted?).each do |idea|
-        .columns= render partial: 'ideas/idea_index', locals: {idea: idea}  
+        .columns= render partial: 'ideas/idea_index', locals: {idea: idea}
+
+  - unless @ideas.select(&:cancelled?).empty?
+    .row
+
+      .small-12.discussions
+        .header.text-center
+          = t :proposal_graveyard
+
+
+    .row.small-up-1.large-up-3.medium-up-2
+      - @ideas.select(&:cancelled?).each do |idea|
+        .columns= render partial: 'ideas/idea_index', locals: {idea: idea}          

@@ -9,6 +9,14 @@
       .has_enough.columns.text-center
         .has_enough_banner= t :this_proposal_was_scheduled
         = link_to t(:please_see) + @idea.events.first.name, @idea.events.first
+    - elsif @idea.cancelled?
+      .has_enough.columns.text-center
+        .has_enough_banner
+          = t :this_proposal_was_cancelled
+          %br/
+          %small
+            %em= t(:activity_list_reason, reason:  @idea.cancel_reason)
+
     - elsif @idea.has_enough?
       .has_enough.columns.text-center
         .has_enough_banner= t :this_proposal_has_enough_points
@@ -40,7 +48,14 @@
             .heading= t :proposed_by_empty
             .value
               .avatar= link_to image_tag(@idea.proposer.avatar.url(:thumb).gsub(/development/, 'production')), @idea.proposer
-              .who= link_to(@idea.proposer.display_name, @idea.proposer, target: :_blank)
+              .who
+                = link_to(@idea.proposer.display_name, @idea.proposer, target: :_blank)
+                - if user_signed_in?
+                  - if @idea.proposer.privileged.include?(current_user)
+                    = link_to t(:edit_proposal), edit_idea_path(@idea), class: [:button, :tiny, :bordered]
+                    - unless @idea.status == 'cancelled'
+                      = link_to t(:cancel_proposal), cancel_idea_path(@idea), class: [:button, :tiny, :alert, :bordered]
+
         %tr
           %td.half
             .heading
@@ -119,7 +134,7 @@
         .small-3.columns.point_count= @idea.pledged
         .small-6.columns &nbsp;
         .small-3.columns.point_count.text-right.end= @idea.points_needed
-      - if user_signed_in? && !@idea.converted
+      - if user_signed_in? && !@idea.converted && !@idea.cancelled?
         .row.pledge_info#pledge_panel_wrapper
 
           = render partial: 'ideas/pledge_panel'

@@ -28,21 +28,25 @@
 
               - if comment.class == Comment    
                 .comment_content
-                  - link_filter = AutoHtml::Link.new(target: '_blank')
-                  = raw link_filter.call(simple_format(comment.content_linked))
+                  - if comment.systemflag == true
+                    %em
+                      = t comment.content
+                  - else
+                    - link_filter = AutoHtml::Link.new(target: '_blank')
+                    = raw link_filter.call(simple_format(comment.content_linked))
 
-                  - if comment.image?
-                    %br/
-                    .image_attached= image_tag comment.image.url(:medium)
-                  - if comment.attachment?
-                    %p= link_to t(:download) + ' ' + File.basename(URI.parse(comment.attachment.url).path), comment.attachment.url, class: [:button, :round, :tiny]
-            - if comment.class == Comment  && commenting_open
+                    - if comment.image?
+                      %br/
+                      .image_attached= image_tag comment.image.url(:medium)
+                    - if comment.attachment?
+                      %p= link_to t(:download) + ' ' + File.basename(URI.parse(comment.attachment.url).path), comment.attachment.url, class: [:button, :round, :tiny]
+            - if comment.class == Comment  && commenting_open && !comment.systemflag
               .row
                 .sma11-12.large-10.columns
                   .avatar_spacer &nbsp;
                   %button.button{type: :button, :'data-toggle' => 'reply_dropdown_' + comment.id.to_s }= t(:reply)
                   - if user_signed_in?
-                    - if can?(:destroy, comment) && comment.comments.empty? && comment.class != Pledge && commenting_open
+                    - if can?(:destroy, comment) && comment.comments.empty? && comment.class != Pledge && commenting_open && !comment.systemflag
                       = link_to fa_icon('trash'), comment, method: :delete, data: {confirm: t(:are_you_sure_delete_comment)} #, class: [:button, :tiny, :alert]
                   .dropdown-pane{id:'reply_dropdown_' + comment.id.to_s, :'data-dropdown' => '', :'data-close-on-click' => true, :'data-auto-focus' => true}
                     = link_to t(:comment_in_main_thread), '#', onclick: "$('.dropdown-pane').foundation('close');$(document).scrollTo('#main_thread', 800);return false;", class: [:button, :tiny, :secondary]

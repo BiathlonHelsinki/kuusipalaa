@@ -1,6 +1,6 @@
  class IdeasController < ApplicationController
 
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :original_proposal]
 
   def calendar
     #  build month
@@ -25,12 +25,34 @@
     end
   end
 
+  def cancel
+    @idea = Idea.friendly.find(params[:id])
+    if @idea.status != 'active' || @idea.converted
+      flash[:error] = t(:generic_error)
+      redirect_to @idea
+    else
+      if @idea.status == 'cancelled'
+        flash[:notice] = t(:already_cancelled)
+        redirect_to @idea
+      else
+        if can? :edit, @idea
+
+        else 
+          flash[:error] = t(:generic_error)
+          redirect_to @idea
+        end
+      end
+    end
+  end
+  
   def edit
     @idea = Idea.friendly.find(params[:id])
     if can? :edit, @idea
       @idea.update_attribute(:status, 'name_and_info')
       flash[:notice] = t(:you_are_editing_your_proposal)
-      redirect_to "/ideas/#{@idea.id.to_s}/build/name_and_info" 
+      if @idea.pledges.empty?
+        redirect_to "/ideas/#{@idea.id.to_s}/build/name_and_info" 
+      end
     end
   end
 
@@ -70,7 +92,7 @@
       @ideas = @ideas.uniq
 
     else
-      @ideas = Idea.active.where(ideatype_id: 1).order(updated_at: :desc)
+      @ideas = Idea.where(ideatype_id: 1).where("status = 'active' or status = 'cancelled'").order(updated_at: :desc)
       if user_signed_in?
         @ideas += current_user.ideas
         @current_user.members.each do |member|
@@ -134,10 +156,46 @@
     end 
 
     set_meta_tags title: @idea.name
-    if @idea.status != 'active' && @idea.status != 'converted'
+    if @idea.status != 'active' && @idea.status != 'converted' && @idea.status != 'cancelled'
       flash[:error] = t(:idea_not_published_yet)
       redirect_to ideas_path
     end
   end
+
+  def update   # should only happen if cancelled or edited
+    @idea = Idea.friendly.find(params[:id])
+    if can? :edit, @idea
+      if params[:idea][:start_at_date]
+        params[:idea][:start_at] = Time.parse(params[:idea][:start_at_date] + ' ' + params[:idea][:start_at]).getutc
+        params[:idea][:end_at] = Time.parse(params[:idea][:end_at_date] + ' ' + params[:idea][:end_at]).getutc
+      end
+      if params[:idea][:additionaltimes_attributes]
+        params[:idea][:additionaltimes_attributes].permit!.to_hash.each_with_index do |pa, index|
+          next if params[:idea][:additionaltimes_attributes]["#{pa.first}"][:start_at].blank? || params[:idea][:additionaltimes_attributes]["#{pa.first}"][:end_at].blank?
+          params[:idea][:additionaltimes_attributes]["#{pa.first}"][:start_at] = Time.parse(pa.last["start_at_date"] + ' ' + pa.last["start_at"]).getutc
+          params[:idea][:additionaltimes_attributes]["#{pa.first}"][:end_at] = Time.parse(pa.last["end_at_date"] + ' ' + pa.last["end_at"]).getutc
+        end
+      end     
+      if params[:idea][:cancel_reason].blank?
+        @idea.status = 'active'
+        flash[:notice] = t(:proposal_edited)
+      else
+        @idea.status = 'cancelled'
+        @idea.cancel_pledges
+        flash[:notice] = t(:proposal_cancelled)
+      end
+      if @idea.update_attributes(idea_params)
+        
+        redirect_to '/ideas'
+      end
+    end
+  end
+
+  protected
+     def idea_params
+      params.require(:idea).permit([:ideatype_id, :status, :form_direction, :timeslot_undetermined, :start_at, :end_at, :price_public, :room_needed, :price_stakeholders, :allow_others, :name, :short_description, :proposal_text,
+                                    :proposer_id, :proposer_type, :special_notes, :cancel_reason, :image, :hours_estimate,
+                                    :points_needed, additionaltimes_attributes: [:id, :_destroy, :start_at, :end_at]])
+    end
 
 end

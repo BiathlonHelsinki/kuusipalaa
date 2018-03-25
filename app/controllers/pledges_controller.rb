@@ -14,6 +14,10 @@ class PledgesController < ApplicationController
     elsif @item.converted?
       flash[:notice] = t(:illegal_pledge)
       redirect_to @item
+    elsif @item.cancelled?
+      flash[:error] = t(:this_proposal_was_cancelled)
+      redirect_to @item
+
     else
       if @balance < params[:pledge][:pledge].to_i
         flash[:error] = 'You do not have this many ' + ENV['currency_full_name']
@@ -118,17 +122,22 @@ class PledgesController < ApplicationController
   
   def update
     get_pledger_and_item
-    @pledge = @item.pledges.find(params[:id])
-    if params[:pledge][:pledge].to_i > @item.max_for_user(@pledger, @pledge)
-      flash[:error] = 'You can\'t pledge this much!'
-      redirect_to new_proposal_pledge_path(@item)
+    if @item.cancelled?
+      flash[:error] = t(:this_proposal_was_cancelled)
+      redirect_to @item
     else
-      if @pledge.update_attributes(pledge_params)
-        flash[:notice] = 'Your pledge has been edited!'
-        redirect_to @item
+      @pledge = @item.pledges.find(params[:id])
+      if params[:pledge][:pledge].to_i > @item.max_for_user(@pledger, @pledge)
+        flash[:error] = 'You can\'t pledge this much!'
+        redirect_to new_proposal_pledge_path(@item)
       else
-        flash[:error] = 'There was an error saving your edited pledge: ' + @pledge.errors.values.join
-        redirect_to @item
+        if @pledge.update_attributes(pledge_params)
+          flash[:notice] = 'Your pledge has been edited!'
+          redirect_to @item
+        else
+          flash[:error] = 'There was an error saving your edited pledge: ' + @pledge.errors.values.join
+          redirect_to @item
+        end
       end
     end
   end
@@ -146,6 +155,7 @@ class PledgesController < ApplicationController
     elsif params[:idea_id]
       @idea = Idea.friendly.find(params[:idea_id])
       @item = @idea
+
     elsif params[:event_id]
       @item = Event.friendly.find(params[:event_id])
     end

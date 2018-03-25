@@ -1,0 +1,264 @@
+%article.member_services_index.publish_event
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t :edit_proposal
+        .blurb.nopadding
+          .pad
+            %p=  t :note_there_are_pledges
+          = semantic_nested_form_for @idea, html: {:'data-abide' => true, multipart: true} do |f|
+            - if @idea.timeslot_undetermined == true
+              %strong= t :pick_times_anyway
+              %p= t :estimate_in_hours
+              = t :event_is_x
+              = f.input :hours_estimate, input_html: {value: f.object.hours_estimate.blank? ? 4 : f.object.hours_estimate, autofocus: ''}, label: false
+             
+              = t :hours
+            - else
+              .row.pad
+                .small-12.columns
+                  %p= t(:public_start_time)
+                  %p.inline-hints= t :bonus_hour
+              .row.pad
+                .small-6.large-4.columns
+                  = f.input :start_at_date, as: :string, input_html: {class: :datetimepicker, required: '' }
+                .small-6.large-4.columns
+                  = f.input :start_at, as: :string, input_html: {class: :timepicker, value: f.object.end_at.blank? ? '18:00' : f.object.start_at.localtime.strftime('%H:%M'), required: ''}
+                .small-4.columns
+                  #initial_time_length
+
+              .row.pad
+                .small-6.large-4.columns
+                  = f.input :end_at_date, as: :string, input_html: {class: :datetimepicker, value: f.object.end_at_date.nil? ? f.object.start_at_date : f.object.end_at_date, required: '' }
+                .small-6.large-4.columns.end
+                  = f.input :end_at, as: :string, input_html: {class: :timepicker, value: f.object.end_at.blank? ? '20:00' : f.object.end_at.localtime.strftime('%H:%M'), required: ''}
+
+              .row.pad
+                .small-12.columns
+                  = f.fields_for :additionaltimes do |ff|
+                    %div{class: "subtimes", id: ff.options[:child_index] }
+                      .row
+                        .small-12.columns
+                          = t :additional_times_info
+                      .row
+                        .small-6.large-4.columns
+                          = ff.input :start_at_date, as: :string, input_html: {class: :datetimepicker }
+                        .small-6.large-4.columns.end
+                          = ff.input :start_at, as: :string, input_html: {class: :timepicker, value: ff.object.start_at.blank? ? '' : ff.object.start_at.localtime.strftime('%H:%M')}
+                        .small-4.columns
+                          .initial_time_length{id: "slotlength_" + ff.options[:child_index].to_s}                        
+                      .row
+                        .small-6.large-4.columns
+                          = ff.input :end_at_date, as: :string, input_html: {class: :datetimepicker, value: ff.object.end_at_date.nil? ? ff.object.start_at_date : ff.object.end_at_date }
+                        .small-6.large-4.columns.end
+                          = ff.input :end_at, as: :string, input_html: {class: :timepicker, value: ff.object.end_at.blank? ? '' : ff.object.end_at.localtime.strftime('%H:%M')}
+                      .row
+                        .small-12.columns
+                          = ff.link_to_remove t(:remove_this_timeslot)
+                  = f.link_to_add t(:add_an_additional_time), :additionaltimes, class: [:button, :bordered, :tiny]
+                  %p.inline-hints= t :additional_times_explanation
+
+            .row.pad
+              .small-12.columns
+                = f.input :name , input_html: {required: ''}
+                = f.input :short_description, as: :string, input_html: {required: ''}, label: t(:short_description), hint: t(:describe_in_one_line)
+                = f.input :proposal_text, input_html: {required: ''}
+            .row.pad
+              .small-8.columns
+                - if f.object.image?
+                  = image_tag f.object.image.url
+                  = f.input :image, label: t(:change_image)
+                - else
+                  = f.input :image, input_html: {required: ''}, label: t(:please_attach_an_image)
+            .row.pad
+              .small-6.large-8.columns                
+                = f.input :room_needed, as: :select, collection: {t(:main_room) => 1, t(:back_room) => 2, t(:both) => 3}, include_blank: false, label: t(:room_needed)
+            .row.pad
+              .small-12.columns= f.input :allow_others, as: :boolean, label: t(:allow_others)
+            .row.pad
+              .small-10.large-6.columns= f.input :price_public, hint: t(:zero_for_free), label: t(:price_public), input_html: {required: ''}
+              .small-10.large-6.columns= f.input :price_stakeholders, hint: t(:if_not_free), label: t(:price_stakeholders), input_html: {required: ''}
+
+            .points_total.row.pad
+              .small-6.large-3.columns
+                = hidden_field_tag :form_direction, "forward"
+                = f.input :points_needed, as: :hidden
+              
+              .small-12.columns
+                = t :event_as_proposed_will_cost
+                %span#points_total 
+                points to be scheduled
+
+            .row.pad
+              .small-8.columns
+                - if @collection_options.size > 1
+                  = f.input :proposer_type, as: :hidden, input_html: {'required' => '',value: 'User'}
+                  = f.input :proposer_id, as: :hidden, input_html: {'required' => '', value: current_user.id }
+                  = f.input :proposer, as: :select, input_html: {id: :idea_proposer_select}, label: t(:publish_proposal_as), collection: options_for_select(@collection_options.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }),  include_blank: false
+                - else
+                  = f.input :proposer_type, as: :hidden, input_html: {'required' => '', value: 'User'}
+                  = f.input :proposer_id, as: :hidden, input_html: {value: current_user.id }    
+                - if @idea.timeslot_undetermined == false
+                  = f.input :start_at, as: :hidden, input_html: {value: @idea.start_at.localtime.strftime("%Y-%m-%d %H:%M"), required: '' }
+                  = f.input :end_at, as: :hidden, input_html: {value: @idea.end_at.localtime.strftime("%Y-%m-%d %H:%M"), required: '' }
+            -# .row.pad
+            -#   .small-8.columns
+            -#     %p
+            -#       = t :will_recur
+            -#       %br/
+            -#       = radio_button_tag :recurs, '0', false, {required: '', class: :radio }
+            -#       %label.radio{for: :recurs_0}
+            -#       = t(:recurs_no)
+            -#       %br/
+            -#       = radio_button_tag :recurs, '1', false, {class: :radio }
+            -#       %label.radio{for: :recurs_1}
+            -#       = t :recurs_yes
+
+
+
+            %p.inline-hints= t :may_require_more_points
+            .row.pad
+              .small-12.columns
+
+                %p
+                  %strong= t(:points_already_pledged)
+                  %big#points_available= @idea.pledged.to_s
+
+
+                = f.action :submit, label: t(:edit_proposal)
+
+- if @idea.timeslot_undetermined == false
+  = content_for :jquery do
+    :plain
+      $(document).idle({
+          onIdle: function(){
+
+            checkLogic()
+          },
+          idle: 1000
+      })
+      calculatePoints('idea')
+      $(document).on('nested:fieldAdded', function(event){     
+        var field = event.field;  
+        $('form input, form select').change(() => {    
+          calculatePoints('idea')
+          checkLogic()
+          .then(() => {
+            return checkNested()
+          })
+          .then((callback) => {
+            callback()
+          })
+          .done(() => {
+            calculatePoints('idea')
+          })
+        });   
+        $('.timepicker').timepicker({ 'timeFormat': 'H:i' });
+       
+        var dateField = field.find('.datetimepicker');
+        // and activate datepicker on it
+        dateField.fdatetimepicker({ weekStart: 1, initialDate : $('#idea_start_at_date').val(), format: 'yyyy-mm-dd', minView: 2, startview:2 }).on('changeDate', function(){
+          let called = $(this).attr("id")
+          $.get('/events/calendar.json?start=' + $(this).val() + '&end=' + $(this).val(), (data) => {
+            let blacklist = []
+            data.forEach((d) => {
+              var start = d.start.split(" ")[1].replace(/\:00$/, '');
+              var myend = d.end.split(" ")[1].replace(/\:00$/, '');
+              blacklist.push([start, myend])
+            })
+            
+            $('.timepicker#' + called.replace(/_date$/, '')).timepicker('remove')
+            $('.timepicker#' + called.replace(/_date$/, '')).timepicker({ 'timeFormat': 'H:i', 'disableTimeRanges': blacklist});
+           })
+          $(this).fdatetimepicker('hide');
+        }); 
+      });
+
+      $('.datetimepicker').fdatetimepicker({ weekStart: 1, format: 'yyyy-mm-dd', minView: 2, startview:2 }).on('changeDate', function(){
+        let called = $(this).attr ( "id" )
+         $.get('/events/calendar.json?start=' + $(this).val() + '&end=' + $(this).val(), (data) => {
+          let blacklist = []
+          data.forEach((d) => {
+            var start = d.start.split(" ")[1].replace(/\:00$/, '');
+            var myend = d.end.split(" ")[1].replace(/\:00$/, '');
+            blacklist.push([start, myend])
+          })
+          
+          $('.timepicker#' + called.replace(/_date$/, '')).timepicker('remove')
+          $('.timepicker#' + called.replace(/_date$/, '')).timepicker({ 'timeFormat': 'H:i', 'disableTimeRanges': blacklist});
+         })
+
+        $(this).fdatetimepicker('hide');
+      }); 
+
+      $('form input, form select').change(() => {      
+        calculatePoints('idea').then(() => {
+
+          checkLogic().done((callback) => {
+            callback();
+          })
+        })
+      });
+      $('form button').click(function() {
+        checkLogic()
+        calculatePoints('idea')
+        $("#form_direction").val($(this).attr('rel'))
+          if ($('#form_direction').val() == 'previous') {
+            $('input, div, form').removeAttr('data-invalid'); 
+            $('input, div, form').removeAttr('required');             
+            $('input, div, form').removeClass('error');
+          }
+      });    
+      $('.timepicker').timepicker({ 'timeFormat': 'H:i' });
+- else
+  = content_for :jquery do
+    :plain
+
+      function simpleCost() {
+        let base_totaled = parseInt($('#idea_hours_estimate').val()) * 100
+        if ($('#idea_room_needed').val() == "2") {
+          base_totaled *= 0.6;
+        } else if ($('#idea_room_needed').val() == "3") {
+          base_totaled *= 1.3;
+        }
+        if ($('#idea_allow_others').is(":checked") && $('#idea_room_needed').val() != "2") {
+          base_totaled *= 0.75;
+        }
+        if ($('#idea_price_public').val()) {
+            if (parseInt($('#idea_price_public').val()) > 0 ) {
+              if ($('#idea_price_stakeholders').val()) {
+                if (parseInt($('#idea_price_stakeholders').val()) >= parseInt($('#idea_price_public').val())) {
+                  $('#idea_price_stakeholders').val(parseInt($('#idea_price_public').val()) - 1)
+                }
+              }
+            } else {
+              $('#idea_price_stakeholders').val(0)
+            }
+        }
+
+        $('#idea_points_needed').val(base_totaled);
+        $('span#points_total').html(base_totaled);
+      }
+      simpleCost()
+
+            
+      $('form input, form select').change(() => {
+        simpleCost()
+      })
+      $('form button').click(function() {
+        if ($('#form_direction').val() == 'previous') {
+          $('input, div, form').removeAttr('data-invalid'); 
+          $('input, div, form').removeAttr('required');             
+          $('input, div, form').removeClass('error');
+        }
+        $("#form_direction").val($(this).attr('rel'))
+      })
+
+= content_for :jquery do
+  :plain
+     $('#idea_primary_sponsor_select').on('change', function() {
+      $('#event_primary_sponsor_type').val($('#idea_primary_sponsor_select option').filter(":selected").attr('rel'))
+      $('#event_primary_sponsor_id').val($('#idea_primary_sponsor_select').val());
+
+    })
+ 
