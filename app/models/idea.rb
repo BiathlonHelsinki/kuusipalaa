@@ -172,14 +172,15 @@ class Idea < ApplicationRecord
   end
   
   def notify_if_enough
-  
-    if pledged >= points_needed
-      if self.notified != true
+    logger.warn('entered with ' + pledged.inspect + ' and pn: ' + points_needed.inspect)
+    if pledges.sum(&:pledge) >= points_needed
+
+      if notified != true
         begin
           IdeaMailer.proposal_for_review(self).deliver_now
           update_attribute(:notified, true)
         rescue
-          die
+
           notified = false
         end
       end

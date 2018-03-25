@@ -103,9 +103,9 @@ class InstancesController < ApplicationController
       @event = Event.friendly.find(params[:event_id])
       @instance = @event.instances.friendly.find(params[:id])
 
-      if @instance.slug == @event.slug && @event.keep_going != true
-        redirect_to event_path(@event.slug)
-      else
+      # if @instance.slug == @event.slug && @event.keep_going != true
+      #   redirect_to event_path(@event.slug)
+      # else
 
         set_meta_tags title: @instance.name
 
@@ -131,13 +131,14 @@ class InstancesController < ApplicationController
           @page = Page.friendly.find('kuusi-palaa-open-time')
           render template: 'instances/open_time'
 
-        else
+        else  
+          @sequence = @instance.event.instances.where(sequence: @instance.sequence).order(:start_at)
           respond_to do |format|
-            format.html { render  template: 'instances/index' }
+            format.html { render  template: 'instances/show' }
             format.ics { send_data @cal.to_ical, type: 'text/calendar', disposition: 'attachment', filename: @instance.slug + ".ics" }
           end
         end
-      end 
+      # end 
     end
     
   end
@@ -151,8 +152,9 @@ class InstancesController < ApplicationController
     end
     set_meta_tags title: @event.name
     @instance = @event.instances.published.first
-    # if @event.instances.published.size == 1
-    #    render template: 'instances/show' 
+    @sequences = @event.instances.order(:start_at).group_by(&:sequence)
+    @sequence = @sequences[@instance.sequence]
+   render template: 'instances/show' 
     # end
   end
   

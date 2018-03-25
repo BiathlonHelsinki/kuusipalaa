@@ -76,7 +76,7 @@
                       = " + "
                       = date_range(t.start_at.localtime, t.end_at.localtime)
 
-                      .subtext= t(:calendar_reserved_from, when: l(t.start_at.localtime - 1.hour, format: :short))
+                      .subtext= t(:calendar_reserved_from, when: l(t.start_at.localtime - 1.hour, format: :long))
           %td.half
             .heading= t :venue
             .value

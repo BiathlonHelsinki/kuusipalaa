@@ -137,7 +137,7 @@ en:
   was_credited_for: 'was credited for'
   was_mentioned_by: 'was mentioned by'
   withdrew_a_pledge: 'withdrew a pledge'
-  anonymous person: 'anonymous person'
+  anonymous_person: 'anonymous person'
   in_a_comment_on: 'in a comment on'
   unregistered: 'Thank you for letting us know, we are sorry you cannot make it.'
   rsvp_thanks: 'Thank you for RSVPing.'
@@ -1346,3 +1346,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   cancelled_proposal: 'cancelled the proposal'
   activity_list_reason: '(reason: "%{reason}")'
   pledge_cancelled: 'had a pledge of %{numerical_value}ᵽ returned, after cancellation of the proposal '
+  checked_in_at: 'checked in at %{time}'

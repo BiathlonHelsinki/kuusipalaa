@@ -4,19 +4,18 @@
       .title
         = t :event, count: 1
         = ": "
+        - if @event.name != @instance.name
+          = link_to @event.name, @event
+          = ": "
         = @instance.name
 
+        .smaller= render partial: 'shared/translate_link', locals: {item: @event, attribute: :name}
+        
       
-  - if @instance.event.image?
+  - if @event.image?
     .row
       .small-12.columns.image_box.nopadding
-        -# - if @instance.event.image_width
-        -#   - if @instance.event.image_width > 800
-        -#     = image_tag @instance.event.image.url(:twelvehundred)
-        -#   - else
-        -#     = image_tag @instance.event.image.url(:medium)
-        -# - else
-        = image_tag @instance.event.image.url
+        = image_tag @event.image
 
   .row
     .small-12.columns.nopadding
@@ -26,61 +25,146 @@
             .heading
               = t :when
             .value
-              = date_range(@instance.start_at.localtime, @instance.end_at.localtime)
+              = date_range(@sequence.first.start_at.localtime, @sequence.first.end_at.localtime)
 
 
-              - unless @instance.other_instances.empty?
-                - @instance.other_instances.each do |t|
+              - unless @sequence.size == 1
+                - @sequence.each do |t|
+                  - next if t == @sequence.first
                   .additional
                     = " + "
                     = date_range(t.start_at.localtime, t.end_at.localtime)
           %td.half
-            .heading= t :proposed_by_empty
+            .heading= t :organised_by
             .value
-              .avatar= link_to image_tag(@instance.idea.proposer.avatar.url(:thumb).gsub(/development/, 'production')), @instance.idea.proposer
-              .who= link_to(@instance.idea.proposer.display_name, @instance.idea.proposer, target: :_blank)
+              .avatar= link_to image_tag(@event.primary_sponsor.avatar.url(:thumb).gsub(/development/, 'production')), @event.primary_sponsor
+              .who
+                = link_to(@event.primary_sponsor.display_name, @event.primary_sponsor, target: :_blank)
+                %br/
+                %small= link_to t(:see_original_proposal), original_proposal_idea_path(@event.idea), target: :_blank, class: [:button, :tiny, :bordered]
         %tr
           %td{colspan: 2 }
             .heading= t :where
             .value
               %strong= @instance.place.name
-              = @instance.place.address
+              = @instance.place.address   
+              = link_to t(:see_on_map), 'https://osm.org/go/0xPLvWONL?layers=N&m=', target: :_blank, class: [:button, :tiny, :bordered]
+
+        %tr
 
           %td.half
             .heading= t :ticket_price
             .value
-              - if @event.instances.first.price_public == 0
+              - if @sequence.first.price_public == 0
                 = t :free_entry
               - else
-                = number_to_currency(@event.instances.first.price_public, unit: raw("&euro;"), format: "%n %u")
+                = number_to_currency(@sequence.first.price_public, unit: raw("&euro;"), format: "%n %u")
+                %p
+                  %em
+                    = t :stakeholders_price
+                    = number_to_currency(@sequence.first.price_stakeholders, unit: raw("&euro;"), format: "%n %u")
+                    - if user_signed_in?
+                      - if !current_user.is_stakeholder?
+                        = link_to t(:become_a_stakeholder), season_new_stake_path(@next_season)      
           %td.half
             .heading= t :venue
             .value
-              - case @instance.room_needed
+              - case @sequence.first.room_needed
                 - when 1
                   = t(:main_room)
                 - when 2
                   = t(:back_room_short)
                 - when 3
                   = t(:both_rooms_short)
-              - if @instance.allow_others == true
+              - if @sequence.first.allow_others == true
                 .subtext= t :others_are_allowed
+        %tr
+          - if @instance.in_future?
+            %td.half
+              .heading= t :participation_details
+              .value
+                = t :you_will_earn_x_for_participating, number: @sequence.sum(&:cost_bb)
+            %td.half
+              .heading= t :registration
+              .value
+                - if @sequence.map(&:request_registration).compact.include?(true)
+                  %p= t :you_must_register_for_this_event
+                  = render partial: 'registration_button'
+                  - if user_signed_in?
+                    - if @sequence.first.responsible_people.include?(current_user)
+                      = link_to t(:change_registration_form), add_registration_form_event_instance_path(@event, @sequence.first) , class: [:button, :tiny, :bordered]
+                - else
+                  = t :registration_not_required
+                  - if user_signed_in?
+                    - if @sequence.first.responsible_people.include?(current_user)
+                      = link_to t(:add_registration_form), add_registration_form_event_instance_path(@event, @sequence.first) , class: [:button,:tiny, :bordered]
+          - else
+            %td{colspan: 2}
+              .heading
+                = (@instance.users.uniq + @instance.onetimers.unclaimed).size.to_s
+                = t :person, count: (@instance.users.uniq + @instance.onetimers.unclaimed).size
+                = t :attended
+              .row.small-up-3.medium-up-6.large-up-8
+                - [@instance.onetimers.unclaimed, @instance.instances_users].map(&:to_a).flatten.sort_by(&:created_at).each do |iu|
+                  .column.participant
+                    - if iu.class == InstancesUser
+                      = image_tag iu.user.avatar.url(:thumb).gsub(/development/, 'production')
+                      %br/
+                      .name= link_to iu.user.display_name, iu.user, target: :_blank
+                      .time= t :checked_in_at, time: iu.created_at.strftime("%H:%M") 
+                    - if iu.class == Onetimer
+                      = image_tag 'user_missing_large.png'
+                      .name= t :anonymous_person
+                      .time= t :checked_in_at, time: iu.created_at.strftime("%H:%M")                       
+
+
+        - if user_signed_in? && @sequence.map(&:request_registration).compact.include?(true)
+          - if @sequence.first.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+            %tr
+              %td.registration_list{:colspan => 2}
+                .heading= t :registrations
+                .value.row.small-up-2.medium-up-4.large-up-6
+                  - @instance.registrations.each do |reg|
+                    .column
+                      = image_tag reg.user.avatar.url(:thumb)
+                      %br/
+                      = link_to reg.user.display_name, reg.user, target: :_blank
+                      %br/
+                      %small= reg.user.email
+                      %div{id: "organiser_info_#{reg.user.id.to_s}"}
+                        - if @instance.responsible_people.include?(reg.user)
+                          %br/
+                          = t(:organiser)
+                          - if @instance.event.primary_sponsor == reg.user 
+                            %br/
+                            = link_to t(:proposer), @instance.event.idea
+                          - else
+                            - if user_signed_in?
+                              - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+                                = link_to t(:remove_organiser), event_user_remove_organiser_path(@instance.event, @instance, reg.user), remote: true,  class: [:button, :alert, :tiny]
+                        - else
+                          - if user_signed_in?
+                            - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+                              = link_to t(:make_organiser), event_user_make_organiser_path(@instance.event, @instance, reg.user), remote: true,  class: [:button, :secondary, :tiny]
 
         %tr
           %td{colspan: 2}
-            .heading= t :description
-            .value= raw @instance.description
+            .heading= t :event_description
+            .value
+              = simple_format(@sequence.first.description)
+              .smaller= render partial: 'shared/translate_link', locals: {item: @sequence.first, attribute: :description}
 
-     
+  
+        - if @sequence.map(&:request_registration).compact.include?(true)
+          %tr#registration_form
+            %td{colspan: 2}
+              = render partial: 'registration_form'
 
-  .row
-    .small-12.columns.nopadding.title_box
-      .title= t :discussion_and_recent_activity
-      = t(:this_event_has_x_comments, count: @instance.event.comments.select(&:persisted?).size, comment: t(:comment, count: @instance.event.comments.select(&:persisted?).size))
+
 
   .row#comments_list
-    %ul.first= render(partial: 'shared/comment', collection: @instance.discussion.select(&:persisted?).sort_by(&:created_at), locals: {depth: 0, root: @instance, last: @instance.event.comments.last, commenting_open: true})
-    #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @instance.event, depth: 0, commenting_open: true}
+    %ul.first= render(partial: 'shared/comment', collection: @event.discussion.select(&:persisted?).sort_by(&:updated_at), locals: {depth: 0, root: @event, last: @event.comments.last, commenting_open: true})
+    #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @event, depth: 0, commenting_open: true}
 
 
 = content_for :jquery do
@@ -92,7 +176,7 @@
     :plain
       $('#pledge_pledger_select').on('change', function() {
         $.ajax({
-            url: "/ideas/#{@instance.id.to_s}/pledges/find_pledge?pledger_type=" + $('#pledge_pledger_select option').filter(":selected").attr('rel') + "&pledger_id=" + $('#pledge_pledger_id').val(),
+            url: "/ideas/#{@event.id.to_s}/pledges/find_pledge?pledger_type=" + $('#pledge_pledger_select option').filter(":selected").attr('rel') + "&pledger_id=" + $('#pledge_pledger_id').val(),
             success: function(pledge_limit) {
               $('#pledge_panel_wrapper').html(pledge_limit)
             }

@@ -61,6 +61,10 @@ class Event < ApplicationRecord
     #  TODO fix this
     100
   end
+
+  def next_sequence
+    instances.map(&:sequence).map(&:to_i).sort.last + 1
+  end
   
   def discussion
     comments  
