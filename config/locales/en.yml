@@ -392,7 +392,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   you_have_rsvpd: 'You have RSVPd to this event. Thank you, and we will see you there!'
   registration_is_closed: 'Sorry, registration is currently closed.'
   experiment_already_took_place: 'This event already took place.'
-  registration_phone: 'Please enter your phone number so the experiment organiser can contact you if there are any issues or problems or last-minute changes'
+  registration_phone: 'Please enter your phone number so the event organiser can contact you if there are any issues or problems or last-minute changes'
   phone_is_optional: 'This is optional, though.'
   registration_form: 'Registration form'
   registration_is_full_waiting_list: 'Registration is currently full. However, you may register for the waiting list and you will be notified if a space is available.'
