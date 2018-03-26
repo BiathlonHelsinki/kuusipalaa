@@ -15,7 +15,7 @@ class Idea < ApplicationRecord
   validates :start_at, :end_at, presence: true, if: :determined_time?
   validates :points_needed,  presence: true, if: :active_or_points?
   validates :slug, presence: true, if: :active?
-
+  after_commit :notify_if_enough
   accepts_nested_attributes_for :additionaltimes, reject_if: proc {|x| x['start_at'].blank? || x['end_at'].blank? }, allow_destroy: true
 
   has_many :activities, as: :item
@@ -172,7 +172,7 @@ class Idea < ApplicationRecord
   end
   
   def notify_if_enough
-    logger.warn('entered with ' + pledged.inspect + ' and pn: ' + points_needed.inspect)
+    # logger.warn('entered with ' + pledged.inspect + ' and pn: ' + points_needed.inspect)
     if pledges.sum(&:pledge) >= points_needed
 
       if notified != true
