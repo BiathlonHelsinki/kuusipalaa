@@ -93,7 +93,7 @@ class Idea < ApplicationRecord
   def add_to_activity_feed
 
       if Activity.last.item != self
-        Activity.create(user: user, item: self, description: ideatype_id == 3 ? 'requested' : 'proposed')
+        Activity.create(user: user, contributor: proposer, item: self, description: ideatype_id == 3 ? 'requested' : 'proposed')
       end
 
   end
