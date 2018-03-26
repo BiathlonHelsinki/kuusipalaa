@@ -187,7 +187,7 @@
       - @feed.shuffle.each do |feeditem|
         .columns.small-12.medium-6.large-4.left_adjust
           = link_to feeditem.class == Instance ? event_path(feeditem.event) : feeditem  do
-            .lifted_box.feed{:'data-equalizer-watch' => '', style: feeditem.image? ?  "background: url(#{feeditem.image.url(:box).gsub(/development/, 'production')}) no-repeat center top; background-size: cover;" : false}
+            .lifted_box.feed{:'data-equalizer-watch' => '', style: feeditem.event_image? ?  "background: url(#{feeditem.event_image.url(:box).gsub(/development/, 'production')}) no-repeat center top; background-size: cover;" : false}
               .banner2_title
                 = t feeditem.class.to_s.downcase.to_sym, count: 1
                 = ": "
@@ -211,7 +211,7 @@
                       = date_range(instance.start_at, instance.end_at)
                       %br/
               .banner2_blurb  
-                - if feeditem.image?
+                - if feeditem.event_image?
                   &nbsp;
                 - else                  
                   = raw truncate_html(simple_format(feeditem.description), length: 350)

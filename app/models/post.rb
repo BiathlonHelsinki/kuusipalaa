@@ -49,6 +49,10 @@ class Post < ApplicationRecord
     title
   end
 
+  def event_image?
+    image?
+  end
+
   def root_comment
     self
   end

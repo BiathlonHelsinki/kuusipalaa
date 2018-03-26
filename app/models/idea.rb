@@ -170,6 +170,14 @@ class Idea < ApplicationRecord
       [user, proposer].uniq
     end
   end
+
+  def event_image?
+    image?
+  end
+  
+  def event_image
+    image
+  end
   
   def notify_if_enough
     # logger.warn('entered with ' + pledged.inspect + ' and pn: ' + points_needed.inspect)
