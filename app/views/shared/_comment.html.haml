@@ -30,7 +30,11 @@
                 .comment_content
                   - if comment.systemflag == true
                     %em
-                      = t comment.content
+                      - if comment.content =~ /\s/
+                        = raw comment.content
+                      - else
+                        = t comment.content
+
                   - else
                     - link_filter = AutoHtml::Link.new(target: '_blank')
                     = raw link_filter.call(simple_format(comment.content_linked))

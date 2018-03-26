@@ -107,6 +107,14 @@ span.translation_missing {
   color: white;
   padding: 0.4rem 0.2rem;
 }
+.comment_content {
+  span.translation_missing {
+    font-size: 1rem;
+    background-color: transparent;
+    color: black;
+    padding: initial;
+  }
+}
 .alert {
   padding: 0.75rem;
   font-family: $sourcecode;
