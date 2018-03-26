@@ -27,8 +27,8 @@ class HomeController < ApplicationController
 
     @feed = Idea.active.unconverted
     @feed += @posts.reverse
-
-    @feed += Instance.calendered.future.published.map(&:event).uniq
+    @email = Email.sent.order(sent_at: :desc).last
+    @feed += Instance.calendered.future.published.uniq
     @visitors_so_far = InstancesUser.where(visit_date: Time.current.to_date).size + Onetimer.unclaimed.where(["created_at >= ? and created_at <= ?", Time.current.to_date.at_midnight.to_s(:db), Time.current.to_date.end_of_day.to_s(:db)]).size
     @back_room =  Roombooking.between(Time.current.to_date,Time.current.to_date) + Instance.calendered.between(Time.current.to_date, Time.current.to_date).where("room_needed <> 1")
     @main_room = Instance.calendered.between(Time.current.to_date, Time.current.to_date).where("room_needed <> 2")

@@ -175,10 +175,19 @@
             = date_range(@current_season.start_at, @current_season.end_at, format: :long)
     
     .row.article_slider{:'data-equalizer' => '', :'data-equalize-on' => "medium"}
+      .columns.small-12.medium-6.large-4.left_adjust
+        = link_to '/announcements/this_week' do
+          .lifted_box.feed{:'data-equalizer-watch' => ''}
+            .banner2_title
+              = t :this_week_at_kuusi_palaa
+            .banner2_blurb
+              = t :email_disclaimer
+              = t :visit_kuusi_palaa_email
+              = "..."
       - @feed.shuffle.each do |feeditem|
         .columns.small-12.medium-6.large-4.left_adjust
           = link_to feeditem.class == Instance ? event_path(feeditem.event) : feeditem  do
-            .lifted_box.feed{:'data-equalizer-watch' => '', style: feeditem.image? ?  "background: url(#{feeditem.image.url(:box)}) no-repeat center top; background-size: cover;" : false}
+            .lifted_box.feed{:'data-equalizer-watch' => '', style: feeditem.image? ?  "background: url(#{feeditem.image.url(:box).gsub(/development/, 'production')}) no-repeat center top; background-size: cover;" : false}
               .banner2_title
                 = t feeditem.class.to_s.downcase.to_sym, count: 1
                 = ": "
@@ -195,17 +204,17 @@
                     - else
                       %br/
                       = t :points_funded_waiting
-                - elsif feeditem.class == Event
+                - elsif feeditem.class == Instance
                   .description
-                    - feeditem.instances.order(:start_at).each do |instance|
+                    - feeditem.event.instances.where(sequence: feeditem.sequence).order(:start_at).each do |instance|
                       - next unless instance.in_future?
                       = date_range(instance.start_at, instance.end_at)
                       %br/
               .banner2_blurb  
                 - if feeditem.image?
                   &nbsp;
-                - else
-                  = raw truncate_html(feeditem.description, length: 250)
+                - else                  
+                  = raw truncate_html(simple_format(feeditem.description), length: 350)
 
  
 

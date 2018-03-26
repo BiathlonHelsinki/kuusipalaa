@@ -5,7 +5,7 @@
         .title= @email.subject
 
         .blurb
-          - if @email.sent 
+          - if @email.sent && @email.body.length > 100
             = raw @email.body
           - else
             %p
