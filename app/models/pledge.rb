@@ -9,7 +9,7 @@ class Pledge < ApplicationRecord
   acts_as_paranoid
   validate :one_per_user
   validate :check_balance
-  after_save :notify_item
+  after_commit :notify_item
   scope :unconverted, -> () { where('converted = 0 OR converted is null')}
   scope :converted, -> () { where(converted: true)}
 

@@ -177,7 +177,13 @@ class Idea < ApplicationRecord
 
       if notified != true
         begin
-          IdeaMailer.proposal_for_review(self).deliver_now
+          if proposer_type == 'Group'
+            proposer.members.each do |user|
+              IdeaMailer.proposal_for_review(user.user.email, self).deliver_now
+            end
+          else
+            IdeaMailer.proposal_for_review(proposer.email, self).deliver_now
+          end
           update_attribute(:notified, true)
         rescue
 
