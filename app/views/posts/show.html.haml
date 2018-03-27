@@ -1,46 +1,50 @@
 %article.post_single
   .row
     .small-12.columns
-      .post
-        .title= @post.title
-        .meta
+      .lifted_box
+        .title
+          = t :news
+          = ": "
+          = @post.title
+        .blurb
+          .meta
 
-          = link_to @post.user, target: :_blank do
-            .posted_by
-              = image_tag @post.user.avatar.url(:thumb).gsub(/development/, 'production')
-              = t(:posted_by, user: @post.user.display_name )
-              %span.date= @post.published_at.strftime('%d.%m.%Y')
-        - if @post.image?
-          .image= image_tag @post.image.url
-        .body
-          .description.small-12.medium-8.columns
-            = raw simple_format(@post.body)
-            - if @post.meeting
-              %fieldset.meetings
-                %label
-                  %strong= t :this_post_regards_a_meeting
-                = link_to @post.meeting.name, @post.meeting
-                = l @post.meeting.start_at, format: :short
-                = " - "
-                = l @post.meeting.end_at, format: :short
-                .place
-                  = @post.meeting.place.name
-                  %pre= @post.meeting.place.address
-          -# - if user_signed_in?
-          -#   .small-12.columns.notification_form.medium-4
-          -#     .notification_question= t(:receive_email_notifications_question_post)
+            = link_to @post.user, target: :_blank do
+              .posted_by
+                = image_tag @post.user.avatar.url(:thumb).gsub(/development/, 'production')
+                = t(:posted_by, user: @post.user.display_name )
+                %span.date= @post.published_at.strftime('%d.%m.%Y')
+          - if @post.image?
+            .image= image_tag @post.image.url
+          .body
+            .description
+              = raw simple_format(@post.body)
+              - if @post.meeting
+                %fieldset.meetings
+                  %label
+                    %strong= t :this_post_regards_a_meeting
+                  = link_to @post.meeting.name, @post.meeting
+                  = l @post.meeting.start_at, format: :short
+                  = " - "
+                  = l @post.meeting.end_at, format: :short
+                  .place
+                    = @post.meeting.place.name
+                    %pre= @post.meeting.place.address
+            -# - if user_signed_in?
+            -#   .small-12.columns.notification_form.medium-4
+            -#     .notification_question= t(:receive_email_notifications_question_post)
 
-          -#     = semantic_form_for [@post, current_user, @post.notifications.by_user(current_user.id).empty? ? @post.notifications.build : @post.notifications.by_user(current_user.id).first], remote: true do |f|
-          -#       %small= t(:send_me_an_email_when_there_is_a_new, email_address: current_user.email)
-          -#       %br/
-          -#       -#= f.input :pledges, label: t(:pledge, count: 1)
-          -#       = f.input :comments, label: t(:comment, count: 1)
-          -#       = f.input :scheduling, label: t(:scheduled_meeting)
-          -#       - label = capture do
-          -#         = fa_icon 'envelope'
-          -#         = t(:update_email_preferences)
-          -#       = f.button label, type: :submit, class: [:button, :small]
-              #notifications_result
+            -#     = semantic_form_for [@post, current_user, @post.notifications.by_user(current_user.id).empty? ? @post.notifications.build : @post.notifications.by_user(current_user.id).first], remote: true do |f|
+            -#       %small= t(:send_me_an_email_when_there_is_a_new, email_address: current_user.email)
+            -#       %br/
+            -#       -#= f.input :pledges, label: t(:pledge, count: 1)
+            -#       = f.input :comments, label: t(:comment, count: 1)
+            -#       = f.input :scheduling, label: t(:scheduled_meeting)
+            -#       - label = capture do
+            -#         = fa_icon 'envelope'
+            -#         = t(:update_email_preferences)
+            -#       = f.button label, type: :submit, class: [:button, :small]
+                #notifications_result
 
   .row
     .small-12.columns.nopadding.title_box

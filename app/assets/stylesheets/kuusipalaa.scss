@@ -509,6 +509,26 @@ article.divider {
 
   }
   .banner2_blurb, .blurb {
+    .meta {
+      font-family: $sourcecode;
+      padding: 0.8rem 1rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+      a {
+
+
+        &:hover {
+          background-color: $black;
+          color: #666;
+        }
+      }
+      .posted_by {
+        img {
+          height: 40px;
+        }
+      }
+    }
+
     padding: 1rem;
     font-size: 0.9rem;
     font-family: $montserrat;
