@@ -1,6 +1,6 @@
 %article.post_single
   .row
-    .small-12.columns
+    .small-12.columns.lessmargins.right_adjust
       .lifted_box
         .title
           = t :news
@@ -57,6 +57,6 @@
     %ul.first= render(partial: 'shared/comment', collection: @post.comments.order(:created_at), locals: {depth: 0, root: @post, last: @post.comments.last, commenting_open: true})
     #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @post, depth: 0, commenting_open: true}
 
-= content_for :jquery do
-  :plain
-    $('.comment_content').readmore({lessLink: '<a class="button readmore" href="#">[#{t(:close)}]</a>', moreLink: '<a class="button readmore" href="#">[#{t(:read_more)}]</a>'});
+-# = content_for :jquery do
+-#   :plain
+-#     $('.comment_content').readmore({lessLink: '<a class="button readmore" href="#">[#{t(:close)}]</a>', moreLink: '<a class="button readmore" href="#">[#{t(:read_more)}]</a>'});
