@@ -36,7 +36,7 @@ class Idea < ApplicationRecord
   scope :timed, -> () { where(timeslot_undetermined: false)}
   scope :active, ->() { where(status: 'active')}
   scope :back_room, ->() {where("room_needed in (2,3)")}
-  scope :needing_to_be_published,  ->() { where(notified: :true).where(converted_id: nil)}
+  scope :needing_to_be_published,  ->() { where(notified: :true).where(converted_id: nil).where("status = 'active'")}
   scope :converted, -> () { where("converted_id is not null")}
   scope :unconverted, -> () { where(converted_id: nil)}
   
