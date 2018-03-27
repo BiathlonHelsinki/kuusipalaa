@@ -180,8 +180,9 @@ class Idea < ApplicationRecord
   end
   
   def notify_if_enough
+    # if status == 'active'
     # logger.warn('entered with ' + pledged.inspect + ' and pn: ' + points_needed.inspect)
-    if pledges.sum(&:pledge) >= points_needed
+    if pledges.sum(&:pledge) >= points_needed.to_i && status == 'active'
 
       if notified != true
         begin
