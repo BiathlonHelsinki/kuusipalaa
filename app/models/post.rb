@@ -15,7 +15,7 @@ class Post < ApplicationRecord
   scope :not_stakeholders, ->() { where(only_stakeholders: false)}
   scope :not_sticky, -> () { where("sticky is not true") }
   scope :front, -> () { where("hide_from_front is not true")}
-  
+  after_create :update_activity_feed
   scope :by_era, ->(era_id) { where(era_id: era_id)}
   validates_presence_of :era_id
 
@@ -80,6 +80,12 @@ class Post < ApplicationRecord
   def feed_date
     published_at
   end
+
+  def update_activity_feed
+
+    Activity.create(user: user, contributor: user, item: self, description: "posted",  addition: 0)
+
+  end  
 
   def update_image_attributes
     if image.present? && image_changed?
