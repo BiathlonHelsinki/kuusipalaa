@@ -65,6 +65,18 @@ class Instance < ApplicationRecord
     name(:en)
   end
 
+  def get_sequence_name
+    get_sequence.map(&:name).uniq.size > 1 ? event.name : name
+  end
+
+  def sequence_size
+    get_sequence.size
+  end
+    
+  def get_sequence
+    event.instances.where(sequence: sequence).order(:start_at)
+  end
+
   def event_image
     !image? ? event.image : image
   end

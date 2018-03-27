@@ -6,8 +6,10 @@
         = ": "
         - if @event.name != @instance.name
           = link_to @event.name, @event
-          = ": "
-        = @instance.name
+          - unless @instance.get_sequence_name == @event.name
+            = ": "
+        - unless @instance.get_sequence_name == @event.name
+          = @instance.name
 
         .smaller= render partial: 'shared/translate_link', locals: {item: @event, attribute: :name}
         
@@ -16,7 +18,13 @@
     .row
       .small-12.columns.image_box.nopadding
         = image_tag @event.image
-
+    - if can? :edit, @event
+      .row
+        .small-2.columns
+          = link_to t(:change_image), '#', class: [:button, :tiny, :bordered], onclick: "javascript:$('#edit_event_#{@event.id.to_s}').slideToggle();return false;"
+          = semantic_form_for @event, html: {class: "hidden_form", multipart: true} do |f|
+            = f.input :image
+            = f.submit t(:change)
   .row
     .small-12.columns.nopadding
       %table.proposal_info
@@ -25,6 +33,8 @@
             .heading
               = t :when
             .value
+              - unless @sequence.first.name == @event.name
+                = @sequence.first.name + ": "
               = date_range(@sequence.first.start_at.localtime, @sequence.first.end_at.localtime)
 
 
@@ -33,6 +43,8 @@
                   - next if t == @sequence.first
                   .additional
                     = " + "
+                    - unless t.name == @event.name
+                      = t.name + ": "
                     = date_range(t.start_at.localtime, t.end_at.localtime)
           %td.half
             .heading= t :organised_by
