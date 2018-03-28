@@ -1,6 +1,6 @@
 class Activity < ApplicationRecord
   include PgSearch
-  pg_search_scope :search_activity_feed, :against => [:description], associated_against: {user: [:name, :username], ethtransaction: :txaddress }
+  pg_search_scope :search_activity_feed, :against => [:description], associated_against: {user: [:name, :username], contributor: [:name, :username], instance: [translations: [:name]], event: [:name], ethtransaction: :txaddress }
 
   include Rails.application.routes.url_helpers
   belongs_to :contributor, polymorphic: true, optional: true

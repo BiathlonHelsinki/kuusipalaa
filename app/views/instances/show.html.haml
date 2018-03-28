@@ -8,7 +8,9 @@
           = link_to @event.name, @event
           - unless @instance.get_sequence_name == @event.name
             = ": "
-        - unless @instance.get_sequence_name == @event.name
+          - unless @instance.get_sequence_name == @event.name
+            = @instance.name
+        - else  
           = @instance.name
 
         .smaller= render partial: 'shared/translate_link', locals: {item: @event, attribute: :name}
@@ -20,8 +22,8 @@
         = image_tag @event.image
     - if can? :edit, @event
       .row
-        .small-2.columns
-          = link_to t(:change_image), '#', class: [:button, :tiny, :bordered], onclick: "javascript:$('#edit_event_#{@event.id.to_s}').slideToggle();return false;"
+        .small-6.columns
+          = link_to t(:change_image), '#', class: [:button, :tiny, :bordered], onclick: "javascript:$('form#edit_event_#{@event.id.to_s}').slideToggle();return false;"
           = semantic_form_for @event, html: {class: "hidden_form", multipart: true} do |f|
             = f.input :image
             = f.submit t(:change)
@@ -164,7 +166,8 @@
             .heading= t :event_description
             .value
               = simple_format(@sequence.first.description)
-              .smaller= render partial: 'shared/translate_link', locals: {item: @sequence.first, attribute: :description}
+              .smaller
+                = render partial: 'shared/translate_link', locals: {item: @sequence.first, attribute: :description}
 
   
         - if @sequence.map(&:request_registration).compact.include?(true)
