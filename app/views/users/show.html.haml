@@ -12,7 +12,7 @@
               - if @user.show_twitter_link
                 = link_to fa_icon('twitter'), "http://twitter.com/#{@user.authentications.select{|x| x.provider == 'twitter'}.first.username}", target: :_blank
           - if user_signed_in?
-            - if current_user != @user && current_user.latest_balance > 0
+            - if (current_user != @user && current_user.latest_balance > 0) || (!current_user.groups.empty?)
               .right
                 = link_to raw(t(:send_p_to_user, username: @user.username)), send_points_user_transfers_path(@user), class: [:button, :bordered]
           %br/

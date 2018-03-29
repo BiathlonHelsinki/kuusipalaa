@@ -9,7 +9,7 @@ namespace :kuusipalaa do
 
   desc 'send weekly email'
   task weekly_email: :environment  do
-    csv = CSV.read('./emails.csv').first
+
     @email = Email.unsent.order(send_at: :asc).last
     if @email['send_at'] > Time.current.localtime
       abort("needs to send at " + @email['send_at'].to_s + " but it is " + Time.current.localtime.to_s)
@@ -50,13 +50,8 @@ namespace :kuusipalaa do
         else
           @emailannouncements = @email.emailannouncements.reject(&:only_stakeholders)
         end
-        if csv.include?(recipient.email)
-          puts "already sent to " + recipient.email + ', skipping'
-        else
-          puts " -- will send to " + recipient.email + ' and then wait 45 seconds'
-          EmailsMailer.announcement(recipient, @email, @user, @emailannouncements, @upcoming_events, @future_events, @open_time, @new_proposals, @still_needing_pledges, @markdown).deliver_now rescue next
-          sleep 45
-        end
+        EmailsMailer.announcement(recipient, @email, @user, @emailannouncements, @upcoming_events, @future_events, @open_time, @new_proposals, @still_needing_pledges, @markdown).deliver_now rescue next
+        sleep 45
       end
       @email.sent = true
 
