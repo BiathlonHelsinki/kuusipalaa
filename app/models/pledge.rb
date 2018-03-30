@@ -1,6 +1,7 @@
 class Pledge < ApplicationRecord
   belongs_to :item, polymorphic: true, touch: true
   belongs_to :pledger, polymorphic: true
+  belongs_to :blockchaintransaction, optional: true
   has_many :activities, as: :item
   belongs_to :user
   after_save :update_activity_feed

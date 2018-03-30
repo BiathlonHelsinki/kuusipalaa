@@ -1,7 +1,7 @@
 .clock
   = image_tag 'activities/icon-clock.png', width: 20
   = l activity.updated_at, format: :long
-
+= activity.item.class.to_s
 - if activity.value
   .value
     - unless activity.value.nil?
