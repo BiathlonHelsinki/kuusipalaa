@@ -13,7 +13,10 @@ class Ability
     can :read, Page, only_stakeholders: false
     can :read, Post, only_stakeholders: false
     can :manage, Idea, proposer_type: 'User', proposer_id: user.id
-    can :manage, Idea, proposer_type: 'Group' if  user.members.where("access_level >= 10" ).map(&:source_id).include?(:proposer_id)
+    can :manage, Idea do |i|
+      i.proposer_type == 'Group' &&
+        user.members.where("access_level >= 10" ).map(&:source_id).include?(i.proposer_id)
+    end
     can :manage, Event, idea: {proposer_type: 'User', proposer_id: user.id}
     can :manage, Nfc, user_id: user.id
     can :manage, Event do |event|
