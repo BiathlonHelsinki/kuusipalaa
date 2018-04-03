@@ -1348,3 +1348,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   pledge_cancelled: 'had a pledge of %{numerical_value}ᵽ returned, after cancellation of the proposal '
   checked_in_at: 'checked in at %{time}'
   posted: 'posted'
+  see_registration: 'See registration'

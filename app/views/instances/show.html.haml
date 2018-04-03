@@ -139,12 +139,27 @@
                 .heading= t :registrations
                 .value.row.small-up-2.medium-up-4.large-up-6
                   - @instance.registrations.each do |reg|
+                    .reveal[reg]{:'data-reveal' => ''}
+                      = reg.user.display_name
+                      %br/
+                      - [:question1, :question2, :question3, :question4, :boolean1, :boolean2].each do |q|
+                        - next if reg[q].nil?  
+                        %strong
+                          = reg.instance[q.to_s + '_text']
+                        %br/
+                        %em
+                          = reg[q]
+                        %br/
+                        %br/
+                      %strong= t :phone_number
+                      = reg.phone
                     .column
                       = image_tag reg.user.avatar.url(:thumb)
                       %br/
                       = link_to reg.user.display_name, reg.user, target: :_blank
                       %br/
                       %small= reg.user.email
+                      = link_to t(:see_registration), '#', onClick: 'return false;', :'data-open' => "registration_#{reg.id.to_s}", class: [:button, :secondary]
                       %div{id: "organiser_info_#{reg.user.id.to_s}"}
                         - if @instance.responsible_people.include?(reg.user)
                           %br/

@@ -61,6 +61,7 @@ class Instance < ApplicationRecord
   def other_instances
     event.instances.where(["id <> ?", self.id])
   end
+  
   def name_en
     name(:en)
   end
