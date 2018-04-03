@@ -11,7 +11,7 @@ class EmailsController < ApplicationController
   end
 
   def this_week
-    @email = Email.sent.order(send_at: :desc).last
+    @email = Email.sent.where("send_at is not null").order(send_at: :asc).last
     @is_email = false
     @user = current_user
     @upcoming_events = Instance.calendered.published.between(@email.send_at, (@email.send_at + 1.week).end_of_day)

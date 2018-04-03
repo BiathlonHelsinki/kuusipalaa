@@ -1,6 +1,7 @@
 - if @is_email == true
 - else
-  = image_tag event.event.image.url(:small).gsub(/development/, 'production')
+  - if event.event_image?
+    = image_tag event.event.image.url(:small).gsub(/development/, 'production')
   %br/
 %strong= link_to event.name, event_instance_url(event.event, event)
 %br/
