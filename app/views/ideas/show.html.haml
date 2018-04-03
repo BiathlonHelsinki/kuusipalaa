@@ -140,7 +140,7 @@
           = render partial: 'ideas/pledge_panel'
 
 
-  - if user_signed_in? && !@idea.converted
+  - if user_signed_in? && !@idea.converted && !@idea.cancelled?
     .row
       .small-12.columns.lessmargins.right_adjust
         -if @pledge.new_record?
