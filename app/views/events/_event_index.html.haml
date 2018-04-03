@@ -1,0 +1,53 @@
+
+- if event.open_time == true
+  = link_to event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1') do
+    .event
+      .title
+        - if @kp_is_open   
+          = t :kuusi_palaa_is_open_right_now
+        - else
+          = t :kp_is_currently_closed
+        .dates
+          - if @kp_is_open          
+            = t :all_are_welcome
+          - else
+            = t :kp_is_currently_closed
+            .smaller= t :not_a_stakeholder_come_some_other_time
+      .blurb
+        .overlay.visible
+          .description
+            - if @kp_is_open
+              %p= t :kp_is_currently_open_full_stop
+              %p= t :come_by_kolmas_linja
+            - else
+              = t :kp_is_currently_closed
+
+- else
+  = link_to event_instance_path(event.event, event) do
+    .event
+      .title
+        = event.name
+        .dates= date_range(event.start_at, event.end_at)
+        
+      .blurb{style: event.event_image? ? "background: url(#{event.event_image.url(:box).gsub(/development/, 'production')}) center top; min-height: 250px;" : "min-height: 250px"}
+        .overlay{class: event.event_image? ? false : :visible}
+          .description= raw truncate_html(simple_format(event.description), length: 250)
+      .under.text-center
+        .points
+          - if event.in_future?
+            = t(:you_will_earn_x_for_participating, number: event.cost_bb)
+          - else
+            = (event.users.size + event.onetimers.unclaimed.size).to_s
+            = t(:person, count: event.users.size + event.onetimers.unclaimed.size)
+            = t :attended
+            |
+            = t(:number_earned, number: (event.users.size * event.cost_bb).to_s)
+        - if event.name != event.event.name
+          .project
+            = t :project
+            = link_to event.event.name, event_path(event.event)
+        - if event.in_future? && event.request_registration
+          .registration
+            = t :please_register_for_this_event
+
+ 

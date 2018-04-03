@@ -309,7 +309,7 @@ en:
   no_pledges_made: 'No pledges made'
   no_comments: 'No comments left.'
   spent: 'Spent'
-  number_earned: '%{number} earned'
+  number_earned: '%{number}ᵽ earned'
   number_spent: '%{number} spent'
   number_transferred_from: '%{number} transferred from other users'
   number_transferred_to: "%{number} transferred to other users"
@@ -1349,3 +1349,8 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   checked_in_at: 'checked in at %{time}'
   posted: 'posted'
   see_registration: 'See registration'
+  kp_is_currently_open_full_stop: 'Kuusi Palaa is currently OPEN!'
+  kuusi_palaa_is_open_right_now: 'Kuusi Palaa is open right now!'
+  come_by_kolmas_linja: "Please feel free to visit now at Kolmas Linja 7. You can get an ID card and use the space freely."
+  project: 'Project: '
+  please_register_for_this_event: 'Please register for this event.'

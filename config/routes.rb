@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     collection do
       get :calendar
       get :fullcalendar
+      get :archive
     end
     resources :comments
     resources :instances , path: '' do

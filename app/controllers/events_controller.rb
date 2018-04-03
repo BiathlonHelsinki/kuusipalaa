@@ -1,9 +1,17 @@
 class EventsController < ApplicationController
 
-  before_action :authenticate_user!, except: [:calendar, :fullcalendar]
+  before_action :authenticate_user!, except: [:calendar, :index, :archive, :fullcalendar]
 
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   
+  def index
+    @events = Instance.published.future.order(:start_at)
+  end
+
+  def archive
+    @events = Instance.kuusi_palaa.published.past.order(start_at: :desc)
+    render template: 'events/index'
+  end
   def calendar
     # events = Event.none
     # events = Event.published.between(params['start'], params['end']) if (params['start'] && params['end'])

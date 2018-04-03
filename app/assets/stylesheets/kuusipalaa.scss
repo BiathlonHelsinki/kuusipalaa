@@ -1423,3 +1423,137 @@ article.email_announcement {
 form.hidden_form { 
   display: none;
 }
+
+article.event_index {
+  padding: 2rem 0;
+
+  .discussions {
+    margin: 2.5rem 0;
+    .header {
+      font-family: $sourcecode;
+      font-weight: bold;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  a:hover {
+    text-decoration: none !important;
+
+  }
+
+  .event {
+    text-decoration: none;
+    margin-bottom: 4rem;
+    border: 1px solid $black;
+    position: relative;
+    background-color: white;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: -5px;
+      right: 5px;
+      bottom: -5px;
+      background: white;
+      z-index: -1;
+      outline: 1px solid $black;
+    }
+    .title {
+      font-size: 1.25rem;
+      border-bottom: 1px solid $black;
+      padding: 0.8rem 1rem;
+      text-transform: uppercase;
+      font-weight: bold;
+
+      background-color: white;
+      overflow-y: hidden;
+      .dates {
+        font-size: 0.8rem;
+        text-transform: none;
+      }
+    }
+    .blurb {
+      border-bottom: 1px solid $black;
+      font-family: $montserrat;
+      padding: 0;
+      height: 250px;     
+      overflow-y: hidden;
+
+      .overlay {
+        cursor: pointer;
+        opacity: 0;
+        background-color: white;
+        -o-transition:.5s;
+        -ms-transition:.5s;
+        -moz-transition:.5s;
+        -webkit-transition:.5s;
+        transition:.5s;
+        padding: 1rem;
+        height: 100%;
+        &.visible {
+          opacity: 1;
+          .description {
+            visibility: visible;
+          }
+        }
+        &:hover {
+          opacity: 1;
+          .description {
+            visibility:visible;
+          }
+        }
+        .description {
+          position:relative;
+          left:0px;
+          visibility:hidden;
+          font-family: $montserrat;
+          text-transform: none;
+          font-weight: normal;
+          padding: 0.5rem 0;
+          font-size: 0.9rem;
+          word-wrap: break-word;
+        }
+      } 
+    }
+    .under {
+      border: none;
+      min-height: 2rem;
+      font-size: 0.8rem;
+
+      font-family: $montserrat;
+
+      .points {
+        padding: 0.24rem 0;
+      }
+      .registration {        
+        background-color: $alert;
+        color: white;
+        padding: 0.5rem;     
+        border-top: 1px solid black;
+      }
+      .project {
+        font-weight: bold;
+        background-color: #999;
+        padding: 0.5rem;        
+        border-top: 1px solid black;
+      }
+    }
+    .meta {
+      font-family: $sourcecode;
+
+      font-weight: bold;
+      padding: 0.8rem 1rem;
+      a {
+        text-transform: uppercase;
+        text-decoration: underline;
+        &:hover {
+          background-color: $black;
+          color: white;
+        }
+      }
+    }
+  }
+}
