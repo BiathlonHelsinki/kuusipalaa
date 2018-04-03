@@ -17,7 +17,10 @@
 
         .small-12.discussions
           .header.text-center
-            = t :upcoming_events
+            - if controller.action_name == 'archive'
+              = t :past_events
+            - else
+              = t :upcoming_events
 
       .row.small-up-1.large-up-3.medium-up-2.nopadding
         - @events.each do |event|

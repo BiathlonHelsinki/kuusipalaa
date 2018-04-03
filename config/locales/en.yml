@@ -1354,3 +1354,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   come_by_kolmas_linja: "Please feel free to visit now at Kolmas Linja 7. You can get an ID card and use the space freely."
   project: 'Project: '
   please_register_for_this_event: 'Please register for this event.'
+  past_events: 'Past events'
