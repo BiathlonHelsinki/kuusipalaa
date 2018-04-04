@@ -30,6 +30,8 @@
               -else
                 = image_tag '/icons/user_missing.png'
               %br/
+              - if @user.is_stakeholder?
+                %h3= t(:stakeholder).upcase
               - if @user == current_user
                 = semantic_form_for @user, html: {multipart: true } do |f|
                   = f.input :avatar, label: t(:change_this_image)
@@ -58,8 +60,8 @@
                 .ethereum
                   %strong= t :ethereum_accounts
                   - @user.accounts.each do |account|
-                    %p= link_to account.address, "https://#{Rails.env.development? ? 'ropsten.' : ''}etherscan.io/token/#{Figaro.env.token_address}?a=#{account.address}", target: :_blank
-
+                    -#%p= link_to account.address, "https://#{Rails.env.development? ? 'ropsten.' : ''}etherscan.io/token/#{Figaro.env.token_address}?a=#{account.address}", target: :_blank
+                    %p= link_to account.address, "https://status.biathlon.io/#/accounts/#{account.address}/token/#{Figaro.env.token_address}/transactions", target: :_blank
 
               - if user_signed_in?
                 - if current_user.has_role? :admin

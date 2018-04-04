@@ -133,7 +133,11 @@ class Activity < ApplicationRecord
     if item.class == Pledge
       item.pledge.to_i
     elsif blockchain_transaction
-      blockchain_transaction.value.to_i
+      if blockchain_transaction.transaction_type_id == 2
+        blockchain_transaction.value.to_i * -1
+      else
+        blockchain_transaction.value
+      end
     elsif ethtransaction
       ethtransaction.value.to_i
     elsif extra.nil? && (description !~ /changed/ && description !~ /status/ && description !~ /cancelled/)
