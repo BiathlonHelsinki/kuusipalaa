@@ -19,7 +19,7 @@ class EventRegistrationsController < ApplicationController
       else
         flash[:error] = 'There was an error registering: ' + r.errors.inspect
       end
-      Activity.create(user: current_user, addition: 0, item: @instance, description: 'registered_for')
+      Activity.create(user: current_user, contributor: current_user, addition: 0, item: @instance, description: 'registered_for')
       redirect_to [@event, @instance]
     else
       flash[:error] = 'Error'

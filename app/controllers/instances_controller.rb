@@ -20,7 +20,7 @@ class InstancesController < ApplicationController
       if @instance.in_future?
         registration = Registration.find_or_create_by(instance: @instance, user: current_user)
         if registration.destroy
-          Activity.create(user: current_user, addition: 0, item: @instance, description: 'is_no_longer_registered_for')
+          Activity.create(user: current_user, contributor: current_user,  addition: 0, item: @instance, description: 'is_no_longer_registered_for')
           flash[:notice] = t(:unregistred)
           redirect_to [@event, @instance]
         end
@@ -43,7 +43,7 @@ class InstancesController < ApplicationController
       if @instance.in_future?
         rsvp = Rsvp.find_or_create_by(instance: @instance, user: current_user)
         if rsvp.destroy
-          Activity.create(user: current_user, addition: 0, item: @instance, description: 'is_no_longer_planning_to_attend')
+          Activity.create(user: current_user, contributor: current_user, addition: 0, item: @instance, description: 'is_no_longer_planning_to_attend')
           flash[:notice] = t(:unregistred)
           redirect_to [@event, @instance]
         end
@@ -59,7 +59,7 @@ class InstancesController < ApplicationController
       @event = Event.friendly.find(params[:event_id])
       @instance = @event.instances.friendly.find(params[:id])
       Rsvp.find_or_create_by(instance: @instance, user: current_user)
-      Activity.create(user: current_user, addition: 0, item: @instance, description: 'plans_to_attend')
+      Activity.create(user: current_user,contributor: current_user, addition: 0, item: @instance, description: 'plans_to_attend')
       flash[:notice] = t(:rsvp_thanks)
       redirect_to [@event, @instance]
     else

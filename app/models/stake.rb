@@ -21,7 +21,7 @@ class Stake < ApplicationRecord
   scope :really_late, ->() { where(["paid is not true and invoice_due <= ?", 3.weeks.ago.strftime("%Y-%m-%d")])}
 
   def add_to_activity_feed
-    Activity.create(user: self.bookedby, item: self, description: "bought",  addition: 0,
+    Activity.create(user: self.bookedby, contributor: self.owner, item: self, description: "bought",  addition: 0,
         extra: (self.owner != self.bookedby ? self.owner : nil))
   end
 

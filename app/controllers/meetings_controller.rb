@@ -7,7 +7,7 @@ class MeetingsController < ApplicationController
       if @meeting.in_future?
         rsvp = Rsvp.find_or_create_by(meeting: @meeting, user: current_user)
         if rsvp.destroy
-          Activity.create(user: current_user, addition: 0, item: @meeting, description: 'is_no_longer_planning_to_attend')
+          Activity.create(user: current_user, contributor: current_user, addition: 0, item: @meeting, description: 'is_no_longer_planning_to_attend')
           flash[:notice] = t(:unregistered)
           redirect_to @meeting
         end
@@ -30,7 +30,7 @@ class MeetingsController < ApplicationController
     if params[:id]
       @meeting = Meeting.friendly.find(params[:id])
       Rsvp.find_or_create_by(meeting: @meeting, user: current_user)
-      Activity.create(user: current_user, addition: 0, item: @meeting, description: 'plans_to_attend')
+      Activity.create(user: current_user, contributor: current_user, addition: 0, item: @meeting, description: 'plans_to_attend')
       flash[:notice] = t(:rsvp_thanks)
       redirect_to @meeting
     else

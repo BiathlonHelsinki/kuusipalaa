@@ -150,11 +150,11 @@ class Group < ApplicationRecord
   end
 
   def edit_to_activity_feed
-    Activity.create(user: self.members.first.user, item: self, description: "edited_the_group",  addition: 0)
+    Activity.create(user: self.members.first.user, contributor: self.members.first.user, item: self, description: "edited_the_group",  addition: 0)
   end
 
   def add_to_activity_feed
-    Activity.create(user: self.members.first.user, item: self, description: "created_the_group",  addition: 0)
+    Activity.create(user: self.members.first.user, contributor: self.members.first.user, item: self, description: "created_the_group",  addition: 0)
   end
 
   def update_avatar_attributes

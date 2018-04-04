@@ -133,7 +133,7 @@ class User < ActiveRecord::Base
   end
 
   def add_to_activity_feed
-    Activity.create(item: self, description: 'joined', user: self)
+    Activity.create(item: self, contributor: self, description: 'joined', user: self)
   end
 
   def copy_password
@@ -205,7 +205,7 @@ class User < ActiveRecord::Base
     accounts.primary.first.balance = accounts.primary.first.balance.to_i + points
     save(validate: false)
     # get transaction hash and add to activity feed. TODO: move to concern!!
-    Activity.create(user: self, item: event, ethtransaction: Ethtransaction.find_by(txaddress: transaction), description: 'attended')
+    Activity.create(user: self,  contributor: self, item: event, ethtransaction: Ethtransaction.find_by(txaddress: transaction), description: 'attended')
     return true
   end
 

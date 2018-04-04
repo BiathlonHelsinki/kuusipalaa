@@ -6,7 +6,7 @@ class Member < ApplicationRecord
   after_create :add_to_activity_feed
 
   def add_to_activity_feed
-    Activity.create(user: self.user, item: self.source, description: "was_added_to_the_group",  addition: 0)
+    Activity.create(user: self.user, contributor: self.user, item: self.source, description: "was_added_to_the_group",  addition: 0)
   end
 
   def username

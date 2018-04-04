@@ -88,7 +88,7 @@ class MembersController < ApplicationController
 
   def remove
     @membership = @group.members.find_by(user: current_user)
-    Activity.create(user: current_user, item: @membership, addition: 0, description: params[:private_leaving] == '1' ? 'privately_left_the_group' : 'left_the_group', extra: @group, extra_info: params[:leaving_reason])
+    Activity.create(user: current_user, contributor: current_user, item: @membership, addition: 0, description: params[:private_leaving] == '1' ? 'privately_left_the_group' : 'left_the_group', extra: @group, extra_info: params[:leaving_reason])
     @membership.destroy
     if @group.members.size == 1
       new_owner = @group.members.first
