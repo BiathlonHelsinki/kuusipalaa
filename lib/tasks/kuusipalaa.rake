@@ -15,10 +15,14 @@ namespace :kuusipalaa do
       abort("needs to send at " + @email['send_at'].to_s + " but it is " + Time.current.localtime.to_s)
     end
     if @email.nil?
+
       abort("email not found")
+
     end
     @upcoming_events = Instance.calendered.published.between(@email.send_at, (@email.send_at + 1.week).end_of_day)
     if @upcoming_events.empty?
+      @email.destroy
+      newemail = Email.create(send_at: @email.send_at + 1.week, body: 'test', subject: 'This week at Kuusi Palaa - ' + (@email.send_at + 1.week).strftime('%d %B %Y'))
       abort("no events this week")
     end
     @open_time = Instance.where(open_time: true).between(@email.send_at, (@email.send_at + 1.week).end_of_day)

@@ -1327,7 +1327,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   dear_user: 'Dear %{user},'
   hello: 'Hello!'
   posted_by_with_time: 'Posted by %{user} at %{when}'
-  visit_kuusi_palaa_email: "Kuusi Palaa is located at Kolmas linja 7 in Kallio, where Temporary was. You can visit and use Kuusi Palaa any time it is open - please check www.kuusipalaa.fi to see if it's open at any given moment."
+  visit_kuusi_palaa_email: "Kuusi Palaa is located at Kolmas linja 7, in Kallio. You can visit and use Kuusi Palaa any time it is open - please check www.kuusipalaa.fi to see if it's open at any given moment."
   previous_announcements: 'Previous announcements'
   these_announcements_were_sent_in_past_emails: 'These announcements were already sent in previous emails.'
   sent_at: 'Sent'
