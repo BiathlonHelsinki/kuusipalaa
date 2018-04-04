@@ -1,4 +1,10 @@
-= link_to activity.user.display_name, activity.user, target: :_blank
+- if activity.contributor != activity.user && !activity.contributor.nil?
+  = link_to activity.contributor.display_name, activity.contributor, target: :_blank
+- else
+  = link_to(activity.user.display_name, activity.user, target: :_blank)
+
+
+
 - if activity.description == 'had_their_blockchain_balance_adjusted_by'
   = link_to t(activity.description), activity.item
 - else
