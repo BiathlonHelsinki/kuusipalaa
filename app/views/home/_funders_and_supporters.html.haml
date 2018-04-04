@@ -13,6 +13,6 @@
 
 - if @season.stakes.map{|x| x.price * x.amount}.sum < @season.amount_needed
   - (@season.stake_count - @season.stakes.paid.sum(&:amount) - @season.stakes.booked_unpaid.sum(&:amount)).times do
-    = link_to new_season_stake_path(@current_season) do
+    = link_to new_season_stake_path(@season) do
       .stake_box.grey
         .overlay= t(:book_stake)  + '!'
