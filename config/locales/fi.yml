@@ -289,17 +289,17 @@ fi:
   commented_on: 'kommentoi'
   edited: 'muokkasi'
   edited_their_pledge_to: 'muutti tuenmäärän'
-  had_blockchain_balance_adjusted_by: 'blockchain saldoa muutettiin %{numerical_value}Ŧ'
+  had_blockchain_balance_adjusted_by: 'blockchain saldoa muutettiin %{numerical_value}ᵽ'
   is_no_longer_planning_to_attend: 'ei enää aio osallistua'
   planning_to_attend: ' osallistua'
   joined: 'littyi!'
   linked: 'linkitti'
   plans_to_attend: 'aikoo osallistua'
   pledged: 'tuki'
-  pledged_to: 'tuki %{numerical_value}Ŧ'
+  pledged_to: 'tuki %{numerical_value}ᵽ'
   proposed: 'ehdotti'
   registered_for: 'rekisteröityi'
-  spent_a_pledge_on: 'käytti %{numerical_value}Ŧ seuraavaan'
+  spent_a_pledge_on: 'käytti %{numerical_value}ᵽ seuraavaan'
   was_credited_for: 'sai tunnustusta'
   was_mentioned_by: 'mainittiin'
   withdrew_a_pledge: 'veti takasin tukensa'
@@ -325,8 +325,8 @@ fi:
   pending_scheduluing: 'Odottaa aikatauluttamista!'
   see_comments_for_reason: 'Katso perustelut kommenteista'
   full_pledged_by: "%{amount} antoi käyttäjä"
-  pledge_temps: 'Tue Ŧ!'
-  pledge_more_temps: 'Tue lisää Ŧ!'
+  pledge_temps: 'Tue ᵽ!'
+  pledge_more_temps: 'Tue lisää ᵽ!'
   meeting: 'tapaaminen'
 
   meetings_took_place_past: "%{count} %{amount} tapahtui:"
@@ -376,13 +376,13 @@ fi:
   your_email: 'Sähköpostiosoitteesi:'
   password: 'Salasana:'
   all_active_proposals: 'Kaikki aktiiviset ehdotukset'
-  needs_more_t: 'Tarvitsee lisää Ŧ:tä'
-  needs_more_t_to_continue: 'Tarvitsee lisää Ŧ:tä jatkuakseen'
+  needs_more_t: 'Tarvitsee lisää ᵽ:tä'
+  needs_more_t_to_continue: 'Tarvitsee lisää ᵽ:tä jatkuakseen'
   awaiting_review: 'Odottaa arviota'
   archived: 'Arkistoitu'
   search_results_for: 'Etsi tuloksia:'
   search_ellipses: "Etsi ..."
-  t_needed_for_an_experiment_to_begin: 'Ŧ:tä tarvitaan, jotta kokeilu voidaan toteuttaa:'
+  t_needed_for_an_experiment_to_begin: 'ᵽ:tä tarvitaan, jotta kokeilu voidaan toteuttaa:'
   log_in_or_join_to_propose: 'Kirjaudu sisään (tai luo tunnus!) ehdottaaksesi kokeilua'
   why: '(miksi?)'
   name: 'Nimi'
@@ -390,7 +390,7 @@ fi:
   when: 'Milloin?'
   status: 'Status'
   multiple_meetings_proposed: 'Useita tapaamisia ehdotettu'
-  x_total_needed_for_complete: "%{number}Ŧ tarvitaan jotta kokeilu voidaan toteuttaa kokonaisuudessaan"
+  x_total_needed_for_complete: "%{number}ᵽ tarvitaan jotta kokeilu voidaan toteuttaa kokonaisuudessaan"
   happens_regularly: 'Tapahtuu säännölliseti'
   experiment_completed: 'Kokeilu toteutettu'
   none_currently_upcoming: 'Ei uusia tulossa'
@@ -406,31 +406,31 @@ fi:
     one: 'henkilö'
     other: 'henkilöä'
   you_spent: 'Käytit %{amount}'
-  pledge_more_t: 'Lahjoita lisää Ŧ:tä!'
+  pledge_more_t: 'Lahjoita lisää ᵽ:tä!'
   ready_to_schedule_but_accepting_more_pledges: 'Valmis toteutettavaksi mutta vastaanottaa edelleen lahjoituksia'
   pledging_completed: 'Lahjoitukset annettu'
   error: 'Virhe'
   but_accepting_more_pledges: 'mutta vastaanottaa lisää lahjoituksia'
-  x_needed_to_schedule_next: "%{amount} lisää Ŧ:tä tarvitaan seuraavan tapaamisen toteuttamiseksi (#%{meeting_number})"
-  enough_temps_to_schedule_x_more: "Tarpeksi Ŧ:tä on lahjoitettu %{number}:n tapahtuman toteuttamiseksi"
-  all_required_pledged_or_spent: 'Tarvittava määrä Ŧ:tä on lahjoitettu tai käytetty.'
-  more_than_enough: 'Enemmän kuin tarvittava määrä Ŧ:tä kaikkien ehdotettujen tapaamisten toteuttamiseksi lahjoitettu.'
-  x_total_needed_for_y: "%{number} lisää Ŧ:tä tarvitaan kaikkien %{proposed}:n tapaamisen toteuttamiseksi."
+  x_needed_to_schedule_next: "%{amount} lisää ᵽ:tä tarvitaan seuraavan tapaamisen toteuttamiseksi (#%{meeting_number})"
+  enough_temps_to_schedule_x_more: "Tarpeksi ᵽ:tä on lahjoitettu %{number}:n tapahtuman toteuttamiseksi"
+  all_required_pledged_or_spent: 'Tarvittava määrä ᵽ:tä on lahjoitettu tai käytetty.'
+  more_than_enough: 'Enemmän kuin tarvittava määrä ᵽ:tä kaikkien ehdotettujen tapaamisten toteuttamiseksi lahjoitettu.'
+  x_total_needed_for_y: "%{number} lisää ᵽ:tä tarvitaan kaikkien %{proposed}:n tapaamisen toteuttamiseksi."
   and_accepting_more_pledges: 'ja vastaanottaa lisää lahjoituksia'
   first_session: 'ensimmäinen tapaaminen'
   next_session: 'seuraava tapaaminen'
   it: 'se'
-  x_needed_for_first_or_next: "%{amount} lisää Ŧ:tä tarvitaan ennen %{first_or_next} voidaan toteuttaa"
-  enough_to_schedule_complete: "Tarvittava määrä Ŧ:tä on lahjoitettu koko kokeilun toteuttamiseksi"
+  x_needed_for_first_or_next: "%{amount} lisää ᵽ:tä tarvitaan ennen %{first_or_next} voidaan toteuttaa"
+  enough_to_schedule_complete: "Tarvittava määrä ᵽ:tä on lahjoitettu koko kokeilun toteuttamiseksi"
   meeting:
     zero: 'tapaamista'
     one: 'tapaaminen'
     other: 'tapaamista'
-  enough_temps_to_schedule_x_more_of: "Riittävästi Ŧ:tä on lahjoitettu %{number}:n %{meeting} %{proposed}"
+  enough_temps_to_schedule_x_more_of: "Riittävästi ᵽ:tä on lahjoitettu %{number}:n %{meeting} %{proposed}"
   of_proposed: '%{number}:stä ehdotetusta'
-  needs_more_people: 'Riittävästi Tempsejä on lahjoitettu, mutta vain yhdeltä henkilöltä. Toisen henkilön täytyy lahjoittaa ainakin 1 Ŧ ennen kuin kokeilu voidaan toteuttaa.'
+  needs_more_people: 'Riittävästi Tempsejä on lahjoitettu, mutta vain yhdeltä henkilöltä. Toisen henkilön täytyy lahjoittaa ainakin 1 ᵽ ennen kuin kokeilu voidaan toteuttaa.'
   complete_experiment: 'Koko kokeilu'
-  proposal_has_no_fixed_end: 'Kokeilu on jatkuva, joten lahjoituksia (Ŧ:tä) tarvitaan toistuvasti sen toteuttamiseksi!'
+  proposal_has_no_fixed_end: 'Kokeilu on jatkuva, joten lahjoituksia (ᵽ:tä) tarvitaan toistuvasti sen toteuttamiseksi!'
   no_comments_or_pledges_yet: 'Ei kommentteja tai lahjoituksia tähän mennessä.'
   comment:
     zero: 'kommenttia'
@@ -440,13 +440,13 @@ fi:
   last_pledge_or_comment_by: 'viimeisimmän %{item_type} teki %{person}'
   needs_more_support: 'Tarvitsee lisää tukea'
   ago: 'sitten'
-  each_recurrent_event_explanation: 'Jokainen toistuva tapaaminen/tapahtuma saa 10 %:n alennuksen (Tempseissä mitattuna) verratuna edelliseen tapaamiseen. Tapaamisen toteuttamiseen tarvitaan kuitenkin aina vähintään 20Ŧ.'
-  cost_rose: 'HUOM: Kokeen peruskustannus nousi 70:tä 100Ŧ:aan 15.3.2017.'
+  each_recurrent_event_explanation: 'Jokainen toistuva tapaaminen/tapahtuma saa 10 %:n alennuksen (Tempseissä mitattuna) verratuna edelliseen tapaamiseen. Tapaamisen toteuttamiseen tarvitaan kuitenkin aina vähintään 20ᵽ.'
+  cost_rose: 'HUOM: Kokeen peruskustannus nousi 70:tä 100ᵽ:aan 15.3.2017.'
   number_of_meetings_proposed: 'Ehdotetujen tapaamisten määrä:'
   unknown_indefinite: 'tuntematon/määrittelemätön'
   nothing_scheduled: 'Ei mitään aikataulutettu'
   took_place_on: 'järjestettiin %{date}'
-  x_must_be_pledged_before: '%{amount}Ŧ:tä täytyy saada lahjoituksina ennen kuin tämä ehdotus voidaan nostaa pöydälle ja toteuttaa.'
+  x_must_be_pledged_before: '%{amount}ᵽ:tä täytyy saada lahjoituksina ennen kuin tämä ehdotus voidaan nostaa pöydälle ja toteuttaa.'
   pending_pledges: 'Lahjoituksia odotellaan:'
   waiting_to_be_scheduled: 'Aikataulusta odotetaan'
   total: 'Yhteensä'
@@ -468,7 +468,7 @@ fi:
   authentications: 'Autentikaatiot'
   balance: 'Saldo'
   participated_in: 'Osallistui'
-  send_t_to_user: 'Lähetä Ŧ:tä %{username}:lle'
+  send_t_to_user: 'Lähetä ᵽ:tä %{username}:lle'
   user_since: 'Käyttäjä %{when} lähtien'
   no_proposals_made: 'Ei tehtyjä ehdotuksia'
   no_pledges_made: 'Ei annettu tukea'
@@ -482,7 +482,7 @@ fi:
   number_held_in_pledges: "%{number} pidetään varattuna, koska ne on annettu tukena tapahtumille, jotka eivät ole vielä varmistuneet"
   totals: 'Yhteensä'
   website: 'Webbisivut'
-  number_available: '%{number}Ŧ käytettävissä'
+  number_available: '%{number}ᵽ käytettävissä'
   number_in_total: '%{number} yhteensä'
   email: 'Email'
   experiments_instigated: 'Kokeiluja aloitettu'
@@ -497,8 +497,8 @@ fi:
     one: 'tapaaminen'
     other: 'tapaaminenta'
   pledging_support_for: 'Lahjoitetaan tukea:'
-  amount_available_to_pledge: 'Sinulla on %{number}Ŧ käytettävissäsi.'
-  multiday_experiments: 'Tähän kokeiluun liittyen on ehdotettu useita tapaamisia. Temporaryllä usean päivän kokeilut maksavat Tempsejä jokainen tapaamispäivä siten, että seuraavat päivät saavat edeltävään verrattuna 10 % alennuksen (kunnes päästään 20Ŧ:hen joka on minimimaksu).'
+  amount_available_to_pledge: 'Sinulla on %{number}ᵽ käytettävissäsi.'
+  multiday_experiments: 'Tähän kokeiluun liittyen on ehdotettu useita tapaamisia. Temporaryllä usean päivän kokeilut maksavat Tempsejä jokainen tapaamispäivä siten, että seuraavat päivät saavat edeltävään verrattuna 10 % alennuksen (kunnes päästään 20ᵽ:hen joka on minimimaksu).'
   indefinite_proposal: 'Tässä ehdotuksessa ei ole määritetty kuinka monta tapaamista siihen liittyy, joten se jatkuu toistaiseksi.'
 
   # used in the phrase  'this experiment has happened 6 times'
@@ -511,13 +511,13 @@ fi:
     zero: 'tapaamisia'
     one: 'jatkotapaaminen'
     other: 'jatkotapaamisia'
-  currently_enough_temps: "Riittävä määrrä Tempsejä on annettu (%{number_of_temps}Ŧ), jotta voidaan toteuttaa %{number} %{possible_meetings}."
-  needs_to_happen_again: 'Tämä kokeilu tarvitsee %{number}Ŧ lisää, jotta se voisi toteutua%{again}.'
+  currently_enough_temps: "Riittävä määrrä Tempsejä on annettu (%{number_of_temps}ᵽ), jotta voidaan toteuttaa %{number} %{possible_meetings}."
+  needs_to_happen_again: 'Tämä kokeilu tarvitsee %{number}ᵽ lisää, jotta se voisi toteutua%{again}.'
   biathlon_api_offline: "Pahoittelut. Biathlon API on tällä hetkellä offline. Pyydämme kokeilemaan uudelleen myöhemmin."
   no_temps_to_pledge: 'Sinulla ei ole tällä hetkellä yhtään Tempsiä käytettävänä.'
   delete_your_pledge: 'Poista antamasi tuki!'
   confirm_pledge_withdrawal: "Oletko varma? Temps saldosi palautetaan entiselleen."
-  how_many_to_pledge: 'Kuinka monta %{currency} (Ŧ) haluaisit antaa tukena?'
+  how_many_to_pledge: 'Kuinka monta %{currency} (ᵽ) haluaisit antaa tukena?'
   your_pledge_with_max: 'Sinun tukimääräsi (max. %{max}):'
   comments_on_pledge: 'Halautko liittää antamaasi tukeen kommentin?'
   tagging: 'Tagaaminen:'
@@ -537,7 +537,7 @@ fi:
   recurring_regularly: 'Toistuu säännöllisesti (esim. kerran kuussa, joka toinen kuukausi, jne.)'
   should_we_wait: 'Pitäisikö odottaa että tukea on annettu niin paljon, että kokeilu voidaan toteuttaa kokonaisuudessaan?'
   should_we_wait_explanation: 'Esimerkiksi jos ehdotuksesi kattaa kolme peräkkäistä päivää, kaikkia kolmea päivää kohden pitää saada riittävästi tukea ennen kuin kokeilu voidaan aikatauluttaa kokonaisuudessaan (eikä vain esim. ensimmäinen päivä)'
-  total_t_needed: 'Yhteensä Ŧ tarvitaan'
+  total_t_needed: 'Yhteensä ᵽ tarvitaan'
   proposed_times_and_duration: 'Ehdotetut ajat ja kesto'
   if_you_suggest_exact_date: 'Jos ehdotat tarkkaa aikaa, teemme parhaamme, kun pohdimme aikataulutusta, jotta se sopisi muiden kokeilujen kanssa yhteen. Suosittelemme kokeilujen ehdottamista ja suunnittelua vähintää pari viikkoa ennen suunniteltua tapahtuma-aikaa, jotta jää enemmän aikaa kerätä tarvittava määr tukea ja jotta sinulla jää enemmän aikaa suunnitteluun ja kokeilun markkinointiin sitten, kun kokeilun tarkka aika on varmistunut.'
   goals_of_experiment: 'Mitkä ovat tämän kokeilun tavoitteet?'
@@ -584,7 +584,7 @@ fi:
     one: 'Yksi tapaaminen'
     other: '%{count} tapaamista'
   x_people_participated: '%{count} %{people} osallistui'
-  x_people_participated_earning_x: '%{count} %{people} osallistui, saaden %{temps_total}Ŧ.'
+  x_people_participated_earning_x: '%{count} %{people} osallistui, saaden %{temps_total}ᵽ.'
   x_people_have_checked_in: "%{count} %{people} osallistuu (%{distinct_count} %{distinct_people}), and %{guest_ticket_count} %{guest_tickets}."
   distinct_person:
     zero: 'henkilöä'
@@ -596,14 +596,14 @@ fi:
     other: 'vieraslippua'
   original_proposal: 'Alkuperäinen ehdotus:'
   past_occurrences: 'Aiemmat toteutukset:'
-  earn_x_per_day_for_participating: 'Tienaa %{number}Ŧ%{per_day} osallistumisesta!'
+  earn_x_per_day_for_participating: 'Tienaa %{number}ᵽ%{per_day} osallistumisesta!'
   per_day: ' per päivä'
   sorry_no_more_space_left: 'Pahoittelut, tapahtuma on täynä.'
   you_must_register_in_advance: 'Rekisteröityminen täytyy tehdä ennakkoon!'
   also_meets: 'Myös tapaa:'
-  x_earned: "%{number} Ŧ tienattu"
+  x_earned: "%{number} ᵽ tienattu"
   anonymous_person_who_arrived_at_x: 'Anonyymi henkilö, joka saapui %{time_of_arrival}'
-  small_back_room_blurb: 'Temporaryn takahahuoneen voi varata kuka tahansa rekisteröitynyt jäsen hintaan 25Ŧ per day.'
+  small_back_room_blurb: 'Temporaryn takahahuoneen voi varata kuka tahansa rekisteröitynyt jäsen hintaan 25ᵽ per day.'
   room_specs: 'Tätä huonetta (koko noin 18m%{squared}) voi käyttää mihin tahansa luoviin tarkoituksiin, kokouksiin, jne. Varaamalla huoneen saat sen käyttöösi 24 tunniksi. Jos päähuoneessa on meneillään muita aktiviteetteja pyydämme, että otat molemminpuolisesti toisenne huomioon'
 
   room_blurb_2: 'Kuka tahansa jäsen voi varata huoneen maksimissaan kolmeksi päiväksi viikossa. Varataksesi huoneen, klikkaa kalenterista haluamaasi päivää ja katso onko huone vapaana'
@@ -629,7 +629,7 @@ fi:
   credit_form: 'Kuvan krediitit (jos et itse ottanut)'
   are_you_sure: 'Oletko varma?'
   x_photo_upload_slots_remaining: 'Voit kadata kuvan kokeilusta. Voit ladata maksimissaan %{count} %{photo}.'
-  additional_slots_cost_1_temp: 'Maksamalla 1Ŧ per kuva, voit halutessasi ladata lisää kuvia'
+  additional_slots_cost_1_temp: 'Maksamalla 1ᵽ per kuva, voit halutessasi ladata lisää kuvia'
   photo:
     zero: 'kuvaa'
     one: 'kuva'
@@ -641,8 +641,8 @@ fi:
   shared_an_image_from: 'jakoi kuvan'
   removed_a_shared_image: 'poisti jaetun kuvan'
   buy_extra_photo_slot: 'Osta lisäpaikka kuvalle'
-  confirm_buy_photo_slot: 'Oletko varma, että haluat ostaa lisämahdollisuuden ladata kuva? Se maksaa 1Ŧ eikä sitä voi jälkikäteen perua.'
-  you_need_at_least_1_temp: 'Tarvitset ainakin 1Ŧ saldoa, jotta voit ostaa lisäpaikan kuvalle.'
+  confirm_buy_photo_slot: 'Oletko varma, että haluat ostaa lisämahdollisuuden ladata kuva? Se maksaa 1ᵽ eikä sitä voi jälkikäteen perua.'
+  you_need_at_least_1_temp: 'Tarvitset ainakin 1ᵽ saldoa, jotta voit ostaa lisäpaikan kuvalle.'
   bought_a_photo_upload_slot: 'osti lisäpaikan kuvalle'
   extra_documentation_slots: 'Lisää paikkoja kuvaustekstille'
   x_unused: "(%{count} käyttämättä)"
@@ -650,13 +650,13 @@ fi:
   no_caption: 'Ei kuvatekstiä tai kuvausta'
   no_photo_credit: 'Kuvaa ei ole kreditoitu kenelläkkään'
   like_this_tip: 'Pidätkö tästä? Jätä tippiä! '
-  how_many_temps_to_tip: 'Kuinka monta Ŧ:tä haluaisit lähettää käyttäjälle %{user}?'
+  how_many_temps_to_tip: 'Kuinka monta ᵽ:tä haluaisit lähettää käyttäjälle %{user}?'
   in_appreciation_for_a_photo: 'osoittaaksesi arvostusta kuvasta %{instance}'
   your_tip_was_sent: 'Tippisi kilahti käyttäjälle!'
-  transfer_t: 'Lähetä Ŧ:tä'
+  transfer_t: 'Lähetä ᵽ:tä'
   reason_for_transfer: 'Anna syy miksi lähetät niitä? (vapaaehtoinen)'
   send: 'Lähetetty!'
-  you_can_transfer_up_to: 'Voit lähettää enintään %{number}Ŧ:tä.'
+  you_can_transfer_up_to: 'Voit lähettää enintään %{number}ᵽ:tä.'
   scheduled_meeting: 'meeting added to the calendar'
   pledge:
     zero: 'tukea'

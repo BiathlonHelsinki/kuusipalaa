@@ -63,6 +63,10 @@ class Idea < ApplicationRecord
     end
   end
 
+  def item
+    self
+  end
+
   def cancel_pledges
     pledges.each do |p|
       p.cancel_activity

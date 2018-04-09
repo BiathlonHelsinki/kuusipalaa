@@ -123,7 +123,7 @@ en:
   commented_on: 'commented on'
   edited: 'edited'
   edited_their_pledge_to: 'edited their pledge to'
-  had_blockchain_balance_adjusted_by: 'had their blockchain balance adjusted by %{numerical_value}Ŧ'
+  had_blockchain_balance_adjusted_by: 'had their blockchain balance adjusted by %{numerical_value}ᵽ'
   is_no_longer_planning_to_attend: 'is no longer planning to attend'
   is_no_longer_registered_for: 'is no longer registered for'
   joined: 'joined!'
@@ -158,8 +158,8 @@ en:
   pending_scheduluing: 'Pending scheduling!'
   see_comments_for_reason: 'See comments for reason'
   full_pledged_by: "%{amount} pledged by:"
-  pledge_temps: 'Pledge Ŧ!'
-  pledge_more_temps: 'Pledge more Ŧ!'
+  pledge_temps: 'Pledge ᵽ!'
+  pledge_more_temps: 'Pledge more ᵽ!'
   meeting:
     zero: 'meetings'
     one: 'meeting'
@@ -215,13 +215,13 @@ en:
   your_email: 'Your email address:'
   password: 'Password:'
   all_active_proposals: 'All active proposals'
-  needs_more_t: 'Needs more Ŧ'
-  needs_more_t_to_continue: 'Needs more Ŧ to continue'
+  needs_more_t: 'Needs more ᵽ'
+  needs_more_t_to_continue: 'Needs more ᵽ to continue'
   awaiting_review: 'Awaiting review'
   archived: 'Archived'
   search_results_for: 'Search results for:'
   search_ellipses: "Search ..."
-  t_needed_for_an_experiment_to_begin: 'Ŧ needed for an expermiment to begin:'
+  t_needed_for_an_experiment_to_begin: 'ᵽ needed for an expermiment to begin:'
   log_in_or_join_to_propose: 'Log in (or join!) to propose an experiment'
   why: '(why?)'
   name: 'Name'
@@ -230,7 +230,7 @@ en:
   when: 'When?'
   status: 'Status'
   multiple_meetings_proposed: 'Multiple meetings proposed'
-  x_total_needed_for_complete: "%{number}Ŧ total needed to schedule the complete experiment"
+  x_total_needed_for_complete: "%{number}ᵽ total needed to schedule the complete experiment"
   happens_regularly: 'Happens regularly'
   experiment_completed: 'Experiment completed'
   none_currently_upcoming: 'None currently upcoming'
@@ -246,31 +246,31 @@ en:
     one: 'person'
     other: 'people'
   you_spent: 'You spend %{amount}'
-  pledge_more_t: 'Pledge more Ŧ!'
+  pledge_more_t: 'Pledge more ᵽ!'
   ready_to_schedule_but_accepting_more_pledges: 'Ready to schedule but accepting more pledges'
   pledging_completed: 'Pledging completed'
   error: 'Error'
   but_accepting_more_pledges: 'but accepting more pledges'
-  x_needed_to_schedule_next: "%{amount} more Ŧ needed to schedule next meeting (#%{meeting_number})"
-  enough_temps_to_schedule_x_more: "Enough Ŧ have been pledged to schedule %{number} more meeting(s)"
-  all_required_pledged_or_spent: 'All required Ŧ have been pledged and/or spent.'
-  more_than_enough: 'More than enough Ŧ were pledged to schedule all proposed meetings.'
-  x_total_needed_for_y: "%{number} more Ŧ needed to schedule all %{proposed} proposed meetings."
+  x_needed_to_schedule_next: "%{amount} more ᵽ needed to schedule next meeting (#%{meeting_number})"
+  enough_temps_to_schedule_x_more: "Enough ᵽ have been pledged to schedule %{number} more meeting(s)"
+  all_required_pledged_or_spent: 'All required ᵽ have been pledged and/or spent.'
+  more_than_enough: 'More than enough ᵽ were pledged to schedule all proposed meetings.'
+  x_total_needed_for_y: "%{number} more ᵽ needed to schedule all %{proposed} proposed meetings."
   and_accepting_more_pledges: 'and accepting more pledges'
   first_session: 'first meeting'
   next_session: 'next meeting'
   it: 'it'
-  x_needed_for_first_or_next: "%{amount} more Ŧ needed before %{first_or_next} can be scheduled"
-  enough_to_schedule_complete: "Enough Ŧ have been pledged to schedule the complete experiment"
+  x_needed_for_first_or_next: "%{amount} more ᵽ needed before %{first_or_next} can be scheduled"
+  enough_to_schedule_complete: "Enough ᵽ have been pledged to schedule the complete experiment"
   meeting:
     zero: 'meetings'
     one: 'meeting'
     other: 'meetings'
-  enough_temps_to_schedule_x_more_of: "Enough Ŧ have been pledged to schedule %{number} %{meeting} %{proposed}"
+  enough_temps_to_schedule_x_more_of: "Enough ᵽ have been pledged to schedule %{number} %{meeting} %{proposed}"
   of_proposed: 'of %{number} proposed'
-  needs_more_people: 'Enough Temps have been pledged, but only from one person. A second person needs to pledge at least 1 Ŧ before this can be considered for scheduling.'
+  needs_more_people: 'Enough Temps have been pledged, but only from one person. A second person needs to pledge at least 1 ᵽ before this can be considered for scheduling.'
   complete_experiment: 'Complete experiment'
-  proposal_has_no_fixed_end: 'Proposal is ongoing without a fixed end, so Ŧ are continually needed to keep it happening!'
+  proposal_has_no_fixed_end: 'Proposal is ongoing without a fixed end, so ᵽ are continually needed to keep it happening!'
   no_comments_or_pledges_yet: 'No comments or pledges yet.'
   comment:
     zero: 'comments'
@@ -280,13 +280,13 @@ en:
   last_pledge_or_comment_by: 'last %{item_type} by %{person}'
   needs_more_support: 'Needs more support'
   ago: 'ago'
-  each_recurrent_event_explanation: 'Each recurring event gets a 10% discount in Temps from the previous meeting, until it gets down to 20Ŧ, which is the minimum.'
-  cost_rose: 'NOTE: The cost of experiments rose from 70 to 100Ŧ on 15 March 2017.'
+  each_recurrent_event_explanation: 'Each recurring event gets a 10% discount in Temps from the previous meeting, until it gets down to 20ᵽ, which is the minimum.'
+  cost_rose: 'NOTE: The cost of experiments rose from 70 to 100ᵽ on 15 March 2017.'
   number_of_meetings_proposed: 'Number of meetings proposed:'
   unknown_indefinite: 'unknown/indefinite'
   nothing_scheduled: 'Nothing scheduled'
   took_place_on: 'Took place on %{date}'
-  x_must_be_pledged_before: '%{amount}Ŧ must be pledged before this proposal can be reviewed and scheduled.'
+  x_must_be_pledged_before: '%{amount}ᵽ must be pledged before this proposal can be reviewed and scheduled.'
   pending_pledges: 'Pending pledges:'
   waiting_to_be_scheduled: 'Waiting to be scheduled'
   total: 'Total'
@@ -318,7 +318,7 @@ en:
   number_held_in_pledges: "%{number} currently held in escrow, pledged to pending proposals"
   totals: 'Totals'
   website: 'Website'
-  number_available: '%{number}Ŧ available'
+  number_available: '%{number}ᵽ available'
   number_in_total: '%{number} total'
   email: 'Email'
   experiments_instigated: 'Experiments instigated'
@@ -329,8 +329,8 @@ en:
   pledged_or_withdrawn: 'pledged/withdrawn'
   transferred: 'transferred'
   pledging_support_for: 'Pledging support for:'
-  amount_available_to_pledge: 'You have %{number}Ŧ available.'
-  multiday_experiments: 'This experiment is proposed to meet multiple times. At Temporary, multi-day experiments cost Temps for each day it meets, with a 10% discount applied to each successive day (until it gets down to 20Ŧ, the minimum cost in Temps).'
+  amount_available_to_pledge: 'You have %{number}ᵽ available.'
+  multiday_experiments: 'This experiment is proposed to meet multiple times. At Temporary, multi-day experiments cost Temps for each day it meets, with a 10% discount applied to each successive day (until it gets down to 20ᵽ, the minimum cost in Temps).'
   indefinite_proposal: 'This proposal does not specify how many times it will meet, so it will continue indefinitely.'
 
   # used in the phrase  'this experiment has happened 6 times'
@@ -343,13 +343,13 @@ en:
     zero: 'meetings'
     one: 'further meeting'
     other: 'further meetings'
-  currently_enough_temps: "There are currently enough Temps pledged (%{number_of_temps}Ŧ) to schedule %{number} %{possible_meetings}."
-  needs_to_happen_again: 'This proposal needs %{number} more Ŧ pledged to happen%{again}.'
+  currently_enough_temps: "There are currently enough Temps pledged (%{number_of_temps}ᵽ) to schedule %{number} %{possible_meetings}."
+  needs_to_happen_again: 'This proposal needs %{number} more ᵽ pledged to happen%{again}.'
   biathlon_api_offline: "We're sorry, the Biathlon API is currently offline. Please try again later."
   no_temps_to_pledge: 'You do not currently have any Temps available to pledge.'
   delete_your_pledge: 'Delete your pledge!'
-  confirm_pledge_withdrawal: "Are you sure? Your Ŧ will be restored to your full balance."
-  how_many_to_pledge: 'How many %{currency} (Ŧ) would you like to pledge?'
+  confirm_pledge_withdrawal: "Are you sure? Your ᵽ will be restored to your full balance."
+  how_many_to_pledge: 'How many %{currency} (ᵽ) would you like to pledge?'
   your_pledge_with_max: 'Your pledge (max. %{max}):'
   comments_on_pledge: 'Any comments on your pledge?'
   tagging: 'Tagging:'
@@ -369,7 +369,7 @@ en:
   recurring_regularly: 'Recurring regularly or indefinitely (eg. once per month, every other month, etc.)'
   should_we_wait: 'Should we wait until there are enough pledges for the complete experiment before scheduling?'
   should_we_wait_explanation: 'For example, if your proposal requires three consecutive days, then all 3 days will be need to get pledges and the entire expriment can then be scheduled at once instead of just the first day.'
-  total_t_needed: 'Total Ŧ needed'
+  total_t_needed: 'Total ᵽ needed'
   proposed_times_and_duration: 'Proposed times and duration'
   if_you_suggest_exact_date: '
 If you suggest an exact date, we will do our best when scheduling to co-exist with other experiments. We recommend planning experiments at least a few weeks from now to give more time to collect pledges, as well as to allow you to prepare for and promote your experiment after it is scheduled.'
@@ -417,7 +417,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
     one: 'One meeting'
     other: '%{count} meetings'
   x_people_participated: '%{count} %{people} participated'
-  x_people_participated_earning_x: '%{count} %{people} participated, earning %{temps_total}Ŧ.'
+  x_people_participated_earning_x: '%{count} %{people} participated, earning %{temps_total}ᵽ.'
   x_people_have_checked_in: "%{count} %{people} have checked in (%{distinct_count} %{distinct_people}), and %{guest_ticket_count} %{guest_tickets}."
   distinct_person:
     zero: 'distinct people'
@@ -429,12 +429,12 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
     other: 'guest tickets'
   original_proposal: 'Original proposal:'
   past_occurrences: 'Past occurrences:'
-  earn_x_per_day_for_participating: 'Earn %{number}Ŧ%{per_day} for participating!'
+  earn_x_per_day_for_participating: 'Earn %{number}ᵽ%{per_day} for participating!'
   per_day: ' per day'
   sorry_no_more_space_left: 'Sorry, there is no more space left.'
   you_must_register_in_advance: 'You must register in advance!'
   also_meets: 'Also meets:'
-  x_earned: "%{number} Ŧ earned"
+  x_earned: "%{number} ᵽ earned"
   anonymous_person_who_arrived_at_x: 'Anonymous person who arrived at %{time_of_arrival}'
   small_back_room_blurb: 'The small back room at Kuusi Palaa can be reserved by any member at a cost of 15 points per hour.'
   room_specs: 'This room (about 18m%{squared}) can be used for any private creative activities, meetings or other matters, though if there are other actvities taking in the main room, we ask that you coexist peacefully with them.'
@@ -453,7 +453,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
     zero: 'viewpoints'
     one: 'viewpoint'
     other: 'viewpoints'
-  no_viewpoints_yet: 'No participants have shared any viewpoints on this experiment meeting. (Yet.)'
+  no_viewpoints_yet: 'No participants have shared any of their viewpoints on this event/meeting. (Yet.)'
   add_a_viewpoint: 'Add your viewpoint'
   upload: 'Upload'
   upload_an_image: 'Upload an image'
@@ -462,7 +462,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   credit_form: 'Photo credit (if not taken by you)'
   are_you_sure: 'Are you sure?'
   x_photo_upload_slots_remaining: 'You can upload a photo/image from the experiment. You can upload a maximum of %{count} %{photo}.'
-  additional_slots_cost_1_temp: 'If you want to upload additional photos you can do so at the cost of 1Ŧ per additional photo.'
+  additional_slots_cost_1_temp: 'If you want to upload additional photos you can do so at the cost of 1ᵽ per additional photo.'
   photo:
     zero: 'photos'
     one: 'photo'
@@ -474,8 +474,8 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   shared_an_image_from: 'shared an image from'
   removed_a_shared_image: 'removed a shared image from'
   buy_extra_photo_slot: ' Buy extra photo upload slot'
-  confirm_buy_photo_slot: 'Are you sure you wish to buy an extra photo upload slot? This will cost you 1Ŧ and it cannot be reversed.'
-  you_need_at_least_1_temp: 'You need at least 1Ŧ in your balance to buy an additional photo upload slot.'
+  confirm_buy_photo_slot: 'Are you sure you wish to buy an extra photo upload slot? This will cost you 1ᵽ and it cannot be reversed.'
+  you_need_at_least_1_temp: 'You need at least 1ᵽ in your balance to buy an additional photo upload slot.'
   bought_a_photo_upload_slot: 'bought a photo upload slot'
   extra_documentation_slots: 'Extra documentation slots'
   x_unused: "(%{count} unused)"
@@ -483,7 +483,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   no_caption: 'No caption or description'
   no_photo_credit: 'No credit entered'
   like_this_tip: ' Like this? Leave a tip! '
-  how_many_temps_to_tip: 'How many Ŧ would you like to send to %{user}?'
+  how_many_temps_to_tip: 'How many ᵽ would you like to send to %{user}?'
   in_appreciation_for_a_photo: 'in appreciation for a photo from %{instance}'
   your_tip_was_sent: 'Your tip was sent!'
   transfer_p: 'Transfer ᵽ'
@@ -517,10 +517,10 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   proposal_became_experiment: 'This proposal became the experiment %{experiment_link}, and further information and activity can be found there.'
   current_experiment_status: 'Current experiment status'
   to_next_meeting: '%{number}% to next meeting'
-  x_total_needed_to_schedule_next: "%{amount}Ŧ needed to schedule next meeting (#%{meeting_number})"
+  x_total_needed_to_schedule_next: "%{amount}ᵽ needed to schedule next meeting (#%{meeting_number})"
   save_edited_proposal: 'Save edited proposal'
   see_pledges: 'See pledges'
-  proposal_needs_x_for_review: 'This proposal currently needs %{number} more Ŧ to be scheduled.'
+  proposal_needs_x_for_review: 'This proposal currently needs %{number} more ᵽ to be scheduled.'
   saved_answers: 'Your survey answers have been saved. Be sure to click "Send completed survey" when finished.'
   thanks_for_survey: 'Thank you for completing the survey!'
   thanks_for_survey_after_september: 'Thank you for completing Temporary''s survey. Your feedback is very important.'
@@ -1147,7 +1147,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   bought: 'bought'
   asked_the_question: 'asked the question '
   answered_the_question: 'answered the question '
-  on_behalf_of: ' on behalf of '
+  on_behalf_of: ' on behalf of %{name}'
   via_user: " (via %{user})"
   migrated_temps_from_temporary: 'had their Temps migrated to Kuusi Palaa points because'
   received_stake_points: 'received points for '
@@ -1356,3 +1356,18 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   please_register_for_this_event: 'Please register for this event.'
   past_events: 'Past events'
   had_their_blockchain_balance_adjusted_by: 'had their blockchain balance adjusted by'
+  archived_event: 'Archived event'
+  others_are_allowed_past: 'Kuusi Palaa stayed open for other people to use during this event, even if they were not participating in it.'
+  your_viewpoint_has_been_saved: 'Your viewpoint has been saved.'
+  your_viewpoint_has_been_removed: 'Your viewpoint has been removed.'
+  sorry_need_1p: 'Sorry, you need at least 1 point to do this.'
+  api_is_down: 'The Kuusi Palaa/Biathlon API is currently offline. Please try again later.'
+  discussion_and_timeline: 'Discussion and timeline'
+  user_original_proposal: '%{user} posted the initial proposal on %{date}.'
+  group_original_proposal: '%{group} (via %{user}) posted the initial proposal on %{date}.'
+  meeting_was_scheduled: 'The event was scheduled by %{user} at %{when}.'
+  pledged_at: 'Pledge made %{when}'
+  contributed_viewpoint: 'Contributed viewpoint'
+  the_event_took_place_and_x_attended: "The event '%{event}' took place, starting at %{when}. %{x} people participated:"
+  shared_an_image_from_the_event: '%{name} uploaded an image from the event,  at %{when}.'
+  shared_some_words_from_the_event: '%{name} shared some thoughts about the event, at %{when}.'

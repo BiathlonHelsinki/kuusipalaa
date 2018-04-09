@@ -45,6 +45,8 @@ Rails.application.routes.draw do
     resources :comments
     resources :instances , path: '' do
       resources :registrations, controller: :event_registrations
+      resources :userphotos, controller: :viewpoints
+      resources :userthoughts, controller: :viewpoints
       member do
         post :rsvp
         post :register
@@ -205,6 +207,9 @@ Rails.application.routes.draw do
       get :mentions
 
       get :members_agreement
+    end
+    member do
+      get :buy_photoslot
     end
     resources :nfcs
     resources :transfers  do

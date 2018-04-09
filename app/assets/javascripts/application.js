@@ -15,6 +15,7 @@
 //= require foundation
 //= require foundation-datetimepicker
 //= require jquery-ui/widgets/autocomplete
+//= require best_in_place
 //= require autocomplete-rails
 //= require jquery.mentionable
 //= require jquery.scrollTo.min
@@ -28,6 +29,7 @@
 //= require fullcalendar
 //= require jquery.idle.min
 //= require points
+//= require magnific-popup
 //= require_tree .
 
 function getContent(id){

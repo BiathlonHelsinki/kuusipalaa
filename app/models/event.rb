@@ -47,6 +47,20 @@ class Event < ApplicationRecord
     comments
   end
 
+  def instances_copied
+    new_instances = []
+    instances.each{|x| 
+      n = x.dup
+      n.created_at = n.start_at
+      new_instances.push(n)
+    }
+    return new_instances
+  end
+
+  def discussion_and_timeline
+    [idea, idea.pledges, comments, instances, instances_copied, instances.map(&:viewpoints)].flatten.sort_by(&:created_at)
+  end
+
   def dormant?
     if created_at >= 3.months.ago 
       return false

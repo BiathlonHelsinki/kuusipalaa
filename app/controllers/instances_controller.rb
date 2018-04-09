@@ -30,6 +30,27 @@ class InstancesController < ApplicationController
       redirect_to '/'
     end
   end
+
+  def index
+    if params[:event_id]
+      @event = Event.friendly.find(params[:event_id])
+      redirect_to action: action_name, event_id: @event.friendly_id, status: 301 and return unless @event.friendly_id == params[:event_id] 
+      @future = @event.instances.current.or(@event.instances.future).order(:start_at).uniq
+      @past = @event.instances.past.order(:start_at).uniq.reverse  
+    end
+    set_meta_tags title: @event.name
+    @instance = @event.instances.published.first
+    @sequences = @event.instances.order(:start_at).group_by(&:sequence)
+    @sequence = @sequences[@instance.sequence]
+    if @sequences.size == 1 && !@instance.in_future?
+      @archive = true
+      render template: 'instances/past'
+    else
+      render template: 'instances/show' 
+    end
+    # end
+  end
+
   
   def make_organiser
     @event = Event.friendly.find(params[:event_id])
@@ -134,7 +155,14 @@ class InstancesController < ApplicationController
         else  
           @sequence = @instance.event.instances.where(sequence: @instance.sequence).order(:start_at)
           respond_to do |format|
-            format.html { render  template: 'instances/show' }
+            format.html { 
+              if @instance.in_future?
+                render  template: 'instances/show' 
+              else
+                @archive = true
+                render template: 'instances/past'
+              end
+            }
             format.ics { send_data @cal.to_ical, type: 'text/calendar', disposition: 'attachment', filename: @instance.slug + ".ics" }
           end
         end
@@ -143,20 +171,7 @@ class InstancesController < ApplicationController
     
   end
   
-  def index
-    if params[:event_id]
-      @event = Event.friendly.find(params[:event_id])
-      redirect_to action: action_name, event_id: @event.friendly_id, status: 301 and return unless @event.friendly_id == params[:event_id] 
-      @future = @event.instances.current.or(@event.instances.future).order(:start_at).uniq
-      @past = @event.instances.past.order(:start_at).uniq.reverse  
-    end
-    set_meta_tags title: @event.name
-    @instance = @event.instances.published.first
-    @sequences = @event.instances.order(:start_at).group_by(&:sequence)
-    @sequence = @sequences[@instance.sequence]
-   render template: 'instances/show' 
-    # end
-  end
+
   
   def update
 

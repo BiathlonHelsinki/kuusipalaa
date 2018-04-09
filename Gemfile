@@ -1,7 +1,7 @@
 
 source 'https://rubygems.org'
 
-ruby '2.4.3'
+ruby '2.5.1'
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
@@ -11,7 +11,7 @@ if defined?(RUBY_DESCRIPTION) && RUBY_DESCRIPTION.start_with?("ruby 2.4")
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.1.4'
+gem 'rails', '5.1.6'
 # Use sqlite3 as the database for Active Record
 gem 'pg', '0.21.0'
 # Use Puma as the app server
@@ -78,6 +78,8 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 #gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'best_in_place', '~> 3.0.1'
+
 gem 'capistrano'
 gem 'capistrano-rails'#, '1.1.3'
 gem 'capistrano-rvm'
@@ -115,6 +117,7 @@ gem 'httmultiparty'
 gem 'icalendar'
 gem "jquery-slick-rails"
 gem 'kaminari'
+gem 'magnific-popup-rails', '~> 1.1.0'
 gem 'mailgun_rails'
 gem 'meta-tags'
 gem 'migration_data'

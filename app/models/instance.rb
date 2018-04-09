@@ -11,6 +11,7 @@ class Instance < ApplicationRecord
   has_many :onetimers, dependent: :destroy
   has_many :registrations, dependent: :destroy
   has_many :rsvps
+  has_many :activities, as: :item
   scope :on_day, -> (day) {
      where( [ "(start_at >= ?  AND  start_at <= ?) OR ( end_at > ? AND end_at <= ? )   OR (start_at < ? AND end_at > ? )",
     day.to_date.at_midnight.to_s(:db), day.to_date.end_of_day.to_s(:db),
@@ -34,9 +35,17 @@ class Instance < ApplicationRecord
   scope :future, -> () {where(["published is true and cancelled is not true and end_at >=  ?", Time.now.utc.strftime('%Y/%m/%d %H:%M')]) }
   scope :past, -> () {where(["end_at <  ?", Time.now.utc.strftime('%Y/%m/%d %H:%M')]) }
   scope :current, -> () { where(["start_at <=  ? and end_at >= ?", Time.current.utc.strftime('%Y/%m/%d %H:%M'), Time.current.utc.strftime('%Y/%m/%d %H:%M') ]) }
+  has_many :userphotos
+  has_many :userthoughts
+  has_many :userlinks
   extend FriendlyId
   friendly_id :name_en , :use => [ :slugged, :finders, :history]
   
+
+  def scheduler
+    activities.where(description: 'published_event').empty? ? event.primary_sponsor : activities.find_by(description: 'published_event').contributor
+  end
+
   def as_json(options = {})
     {
       :id => self.id,
@@ -62,6 +71,13 @@ class Instance < ApplicationRecord
     event.instances.where(["id <> ?", self.id])
   end
   
+  def item
+    self
+  end
+
+  def comments
+    event.comments
+  end
   def name_en
     name(:en)
   end
@@ -94,6 +110,9 @@ class Instance < ApplicationRecord
     [event.primary_sponsor_type == 'Group' ? event.primary_sponsor.privileged : event.primary_sponsor, organisers].flatten.compact.uniq
   end
 
+  def viewpoints
+    [userphotos, userlinks, userthoughts].flatten.compact
+  end
 
   def discussion
     event.discussion

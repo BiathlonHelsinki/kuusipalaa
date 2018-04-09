@@ -17,7 +17,7 @@
     = stylesheet_link_tag "application"
     = csrf_meta_tag
     = render partial: 'layouts/piwik'
-  %body
+  %body{class: @archive.nil? ? false : 'archive'}
     - if flash
       - flash.each do |key, value|
         .alert.text-center{ :class => "alert-#{key}" }
@@ -77,7 +77,7 @@
               .banner_blurb= t :you_must_enter_a_pin
               .smaller= t :enter_pin_for_id
                     
-    %article#main
+    %section#main
 
       = yield
       = render 'cookies_eu/consent_banner'

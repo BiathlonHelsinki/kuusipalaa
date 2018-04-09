@@ -7,11 +7,11 @@ class UsersController < ApplicationController
     if @user == current_user
       @user.update_balance_from_blockchain
       if @user.latest_balance < 1
-        render plain: 'Sorry, you need at least 1 Temp to do this.'
+        render plain: t(:sorry_need_1p)
       end
 
       if @api_status == false
-        render plain: 'The Biathlon API is currently down. Please try again later.'
+        render plain: t(:api_is_down)
       else
         api = BiathlonApi.new
 
@@ -19,6 +19,7 @@ class UsersController < ApplicationController
                                {user_email: @user.email,
                                 user_token: @user.authentication_token
                                 })
+
         if success['error']
           render plain: success['error']
         else
