@@ -1,0 +1,5 @@
+$('#viewpoints_row').append("<%= escape_javascript (render partial: 'viewpoints/captioned_photo', locals: {viewpoint: @u}) %>");
+$('#ajax_area').html('');
+
+$(document).scrollTo("#viewpoints_row", 800);
+$('#new_form').html("<%= escape_javascript (render partial: 'viewpoints/userphoto_form') %>");

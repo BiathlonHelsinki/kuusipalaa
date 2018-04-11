@@ -1,0 +1,196 @@
+@import 'variables';
+
+body.archive {
+  background-color: #CCC;
+  header, article.instance_detail_view, footer {
+    background-color: #CCC;
+    .top-bar {
+      background-color: #CCC;
+    }
+    table, table td {
+
+      background-color: #CCC;
+    }
+    #new_form {
+      .tabs-content, .tabs, label {
+        background-color: #CCC;
+      }
+    }
+  }
+}
+
+.mfp-close-btn-in .mfp-close {
+  color: white;
+}
+article.instance_detail_view {
+
+
+  &.archive {
+
+    section#discussion_and_timeline {
+
+      #comments_list {
+
+
+        #main_thread {
+          .bottom_box {
+            padding: 1rem 0 0 1rem;
+          }
+        }
+        ul.first {
+          li {
+            margin: 0;
+            .row {
+              .columns {
+                .entry {
+                  border: none;
+                  border-bottom: 1px dotted #333;
+                  .comment_body.instance {
+                    width: 100%;
+                  }
+                  .participant {
+                    font-weight: normal;
+                    font-family: $montserrat;
+                    margin: 1rem 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .comment_body {
+          .comment_type {
+            .pledge_metadata {
+              font-family: $montserrat;
+              font-weight: normal;
+            }
+          }
+        }
+      }
+
+    }
+
+    section#viewpoints {
+
+      .ajax_loading, #new_form {
+        display: none;
+      }
+
+      .title {
+        margin-bottom: 1rem;
+      }
+
+      .subtitle {
+        margin-bottom: 0.8rem;
+      }
+      .credit {
+        font-size: 0.8em;
+      }
+
+      #user_viewpoint_form {
+        ul.tabs {
+          li.tabs-title {
+            a {
+              color: black;
+              font-family: $sourcecode;
+            }
+          }
+        }
+      }
+      .dropdown-pane {
+        font-size: 0.8rem;
+      }
+      .credit_line {
+        font-family: $sourcecode;
+        line-height: 1.2;
+        margin-bottom: 0.4rem;
+      }
+      
+      .viewpoint { 
+        .avatar {
+          margin-right: 0.6rem;
+          img {
+            max-width: 25px;
+            height: auto;
+          }
+          float: left;
+        }
+        select[name='sender']{
+          float: left;
+          max-width: 50%
+        }
+
+          a {
+            text-decoration: none;
+            &:focus, &:hover {
+              color: black;
+            }
+          }
+          &:hover {
+            a {
+            color: black;
+            .userthought {
+              color: black !important;
+              
+            }
+            
+          }
+        }
+        .userthought {
+          border: 1px solid black;
+          background-color: #AAA;
+          font-family: $montserrat;
+          font-size: 1.1rem;
+          span.big {
+            font-size: 2.5rem;
+            float: left;
+          }
+          ol, ul, dl {
+            list-style-position: inside;
+          }
+        }
+      }
+    }
+  }
+
+
+  table.proposal_info {
+    margin: 1rem 0;
+    width: 100%;
+    border-collapse: collapse;
+    tbody tr:nth-child(even), tbody tr:nth-child(odd) {
+      background-color: white !important;
+    }
+    td {
+      vertical-align: top;
+      border: 1px solid black;
+
+      &.half {
+        width: 50%;
+      }
+      .heading {
+        font-family: $sourcecode;
+        font-weight: bold;
+      } 
+      .value {
+        font-family: $montserrat;
+        &.indent {
+          margin-left: 2.5rem;
+        }
+        .avatar {
+          margin-right: 0.6rem;
+          img {
+            max-width: 25px;
+            height: auto;
+          }
+          float: left;
+        }
+        .subtext {
+          font-size: 0.8rem;
+          color: #666;
+        }
+      }
+    }
+  }
+
+}

@@ -1,0 +1,13 @@
+.form[@u]
+  = semantic_form_for [@experiment, @instance, @u], remote: true do |f|
+    = image_tag @u.image.url(:small)
+    .row
+      .small-10.medium-4.columns
+        = f.input :caption, label: t(:caption), hint: t(:max_100_chars)
+    .row
+      .small-10.medium-4.columns
+        = f.input :credit, label: t(:credit_form)
+    .row
+      .small-10.medium-4.columns
+        = f.submit 'Save', class: [:button, :small]
+        = link_to 'Remove this photo', [@experiment, @instance, @u], method: :delete, remote: :true, data: {confirm: t(:are_you_sure)}, class: [:button, :alert, :tiny]

@@ -1,0 +1,221 @@
+%article.instance_detail_view.archive
+  .row
+    .small-12.columns.title_box
+      .title
+        = t :archived_event
+        = ": "
+        - if @event.name != @instance.name
+          = link_to @event.name, @event
+          - unless @instance.get_sequence_name == @event.name
+            = ": "
+          - unless @instance.get_sequence_name == @event.name
+            = @instance.name
+        - else  
+          = @instance.name
+        = " -- "
+        = date_range(@instance.start_at, @instance.end_at)
+        .smaller= render partial: 'shared/translate_link', locals: {item: @event, attribute: :name}
+        
+      
+  - if @event.image?
+    .row
+      .small-12.columns.image_box.nopadding
+        = image_tag @event.image
+  - if can? :edit, @event && !@event.image?
+    .row
+      .small-6.columns
+        = link_to t(:change_image), '#', class: [:button, :tiny, :bordered], onclick: "javascript:$('form#edit_event_#{@event.id.to_s}').slideToggle();return false;"
+        = semantic_form_for @event, html: {class: "hidden_form", multipart: true} do |f|
+          = f.input :image
+          = f.submit t(:change)
+  .row
+    .small-12.columns.nopadding
+      %table.proposal_info
+        %tr
+          %td.half
+            .heading= t :organised_by
+            .value
+              .avatar= link_to image_tag(@event.primary_sponsor.avatar.url(:thumb).gsub(/development/, 'production')), @event.primary_sponsor
+              .who
+                = link_to(@event.primary_sponsor.display_name, @event.primary_sponsor, target: :_blank)
+                %br/
+                
+          %td.half
+            .heading= t :where
+            .value
+              %strong= @instance.place.name
+              = @instance.place.address   
+              = link_to t(:see_on_map), 'https://osm.org/go/0xPLvWONL?layers=N&m=', target: :_blank, class: [:button, :tiny, :bordered]
+
+        %tr
+
+          %td.half
+            .heading= t :ticket_price
+            .value
+              - if @sequence.first.price_public == 0
+                = t :free_entry
+              - else
+                = number_to_currency(@sequence.first.price_public, unit: raw("&euro;"), format: "%n %u")
+                %p
+                  %em
+                    = t :stakeholders_price
+                    = number_to_currency(@sequence.first.price_stakeholders, unit: raw("&euro;"), format: "%n %u")
+                    - if user_signed_in?
+                      - if !current_user.is_stakeholder?
+                        = link_to t(:become_a_stakeholder), season_new_stake_path(@next_season)      
+          %td.half
+            .heading= t :venue
+            .value
+              - case @sequence.first.room_needed
+                - when 1
+                  = t(:main_room)
+                - when 2
+                  = t(:back_room_short)
+                - when 3
+                  = t(:both_rooms_short)
+              - if @sequence.first.allow_others == true
+                .subtext= t :others_are_allowed_past
+        %tr
+          %td{colspan: 2}
+            .heading= t :event_description
+            .value
+              = simple_format(@sequence.first.description)
+              .smaller
+                = render partial: 'shared/translate_link', locals: {item: @sequence.first, attribute: :description}                
+        %tr
+          %td{colspan: 2}
+            .heading
+              = (@instance.users.uniq + @instance.onetimers.unclaimed).size.to_s
+              = t :person, count: (@instance.users.uniq + @instance.onetimers.unclaimed).size
+              = t :attended
+            .row.small-up-3.medium-up-6.large-up-8
+              = render partial: 'instances/who_came', locals: {instance: @instance}
+
+        - if user_signed_in? && @sequence.map(&:request_registration).compact.include?(true)
+          - if @sequence.first.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+            %tr
+              %td.registration_list{:colspan => 2}
+                .heading= t :registrations
+                .value.row.small-up-2.medium-up-4.large-up-6
+                  - @instance.registrations.each do |reg|
+                    .reveal[reg]{:'data-reveal' => ''}
+                      = reg.user.display_name
+                      %br/
+                      - [:question1, :question2, :question3, :question4, :boolean1, :boolean2].each do |q|
+                        - next if reg[q].nil?  
+                        %strong
+                          = reg.instance[q.to_s + '_text']
+                        %br/
+                        %em
+                          = reg[q]
+                        %br/
+                        %br/
+                      %strong= t :phone_number
+                      = reg.phone
+                    .column
+                      = image_tag reg.user.avatar.url(:thumb)
+                      %br/
+                      = link_to reg.user.display_name, reg.user, target: :_blank
+                      %br/
+                      %small= reg.user.email
+                      = link_to t(:see_registration), '#', onClick: 'return false;', :'data-open' => "registration_#{reg.id.to_s}", class: [:button, :secondary]
+                      %div{id: "organiser_info_#{reg.user.id.to_s}"}
+                        - if @instance.responsible_people.include?(reg.user)
+                          %br/
+                          = t(:organiser)
+                          - if @instance.event.primary_sponsor == reg.user 
+                            %br/
+                            = link_to t(:proposer), @instance.event.idea
+                          - else
+                            - if user_signed_in?
+                              - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+                                = link_to t(:remove_organiser), event_user_remove_organiser_path(@instance.event, @instance, reg.user), remote: true,  class: [:button, :alert, :tiny]
+                        - else
+                          - if user_signed_in?
+                            - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin)
+                              = link_to t(:make_organiser), event_user_make_organiser_path(@instance.event, @instance, reg.user), remote: true,  class: [:button, :secondary, :tiny]
+
+
+  %section#viewpoints
+    .row
+      .small-12.columns.title_box    
+        .title= t(:viewpoint, count: 2).capitalize
+
+        - if @instance.viewpoints.empty?
+          .subtitle= t :no_viewpoints_yet
+          .row.small-up-1.medium-up-2.large-up-4.xxlarge-up-5#viewpoints_row{:"data-equalizer" => '', :"data-equalize-by-row" => "true"}            
+        - else
+          - unless @instance.userthoughts.empty?
+            - markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new, extensions = {})
+
+          .row.small-up-1.medium-up-2.large-up-4.xxlarge-up-5#viewpoints_row{:"data-equalizer" => '', :"data-equalize-by-row" => "true"}
+            - @instance.viewpoints.each do |viewpoint|
+              - if viewpoint.class == Userphoto
+                = render partial: 'viewpoints/captioned_photo', locals: {viewpoint: viewpoint}
+              - if viewpoint.class == Userthought
+                = render partial: 'viewpoints/userthought', locals: {viewpoint: viewpoint, markdown: markdown}
+                  
+        - if user_signed_in?
+          - if @instance.users.include?(current_user)
+            .row
+              .small-12.columns
+                %p= link_to t(:add_a_viewpoint), '#', class: [:button, :bordered], onclick: '$("#new_form").slideToggle();return false;'
+
+            #user_viewpoint_form.row
+              .small-12.medium-8.columns
+         
+                #new_form= render partial: 'viewpoints/userphoto_form'
+                #ajax_area
+                .row
+                  .small-3.medium-2.columns.ajax_loading= image_tag 'loading.gif'  
+
+    
+          - if @sequence.map(&:request_registration).compact.include?(true)
+            %tr#registration_form
+              %td{colspan: 2}
+                = render partial: 'registration_form'
+
+
+  %section#discussion_and_timeline
+    .row
+      .small-12.columns.nopadding.title_box
+        .title= t :discussion_and_timeline
+      #comments_list
+        %ul.first= render(partial: 'shared/comment', collection: @event.discussion_and_timeline, locals: {depth: 0, root: @event, last: @event.discussion_and_timeline.last, commenting_open: false})
+        #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @event, depth: 0, commenting_open: true}
+
+
+= content_for :jquery do
+  :plain
+    $('.comment_content').readmore({lessLink: '<a class="button readmore" href="#">[#{t(:close)}]</a>', moreLink: '<a class="button readmore" href="#">[#{t(:read_more)}]</a>'});
+      
+- if user_signed_in?
+  = content_for :jquery do
+
+    :plain
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        }
+      })
+      jQuery(".best_in_place").best_in_place();
+      $('#pledge_pledger_select').on('change', function() {
+        $.ajax({
+            url: "/ideas/#{@event.id.to_s}/pledges/find_pledge?pledger_type=" + $('#pledge_pledger_select option').filter(":selected").attr('rel') + "&pledger_id=" + $('#pledge_pledger_id').val(),
+            success: function(pledge_limit) {
+              $('#pledge_panel_wrapper').html(pledge_limit)
+            }
+        })
+
+        $('#pledge_pledger_type').val($('#pledge_pledger_select option').filter(":selected").attr('rel'));
+        $('#pledge_pledger_id').val($('#pledge_pledger_select').val());
+        $.ajax({
+          url: '/users/' + $('#pledge_pledger_select').val() + '/get_avatar?class=' + $('#pledge_pledger_type').val() + '&size=thumb',
+          success: function(image) {
+
+            $('#avatar_pledge_pledger img').attr('src', image);
+            $('#avatar_pledge_pledger img').attr('alt', $('#pledge_pledger_select option').filter(":selected").html());
+         
+           }
+          });
+      }); 

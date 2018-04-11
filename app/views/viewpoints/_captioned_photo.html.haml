@@ -1,0 +1,76 @@
+.viewpoint.column[viewpoint]{:'data-equalizer-watch' => ''}
+  .mfp-hide.white-popup{id: "viewpoint_#{viewpoint.class.to_s}_#{viewpoint.id.to_s}_popup"}
+    = image_tag viewpoint.image.url
+    - if viewpoint.caption
+      .caption
+        = viewpoint.caption
+      
+    - if viewpoint.credit
+      .credit
+        %em= viewpoint.credit
+  = link_to image_tag(viewpoint.image.url(:medium)), "#viewpoint_#{viewpoint.class.to_s}_#{viewpoint.id.to_s}_popup", class: "open-popup-link"
+  - if viewpoint.user == current_user
+    = form_for [@event, @instance, viewpoint] do |bip|
+      = link_to fa_icon('pencil') , '#',  onClick: 'return false;', id: "bip_userphoto_caption_#{viewpoint.id.to_s}"
+      = best_in_place [@event, @instance, viewpoint], :caption, as: :input, activator: "#bip_userphoto_caption_#{viewpoint.id.to_s}", place_holder: t(:no_caption)
+      %br/
+      = link_to fa_icon('pencil') , '#', onClick: 'return false;',  id: "bip_userphoto_credit_#{viewpoint.id.to_s}"
+      %em= best_in_place [@event, @instance, viewpoint], :credit, as: :input, activator: "#bip_userphoto_credit_#{viewpoint.id.to_s}", place_holder: t(:no_photo_credit)
+  - else
+    - if viewpoint.caption
+      %br/
+      = viewpoint.caption
+    - if viewpoint.credit
+      %br/
+      %em= viewpoint.credit
+  .credit_line
+    %small=  raw t(:contributed_by, username: link_to(viewpoint.user.display_name, viewpoint.user, target: :_blank), when: l(viewpoint.created_at, format: :long))
+  - if viewpoint.user == current_user
+    
+    = link_to fa_icon('trash') + t(:remove_this_photo), [@event, @instance, viewpoint, viewpoint_type: 'userphoto'], method: :delete, remote: :true, data: {confirm: t(:are_you_sure)}, class: [:button, :alert, :tiny]
+  - else
+    - if user_signed_in?
+      %button.button.small{type: :button, :'data-toggle' => "dropdown_#{viewpoint.id.to_s}_like"}= raw(fa_icon('heart') + t(:like_this_tip) + fa_icon('chevron-circle-down'))
+      .dropdown-pane{id:"dropdown_#{viewpoint.id.to_s}_like", :"data-dropdown" => '', :'data-auto-focus' => "true"}
+        .tip_blurb
+          = t(:how_many_temps_to_tip, user: viewpoint.user.display_name)
+          = form_tag post_points_user_transfers_path(viewpoint.user), remote: true, method: :post do
+            = text_field_tag :temps_to_send, 1, size: 3, maxlength: 3
+            - if @collection_options.size < 2
+              .pledge_as= t :send_from
+              = hidden_field_tag :sender_type, 'User', 'required' => '', id: "sender_type_input_userphoto_#{viewpoint.id.to_s}"
+              = hidden_field_tag :sender_id,  current_user.id , 'required' => '', id: "sender_id_input_userphoto_#{viewpoint.id.to_s}"
+              .avatar{id: "avatar_sender_userphoto_#{viewpoint.id}"}= image_tag current_user.avatar.url(:thumb).gsub(/development/, 'production')
+
+              .who= link_to(current_user.display_name, current_user, target: :_blank) 
+            - else
+              .pledge_as= t :send_from
+              .avatar{id: "avatar_sender_userphoto_#{viewpoint.id}"}= image_tag current_user.avatar.url(:thumb).gsub(/development/, 'production')
+              = hidden_field_tag :sender_type, current_user.class.to_s, 'required' => '', id: "sender_type_input_userphoto_#{viewpoint.id.to_s}"
+              = hidden_field_tag :sender_id,  current_user.id.to_s, 'required' => '', id: "sender_id_input_userphoto_#{viewpoint.id.to_s}"
+              = select_tag :sender, options_for_select(@collection_options.map{|x| [x[0], x[1], { 'rel' => x[2], 'disabled'=> x[3], 'price' => x[4], 'vat' => x[5]}] }), id: "sender_select_userphoto_#{viewpoint.id.to_s}"
+              = content_for :jquery do
+                :plain
+                   $('#sender_select_userphoto_#{viewpoint.id.to_s}').on('change', function() {
+                      $('#sender_type_input_userphoto_#{viewpoint.id.to_s}').val($('#sender_select_userphoto_#{viewpoint.id.to_s} option').filter(":selected").attr('rel'))
+                      $('#sender_id_input_userphoto_#{viewpoint.id.to_s}').val($('#sender_select_userphoto_#{viewpoint.id.to_s}').val())
+                      $.ajax({
+                        url: '/users/' + $('#sender_select_userphoto_#{viewpoint.id.to_s}').val() + '/get_avatar?class=' + $('#sender_type_input_userphoto_#{viewpoint.id.to_s}').val() + '&size=thumb',
+                        success: function(image) {
+
+                          $('#avatar_sender_userphoto_#{viewpoint.id.to_s} img').attr('src', image);
+                          $('#avatar_sender_userphoto_#{viewpoint.id.to_s} img').attr('alt', $('#sender_select_userphoto_#{viewpoint.id.to_s} option').filter(":selected").html())
+                       
+                         }
+                        });
+                      });               
+            = hidden_field_tag :userphoto_id, viewpoint.id.to_s
+            = submit_tag 'Send !', class: [:button]
+
+
+      .after_tip{id:"dropdown_userphoto_#{viewpoint.id.to_s}_after"}
+:javascript
+  $('.open-popup-link').magnificPopup({
+    type:'inline',
+    midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+  });  

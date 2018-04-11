@@ -1,0 +1,4 @@
+$('#new_form').fadeOut();
+<% if @u.class == Userphoto %>
+  $('#ajax_area').html("<%= escape_javascript (render partial: 'get_captions') %>");
+<% end %>

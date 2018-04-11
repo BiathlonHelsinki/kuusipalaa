@@ -1,0 +1,15 @@
+
+- [instance.onetimers.unclaimed, instance.instances_users].map(&:to_a).flatten.sort_by(&:created_at).each do |iu|
+  .column.participant
+    - if iu.class == InstancesUser
+      = image_tag iu.user.avatar.url(:thumb).gsub(/development/, 'production')
+      %br/
+      .name= link_to iu.user.display_name, iu.user, target: :_blank
+      .time
+        = t :checked_in_at, time: iu.created_at.strftime("%H:%M") 
+    - if iu.class == Onetimer
+      = image_tag 'user_missing_large.png'
+      .name= t :anonymous_person
+      .time= t :checked_in_at, time: iu.created_at.strftime("%H:%M")                       
+    - if instance.viewpoints.map(&:user).include?(iu.user)
+      = link_to t(:contributed_viewpoint), '#', onClick: '$(document).scrollTo("#viewpoints", 800);return false;', class: [:button, :tiny, :bordered]
