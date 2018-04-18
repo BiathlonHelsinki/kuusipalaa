@@ -46,7 +46,7 @@
                   .small_viewpoint= link_to image_tag(comment.image.url(:thumb)), "#viewpoint_#{comment.class.to_s}_#{comment.id.to_s}_popup", class: "open-popup-link" 
                 - elsif comment.class == Userthought
                   = raw t :shared_some_words_from_the_event, name: link_to(comment.user.display_name, comment.user, target: :_blank), when: l(comment.created_at, format: :long)
-
+                  %blockquote= raw comment.thoughts
                 - elsif comment.class == Instance
                   - if comment.new_record?
                     = t :the_event_took_place_and_x_attended, event: comment.name, when: l(comment.start_at, format: :long), x: (root.instances.find_by(start_at: comment.start_at, end_at: comment.end_at).users.uniq + root.instances.find_by(start_at: comment.start_at, end_at: comment.end_at).onetimers.unclaimed).size.to_s
