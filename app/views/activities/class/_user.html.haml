@@ -12,7 +12,7 @@
 - if activity.extra
   - if activity.extra.class == Userphoto
     = t :as_a_tip_for
-    = link_to activity.extra.item.name, activity.extra.item
+    = link_to activity.extra.item.name, event_path(activity.extra.item.event)
   - else
     = t(activity.extra_info)
     = link_to activity.extra.name, activity.extra, target: :_blank

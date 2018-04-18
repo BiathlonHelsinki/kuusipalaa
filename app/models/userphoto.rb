@@ -18,6 +18,7 @@ class Userphoto < ApplicationRecord
   end
   
   def withdraw_activity
+    Activity.where(extra: self).each {|x| x.destroy }
     Activity.create(user: user, contributor: user, item: self.instance, description: "removed_a_shared_image", addition: 0)
   end
   
