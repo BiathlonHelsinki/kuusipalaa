@@ -6,13 +6,19 @@ body.archive {
     background-color: #CCC;
     .top-bar {
       background-color: #CCC;
+      ul {
+        background-color: #CCC;
+        ul {
+          border: 1px dotted black;
+        }
+      }
     }
     table, table td {
 
       background-color: #CCC;
     }
     #new_form {
-      .tabs-content, .tabs, label {
+      .tabs-content, .tabs, label, input {
         background-color: #CCC;
       }
     }

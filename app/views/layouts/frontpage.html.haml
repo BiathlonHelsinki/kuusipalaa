@@ -156,7 +156,7 @@
         .small-12.last.medium-4
           .box{:'data-equalizer-watch' => ''}
             = link_to  new_season_stake_path(@current_season.complete? ? @next_season : @current_season)  do
-              .big_num= Stake.all.map(&:owner).to_a.reject{|x| !x.accepted_agreement}.count
+              .big_num= Stake.paid.map(&:owner).count
               .info
                 %strong= t :x_members_of_cooperative
                 %br/

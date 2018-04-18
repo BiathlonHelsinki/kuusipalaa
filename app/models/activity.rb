@@ -18,16 +18,17 @@ class Activity < ApplicationRecord
 
   def icon_class
     case description.to_s
-    when 'attended','attended_anonymously','pledged_to','received_stake_points', 'edited_their_pledge_to','migrated_temps_from_temporary','was_credited_for','was_decredited_for','bought','withdrew_a_pledge','had_blockchain_balance_adjusted_by','spent_a_pledge_on'
+    when 'attended','attended_anonymously','received_from', 'pledged_to','received_stake_points', 'edited_their_pledge_to','migrated_temps_from_temporary','was_credited_for','was_decredited_for','bought','withdrew_a_pledge','had_blockchain_balance_adjusted_by','spent_a_pledge_on'
       'icon-points'
-    when 'asked_the_question','answered_the_question'
+    when 'asked_the_question','answered_the_question', 'shared_an_image_from'
       'icon-actions'
-    when 'proposed', 'cancelled_it', 'plans_to_attend', 'registered_for', 'is_no_longer_planning_to_attend','is_no_longer_registered_for','booked_the_back_room_on'
+    when 'proposed','published_event',  'cancelled_it', 'plans_to_attend', 'registered_for', 'is_no_longer_planning_to_attend','is_no_longer_registered_for','booked_the_back_room_on'
       'icon-event'
     when 'joined', 'linked', 'edited_the_group', 'was_added_to_the_group','created_the_group'
       'icon-profile'     
     else
       'icon-other'
+
     end
   end
 

@@ -30,6 +30,7 @@
           @include breakpoint (small only) {
             display: block;
           }
+
         }
         .icon {
           @include breakpoint (small only) {
@@ -49,16 +50,26 @@
           float: left;
           max-width: 20%;
           margin: auto 0;
+          .middle_image {
+            float: left;
+            padding-right: 3px;
+            img {
+              border: 1px solid black;
+              height: 55px;
+            }  
+          }            
           img {
             border: 1px solid black;
             height: 55px;
           }   
         }
+
         .content {
           @include breakpoint (small only) {
             max-width: 70%;
             margin: initial;
           }
+
           float: left;
           font-family: $sourcecode;
           margin: auto 0;

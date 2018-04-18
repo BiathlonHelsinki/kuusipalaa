@@ -1494,3 +1494,5 @@ fi:
   meeting_was_scheduled: 'Tapahtuma on aikataulutettu %{when} käyttäjän %{user} toimesta'
   pledged_at: 'Tuki annettu %{when}'
   contributed_viewpoint: 'Antoi näkökulman'  
+  # 16 april 2018
+  

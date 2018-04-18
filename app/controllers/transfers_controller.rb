@@ -9,8 +9,10 @@ class TransfersController < ApplicationController
       @recipient = Group.friendly.find(params[:group_id])
     end
 
-    if @api_status == false #|| @dapp_status == false
-      flash[:error] = 'The Biathlon API is currently down. Please try again later.'
+    if @api_status == false #|| @dapp_status == 
+      false
+      flash[:error] = t(:the_biathlon_api_is_down)
+
       redirect_to @recipient
     else
       current_user.update_balance_from_blockchain
@@ -35,10 +37,12 @@ class TransfersController < ApplicationController
       @recipient = Group.friendly.find(params[:group_id])
       url = "/groups/#{params[:group_id]}/transfers/send_biathlon"
     end
-
-    @photo = params[:userphoto_id].nil? ? nil : params[:userphoto_id]
+    if params[:userphoto_id]
+      @photo = params[:userphoto_id].nil? ? nil : params[:userphoto_id]
+      @cl = 'Userphoto'
+    end
     if @api_status == false 
-      flash[:error] = 'The Biathlon API is currently down. Please try again later.'
+      flash[:error] =  t(:the_biathlon_api_is_down)
       if request.xhr?
       else
         redirect_to @recipient
@@ -63,7 +67,7 @@ class TransfersController < ApplicationController
           redirect_to send_points_user_transfers_path(@recipient)
         else      
           TransfersMailer.received_points(current_user, @recipient, params[:points_to_send], params[:reason]).deliver                   
-          flash[:notice] = 'Your transfer was successful, thank you!'
+          flash[:notice] = t(:successful_transfer)
           if request.xhr?
           else
             redirect_to @recipient

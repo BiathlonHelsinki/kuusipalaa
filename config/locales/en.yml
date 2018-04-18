@@ -1371,3 +1371,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   the_event_took_place_and_x_attended: "The event '%{event}' took place, starting at %{when}. %{x} people participated:"
   shared_an_image_from_the_event: '%{name} uploaded an image from the event,  at %{when}.'
   shared_some_words_from_the_event: '%{name} shared some thoughts about the event, at %{when}.'
+  # 16 april 2018
+  the_biathlon_api_is_down: 'The Biathlon API is currently down. Please try again later.'
+  successful_transfer: 'Your transfer was successful, thank you!'
+  as_a_tip_for: ' as a tip for contributing an image from '

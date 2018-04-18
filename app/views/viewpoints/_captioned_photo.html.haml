@@ -30,12 +30,12 @@
     = link_to fa_icon('trash') + t(:remove_this_photo), [@event, @instance, viewpoint, viewpoint_type: 'userphoto'], method: :delete, remote: :true, data: {confirm: t(:are_you_sure)}, class: [:button, :alert, :tiny]
   - else
     - if user_signed_in?
-      %button.button.small{type: :button, :'data-toggle' => "dropdown_#{viewpoint.id.to_s}_like"}= raw(fa_icon('heart') + t(:like_this_tip) + fa_icon('chevron-circle-down'))
-      .dropdown-pane{id:"dropdown_#{viewpoint.id.to_s}_like", :"data-dropdown" => '', :'data-auto-focus' => "true"}
+      %button.button.small{type: :button, :'data-toggle' => "dropdown_#{viewpoint.class.to_s}_#{viewpoint.id.to_s}_like"}= raw(fa_icon('heart') + t(:like_this_tip) + fa_icon('chevron-circle-down'))
+      .dropdown-pane{id:"dropdown_#{viewpoint.class.to_s}_#{viewpoint.id.to_s}_like", :"data-dropdown" => '', :'data-auto-focus' => "true"}
         .tip_blurb
           = t(:how_many_temps_to_tip, user: viewpoint.user.display_name)
           = form_tag post_points_user_transfers_path(viewpoint.user), remote: true, method: :post do
-            = text_field_tag :temps_to_send, 1, size: 3, maxlength: 3
+            = text_field_tag :points_to_send, 1, size: 3, maxlength: 3
             - if @collection_options.size < 2
               .pledge_as= t :send_from
               = hidden_field_tag :sender_type, 'User', 'required' => '', id: "sender_type_input_userphoto_#{viewpoint.id.to_s}"
@@ -68,7 +68,7 @@
             = submit_tag 'Send !', class: [:button]
 
 
-      .after_tip{id:"dropdown_userphoto_#{viewpoint.id.to_s}_after"}
+      .after_tip{id:"dropdown_#{viewpoint.class.to_s}_#{viewpoint.id.to_s}_after"}
 :javascript
   $('.open-popup-link').magnificPopup({
     type:'inline',

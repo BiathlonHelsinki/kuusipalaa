@@ -10,6 +10,10 @@
   = link_to activity.item.display_name, "/" + activity.item_type.downcase +  "s/#{activity.item.slug.to_s}"
 
 - if activity.extra
-  = t(activity.extra_info)
-  = link_to activity.extra.name, activity.extra, target: :_blank
+  - if activity.extra.class == Userphoto
+    = t :as_a_tip_for
+    = link_to activity.extra.item.name, activity.extra.item
+  - else
+    = t(activity.extra_info)
+    = link_to activity.extra.name, activity.extra, target: :_blank
 
