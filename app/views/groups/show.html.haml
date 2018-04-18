@@ -68,7 +68,9 @@
                 .ethereum
                   %strong= t :ethereum_accounts
                   - @group.accounts.each do |account|
-                    %p= link_to account.address, "https://#{Rails.env.development? ? 'ropsten.' : ''}etherscan.io/token/#{Figaro.env.token_address}?a=#{account.address}", target: :_blank
+                    %p
+                      = link_to account.address, "https://status.biathlon.io/#/accounts/#{account.address}/token/#{Figaro.env.token_address}/transactions", target: :_blank
+                      = link_to fa_icon('external-link'), "https://#{Rails.env.development? ? 'ropsten.' : ''}etherscan.io/token/#{Figaro.env.token_address}?a=#{account.address}", target: :_blank
 
 
 
