@@ -1,0 +1,16 @@
+%article.member_services_index.idea_detail_view
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t :resend_confirmation_instructions
+        .blurb
+          %p= t :you_must_confirm_email
+          %p= t :whitelist_email
+          .row
+            .small-10.large-6.columns
+              = semantic_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+                = devise_error_messages!
+
+                = f.input :email, label: t(:your_email), input_html: {autofocus: true, value: resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email}
+
+                = f.submit t(:resend_confirmation_instructions), class: [:bordered]

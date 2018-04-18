@@ -1375,3 +1375,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   the_biathlon_api_is_down: 'The Biathlon API is currently down. Please try again later.'
   successful_transfer: 'Your transfer was successful, thank you!'
   as_a_tip_for: ' as a tip for contributing an image from '
+  didnt_receive_confirmation_email: "Didn't receive your confirmation email?"
+  resend_confirmation_instructions: 'Resend confirmation instructions'
+  whitelist_email: "If you did not receive a confirmation email, please check your spam folder and be sure to whitelist info@kuusipalaa.fi for this and any future notifications."
+  you_must_confirm_email: 'You must confirm your email address before signing in. Alternatively, you can sign in through Facebook, Twitter, Google or GitHub.'

@@ -43,3 +43,5 @@
                             = f.label :remember_me
                         = f.submit t(:sign_in), :class => [:button, :radius]
                         = link_to t(:forgot_your_password), '/users/password/new', class: [:button, :small, :forgot]
+                      %br/
+                      = link_to t(:didnt_receive_confirmation_email), '/users/confirmation/new', class: [:button, :small, :forgot, :bordered]
