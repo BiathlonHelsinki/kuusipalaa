@@ -1085,7 +1085,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
     zero: 'events'
     one: 'event'
     other: 'events'
-  instance: 'Event: '
+  instance: 'Event'
   post: 'News'
   idea:
     zero: 'proposals'

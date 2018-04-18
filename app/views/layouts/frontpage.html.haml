@@ -191,7 +191,10 @@
               .banner2_title
                 = t feeditem.class.to_s.downcase.to_sym, count: 1
                 = ": "
-                = feeditem.name
+                - if feeditem.class == Instance
+                  = feeditem.get_sequence_name
+                - else
+                  = feeditem.name
                 - if feeditem.class == Idea
                   .description= raw feeditem.short_description
                   .proposed_by_front
