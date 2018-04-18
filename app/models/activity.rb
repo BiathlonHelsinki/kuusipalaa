@@ -133,7 +133,7 @@ class Activity < ApplicationRecord
     if item.class == Pledge
       item.pledge.to_i
     elsif blockchain_transaction
-      if blockchain_transaction.transaction_type_id == 2
+      if blockchain_transaction.transaction_type_id == 2 && description =~ /blockchain/
         blockchain_transaction.value.to_i * -1
       else
         blockchain_transaction.value

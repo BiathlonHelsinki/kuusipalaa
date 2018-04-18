@@ -129,6 +129,13 @@ class Instance < ApplicationRecord
   def in_future?
     start_at.localtime >= Time.current
   end
+
+  def already_happened?
+    end_at.localtime <= Time.current.localtime
+
+  end
+    
+  
   
 
 end

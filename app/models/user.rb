@@ -284,6 +284,7 @@ class User < ActiveRecord::Base
    end
 
   def apply_omniauth(omniauth)
+    logger.warn('omniauth hash is ' + omniauth.inspect)
     if omniauth['provider'] == 'twitter'
       logger.warn(omniauth.inspect)
       self.username = omniauth['info']['nickname']
@@ -317,7 +318,9 @@ class User < ActiveRecord::Base
         self.email = omniauth['info']['email']
       end
     end
-
+    if name.blank?
+      self.name = self.username
+    end
     self.password = SecureRandom.hex(32) if password.blank?  # generate random password to satisfy validations
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :username => identifier)
   end

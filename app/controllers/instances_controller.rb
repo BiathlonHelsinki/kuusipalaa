@@ -156,11 +156,12 @@ class InstancesController < ApplicationController
           @sequence = @instance.event.instances.where(sequence: @instance.sequence).order(:start_at)
           respond_to do |format|
             format.html { 
-              if @instance.in_future?
-                render  template: 'instances/show' 
-              else
+              if @instance.already_happened?
                 @archive = true
-                render template: 'instances/past'
+                render  template: 'instances/past' 
+              else
+                
+                render template: 'instances/show'
               end
             }
             format.ics { send_data @cal.to_ical, type: 'text/calendar', disposition: 'attachment', filename: @instance.slug + ".ics" }
