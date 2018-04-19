@@ -747,8 +747,8 @@ fi:
   get_your_stake: 'Hanki panoksesi ja tee jotain'
   as_a_stakeholder: 'Panostajana luot yhdessä tilan, jossa'
   everyone_creates_and_produces: 'Kaikki luovat ja tekevät'
-  everyone_creates_blurb: 'Kuusi Palaa:ta ei kuratoida, tuoteta tai hallinnoida keskitetysti. Kaikki jäsenet voivat ehdottaa tapahtumia ja muuta julkista toimintaa.'
-  participation_rules_blurb: 'Kuusi Palaa arvostaa osallistumista ja sitoutumista. Kun osallistut tapahtumaan Kuusi Palaa:ssa, saat pisteitä. Pisteitä käytetään ohjelman suunnittelemiseen ja tilan ylläpitoon.'
+  everyone_creates_blurb: 'Kuusi Palaata ei kuratoida, tuoteta tai hallinnoida keskitetysti. Kaikki jäsenet voivat ehdottaa tapahtumia ja muuta julkista toimintaa.'
+  participation_rules_blurb: 'Kuusi Palaa arvostaa osallistumista ja sitoutumista. Kun osallistut tapahtumaan Kuusi Palaassa, saat pisteitä. Pisteitä käytetään ohjelman suunnittelemiseen ja tilan ylläpitoon.'
   the_door_is_always_open: 'Ovi on aina avoinna'
   door_open_blurb: "Jos kalenterissa ei ole mitään, Kuusi Palaa on auki yleisenä tapaamis- ja työskentelypaikkana. Saat pisteitä myös kun tulet paikalle. Panostajat saavat avainkortin ja voivat käyttää tilaa 24/7"
 
@@ -873,7 +873,7 @@ fi:
   accepts_members_agreement: 'Hyväksyn käyttöehdot!'
   continue: 'Jatka'
   membership_details: 'Jäsenyyden tiedot'
-  we_need_your_details: "Koska sinusta tulee osuuskunta Kuusi Palaa:n jäsen, tarvitsemme perusyhteystiedot jäsenrekisteriä varten."
+  we_need_your_details: "Koska sinusta tulee osuuskunta Kuusi Palaan jäsen, tarvitsemme perusyhteystiedot jäsenrekisteriä varten."
   read_privacy_policy: "Lue Kuusi Palaa:n tietosuojakäytäntö"
   show_name_on_site: 'Näytä oikea nimesi käyttäjänimesi vieressä'
   your_real_name: 'Oikea nimesi'
@@ -906,7 +906,7 @@ fi:
   what_is_a_stake: 'Mikä on panos?'
   will_be_collectively_operated: 'On kollektiivisesti johdettu 24/7-tila tapahtumia ja vapaata käyttöä varten.'
   a_stake_is: 'Panos on sinun osuutesi Kuusi Palaa –osuuskunnasta.'
-  a_stake_is_longer: 'Ja jäsenyys Kuusi Palaa:ssa - voit järjestää tapahtumia, käyttää tilaa 24/7 ja osallistua vuokrakustannuksiin.'
+  a_stake_is_longer: 'Ja jäsenyys Kuusi Palaassa - voit järjestää tapahtumia, käyttää tilaa 24/7 ja osallistua vuokrakustannuksiin.'
   euros_out_of_total: 'Tähän mennessä kerrytetty %{amount}€  tarvittavasta %{total}€ kokonaissummasta'
   out_of_x_for_season: '/ %{x} panoksesta myyty Kaudella %{season_num}'
   each_stake_costs_50: 'Jokainen panos maksaa 50€.'
@@ -1080,7 +1080,7 @@ fi:
     are_you_sure: 'Oletko varma että haluat tehdä varauksen? Pisteet vähennetään saldostasi, etkä voi peruuttaa sitä.'
     free_to_use: 'Huone on käytössäsi varauksen ajan. Tuntihinta on varaukselle on 15 pistettä/tunti.'
     must_let_others_in: 'Huom: kaikki laiton toiminta, vahingon ja vaaran aiheuttaminen on kiellettyä. Sähkökeskus ja internet-yhteys sijaitsevat huoneen kaapissa, joten tarvittaessa huolto on päästettävä tilaan.'
-    stakeholders_use_free: 'Kuusi Palaa -yhteisön jäsenet voivat käyttää huonetta aina, kun se ei ole varattu. Huone tulee vapauttaa varaajalle silloin kun se on varattu. Jos haluat varmistaa, että huone on käytössäsi, sinun täytyy tehdä varaus.'
+    stakeholders_use_free: 'Kuusi Palaa -yhteisön osuudenomistajat voivat käyttää huonetta aina, kun se ei ole varattu. Huone tulee vapauttaa varaajalle silloin kun se on varattu. Jos haluat varmistaa, että huone on käytössäsi, sinun täytyy tehdä varaus.'
     shares_with_neighbours: 'Seinän takana on naapuri, joten älä aiheuta melua tai muuta häiriötä yöaikaan.'
     anything_you_bring: 'Vie mukanasi kaikki tuomasi tavarat, kun lähdet. Kuusi Palaa ei ole vastuussa tiloihin jätetyistä tavaroista.'
     other_events: 'Jos Kuusi Palaan päätilassa on muita varauksesi aikana, huomioi tilan muut käyttäjät.'
@@ -1303,7 +1303,7 @@ fi:
   key_updated: 'Avain päivitetty.'
   delete_card: 'Poista kortti'
   card_deleted: 'Kortti poistettu.'
-  stakeholders_price: "Hinta jäsenille:"
+  stakeholders_price: "Hinta osuudenomistajille:"
   points_funded_waiting: 'Kaikki vaadittavat pisteet on kerätty! Odottaa ajastusta...'
   kuusi_palaa_is_open_for_free_use: 'Kuusi Palaa on auki ja käytettävissä ilmaiseksi!'
   kuusi_palaa_not_currently_open: 'Kuusi Palaa ei ole auki tällä hetkellä!'
@@ -1327,8 +1327,8 @@ fi:
   error_updating_event: 'Tapahtuman tallennuksessa tapahtui virhe: '
   you_can_always_book_the_back_room: 'Voit aina varata takahuoneen!'
   private_event_in_back_room: 'Yksityistapahtuma takahuoneessa (%{user})'
-  stakeholders_area: 'Jäsenten alue'
-  stakeholders_area_explanation: 'Tämä sivusto on on tarkoitettu Kuusi Palaa -yhteisön osuudenhaltijoille tiedotuksia ja keskustelua varten.'
+  stakeholders_area: 'Osuudenomistajien alue'
+  stakeholders_area_explanation: 'Tämä sivusto on on tarkoitettu Kuusi Palaa -yhteisön osuudenomistajille tiedotuksia ja keskustelua varten.'
   download_as_pdf: 'Lataa PDF'
   hardware_and_infrastructure: 'Laitteisto ja infrastruktuuri'
   infrastructure_blurb: 'Kuusi Palaa käyttää tee-se-itse-laitteita ilman keskitettyä hallintoa. Tällä sivulla kerrotaan laittoistosta, sen tämänhetkisestä tilasta ja mitä tehdä vikatilanteissa.'
@@ -1337,10 +1337,10 @@ fi:
   call_these_people_if: 'Alla listatuilla henkilöillä on viisi avainta Kuusi Palaan tiloihin. Jos et saa avattua ovea, ota heihin yhteyttä.'
   phone_number: 'Puhelinnumerosi'
   phone_number_hint: 'Ei pakollinen. Vain Kuusi Palaa -ihmisten käyttöön. Tämä ei näy julkisessa profiilissasi.'
-  stakeholders_forum: "Jäsenten foorumi" 
-  stakeholders_forum_text: 'Jäsenten keskustelualue Kuusi Palaan asioissa.'
+  stakeholders_forum: "Osuudenomistajien foorumi" 
+  stakeholders_forum_text: 'Osuudenomistajien keskustelualue Kuusi Palaan asioissa.'
   create_new_post: 'Luo uusi viesti'
-  only_stakeholders: 'Näytetäänkö vain muille jäsenille?'
+  only_stakeholders: 'Näytetäänkö vain muille osuudenomistajille?'
   title: 'Otsikko:'
   post_visibility: 'Viestin näkyvyys:'
   post_to_frontpage: 'Julkinen -- näkyy etusivulla'
@@ -1471,7 +1471,7 @@ fi:
   this_proposal_has_been_cancelled: 'Tämä ehdotus on peruttu.'
   cancelled_proposal: 'perui ehdotuksen'
   activity_list_reason: '(syy: "%{reason}")'
-  pledge_cancelled: 'had a pledge of %{numerical_value}ᵽ returned, after cancellation of the proposal ' # Needs to be Käyttäjälle %{user} palautettiin %{numerical_value}ᵽ ehdotuksen perumisen johdosta
+  pledge_cancelled: 'palautettiin %{numerical_value}ᵽ ehdotuksen perumisen johdosta '
   checked_in_at: 'kirjautui sisään %{time}'
   posted: 'lähettänyt'
   see_registration: 'Katso rekisteröinti'
@@ -1486,7 +1486,7 @@ fi:
   others_are_allowed_past: 'Kuusi Palaa oli auki muille tämän tapahtuman aikana, vaikka he eivät osallisuneet siihen.'
   your_viewpoint_has_been_saved: 'Näkökulmasi on tallennettu.'
   your_viewpoint_has_been_removed: 'Näkökulmasi on poistettu.'
-  sorry_need_1p: 'Valitettavasti tarvitset vähintään 1 pisteen tehdäksesi tämän.' # ????
+  sorry_need_1p: 'Valitettavasti tarvitset vähintään 1 ᵽisteen tehdäksesi tämän.'
   api_is_down: 'Kuusi Palaa/Biathlon API on alhaalla. Yritä myöhemmin uudelleen.'
   discussion_and_timeline: 'Keskustelu ja aikajana'
   user_original_proposal: '%{user} lähetti ehdotuksen: %{date}.'
@@ -1494,5 +1494,5 @@ fi:
   meeting_was_scheduled: 'Tapahtuma on aikataulutettu %{when} käyttäjän %{user} toimesta'
   pledged_at: 'Tuki annettu %{when}'
   contributed_viewpoint: 'Antoi näkökulman'  
-  # 16 april 2018
+  # 19 april 2018
   
