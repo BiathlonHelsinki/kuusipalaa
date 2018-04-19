@@ -88,8 +88,8 @@
                     = link_to activity.last['activities'].first.item.name, activity.last['activities'].first.item, target: :_blank, target: :_blank
 
                 - if activity.last['activities'].first.item.class == Comment
-                  - if activity.last['activities'].map{|x| x.item}.uniq.size == 1
-                    = link_to activity.last['activities'].first.item.name, activity.last['activities'].first.item, target: :_blank, target: :_blank
+                  - if activity.last['activities'].map{|x| x.item.item}.uniq.size == 1
+                    = link_to activity.last['activities'].first.item.item.name, activity.last['activities'].first.item.item, target: :_blank, target: :_blank
                   - else
                     = t :things
 
