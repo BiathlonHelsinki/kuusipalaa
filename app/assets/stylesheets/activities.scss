@@ -41,6 +41,17 @@
           .content {
             font-size: 0.9rem;
           }
+          .tally {
+            @include breakpoint (small only) {
+              max-width: 100%;
+              height: 2rem;
+              margin-top: 1.5rem;
+              font-size: 0.6rem;
+              position: relative;
+              bottom: -23px;
+              left: 0;
+            }
+          }
         }
 
      
@@ -74,6 +85,10 @@
         position: absolute;
         left: 49%;
         margin-top: -24px;
+        @include breakpoint (small only) {
+          margin-top: -10px;
+          left: 47.5%;
+        }
       }
       .activity_box {
         border: 1px solid black;
@@ -101,7 +116,7 @@
             img {
               height: 75px;
               @include breakpoint (small only) {
-               height: 42px;
+               height: 42px !important;
               }
             }
           }
@@ -124,7 +139,7 @@
             border: 1px solid black;
             height: 75px;
             @include breakpoint (small only) {
-              height: 42px;
+              height: 42px !important;
             }
           }
           max-width: 12%;
@@ -139,17 +154,27 @@
           float: left;
           max-width: 20%;
           margin: auto 0;
+          @include breakpoint (small only) {
+            max-width: unset;
+            margin-top: 5px;
+          }
           .middle_image {
             float: left;
             padding-right: 3px;
             img {
               border: 1px solid black;
               height: 55px;
+              @include breakpoint (small only) {
+                height: 32px !important;
+              }
             }  
           }            
           img {
             border: 1px solid black;
             height: 55px;
+            @include breakpoint (small only) {
+                height: 32px !important;
+              }
           }   
         }
 
