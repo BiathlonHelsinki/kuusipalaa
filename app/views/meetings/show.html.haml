@@ -66,8 +66,8 @@
                   = t(:this_meeting_has_x_comments, count: @meeting.discussion.size, comment: t(:comment, count: @meeting.discussion.size) )
 
 
-          %ul.first= render(partial: 'shared/comment', collection: @meeting.comments.order(:created_at), locals: {depth: 0, last: @meeting.comments.last})
-          #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @meeting, depth: 0}
+          %ul.first= render(partial: 'shared/comment', collection: @meeting.comments.order(:created_at), locals: {depth: 0, last: @meeting.comments.last, root: @meeting, commenting_open: false})
+          #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @meeting, depth: 0, root: @meeting, commenting_open: false}
 
 = content_for :jquery do
   :plain

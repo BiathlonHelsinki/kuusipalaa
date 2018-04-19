@@ -313,4 +313,14 @@ function calculateCost() {
   }
 }
 
+function toggle_collapsed(id) {
+  $(id).prev().children('.icon_class').toggleClass('has_collapsed')
+  $(id).next().children('.activity_box_wrapper').css('padding-top', '0')
+  $(id).next().children('.icon_class').toggleClass('after_collapse')
+  $(id).slideToggle(function() {
+    new Foundation.Equalizer($(id + ' .activity_row')).applyHeight();
+  })
+  return false;
+}
+    
 $(function(){ $(document).foundation(); });

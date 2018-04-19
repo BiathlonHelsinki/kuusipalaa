@@ -17,6 +17,8 @@ class Meeting < ApplicationRecord
   has_many :comments, as: :item
   has_many :notifications, as: :item
 
+
+
   def title_en
     self.name(:en)
   end

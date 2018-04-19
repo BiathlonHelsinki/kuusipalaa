@@ -2,26 +2,84 @@
 @import 'settings';
 
 .activities_index {
+
+  .filter_box {
+    select, input {
+      margin: 0 5px;
+    }
+    .icons {
+      font-size: 2.2rem;
+      .disabled {
+        color: #AAA;
+      }
+    }
+  }
+  select#activity_description {
+    max-width: 75%;
+    margin-left: 5px;
+  }
+  .collapsed {
+    display: none;
+    margin-top: -9px;
+    background: white image-url('activities/nested.png') center center repeat-y;
+    .activity_row {
+      .icon_class {
+        display: none;
+      }
+    
+      .activity_box_wrapper {
+        
+        .activity_box {
+          width: 80%;
+          background-color: white;
+          margin: 0 auto !important;
+          .icon {
+            img {
+              height: 60px;
+            }
+          }
+          .content {
+            font-size: 0.9rem;
+          }
+        }
+
+     
+
+      }      
+    }
+  }
+
   .activity_row {
 
 
     
     .icon_class {
 
-      padding: 3.4rem 0 2rem 0;
+      padding: 2.8rem 0 2rem 0;
       @include breakpoint (small only) {
         padding: 4.2rem 0 2rem 0;
       }
-
+      &.has_collapsed {
+        background: white image-url('activities/grid_collapsed.png') 16px center no-repeat; 
+      }
+      &.after_collapse {
+        background: white image-url('activities/after_collapse.png') 16px center no-repeat; 
+      }
       background: white image-url('activities/grid2.png') 16px center no-repeat;
     }
     .activity_box_wrapper {
       padding: 0.5rem 0;
-
+      .down_icon {
+        float: left;
+        position: absolute;
+        left: 49%;
+        margin-top: -24px;
+      }
       .activity_box {
         border: 1px solid black;
         padding: 0.7rem;
         margin: 0;
+        height: 100px;
         @include breakpoint (small only) {
           height: 9rem;
         }
@@ -32,19 +90,50 @@
           }
 
         }
+        .grouped {
+          position: relative;
+          text-align: center;
+          display: block;
+          height: 100%;
+          .icon {
+            max-width: unset;
+            width: 100%;
+            img {
+              height: 75px;
+              @include breakpoint (small only) {
+               height: 42px;
+              }
+            }
+          }
+          .content {
+            width: unset;
+            max-width: 100%;
+            position: relative;
+            top: 50%;
+            margin-top: -0.7;
+          }
+
+        }
         .icon {
+
           @include breakpoint (small only) {
             max-width: 20%;
           }
           img {
+            float: left;
             border: 1px solid black;
             height: 75px;
             @include breakpoint (small only) {
-              height: initial;
+              height: 42px;
             }
           }
           max-width: 12%;
           float: left;
+          &.group {
+            display: flex;
+            // width: 100;
+            // max-width: 100%;
+          }
         }
         .adjacent {
           float: left;
@@ -67,12 +156,30 @@
         .content {
           @include breakpoint (small only) {
             max-width: 70%;
-            margin: initial;
+            margin-left: 0 !important;
           }
+          &.icons {
+            @include breakpoint (small only) {
+              margin-top: 1px;
+              max-width: 100%;
+            }
+          }
+          display: flex;
+          height: 100px;
+          @include breakpoint (small only) {
+            height: 0;
 
+          }
           float: left;
           font-family: $sourcecode;
-          margin: auto 0;
+          margin-top: -0.7rem;
+          margin-bottom: 0.7rem;
+          .inner_wrapper {
+            margin: auto 0;
+            @include breakpoint (small only) {
+              margin: 10px 0 0 0;
+            }
+          }
           .has_icons {
             float: left;
             max-width: 80%;
@@ -91,14 +198,18 @@
       .tally {
         @include breakpoint (small only) {
           max-width: 100%;
-          height: 3rem;
+          height: 2rem;
+          margin-top: 2.6rem;
+          font-size: 0.6rem;
         }
         margin: auto 0;
         font-family: $sourcecode;
         max-width: 20%;
         font-size: 0.8rem;
         .value {
-          
+          @include breakpoint (small only) {
+            font-size: 0.9rem;
+          }
           font-size: 1.25rem;
           font-weight: bold;
           float: right;
@@ -107,3 +218,6 @@
     }
   }
 }
+
+
+

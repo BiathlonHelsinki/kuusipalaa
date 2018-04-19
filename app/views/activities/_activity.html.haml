@@ -6,7 +6,8 @@
     .activity_box
       .row.flex
         .columns.icon= render partial: "activities/icon", locals: {activity: activity}
-        .columns.content= render partial: "activities/class/#{activity.item.class.to_s.downcase}", locals: {activity: activity}
+        .columns.content
+          .inner_wrapper= render partial: "activities/class/#{activity.item.class.to_s.downcase}", locals: {activity: activity}
 
         - if activity.description == 'received_from'
           .adjacent.columns

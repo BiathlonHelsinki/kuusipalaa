@@ -24,7 +24,12 @@ Rails.application.routes.draw do
     resources :stakes
   end
 
-  resources :activities
+  resources :activities do
+    collection do
+      get :chronological
+    end
+  end
+  
   
   resources :bankstatements
 

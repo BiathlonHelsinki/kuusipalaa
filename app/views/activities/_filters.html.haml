@@ -1,0 +1,33 @@
+.filter_box
+  .row
+    .small-6.columns
+      .float-left= t :filter_by
+      %select#activity_description.float-left
+        %option{:value => ""} &nbsp;
+        - @filters["description"].each do |filter|
+          %option{:value => filter, :selected => (params[:by_description] == filter ? :selected : false)}= t(filter).gsub(/%\{numerical_value\}/, '').downcase
+    .small-1.columns.icons
+      - if controller.action_name =='index'
+        = link_to '/activities/chronological', class: :button do
+          = fa_icon 'list-ol'
+
+      - else
+        .disabled
+          = fa_icon 'list-ol'
+
+    .small-1.columns.icons
+      - if controller.action_name == 'chronological' 
+        = link_to '/activities/grouped', class: :button do
+          = fa_icon 'object-group'
+      - else
+        .disabled=fa_icon 'object-group'
+
+    .small-4.columns.end
+      = form_tag '/activities/chronological', :method => :get do
+        = text_field_tag 'by_string', params[:by_string],  placeholder: 'Search....'
+
+= content_for :jquery do 
+  :plain
+    $('#activity_description').change(function() {
+      window.location.href= '/activities/chronological?utf8=✓&by_description=' + $(this).val();
+    })

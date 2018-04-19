@@ -1,0 +1,16 @@
+- if activity.contributor != activity.user && !activity.contributor.nil?
+  = link_to activity.contributor.display_name, activity.contributor, target: :_blank
+  = raw t(:via_user, user: link_to(activity.user.display_name, activity.user, target: :_blank))
+- else
+  = link_to(activity.user.display_name, activity.user, target: :_blank)
+
+- if activity.value
+
+  = t activity.description, numerical_value: activity.value.to_s
+- else
+  = t activity.description
+  
+= link_to activity.item.name, 'https://temporary.fi/proposals/' + activity.item.id.to_s
+- if activity.extra_info
+  - if activity.description == 'cancelled_proposal'
+    = t(:activity_list_reason, reason:  activity.extra_info)

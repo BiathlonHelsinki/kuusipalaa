@@ -1,0 +1,120 @@
+- if activity.last['activities'].size == 1
+  = render partial: "activities/activity", locals: {activity: activity.last['activities'].first }
+- else
+  .row.activity_row{:'data-equalizer' => 'activity', :"data-equalize-on" => "small", class: activity.last['description'], id: "grouped_activity_#{activity.first}"}
+    .small-2.medium-1.column.icon_class{:'data-equalizer-watch' => 'activity'}
+      = image_tag "activities/#{activity.last['activities'].first.icon_class}.png", width: 32
+
+
+
+
+    .small-10.medium-11.columns.activity_box_wrapper{:'data-equalizer-watch' => 'activity'}
+      .activity_box
+        .row{class: activity.last['activities'].uniq(&:uniq_contributor).size == 1 ? "flex" : "flex"}
+
+          - if activity.last['activities'].uniq(&:uniq_contributor).size == 1
+            .columns.icon= render partial: "activities/icon", locals: {activity: activity.last['activities'].first}
+          - else
+
+            .columns.group.icon
+              = render partial: "activities/group_icon", locals: {activities: activity.last['activities'].uniq(&:uniq_contributor)}
+
+
+          .columns.content{style: "margin-left: #{[(activity.last['activities'].uniq(&:uniq_contributor).size - 1) * 75, 375].min}px;", class: (activity.last['activities'].uniq(&:uniq_contributor).size > 1) ? 'icons' : false}
+            .inner_wrapper
+              - if activity.last['activities'].uniq(&:uniq_contributor).size == 1
+                - if activity.last['activities'].first.item.class == Pledge
+                  - if activity.last['activities'].map{|x| x.item.item}.uniq.size == 1
+                    = render partial: "activities/class/pledge", locals: {activity: activity.last['activities'].first}
+                  - else
+                    - if activity.last['activities'].first.contributor != activity.last['activities'].first.user && !activity.last['activities'].first.contributor.nil?
+                      = link_to activity.last['activities'].first.contributor.display_name, activity.last['activities'].first.contributor, target: :_blank
+                      = raw t(:via_user, user: link_to(activity.last['activities'].first.user.display_name, activity.last['activities'].first.user, target: :_blank))
+                    - else
+                      = link_to(activity.last['activities'].first.user.display_name, activity.last['activities'].first.user, target: :_blank)
+                    = t activity.last['activities'].first.description, numerical_value:  activity.last['activities'].sum(&:numerical_value)
+                    = t(:x_different_proposals, count: activity.last['activities'].map{|x| x.item.item}.uniq.size)
+                - else
+                  = render partial: "activities/class/#{activity.last['activities'].first.item.class.to_s.downcase}", locals: {activity: activity.last['activities'].first}
+
+                - if activity.first == 'received_from'
+                  .adjacent.columns
+                    - if activity.last.first.extra
+                      - if activity.last.first.extra.class == Userphoto
+                        .middle_image
+                          = fa_icon('arrow-right')
+                          = image_tag activity.last.first.extra.image.url(:thumb)
+                    = fa_icon('arrow-right')
+                    = link_to image_tag(activity.last[activity.last.keys.first].first.item.avatar.url(:thumb)), activity.last[activity.last.keys.first].first.item, target: :_blank
+
+                - elsif activity.first == 'was_added_to_the_group'
+                  .adjacent.columns
+                    = fa_icon('arrow-right')
+                    = link_to image_tag(activity.last[activity.last.keys.first].first.item.avatar.url(:thumb)), activity.last[activity.last.keys.first].first.item, target: :_blank
+
+                - elsif activity.first == 'shared_an_image_from'
+                  .adjacent.columns
+                    = link_to image_tag(activity.last.first.extra.image.url(:thumb)), activity.last.first.item, target: :_blank        
+
+                - elsif activity.first == 'was_mentioned_by'
+                  .adjacent.columns
+
+                    = fa_icon('arrow-left')
+                    = link_to image_tag(activity.last[activity.last.keys.first].first.item.avatar.url(:thumb)), activity.last[activity.last.keys.first].first.item, target: :_blank
+              - else
+
+                = activity.last['activities'].uniq(&:uniq_contributor).size
+                = t :person, count: activity.last['activities'].uniq(&:uniq_contributor).size
+                - if activity.last['activities'].map(&:numerical_value).compact.empty?
+                  = t activity.last['description'] + "_grouped"
+                - else
+                  = t activity.last['description']  + "_grouped", numerical_value: activity.last['activities'].map(&:numerical_value).compact.sum
+
+                - if activity.last['activities'].first.item.class == Post
+                  - if activity.last['activities'].map{|x| x.item}.uniq.size == 1
+                    = link_to activity.last['activities'].first.item.name, activity.last['activities'].first.item, target: :_blank
+                  - else
+                    = t :x_topics, count: activity.last['activities'].map{|x| x.item}.uniq.size, topic: t(:topic, count: activity.last['activities'].map{|x| x.item}.uniq.size)
+
+                - if activity.last['activities'].first.item.class == Instance
+                  - if activity.last['activities'].map{|x| x.item}.uniq.size == 1
+                    = link_to activity.last['activities'].first.item.get_sequence_name, event_instance_path(activity.last['activities'].first.item.event, activity.last['activities'].first.item), target: :_blank
+                  - else
+                    = t :x_events, count: activity.last['activities'].map{|x| x.item}.uniq.size, event: t(:event, count: activity.last['activities'].map{|x| x.item}.uniq.size)
+
+                - if activity.last['activities'].first.item.class == Idea
+                  - if activity.last['activities'].map{|x| x.item}.uniq.size == 1
+
+                    = link_to activity.last['activities'].first.item.name, activity.last['activities'].first.item, target: :_blank, target: :_blank
+
+                - if activity.last['activities'].first.item.class == Meeting
+                  - if activity.last['activities'].map{|x| x.item}.uniq.size == 1
+                    = link_to activity.last['activities'].first.item.name, activity.last['activities'].first.item
+                - if activity.last['activities'].first.item.class == Proposal
+                  = link_to activity.last['activities'].first.item.name, 'https://temporary.fi/proposals/' + activity.last['activities'].first.item.id.to_s
+                - if activity.last['activities'].first.item.class == Pledge
+
+                  - if activity.last['activities'].map{|x| x.item.item}.uniq.size == 1
+                    - if activity.last['activities'].first.item.item.class == Idea
+                      = link_to activity.last['activities'].first.item.item.name, activity.last['activities'].first.item.item, target: :_blank, target: :_blank
+                    - elsif activity.last['activities'].first.item.item.class == Proposal
+                      = link_to activity.last['activities'].first.item.item.name, 'https://temporary.fi/proposals/' + activity.last['activities'].first.item.item.id.to_s
+                  - else
+
+                    = t(:x_different_proposals, count: activity.last['activities'].map{|x| x.item.item}.uniq.size)
+
+                - if activity.last['activities'].first.item.class == Group
+                  = link_to activity.last['activities'].first.item.name, activity.last['activities'].first.item, target: :_blank, target: :_blank
+                - if activity.last['activities'].first.item.class == Event
+                  = link_to activity.last['activities'].first.item.name, activity.last['activities'].first.item, target: :_blank, target: :_blank              
+
+          .columns.tally.text-right
+            - if activity.last['activities'].size == 1
+              = render partial: "activities/numbers", locals: {activity: activity.last['activities'].first}
+            - else
+              = render partial: "activities/grouped_numbers", locals: {activities: activity.last['activities']}
+        .down_icon
+          = link_to image_tag('activities/down_icon.png', width: 23), '#', onClick: 'javascript:toggle_collapsed("#collapsed_' + activity.first.to_s + '");return false;'
+  .collapsed{id: 'collapsed_' + activity.first.to_s}
+    - activity.last['activities'].each do |activity|
+      = render partial: 'activities/activity', locals: {activity: activity}

@@ -1,0 +1,28 @@
+.clock
+  = image_tag 'activities/icon-clock.png', width: 20
+  = date_range(activities.last.updated_at, activities.first.updated_at)
+
+- unless activities.map(&:value).compact.empty?
+  .value
+    - unless activities.map(&:value).compact.empty?
+      - if activities.map(&:addition).compact.uniq == [1]
+        = fa_icon('plus')
+      - if activities.first.addition == 0
+        - if activities.first.description =~ /received/
+          = fa_icon('arrows-h')
+        - if activities.first.description =~ /pledged/
+          = fa_icon('smile-o')
+        - if activities.first.description =~ /withdrew/
+          = fa_icon('frown-o')
+      - if activities.map(&:addition).compact.uniq == [-1]
+        = fa_icon('minus')
+    -# - if activity.ethtransaction
+
+    -#   = link_to activity.value.to_s + "ᵽ", "https://#{Rails.env.development? ? 'ropsten.' : ''}etherscan.io/tx/#{activity.ethtransaction.txaddress}", target: :_blank
+    -# - else
+    = activities.map(&:value).sum.to_s + "ᵽ"
+- else
+  %br/
+  &nbsp;
+  %br/
+  %br/

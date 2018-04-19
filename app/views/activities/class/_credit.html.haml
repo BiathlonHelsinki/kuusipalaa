@@ -6,9 +6,4 @@
 
 
 = t activity.description, numerical_value:  activity.numerical_value
-- if activity.item.item.class == Idea
-  = link_to activity.item.item.name, activity.item.item
-- elsif activity.item.item.class == Proposal
-  = link_to activity.item.item.name, 'https://temporary.fi/proposals/' + activity.item.item.id.to_s
-- elsif activity.item.item.class == Event
-  = link_to activity.item.item.name, activity.item.item, target: :_blank
+= activity.item.name

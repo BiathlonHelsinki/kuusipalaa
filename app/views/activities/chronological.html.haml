@@ -12,11 +12,9 @@
             - else
               = t :kp_is_currently_closed
               .smaller= t :not_a_stakeholder_come_some_other_time
-  
-  = render partial: 'activities/filters'         
+  = render partial: 'activities/filters'                  
+  - @activities.each do |activity|
+    = render partial: 'activities/activity', locals: {activity: activity}
 
-  - @activities.first.each do |activity|
-    = render partial: 'activities/group', locals: {activity: activity}
-
-  .row
-    .small-12.columns= paginate @activities
+.row
+  .small-12.columns= paginate @activities

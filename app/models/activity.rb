@@ -149,4 +149,12 @@ class Activity < ApplicationRecord
 
   end
 
+  def uniq_contributor
+    if description == 'attended_anonymously'
+      id
+    else
+      contributor
+    end
+  end
+
 end

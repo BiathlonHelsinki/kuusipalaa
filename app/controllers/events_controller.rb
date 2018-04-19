@@ -12,6 +12,7 @@ class EventsController < ApplicationController
     @events = Instance.kuusi_palaa.published.past.order(start_at: :desc)
     render template: 'events/index'
   end
+
   def calendar
     # events = Event.none
     # events = Event.published.between(params['start'], params['end']) if (params['start'] && params['end'])
@@ -128,7 +129,9 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.friendly.find(params[:id])
-
+    if @event.start_at < "2018-02-01" 
+      redirect_to "https://temporary.fi/events/" + @event.slug
+    end
     set_meta_tags title: @event.name
   end
 

@@ -38,6 +38,9 @@ class InstancesController < ApplicationController
       @future = @event.instances.current.or(@event.instances.future).order(:start_at).uniq
       @past = @event.instances.past.order(:start_at).uniq.reverse  
     end
+    if @event.start_at < "2018-02-01" 
+      redirect_to "https://temporary.fi/events/" + @event.slug and return
+    end
     set_meta_tags title: @event.name
     @instance = @event.instances.published.first
     @sequences = @event.instances.order(:start_at).group_by(&:sequence)

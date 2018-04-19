@@ -1,3 +1,6 @@
 = link_to activity.user.display_name, activity.user, target: :_blank
 = link_to t(activity.description), '/roombookings', target: :_blank, target: :_blank
-= date_range(activity.item.start_at, activity.item.end_at)
+- if activity.item.start_at.nil?
+  = l activity.item.day, format: :long
+- else
+  = date_range(activity.item.start_at, activity.item.end_at)
