@@ -7,5 +7,6 @@
 = t activity.description
 - if can? :read, activity.item.item
   = link_to activity.item.name, activity.item.item
-- else
+- elsif activity.item.item.class == Post
   = link_to t(:stakeholder_only_discussion), new_season_stake_path(@next_season)
+
