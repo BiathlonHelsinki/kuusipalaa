@@ -17,7 +17,7 @@
 
     .small-1.columns.icons
       - if controller.action_name == 'chronological' 
-        = link_to '/activities/grouped', class: :button do
+        = link_to '/activities/', class: :button do
           = fa_icon 'object-group'
       - else
         .disabled=fa_icon 'object-group'
