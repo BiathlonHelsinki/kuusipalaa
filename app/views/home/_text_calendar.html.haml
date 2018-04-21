@@ -19,7 +19,7 @@
           - else
             = fa_icon('calendar')
         .name
-          = link_to event.class == Roombooking ? '/roombookings' : event_instance_path(event.event, event) do
+          = link_to event.class == Roombooking ? '/roombookings' : (event.slug == 'closed' ? '/posts/kuusi-palaa-will-be-closed-wednesday-25-april' : event_instance_path(event.event, event) ) do
             - if event.open_time == true
               = t :open_24_7
             - else
