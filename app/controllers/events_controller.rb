@@ -22,7 +22,10 @@ class EventsController < ApplicationController
 
     @events.uniq!
     @events.flatten!
- 
+    closed = Instance.new(start_at: '2018-04-25 00:00:00', end_at: '2018-04-25 23:59:00')
+    closed.name = 'Kuusi Palaa is closed for renovations'
+    closed.slug = 'closed'
+    @events << closed
     # @events += events.reject{|x| !x.one_day? }
     if params[:format] == 'ics'
       require 'icalendar/tzinfo'
@@ -95,7 +98,10 @@ class EventsController < ApplicationController
     @events += Roombooking.between(params['start'], params['end']) if (params['start'] && params['end'])
     @events.uniq!
     @events.flatten!
-
+    closed = Instance.new(start_at: '2018-04-25 00:00:00', end_at: '2018-04-25 23:59:00')
+    closed.name = 'Kuusi Palaa is closed for renovations'
+    closed.slug = 'closed'
+    @events << closed
     # @events += events.reject{|x| !x.one_day? }
     if params[:format] == 'ics'
       require 'icalendar/tzinfo'

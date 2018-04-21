@@ -9,6 +9,7 @@
     enddate = params['end'].to_date
     (start..enddate).each do |day|
       next if day < Time.now.utc.to_date
+      next if day == '2018-04-25'.to_date
       @times << {title: t(:choose) + l(day.to_date, format: :short), day: day, start: "#{day} 00:00:01".to_s, end:  "#{day} 23:59:59".to_s, allDay: true, recurring: false, url: "choose_day/#{day.to_s}"}
 
     end
@@ -17,6 +18,10 @@
     @times += Instance.calendered.published.between(params['start'], params['end']) if (params['start'] && params['end'])
     @times +=  Idea.active.timed.unconverted.between(params['start'], params['end'])  if (params['start'] && params['end'])
     @times += Additionaltime.between(params['start'], params['end']).to_a.delete_if{|x| !x.item.converted_id.nil?}
+    closed = Instance.new(start_at: '2018-04-25 00:00:00', end_at: '2018-04-25 23:59:00')
+    closed.name = 'Kuusi Palaa is closed for renovations'
+    closed.slug = 'closed'
+    @times << closed
 
 
     respond_to do |format|

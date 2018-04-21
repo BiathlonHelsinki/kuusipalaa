@@ -74,6 +74,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def proposed_projects
+    [ideas.converted.map(&:converted), groups.map{|x| x.ideas.converted.map(&:converted)}.flatten].flatten.uniq
+  end
+
   def privileged
     [self]
   end

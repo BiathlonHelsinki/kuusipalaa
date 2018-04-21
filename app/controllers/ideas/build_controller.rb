@@ -1,7 +1,7 @@
 class Ideas::BuildController < ApplicationController
   include Wicked::Wizard
   before_action :authenticate_user!
-  steps :find_type, :name_and_info, :when, :points, :finalise
+  steps :find_type,  :name_and_info, :when, :points, :finalise
 
   def show
     begin
@@ -21,6 +21,7 @@ class Ideas::BuildController < ApplicationController
 
       redirect_to roombookings_path
     else
+
       params[:idea][:status] = step.to_s
       params[:idea][:status] = 'active' if step == steps.last
       @idea.add_to_activity_feed if step == steps.last

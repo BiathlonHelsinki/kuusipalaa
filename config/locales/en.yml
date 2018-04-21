@@ -1409,3 +1409,10 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
     other: 'topics'
   was_mentioned_by_grouped: 'were mentioned in comments'
   things: 'things'
+  continue_existing_project: 'Continue existing project?'
+  no_thanks_new_proposal: "No thanks, I'm proposing something new"
+  would_you_like_to_continue_project: 'You have previously organised activities at Kuusi Palaa. Would you like to propose this as a continuation or another meeting of a previous event?'
+  session:
+    zero: 'sessions'
+    one: 'session'
+    other: 'sessions'

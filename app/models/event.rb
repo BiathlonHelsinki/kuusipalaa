@@ -76,6 +76,10 @@ class Event < ApplicationRecord
     100
   end
 
+  def sequences
+    instances.group_by(&:sequence)
+  end
+
   def next_sequence
     instances.map(&:sequence).map(&:to_i).sort.last + 1
   end

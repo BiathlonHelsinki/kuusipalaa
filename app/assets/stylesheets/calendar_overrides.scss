@@ -25,6 +25,9 @@ a.fc-event {
   border: 1px solid #999;
   background-color: #999;
   color: white;
+  &.closed {
+    background-color: $pink;
+  }
   &.event {
     background-color: black;
     pointer-events: none; 

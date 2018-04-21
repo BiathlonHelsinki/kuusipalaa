@@ -58,8 +58,8 @@ class Instance < ApplicationRecord
       :recurring => false,
       :temps => self.cost_bb,
       :cancelled => self.cancelled,
-      class: 'event',
-      :url => Rails.application.routes.url_helpers.event_instance_path(event.slug, slug)
+      class: self.slug == 'closed' ? 'closed' : 'event',
+      :url => self.slug == 'closed' ? '/posts/kuusi-palaa-will-be-closed-wednesday-25-april' : Rails.application.routes.url_helpers.event_instance_path(event.slug, slug)
     } 
   end 
 
