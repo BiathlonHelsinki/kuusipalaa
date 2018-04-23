@@ -173,7 +173,15 @@
             = t :season_x, number: @current_season.number
             = ": "
             = date_range(@current_season.start_at, @current_season.end_at, format: :long)
-    
+    - unless @sticky.empty?
+      - @sticky.each do |sticky|
+        %article
+          .row.front_box
+            = link_to sticky, target: :_blank do
+              .small-12.columns.small-centered.text-center
+                .banner_blurb
+                  = sticky.name
+                .smaller= raw sticky.body
     .row.article_slider{:'data-equalizer' => '', :'data-equalize-on' => "medium"}
       .columns.small-12.medium-6.large-4.left_adjust
         = link_to '/announcements/this_week' do

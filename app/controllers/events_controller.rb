@@ -25,6 +25,7 @@ class EventsController < ApplicationController
     closed = Instance.new(start_at: '2018-04-25 00:00:00', end_at: '2018-04-25 23:59:00')
     closed.name = 'Kuusi Palaa is closed for renovations'
     closed.slug = 'closed'
+    closed.event = Event.new
     @events << closed
     # @events += events.reject{|x| !x.one_day? }
     if params[:format] == 'ics'
@@ -47,7 +48,11 @@ class EventsController < ApplicationController
           e.location  = 'Kuusi Palaa, Kolmas linja 7, Helsinki'
           e.description = ActionController::Base.helpers.strip_tags( event.description )
           e.ip_class = 'PUBLIC'
-          e.url = e.uid = 'https://kuusipalaa.fi/events/' + event.event.slug + '/' + event.slug
+          if event.slug == 'closed'
+            e.url = e.uid = 'https://kuusipalaa.fi/posts/kuusi-palaa-will-be-closed-wednesday-25-april'
+          else
+            e.url = e.uid = 'https://kuusipalaa.fi/events/' + event.event.slug + '/' + event.slug
+          end
         end
       end
 

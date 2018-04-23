@@ -6,12 +6,12 @@
         = ": "
         = @event.name
         .smaller= render partial: 'shared/translate_link', locals: {item: @event, attribute: :name}
-        
+
       
   - if @event.image?
     .row
       .small-12.columns.image_box.nopadding
-        = image_tag @event.image
+        = image_tag @event.image.url
 
   .row
     .small-12.columns.nopadding

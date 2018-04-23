@@ -21,7 +21,8 @@ class HomeController < ApplicationController
   end
   
   def index
-    @posts = Post.front.by_era(@era.id).published.not_stakeholders.order(updated_at: :desc, published_at: :desc)
+    @posts = Post.front.not_sticky.by_era(@era.id).published.not_stakeholders.order(updated_at: :desc, published_at: :desc)
+    @sticky = Post.sticky.by_era(@era.id).published.not_stakeholders.order(updated_at: :desc, published_at: :desc)
     @meetings = Meeting.upcoming.order(start_at: :asc)
     @stakes = Stake.by_season(@next_season)
 

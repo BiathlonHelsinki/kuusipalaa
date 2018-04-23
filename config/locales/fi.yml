@@ -1478,7 +1478,6 @@ fi:
   kp_is_currently_open_full_stop: 'Kuusi Palaa on nyt AUKI!'
   kuusi_palaa_is_open_right_now: 'Kuusi Palaa on auki nyt!'
   come_by_kolmas_linja: "Voit vierailla osoitteessamme Kolmas linja 7. Voit ottaa ID kortin ja käyttää tilaa vapaasti."
-  project: 'Projekti: '
   please_register_for_this_event: 'Rekisteröidy tähän tapahtumaan.'
   past_events: 'Edelliset tapahtumat'
   had_their_blockchain_balance_adjusted_by: 'lohkoketjun saldoa muutti käyttäjä' # This needs to be %{adjuster} modified the balance of %{user}

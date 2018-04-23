@@ -8,7 +8,7 @@
             .comment_avatar
               - if comment.class == Comment
                 = link_to image_tag(comment.contributor.avatar.url(:thumb).gsub(/development/, 'production'), width: 45), comment.user, target: :_blank, class: :comment_avatar
-              - elsif comment.class == Idea
+              - elsif comment.class == Idea || comment.class == Proposal
                 = link_to image_tag(comment.proposer.avatar.url(:thumb).gsub(/development/, 'production'), width: 45), comment.proposer, target: :_blank, class: :comment_avatar
               - elsif comment.class == Pledge
                 = link_to image_tag(comment.pledger.avatar.url(:thumb).gsub(/development/, 'production'), width: 45), comment.pledger, target: :_blank, class: :comment_avatar
@@ -23,15 +23,22 @@
               .comment_type
                 - if comment.class == Comment
                   = raw t(:user_says_on, :user => link_to(comment.contributor.display_name, comment.contributor, target: :_blank), date: l(comment.created_at, format: :long))
-                - elsif comment.class == Idea
+                - elsif comment.class == Idea || comment.class == Proposal
                   - if comment.proposer_type == 'Group'
                     = raw t(:group_original_proposal, group: link_to(comment.proposer.display_name, comment.proposer, target: :_blank), :user => link_to(comment.user.display_name, comment.user, target: :_blank), date: l(comment.created_at, format: :long))
                   - else
                     = raw t(:user_original_proposal, :user => link_to(comment.proposer.display_name, comment.proposer, target: :_blank), date: l(comment.created_at, format: :long))
                   %br/
-                  %small= link_to t(:see_original_proposal), original_proposal_idea_path(comment), target: :_blank, class: [:button, :tiny, :bordered]
+                  %small
+                    - if comment.class == Idea
+                      = link_to t(:see_original_proposal), original_proposal_idea_path(comment), target: :_blank, class: [:button, :tiny, :bordered]
+                    - elsif comment.class == Proposal
+                      = link_to t(:see_original_proposal), "https://temporary.fi/proposals/#{comment.id.to_s}", target: :_blank, class: [:button, :tiny, :bordered]
                 - elsif comment.class == Pledge
-                  = raw t(:has_pledged, user: link_to(comment.pledger.display_name, comment.pledger, target: :_blank), amount: comment.pledge)
+                  - if comment.item.class == Proposal
+                    = raw t(:has_pledged_temporary, user: link_to(comment.pledger.display_name, comment.pledger, target: :_blank), amount: comment.pledge)
+                  - else
+                    = raw t(:has_pledged, user: link_to(comment.pledger.display_name, comment.pledger, target: :_blank), amount: comment.pledge)
                   .pledge_metadata
                     = t :pledged_at, when: l(comment.created_at, format: :long)
                     %br/
@@ -48,12 +55,12 @@
                   = raw t :shared_some_words_from_the_event, name: link_to(comment.user.display_name, comment.user, target: :_blank), when: l(comment.created_at, format: :long)
                   %blockquote= raw comment.thoughts
                 - elsif comment.class == Instance
-                  - if comment.new_record?
+                  - if comment.new_record? 
                     = t :the_event_took_place_and_x_attended, event: comment.name, when: l(comment.start_at, format: :long), x: (root.instances.find_by(start_at: comment.start_at, end_at: comment.end_at).users.uniq + root.instances.find_by(start_at: comment.start_at, end_at: comment.end_at).onetimers.unclaimed).size.to_s
 
                     .row.small-up-4.medium-up-8.large-up-10= render partial: 'instances/who_came', locals: {instance: root.instances.find_by(start_at: comment.start_at, end_at: comment.end_at)}
                   - else
-                    = raw t(:meeting_was_scheduled, user: link_to(comment.scheduler.display_name, comment.scheduler, target: :_blank), when: l(comment.created_at, format: :long))
+                    = raw t(:meeting_was_scheduled, user: link_to(comment.scheduler.display_name, comment.scheduler, target: :_blank), when: l(comment.created_at, format: :long), name: link_to(raw("<em>#{comment.name}</em>"), comment.item, target: :_blank))
                     %br/
                     - if comment.event_image?
                       = image_tag comment.event_image.url.gsub(/development/, 'production')

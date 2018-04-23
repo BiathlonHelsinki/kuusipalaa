@@ -2,14 +2,16 @@ class Event < ApplicationRecord
   resourcify
   belongs_to :idea, optional: true
   belongs_to :place
+  belongs_to :proposal, optional: true
   belongs_to :primary_sponsor, polymorphic: true  
   has_many :instances, foreign_key: 'event_id', dependent: :destroy
   translates :name, :description, :fallbacks_for_empty_translations => true
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['name'].blank? && x['description'].blank? }
   accepts_nested_attributes_for :instances, :reject_if => proc {|x| x['start_at'].blank? || x['end_at'].blank? }
   has_many :notifications, as: :items
-
-
+  has_many :ideas, as: :parent
+  belongs_to :parent, class_name: 'Event', optional: true
+  has_one :child, class_name: 'Event', foreign_key: :parent_id
   extend FriendlyId
   friendly_id :name_en , :use => [ :slugged, :finders ] # :history]
   mount_uploader :image, ImageUploader
@@ -58,7 +60,7 @@ class Event < ApplicationRecord
   end
 
   def discussion_and_timeline
-    [idea, idea.pledges, comments, instances, instances_copied, instances.map(&:viewpoints)].flatten.sort_by(&:created_at)
+    [proposal, idea, ideas, ideas.empty? ? nil : ideas.map(&:pledges), idea.nil? ? proposal.pledges : idea.pledges, comments, instances, instances_copied, instances.map(&:viewpoints)].flatten.compact.sort_by(&:created_at)
   end
 
   def dormant?

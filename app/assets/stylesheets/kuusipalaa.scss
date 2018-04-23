@@ -339,7 +339,30 @@ article.divider {
   }
 }
 
-#comments_list {
+.subtitle_box {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 1rem;
+  margin-top: 0rem;
+  font-size: 0.9rem;
+  a {
+    text-decoration: underline;
+  }
+  .smaller {
+    font-size: 0.8rem;
+  }
+  .subtitle {
+    font-family: $sourcecode;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.15rem;
+
+  }  
+}
+
+
+#comments_list, #history_list {
   margin-top: 1.5rem;
   border: 1px solid black;
   #main_thread .row:first-child {
@@ -360,7 +383,13 @@ article.divider {
     clear: right;
     .comment_type {
       .pledge_metadata {
+        font-weight: normal;
         font-size: 0.7rem;
+      }
+      .participant {
+        .time {
+          font-weight: normal;
+        }
       }
     }
     .comment_content {
@@ -444,6 +473,26 @@ article.divider {
       margin-left: 5.5rem;
     }
   }
+}
+
+#history_list {
+  border: none;
+  margin-top: 0;
+  ul.first li {
+    margin: 0;
+  }
+  ul li .entry {
+    border-top: none;
+  }
+  ul.first li.top-level {
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+  }
+}
+
+.project_view .tabs-content {
+  border: none;
+  background-color:white;
 }
 
 .lifted_box {
@@ -1424,7 +1473,7 @@ form.hidden_form {
   display: none;
 }
 
-article.event_index {
+.event_index {
   padding: 2rem 0;
 
   .discussions {

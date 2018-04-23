@@ -1,0 +1,35 @@
+.member_services_index
+  .row
+    .small-12.columns.lessright
+      .lifted_box
+        .title= t :continue_existing_project
+        .blurb
+          %p= t :would_you_like_to_continue_project
+          - if @idea.ideatype_id == 1
+            = form_tag "/ideas/#{@idea.id.to_s}/build/continue_existing", method: :put, 'data-abide' => '' do 
+              - current_user.proposed_projects.each do |project|
+                %p
+                  = radio_button_tag 'idea[continue_existing]', project.id.to_s, false, {class: :radio, required: 'required' }
+                  %label.radio{for: "idea_continue_existing_#{project.id.to_s}"}
+                  = project.name
+                %p.small
+                  = t :meetings_took_place_past, count: project.sequences.size, amount: t(:session, count: project.sequences.size)
+                  = project.sequences.map{|x| x.last.first.start_at.to_date }.join(', ')
+
+              %p
+                = radio_button_tag 'idea[continue_existing]', 0, false, { required: 'required',  class: :radio}
+                %label.radio{for: :idea_continue_existing_0}
+                %strong= t :no_thanks_new_proposal
+
+              = hidden_field_tag :form_direction, "forward"
+              .row
+                .small-12.columns
+                  -#%button{type: :submit, class: [:button, :bordered], rel: :previous}= raw("<i class='fa fa-caret-left icon-large'></i> ") + t(:back)
+                  %button{type: :submit, class: [:button, :bordered]}= raw(t(:next) + " <i class='fa fa-caret-right icon-large'></i> ")
+
+= content_for :jquery do
+  :plain
+    $('form button').click(function() {
+      $("#form_direction").val($(this).attr('rel'))
+
+    });  

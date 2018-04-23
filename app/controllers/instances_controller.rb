@@ -38,16 +38,19 @@ class InstancesController < ApplicationController
       @future = @event.instances.current.or(@event.instances.future).order(:start_at).uniq
       @past = @event.instances.past.order(:start_at).uniq.reverse  
     end
-    if @event.start_at < "2018-02-01" 
+    if @event.start_at < "2018-02-01"  && @event.sequences.size == 1
       redirect_to "https://temporary.fi/events/" + @event.slug and return
     end
     set_meta_tags title: @event.name
     @instance = @event.instances.published.first
     @sequences = @event.instances.order(:start_at).group_by(&:sequence)
     @sequence = @sequences[@instance.sequence]
-    if @sequences.size == 1 && !@instance.in_future?
+    if @sequences.size == 1 && !@instance.in_future? && @event.ideas.empty?
       @archive = true
       render template: 'instances/past'
+    elsif @event.sequences.size > 1 || !@event.ideas.empty?
+      @project = @event
+      render template: 'events/project'
     else
       render template: 'instances/show' 
     end
@@ -159,7 +162,7 @@ class InstancesController < ApplicationController
           @sequence = @instance.event.instances.where(sequence: @instance.sequence).order(:start_at)
           respond_to do |format|
             format.html { 
-              if @instance.already_happened?
+              if @instance.already_happened? 
                 @archive = true
                 render  template: 'instances/past' 
               else

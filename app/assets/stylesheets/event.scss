@@ -35,7 +35,7 @@ article.instance_detail_view {
 
     section#discussion_and_timeline {
 
-      #comments_list {
+      #comments_list, #history_list {
 
 
         #main_thread {
@@ -199,4 +199,41 @@ article.instance_detail_view {
     }
   }
 
+}
+
+
+.project_view {
+  .subtitle_box {
+    &.tabled {
+      padding: 0;
+    }
+  }
+  table.project_info {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+    tbody tr:nth-child(even), tbody tr:nth-child(odd) {
+      background-color: white !important;
+    }
+    td {
+      vertical-align: top;
+      border-right: 1px solid black;
+      &:last-child {
+        border-right: none;
+      }
+      &.half {
+        width: 50%;
+      }
+      .heading {
+        font-family: $sourcecode;
+        font-weight: bold;
+      } 
+      .value {
+        font-family: $montserrat;
+        &.indent {
+          margin-left: 2.5rem;
+        }
+      }
+    }
+  }
 }

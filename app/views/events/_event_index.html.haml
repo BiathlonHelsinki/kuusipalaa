@@ -40,10 +40,14 @@
             = t(:person, count: event.users.size + event.onetimers.unclaimed.size)
             = t :attended
             |
-            = t(:number_earned, number: (event.users.size * event.cost_bb).to_s)
+            - if event.start_at < '2018-02-01'.to_date
+              = t(:number_earned_temporary, number: (event.users.size * event.cost_bb).to_s)
+            - else
+              = t(:number_earned, number: (event.users.size * event.cost_bb).to_s)
         - if event.name != event.event.name
           .project
-            = t :project
+            = t :project, count: 1
+            = ": "
             = link_to event.event.name, event_path(event.event)
         - if event.in_future? && event.request_registration
           .registration

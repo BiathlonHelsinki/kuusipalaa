@@ -1,0 +1,133 @@
+.idea_detail_view.project_view
+  .row
+    .small-12.columns.title_box
+      .title
+        = t :project, count: 1
+        = ": "
+        = @project.name
+        .smaller= render partial: 'shared/translate_link', locals: {item: @event, attribute: :name}
+
+
+  - if @event.image?
+    .row
+      .small-12.columns.subtitle_box.tabled
+        = image_tag @event.image.url.gsub(/development/, 'production')        
+  .row
+    .small-12.column.subtitle_box.tabled
+      %table.project_info
+        %td
+          .heading= t :has_met
+          .value
+            - if @project.instances.past.size == 0
+              = t :has_not_yet_met
+            - else
+              = t :x_times, count: @project.instances.past.size, time: t(:time, count: @project.instances.past.size)
+              .heading= t :participation
+              - attended =  @project.instances.past.map(&:instances_users).each{|x| x.map(&:user)}.flatten.size
+              - guesttickets = @project.instances.past.map{|x| x.onetimers.unclaimed}.flatten.size
+              = (attended + guesttickets).to_s
+              = t(:person, count: attended + guesttickets)
+              = t :attended              
+        %td
+          .heading= t :project_organisers
+          .value
+            = link_to @project.primary_sponsor.display_name,  @project.primary_sponsor, target: :_blank
+            - unless @project.instances.map(&:organisers).flatten.empty?
+              = @project.instances.map(&:organisers).map(&:display_name).join(', ')
+        %td
+          .heading= t :status
+          .value
+            - if @project.dormant?
+              = t :project_is_inactive
+            - else
+              - if @project.ideas.active.empty?
+                = t :no_future_meetings_proposed
+              - else
+                = t :x_project_proposals, count: @project.ideas.active.size, proposal: t(:proposal, count: @project.ideas.active.size).downcase
+          - if @project.parent
+            .heading= t :evolved_from
+            .value= link_to @project.parent.name, @project.parent
+          - if @project.child
+            .heading= t :evolved_into
+            .value= link_to @project.child.name, @project.child
+
+  - unless @project.instances.future.empty?
+    .row
+      .small-12.column.subtitle_box
+        .subtitle
+          = t(:upcoming_events) + ": "
+        %ul
+          - @project.instances.future.order(:start_at).each do |event|
+            %li
+              = link_to event.name
+              %smaller= date_range(event.start_at, event.end_at)
+
+
+  .row
+    .small-12.columns.nopadding
+      %table.proposal_info
+        %tr
+          %td{colspan: 2}
+            .heading= t :project_description
+            .value
+              - if @event.description.nil?
+                %em= t :no_project_summary_see_events
+
+              - else
+                = simple_format(@event.description)
+                .smaller= render partial: 'shared/translate_link', locals: {item: @event, attribute: :description}
+
+
+  .row
+    .small-12.columns.nopadding
+      %ul.tabs{:'data-tabs' => '', id: "project_tabs"}
+        %li.tabs-title.is-active
+          = link_to t(:events), '#events_tab'
+        -# %li.tabs-title
+        -#   = link_to t(:latest_discussion), '#discussion_tab'
+        -# %li.tabs-title
+        -#   = link_to t(:resources_and_documentation), '#documentation_tab'
+        %li.tabs-title
+          = link_to t(:full_history), '#history_tab'
+
+      .tabs-content{:'data-tabs-content' => 'project_tabs'}
+        .tabs-panel.is-active#events_tab.event_index
+          .row.small-up-1.large-up-3.medium-up-2.nopadding
+            - @project.sequences.sort_by(&:first).each do |sequence|
+              .columns= render partial: 'events/event_index', locals: {event: sequence.last.first}
+
+      .tabs-content{:'data-tabs-content' => 'project_tabs'}
+        .tabs-panel.is-active#history_tab
+          #history_list
+            %ul.first= render(partial: 'shared/comment', collection: @event.discussion_and_timeline.delete_if{|x| x.new_record? && x.in_future? }, locals: {depth: 0, root: @event, last: @event.discussion_and_timeline.last, commenting_open: false})
+            = render partial: 'shared/comments_and_form', locals: {commentable: @event, depth: 0, commenting_open: true}
+
+
+
+= content_for :jquery do
+  :plain
+    $('.comment_content').readmore({lessLink: '<a class="button readmore" href="#">[#{t(:close)}]</a>', moreLink: '<a class="button readmore" href="#">[#{t(:read_more)}]</a>'});
+      
+- if user_signed_in?
+  = content_for :jquery do
+    :plain
+      $('#pledge_pledger_select').on('change', function() {
+        $.ajax({
+            url: "/ideas/#{@event.id.to_s}/pledges/find_pledge?pledger_type=" + $('#pledge_pledger_select option').filter(":selected").attr('rel') + "&pledger_id=" + $('#pledge_pledger_id').val(),
+            success: function(pledge_limit) {
+              $('#pledge_panel_wrapper').html(pledge_limit)
+            }
+        })
+
+        $('#pledge_pledger_type').val($('#pledge_pledger_select option').filter(":selected").attr('rel'));
+        $('#pledge_pledger_id').val($('#pledge_pledger_select').val());
+        $.ajax({
+          url: '/users/' + $('#pledge_pledger_select').val() + '/get_avatar?class=' + $('#pledge_pledger_type').val() + '&size=thumb',
+          success: function(image) {
+
+            $('#avatar_pledge_pledger img').attr('src', image);
+            $('#avatar_pledge_pledger img').attr('alt', $('#pledge_pledger_select option').filter(":selected").html());
+         
+           }
+          });
+      }); 
