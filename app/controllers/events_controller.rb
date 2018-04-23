@@ -22,11 +22,7 @@ class EventsController < ApplicationController
 
     @events.uniq!
     @events.flatten!
-    closed = Instance.new(start_at: '2018-04-25 00:00:00', end_at: '2018-04-25 23:59:00')
-    closed.name = 'Kuusi Palaa is closed for renovations'
-    closed.slug = 'closed'
-    closed.event = Event.new
-    @events << closed
+
     # @events += events.reject{|x| !x.one_day? }
     if params[:format] == 'ics'
       require 'icalendar/tzinfo'
@@ -39,8 +35,16 @@ class EventsController < ApplicationController
         @events = Instance.kuusi_palaa.calendered.published.not_cancelled
 
       end
+      closed = Instance.new(start_at: '2018-04-25 00:00:00', end_at: '2018-04-25 23:59:00')
+      closed.name = 'Kuusi Palaa is closed for renovations'
+      closed.description = 'Kuusi Palaa is closed for renovations'
+      closed.slug = 'closed'
+      closed.event = Event.new(slug: 'closed')
+      @events = @events.to_a
+      @events.flatten!
+      @events <<  closed
       @events.each do |event|
-      
+
         @cal.event do |e|
           e.dtstart     = Icalendar::Values::DateTime.new(event.start_at, 'tzid' => tzid)
           e.dtend       = Icalendar::Values::DateTime.new(event.end_at, 'tzid' => tzid)
@@ -48,7 +52,7 @@ class EventsController < ApplicationController
           e.location  = 'Kuusi Palaa, Kolmas linja 7, Helsinki'
           e.description = ActionController::Base.helpers.strip_tags( event.description )
           e.ip_class = 'PUBLIC'
-          if event.slug == 'closed'
+          if event.slug =='closed'
             e.url = e.uid = 'https://kuusipalaa.fi/posts/kuusi-palaa-will-be-closed-wednesday-25-april'
           else
             e.url = e.uid = 'https://kuusipalaa.fi/events/' + event.event.slug + '/' + event.slug
@@ -63,7 +67,9 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @events }
-      format.ics { render :plain => @cal.to_ical }
+      format.ics { 
+
+        render :plain => @cal.to_ical }
     end
   end
   
