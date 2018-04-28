@@ -44,6 +44,8 @@ class PledgesController < ApplicationController
               NotificationMailer.new_pledge(@item, @pledge, n.user).deliver_later
             end
           end
+          @pledge.item.reload
+          @pledge.item.notify_if_enough
           redirect_to @item
         else
 
@@ -133,6 +135,7 @@ class PledgesController < ApplicationController
       else
         if @pledge.update_attributes(pledge_params)
           flash[:notice] = 'Your pledge has been edited!'
+          @pledge.item.notify_if_enough
           redirect_to @item
         else
           flash[:error] = 'There was an error saving your edited pledge: ' + @pledge.errors.values.join

@@ -167,6 +167,7 @@ body.frontpage {
         }
         .name {
           float: left;
+          max-width: 93%;
           @include breakpoint(small only) {
             max-width: 80%;
           }

@@ -39,13 +39,13 @@
                   = f.fields_for :translations do |t|
                     = t.input :locale, as: :hidden, input_html: {value: I18n.locale.to_s }
                     = t.input :name, label: t(:more_general_name), hint: t(:general_name_hint)
-            .row.pad
-              .small-8.columns
-                - if f.object.idea.image?
-                  = image_tag f.object.idea.image.url
-                  = f.input :image, label: t(:change_image)
-                - else
-                  = f.input :image, input_html: {required: ''}, label: t(:please_attach_an_image)
+            -# .row.pad
+            -#   .small-8.columns
+            -#     - if f.object.idea.image?
+            -#       = image_tag f.object.idea.image.url
+            -#       = f.input :image, label: t(:change_image)
+            -#     - else
+            -#       = f.input :image, input_html: {required: ''}, label: t(:please_attach_an_image)
             = f.fields_for :instances do |ff|
               %div{id: ff.options[:child_index], class: [:subtimes, cycle('odd', 'even'), (f.object.idea.additionaltimes.map(&:start_at).include?(ff.object.start_at) ? :bordered : false)] }
                 .pad

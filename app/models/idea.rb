@@ -15,7 +15,7 @@ class Idea < ApplicationRecord
   validates :start_at, :end_at, presence: true, if: :determined_time?
   validates :points_needed,  presence: true, if: :active_or_points?
   validates :slug, presence: true, if: :active?
-  after_commit :notify_if_enough
+  # after_commit :notify_if_enough
   accepts_nested_attributes_for :additionaltimes, reject_if: proc {|x| x['start_at'].blank? || x['end_at'].blank? }, allow_destroy: true
 
   has_many :activities, as: :item
@@ -95,10 +95,11 @@ class Idea < ApplicationRecord
   end
 
   def add_to_activity_feed
-    die
+    if status == 'active'
       if Activity.last.item != self
         Activity.create(user: user, contributor: proposer, item: self, description: ideatype_id == 3 ? 'requested' : 'proposed')
       end
+    end
 
   end
 

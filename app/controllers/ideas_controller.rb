@@ -119,9 +119,10 @@
       redirect_to @idea.events.first
     else
       if @idea.has_enough? && (@idea.proposers.include?(current_user) || current_user.has_role?(:admin))
-        @event = Event.new(idea: @idea, place_id: 2, primary_sponsor: @idea.proposer, remote_image_url: @idea.image? ? @idea.image.url : nil, cost_euros: @idea.price_public, cost_bb: @idea.price_stakeholders, 
+        @event = Event.new(idea: @idea, place_id: 2, primary_sponsor: @idea.proposer, cost_euros: @idea.price_public, cost_bb: @idea.price_stakeholders, 
           translations: [Event::Translation.new(locale: I18n.locale, name: @idea.name, description: @idea.proposal_text)])
         # if @idea.timeslot_undetermined == true
+        #  remote_image_url: @idea.image? ? @idea.image.url : nil
           
         # else
           @event.instances << Instance.new(start_at: @idea.start_at, end_at: @idea.end_at, price_public: @idea.price_public, price_stakeholders: @idea.price_stakeholders, 

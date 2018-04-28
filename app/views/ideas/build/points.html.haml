@@ -84,6 +84,12 @@
 - if @idea.timeslot_undetermined == false
   = content_for :jquery do
     :plain
+      var end_combined_date = $('#idea_end_at_date').val() + ' ' + $('#idea_end_at').val();
+      var start_combined_date = new Date($('#idea_start_at_date').val() + ' ' + $('#idea_start_at').val());
+      if (Date.parse(end_combined_date) <= Date.parse(start_combined_date)) {
+        $('#idea_end_at_date').val($('#idea_start_at_date').val())
+        $('#idea_end_at').val(new Date(start_combined_date.setHours(new Date(start_combined_date).getHours() + 2)).getHours() + ':00')
+      }
       $(document).idle({
           onIdle: function(){
 

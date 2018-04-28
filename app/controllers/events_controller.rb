@@ -75,16 +75,16 @@ class EventsController < ApplicationController
   
 
   def create
-    if params[:event][:image]
+    # if params[:event][:image]
       
-    else
-      #  no image upload so use idea image
-      idea = Idea.find(params[:event][:idea_id])
-      if idea.image?
-        params[:event][:remote_image_url] = idea.image.url.gsub(/development/, 'production')
-      end
-    end
-
+    # else
+    #   #  no image upload so use idea image
+    #   idea = Idea.find(params[:event][:idea_id])
+    #   if idea.image?
+    #     params[:event][:remote_image_url] = idea.image.url.gsub(/development/, 'production')
+    #   end
+    # end
+    #  now, grab image on the server side and let them change it afterwards
     api = BiathlonApi.new
     success = api.api_post("/events", {user_email: current_user.email,   
       user_token: current_user.authentication_token, event: params[:event].permit!.to_hash} 

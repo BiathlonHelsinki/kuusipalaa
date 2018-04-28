@@ -5,6 +5,8 @@
         = t :proposal
         = ": "
         = @idea.name
+        - if can? :edit, @idea
+          = link_to fa_icon('pencil'), edit_idea_path(@idea)
     - if @idea.converted?
       .has_enough.columns.text-center
         .has_enough_banner= t :this_proposal_was_scheduled
