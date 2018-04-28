@@ -24,7 +24,7 @@
             = link_to image_tag(activity.item.avatar.url(:thumb)), activity.item, target: :_blank
         - elsif activity.description == 'shared_an_image_from'
           .adjacent.columns
-            = link_to image_tag(activity.extra.image.url(:thumb)), activity.item, target: :_blank        
+            = link_to image_tag(activity.extra.image.url(:thumb)),event_instance_path(activity.item.event, activity.item), target: :_blank        
         - elsif activity.description == 'was_mentioned_by'
           .adjacent.columns
 
