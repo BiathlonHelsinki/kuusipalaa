@@ -21,7 +21,7 @@
 = t :you_will_earn_x_for_participating, number: event.cost_bb
 %br/
 = t :organised_by
-= event.responsible_people.map{|x| x.display_name}.join(', ')
+= [event.event.primary_sponsor, event.organisers].flatten.uniq.map{|x| x.display_name}.join(', ')
 %br/
 
 %p.email_p
