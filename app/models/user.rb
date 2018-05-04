@@ -178,7 +178,7 @@ class User < ActiveRecord::Base
   end
 
   def available_balance
-    latest_balance - pending_pledges.sum(&:pledge)
+    latest_balance - pending_pledges.sum(&:pledge) - (pending_rsvps.size * 2)
   end
 
   def update_balance_from_blockchain
@@ -259,6 +259,10 @@ class User < ActiveRecord::Base
     false
   end
 
+  def can_rsvp?
+    available_balance >= 2
+  end
+  
   def rsvpd?(instance)
     !rsvps.find_by(instance: instance).nil?
   end
@@ -286,6 +290,10 @@ class User < ActiveRecord::Base
    def pending_pledges
      pledges.unconverted
    end
+
+  def pending_rsvps
+    rsvps.pending
+  end
 
   def apply_omniauth(omniauth)
     logger.warn('omniauth hash is ' + omniauth.inspect)

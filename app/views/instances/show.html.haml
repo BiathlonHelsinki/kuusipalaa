@@ -191,7 +191,24 @@
               = render partial: 'registration_form'
 
 
+        - if @instance.in_future?
+          %tr
+            %td{colspan: 2}
+              .heading= t :rsvp_explanation
+              .value
+                %p
+                  = t :x_person_has_rsvpd, number: @sequence.first.rsvps.count, people: t(:person, count: @sequence.first.rsvps.count), have_verb: t(:have_verb, count: @sequence.first.rsvps.count)
+                  - if current_user
+                    - if current_user.rsvpd?(@sequence.first)
+                      = t :you_have_rsvpd
+                      = link_to t(:cancel_rsvp), cancel_rsvp_event_instance_path(@instance.event, @sequence.first), method: :post, class: [:tiny, :button, :bordered, :alert], data: {confirm: t(:confirm_cancel_rsvp)}
+                    - elsif current_user.can_rsvp?
+                      %br/
+                      = link_to t(:i_plan_to_attend), rsvp_event_instance_path(@instance.event, @instance), method: :post, class: [:button, :bordered]
 
+                - unless current_user
+                  = link_to t(:rsvp), '/users/sign_in', class: [:button, :bordered]
+                = render partial: 'rsvp_grid'
   .row#comments_list
     %ul.first= render(partial: 'shared/comment', collection: @event.discussion.select(&:persisted?).sort_by(&:updated_at), locals: {depth: 0, root: @event, last: @event.comments.last, commenting_open: true})
     #main_thread= render partial: 'shared/comments_and_form', locals: {commentable: @event, depth: 0, commenting_open: true}

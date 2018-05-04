@@ -443,7 +443,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   room_blurb_2: "To book the room, click on the day you want in the calendar below."
   are_you_going: 'Are you going?'
   you_are_going: 'You are going'
-  x_person_has_rsvpd: "%{number} %{people} has RSVPd"
+  x_person_has_rsvpd: "%{number} %{people} %{have_verb} RSVPd. "
   experiment_news: 'Experiment news'
   points_needed_session: 'Points needed for this session:'
   pledge_verb: 'Pledge!'
@@ -1448,3 +1448,12 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   evolved_from: 'Evolved from'
   evolved_into: 'Evolved into'
   number_earned_temporary: '%{number}Ŧ earned'
+  you_have_rsvpd: 'You have RSVPd for this event.'
+  have_verb:
+    zero: 'have'
+    one: 'has'
+    other: 'have'
+  after_rsvp: 'as promised via RSVP system'
+  rsvpd_on: 'RSVP for %{event} made at %{when}.'
+  the_event_is_scheduled_for:  "The event '%{event}' is scheduled to start at %{when}."
+  didnt_show_after_rsvp: "RSVPd for, but didn't show up to"

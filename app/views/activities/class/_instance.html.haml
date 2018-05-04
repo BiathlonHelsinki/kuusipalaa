@@ -7,9 +7,11 @@
 - else
   = link_to(activity.user.display_name, activity.user, target: :_blank)
 
-- if activity.value
+- if activity.numerical_value
 
   = t activity.description, numerical_value: activity.value.to_s
+- elsif activity.description == 'attended_with_rsvp'
+  = t :attended
 - else
   = t activity.description
 
@@ -20,5 +22,5 @@
     %br/
     %small= date_range(seq.start_at, seq.end_at)
 
-
-
+- if activity.description == 'attended_with_rsvp'
+  = t :after_rsvp

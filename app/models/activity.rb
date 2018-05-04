@@ -18,7 +18,7 @@ class Activity < ApplicationRecord
 
   def icon_class
     case description.to_s
-    when 'attended','attended_anonymously','received_from', 'pledged_to','received_stake_points', 'edited_their_pledge_to','migrated_temps_from_temporary','was_credited_for','was_decredited_for','bought','withdrew_a_pledge','had_blockchain_balance_adjusted_by','spent_a_pledge_on'
+    when 'attended','attended_anonymously','didnt_show_after_rsvp', 'attended_with_rsvp', 'received_from', 'pledged_to','received_stake_points', 'edited_their_pledge_to','migrated_temps_from_temporary','was_credited_for','was_decredited_for','bought','withdrew_a_pledge','had_blockchain_balance_adjusted_by','spent_a_pledge_on'
       'icon-points'
     when 'asked_the_question','answered_the_question', 'shared_an_image_from'
       'icon-actions'
@@ -133,6 +133,8 @@ class Activity < ApplicationRecord
   def value
     if item.class == Pledge
       item.pledge.to_i
+    elsif description == 'plans_to_attend'
+      2
     elsif blockchain_transaction
       if blockchain_transaction.transaction_type_id == 2 && description =~ /blockchain/
         blockchain_transaction.value.to_i * -1

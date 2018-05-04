@@ -1,5 +1,6 @@
 namespace :kuusipalaa do
 
+
   desc 'notify invoices unpaid after > 3 weeks'
   task late_invoices: :environment do
     Stake.really_late.each do |stake|

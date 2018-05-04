@@ -1,6 +1,6 @@
 class InstancesController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
-  before_action :authenticate_user!, only: [:rsvp, :add_registration_form]
+  before_action :authenticate_user!, only: [:rsvp, :cancel_rsvp, :cancel_registration, :add_registration_form]
 
   def add_registration_form
     if params[:event_id]
@@ -82,11 +82,11 @@ class InstancesController < ApplicationController
   end
     
   def rsvp
-    if params[:event_id]
+    if params[:event_id] && current_user.can_rsvp?
       @event = Event.friendly.find(params[:event_id])
       @instance = @event.instances.friendly.find(params[:id])
       Rsvp.find_or_create_by(instance: @instance, user: current_user)
-      Activity.create(user: current_user,contributor: current_user, addition: 0, item: @instance, description: 'plans_to_attend')
+      Activity.create(user: current_user, contributor: current_user, addition: 0, numerical_value: 2, item: @instance, description: 'plans_to_attend')
       flash[:notice] = t(:rsvp_thanks)
       redirect_to [@event, @instance]
     else

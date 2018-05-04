@@ -14,8 +14,9 @@
                 = link_to image_tag(comment.pledger.avatar.url(:thumb).gsub(/development/, 'production'), width: 45), comment.pledger, target: :_blank, class: :comment_avatar
               - elsif comment.class == BudgetproposalVote
                 = link_to image_tag(comment.voter.avatar.url(:thumb).gsub(/development/, 'production'), width: 45), comment.voter, target: :_blank, class: :comment_avatar
-              - elsif comment.class == Userphoto || comment.class == Userthought
+              - elsif comment.class == Userphoto || comment.class == Userthought || comment.class == Rsvp
                 = link_to image_tag(comment.user.avatar.url(:thumb).gsub(/development/, 'production'), width: 45), comment.user, target: :_blank, class: :comment_avatar 
+
               - elsif comment.class == Instance
                 - unless comment.new_record?
                   = link_to image_tag(comment.scheduler.avatar.url(:thumb).gsub(/development/, 'production'), width: 45), comment.scheduler, target: :_blank, class: :comment_avatar
@@ -48,6 +49,14 @@
                   = raw t(:has_voted, user: link_to(comment.voter.display_name, comment.voter, target: :_blank), value: comment.vote == true ? t(:positive) : t(:negative))
                   .pledge_metadata
                     = l comment.updated_at, format: :long
+                - elsif comment.class == Rsvp
+                  = link_to comment.user.display_name, comment.user, target: :_blank
+                  - if comment.item.in_future?
+                    = raw t :plans_to_attend
+                  - else
+                    = raw t :plans_to_attend_grouped
+                  .pledge_metadata
+                    = t :rsvpd_on, event: comment.item.name, when: l(comment.created_at, format: :long)
                 - elsif comment.class == Userphoto
                   = raw t :shared_an_image_from_the_event, name: link_to(comment.user.display_name, comment.user, target: :_blank), when: l(comment.created_at, format: :long)
                   .small_viewpoint= link_to image_tag(comment.image.url(:thumb)), "#viewpoint_#{comment.class.to_s}_#{comment.id.to_s}_popup", class: "open-popup-link" 
@@ -56,9 +65,12 @@
                   %blockquote= raw comment.thoughts
                 - elsif comment.class == Instance
                   - if comment.new_record? 
-                    = t :the_event_took_place_and_x_attended, event: comment.name, when: l(comment.start_at, format: :long), x: (root.instances.find_by(start_at: comment.start_at, end_at: comment.end_at).users.uniq + root.instances.find_by(start_at: comment.start_at, end_at: comment.end_at).onetimers.unclaimed).size.to_s
+                    - if comment.in_future?
+                      = t :the_event_is_scheduled_for, event: comment.name, when: l(comment.start_at, format: :long)
+                    - else
+                      = t :the_event_took_place_and_x_attended, event: comment.name, when: l(comment.start_at, format: :long), x: (root.instances.find_by(start_at: comment.start_at, end_at: comment.end_at).users.uniq + root.instances.find_by(start_at: comment.start_at, end_at: comment.end_at).onetimers.unclaimed).size.to_s
 
-                    .row.small-up-4.medium-up-8.large-up-10= render partial: 'instances/who_came', locals: {instance: root.instances.find_by(start_at: comment.start_at, end_at: comment.end_at)}
+                      .row.small-up-4.medium-up-8.large-up-10= render partial: 'instances/who_came', locals: {instance: root.instances.find_by(start_at: comment.start_at, end_at: comment.end_at)}                      
                   - else
                     = raw t(:meeting_was_scheduled, user: link_to(comment.scheduler.display_name, comment.scheduler, target: :_blank), when: l(comment.created_at, format: :long), name: link_to(raw("<em>#{comment.name}</em>"), comment.item, target: :_blank))
                     %br/

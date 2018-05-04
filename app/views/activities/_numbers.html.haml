@@ -10,15 +10,25 @@
       - if activity.addition == 0
         - if activity.description =~ /received/
           = fa_icon('arrows-h')
-        - if activity.description =~ /pledged/
+        - if activity.description =~ /pledged/ 
           = fa_icon('smile-o')
+        - if activity.description =~ /plans_to_attend/
+          = fa_icon('user-circle')
         - if activity.description =~ /withdrew/
           = fa_icon('frown-o')
       - if activity.addition == -1
-        = fa_icon('minus')
+        - if activity.description == 'didnt_show_after_rsvp'
+          = fa_icon('frown-o')
+          = fa_icon('minus')
+        - else
+          = fa_icon('minus')
     - if activity.ethtransaction
 
       = link_to activity.value.to_s + "ᵽ", "https://#{Rails.env.development? ? 'ropsten.' : ''}etherscan.io/tx/#{activity.ethtransaction.txaddress}", target: :_blank
+    - elsif activity.description == 'attended_with_rsvp'
+      = (activity.value - 2).to_s + "ᵽ"
+      %small= " +2ᵽ"
+
     - else
       = activity.value.to_s + "ᵽ"
 - else

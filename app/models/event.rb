@@ -60,7 +60,7 @@ class Event < ApplicationRecord
   end
 
   def discussion_and_timeline
-    [proposal, idea, ideas, ideas.empty? ? nil : ideas.map(&:pledges), idea.nil? ? proposal.pledges : idea.pledges, comments, instances, instances_copied, instances.map(&:viewpoints)].flatten.compact.sort_by(&:created_at)
+    [proposal, idea, instances.map(&:rsvps), ideas, ideas.empty? ? nil : ideas.map(&:pledges), idea.nil? ? proposal.pledges : idea.pledges, comments, instances, instances_copied, instances.map(&:viewpoints)].flatten.compact.sort_by(&:created_at)
   end
 
   def dormant?
