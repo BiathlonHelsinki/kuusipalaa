@@ -29,6 +29,7 @@
         
         - if user_signed_in?
           - if current_user == attended 
-            = link_to t(:cancel_rsvp), cancel_rsvp_event_instance_path(@instance.event, @instance), method: :post, class: [:button, :alert], data: {confirm: t(:confirm_cancel_rsvp) }
+            - if (@instance.start_at - 12.hours) > Time.current
+              = link_to t(:cancel_rsvp), cancel_rsvp_event_instance_path(@instance.event, @instance), method: :post, class: [:button, :alert], data: {confirm: t(:confirm_cancel_rsvp) }
         - if @instance.allow_multiple_entry == true
           = " (#{pluralize(@instance.users.select{|x| x == attended}.count, 'time')})"

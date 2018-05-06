@@ -67,13 +67,16 @@ class InstancesController < ApplicationController
     if params[:event_id]
       @event = Event.friendly.find(params[:event_id])
       @instance = @event.instances.friendly.find(params[:id])
-      if @instance.in_future?
+      if (@instance.start_at - 12.hours) > Time.current
         rsvp = Rsvp.find_or_create_by(instance: @instance, user: current_user)
         if rsvp.destroy
           Activity.create(user: current_user, contributor: current_user, addition: 0, item: @instance, description: 'is_no_longer_planning_to_attend')
-          flash[:notice] = t(:unregistred)
+          flash[:notice] = t(:cancel_rsvp_thanks)
           redirect_to [@event, @instance]
         end
+      else
+        flash[:error] = t :cannot_cancel_rsvp_12hr
+        redirect_to [@event, @instance]
       end
     else
       flash[:error] = 'Error'
@@ -82,7 +85,7 @@ class InstancesController < ApplicationController
   end
     
   def rsvp
-    if params[:event_id] && current_user.can_rsvp? 
+    if params[:event_id] && current_user.can_rsvp?
       @event = Event.friendly.find(params[:event_id])
       @instance = @event.instances.friendly.find(params[:id])
       Rsvp.find_or_create_by(instance: @instance, user: current_user)

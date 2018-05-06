@@ -203,12 +203,15 @@
                   - if current_user
                     - if current_user.rsvpd?(@sequence.first)
                       = t :you_have_rsvpd
-                      = link_to t(:cancel_rsvp), cancel_rsvp_event_instance_path(@instance.event, @sequence.first), method: :post, class: [:tiny, :button, :bordered, :alert], data: {confirm: t(:confirm_cancel_rsvp)}
+                      - if (@instance.start_at - 12.hours) > Time.current
+                        = link_to t(:cancel_rsvp), cancel_rsvp_event_instance_path(@instance.event, @sequence.first), method: :post, class: [:tiny, :button, :bordered, :alert], data: {confirm: t(:confirm_cancel_rsvp)}
                     - elsif current_user.can_rsvp?
                       %br/
                       = link_to t(:i_plan_to_attend), rsvp_event_instance_path(@instance.event, @instance), method: :post, class: [:button, :bordered]
 
-                - unless current_user
+                - if current_user
+                  %small= t :rsvp_2p_explanation
+                - else
                   = link_to t(:rsvp), '/users/sign_in', class: [:button, :bordered]
                 = render partial: 'rsvp_grid'
   .row#comments_list
