@@ -1,4 +1,5 @@
 <%= event.name %>: <%= event_instance_url(event.event, event) %>
+<%= if event.request_registration %> -- REQUIRES REGISTRATION!!!<% end %>
 <%= date_range(event.start_at.localtime, event.end_at.localtime) %>
 <% unless event.other_instances.empty? %>
   <% event.other_instances.each do |t| %>

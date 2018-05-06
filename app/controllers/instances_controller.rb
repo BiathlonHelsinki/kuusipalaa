@@ -82,7 +82,7 @@ class InstancesController < ApplicationController
   end
     
   def rsvp
-    if params[:event_id] && current_user.can_rsvp?
+    if params[:event_id] && current_user.can_rsvp? 
       @event = Event.friendly.find(params[:event_id])
       @instance = @event.instances.friendly.find(params[:id])
       Rsvp.find_or_create_by(instance: @instance, user: current_user)

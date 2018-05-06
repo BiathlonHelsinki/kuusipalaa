@@ -191,7 +191,7 @@
               = render partial: 'registration_form'
 
 
-        - if @instance.in_future?
+        - if @instance.in_future? && !@sequence.map(&:request_registration).compact.include?(true)
           %tr
             %td{colspan: 2}
               .heading= t :rsvp_explanation

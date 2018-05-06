@@ -41,14 +41,14 @@
       - if @upcoming_events.empty?
         %p= t :no_events_this_week
       - else
-        - @upcoming_events.each do |ue|
+        - @upcoming_events.sort_by(&:start_at).each do |ue|
           = render partial: 'emails/event', locals: { event: ue}
       = render partial: 'emails/open_time', locals: { event: @open_time.first }
 
       - unless @new_proposals.empty?
         %h3= t :new_proposals
         %ul.proposal_list
-          - @new_proposals.each do |p|
+          - @new_proposals.sort_by(&:id).each do |p|
             = render partial: 'emails/proposal', locals: {proposal: p}
 
       - unless @still_needing_pledges.empty?
@@ -60,7 +60,7 @@
       - unless @future_events.empty?
         %h3= t :future_events
         %ul.events
-          - @future_events.each do |fe|
+          - @future_events.sort_by(&:start_at).each do |fe|
             = render partial: 'emails/smallevent', locals: { event: fe}
       - if @is_email == true
         %h3= t :the_future_of_kuusi_palaa 

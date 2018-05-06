@@ -7,11 +7,16 @@ class Rsvp < ApplicationRecord
   has_one :ethtransaction, through: :blockchain_transaction
   validate :check_user_points, on: :create
   validate :not_open_time, on: :create
-
+  validate :still_rsvpable?
+  
   scope :pending, ->() { where(["instance_id > ? and blockchain_transaction_id is null", 257]) }
 
   def check_user_points
     user.can_rsvp?
+  end
+
+  def still_rsvpable?
+    instance.in_future?
   end
 
   def not_open_time
