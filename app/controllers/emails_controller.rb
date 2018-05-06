@@ -18,7 +18,7 @@ class EmailsController < ApplicationController
     @open_time = Instance.where(open_time: true).between(@email.send_at, (@email.send_at + 1.week).end_of_day)
     @body = ERB.new(@email.body).result(binding).html_safe
     @new_proposals = Idea.active.unconverted.where(["created_at >= ? ", @email.send_at - 1.week])
-    @still_needing_pledges = Idea.active.unconverted.except(@new_proposals).reject(&:has_enough?).reject{|x| !@new_proposals.include?(x) }
+    @still_needing_pledges = Idea.active.unconverted.except(@new_proposals).reject(&:has_enough?).reject{|x| @new_proposals.include?(x) }
     if user_signed_in?
       if current_user.is_stakeholder?
         @emailannouncements = @email.emailannouncements
@@ -56,7 +56,7 @@ class EmailsController < ApplicationController
       @open_time = Instance.where(open_time: true).between(@email.send_at, (@email.send_at + 1.week).end_of_day)
       @body = ERB.new(@email.body).result(binding).html_safe
       @new_proposals = Idea.active.unconverted.where(["created_at >= ? ", @email.send_at - 1.week])
-      @still_needing_pledges = Idea.active.unconverted.except(@new_proposals).reject(&:has_enough?)
+      @still_needing_pledges = Idea.active.unconverted.except(@new_proposals).reject(&:has_enough?).reject{|x| @new_proposals.include?(x) }
       if user_signed_in?
         if current_user.is_stakeholder?
           @emailannouncements = @email.emailannouncements

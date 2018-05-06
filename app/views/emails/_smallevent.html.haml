@@ -1,9 +1,13 @@
 %li
-  %strong= link_to event.name, event_instance_url(event.event, event)
+  %strong
+    = link_to event.name, event_instance_url(event.event, event)
+    - if event.request_registration
+      = "-- REQUIRES REGISTRATION!"
   %br/
   = date_range(event.start_at.localtime, event.end_at.localtime)
   - unless event.other_instances.empty?
     - event.other_instances.each do |t|
+      - next unless t.in_future?
       .additional
         = " + "
         = date_range(t.start_at.localtime, t.end_at.localtime)

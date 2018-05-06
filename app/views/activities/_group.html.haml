@@ -35,9 +35,20 @@
                     = t activity.last['activities'].first.description, numerical_value:  activity.last['activities'].sum(&:numerical_value)
                     = t(:x_different_proposals, count: activity.last['activities'].map{|x| x.item.item}.uniq.size)
                 - else
-                  = render partial: "activities/class/#{activity.last['activities'].first.item.class.to_s.downcase}", locals: {activity: activity.last['activities'].first}
+                  - if activity.last['activities'].uniq(&:item).size == 1
+                    = render partial: "activities/class/#{activity.last['activities'].first.item.class.to_s.downcase}", locals: {activity: activity.last['activities'].first}
+                  - else
+                    = link_to activity.last['activities'].uniq(&:uniq_contributor).map(&:uniq_contributor).first.display_name, activity.last['activities'].uniq(&:uniq_contributor).map(&:uniq_contributor).first, target: :_blank
 
-                - if activity.first == 'received_from'
+                    - if !activity.last['activities'].map(&:value).compact.empty?
+                      = t activity.last['description'], numerical_value: activity.last['activities'].sum(&:value).to_s
+                    - elsif activity.last['description'] == 'attended_with_rsvp'
+                      = t :attended
+                    - else
+                      = t activity.last['description']
+                    = t :x_events, count: activity.last['activities'].uniq(&:item).size, event: t(:event, count: activity.last['activities'].uniq(&:item).size)
+
+                - if activity.last['description'] == 'received_from'
                   .adjacent.columns
                     - if activity.last.first.extra
                       - if activity.last.first.extra.class == Userphoto
@@ -47,16 +58,19 @@
                     = fa_icon('arrow-right')
                     = link_to image_tag(activity.last[activity.last.keys.first].first.item.avatar.url(:thumb)), activity.last[activity.last.keys.first].first.item, target: :_blank
 
-                - elsif activity.first == 'was_added_to_the_group'
+                - elsif activity.last['description'] == 'was_added_to_the_group'
                   .adjacent.columns
                     = fa_icon('arrow-right')
                     = link_to image_tag(activity.last[activity.last.keys.first].first.item.avatar.url(:thumb)), activity.last[activity.last.keys.first].first.item, target: :_blank
 
-                - elsif activity.first == 'shared_an_image_from'
-                  .adjacent.columns
-                    = link_to image_tag(activity.last.first.extra.image.url(:thumb)), activity.last.first.item, target: :_blank        
+                - elsif activity.last['description'] == 'shared_an_image_from'
+                  - if activity.last['activities'].uniq(&:item).size == 1
+                    .adjacent.columns
+                      = link_to image_tag(activity.last['activities'].first.extra.image.url(:thumb)), activity.last['activities'].first.item, target: :_blank
 
-                - elsif activity.first == 'was_mentioned_by'
+                - elsif activity.last['description'] == 'plans_to_attend'
+
+                - elsif activity.last['description'] == 'was_mentioned_by'
                   .adjacent.columns
 
                     = fa_icon('arrow-left')
@@ -80,7 +94,7 @@
                   - if activity.last['activities'].map{|x| x.item.root_comment}.uniq.size == 1
                     = link_to activity.last['activities'].first.item.item.name, activity.last['activities'].first.item.item, target: :_blank, target: :_blank
                   - else
-                    = t :things
+                    
                 - if activity.last['activities'].first.item.class == Instance
                   - if activity.last['activities'].map{|x| x.item}.uniq.size == 1
                     = link_to activity.last['activities'].first.item.get_sequence_name, event_instance_path(activity.last['activities'].first.item.event, activity.last['activities'].first.item), target: :_blank
