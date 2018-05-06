@@ -67,7 +67,7 @@
               .row
                 .small-10.medium-8.columns= f.action :submit, label:  t(:register), button_html: {class: [:button, :bordered] }                                                                                             
           
-- elsif @instance.in_future?
+- elsif !@instance.already_happened?
   .row
     .small-10.medium-8.columns
       %h5= t(:registration_is_closed)

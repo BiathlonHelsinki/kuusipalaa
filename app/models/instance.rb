@@ -132,7 +132,7 @@ class Instance < ApplicationRecord
   end
 
   def already_happened?
-    end_at.localtime <= Time.current.localtime
+    get_sequence.last.end_at.localtime <= Time.current.localtime
 
   end
     

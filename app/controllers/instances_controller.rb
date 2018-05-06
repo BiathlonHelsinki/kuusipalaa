@@ -45,7 +45,7 @@ class InstancesController < ApplicationController
     @instance = @event.instances.published.first
     @sequences = @event.instances.order(:start_at).group_by(&:sequence)
     @sequence = @sequences[@instance.sequence]
-    if @sequences.size == 1 && !@instance.in_future? && @event.ideas.empty?
+    if @sequences.size == 1 && @instance.already_happened? && @event.ideas.empty?
       @archive = true
       render template: 'instances/past'
     elsif @event.sequences.size > 1 || !@event.ideas.empty?

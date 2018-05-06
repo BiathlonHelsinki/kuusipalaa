@@ -1458,3 +1458,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   the_event_is_scheduled_for:  "The event '%{event}' is scheduled to start at %{when}."
   didnt_show_after_rsvp: "RSVPd for, but didn't show up to"
   event_instigator_brackets: '(& event instigator)'
+  see_x_project: 'See entire "%{x}" project'

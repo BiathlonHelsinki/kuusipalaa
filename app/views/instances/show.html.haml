@@ -12,6 +12,8 @@
             = @instance.name
         - else  
           = @instance.name
+          %br
+          %small= link_to t(:see_x_project, x: @instance.name), @event, class: [:button, :bordered, :tiny]
 
         .smaller= render partial: 'shared/translate_link', locals: {item: @event, attribute: :name}
         
@@ -93,7 +95,7 @@
               - if @sequence.first.allow_others == true
                 .subtext= t :others_are_allowed
         %tr
-          - if @instance.in_future?
+          - unless @instance.already_happened?
             %td.half
               .heading= t :participation_details
               .value
