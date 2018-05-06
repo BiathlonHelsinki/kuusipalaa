@@ -40,7 +40,7 @@ class Event < ApplicationRecord
       slug: self.slug,
       image_url: self.image.url(:thumb).gsub(/development/, 'production'),
       name:  self.name,
-      route: 'experiments',
+      route: 'events',
       updated_at: self.updated_at
     }
   end

@@ -87,7 +87,8 @@
 
                   - else
                     - link_filter = AutoHtml::Link.new(target: '_blank')
-                    = raw link_filter.call(simple_format(comment.content_linked))
+
+                    = raw link_filter.call(simple_format(comment.content_linked, {}, {sanitize: false}))
 
                     - if comment.image?
                       %br/

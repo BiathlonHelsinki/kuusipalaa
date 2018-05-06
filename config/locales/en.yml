@@ -1461,4 +1461,5 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   see_x_project: 'See entire "%{x}" project'
   cannot_cancel_rsvp_12hr: 'You cannot cancel an RSVP within 12 hours before the event starts.'
   cancel_rsvp_thanks: 'Your RSVP has been cancelled.'
-  rsvp_2p_explanation: 'You must have at least 2ᵽ to RSVP. If you RSVP and check in to the event, you will receive a bonus 2ᵽ on top of the regular event participation points. If you do not show up after saying you will, you will lose this 2ᵽ.'
+  rsvp_2p_explanation: 'You must have at least 2ᵽ to RSVP. If you have RSVPd and heck in to the event, you will receive a bonus 2ᵽ on top of the regular event participation points. If you do not show up after saying you will, you will lose this 2ᵽ.'
+  tagging_events: "Events: type '#' followed by the name of the event [eg: #Trashlab]"

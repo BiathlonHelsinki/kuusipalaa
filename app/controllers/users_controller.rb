@@ -92,12 +92,12 @@ class UsersController < ApplicationController
       logger.warn('mentions are ' + @users.uniq.map(&:as_mentionable).to_json )
       render json: @users.uniq.map(&:as_mentionable).to_json
     elsif params[:mentioning][0] == '#'
-      # @events = Event.joins(:translations).where("lower(event_translations.name) LIKE '%" +  params[:mentioning][1..-1].downcase + "%'")
-      # @events += Instance.joins(:translations).where("lower(instance_translations.name) LIKE '%" +  params[:mentioning][1..-1].downcase + "%'").map(&:event)
+      @events = Event.published.joins(:translations).where("lower(event_translations.name) LIKE '%" +  params[:mentioning][1..-1].downcase + "%'")
+      @events += Instance.published.joins(:translations).where("lower(instance_translations.name) LIKE '%" +  params[:mentioning][1..-1].downcase + "%'").map(&:event)
 
       # render json: @events.uniq.map(&:as_mentionable).to_json
-      @posts = Post.joins(:translations).where("lower(post_translations.title) LIKE '%" + params[:mentioning][1..-1].downcase + "%'")
-      render json: @posts.uniq.map(&:as_mentionable).to_json
+      # @posts = Post.joins(:translations).where("lower(post_translations.title) LIKE '%" + params[:mentioning][1..-1].downcase + "%'")
+      render json: @events.uniq.map(&:as_mentionable).to_json
 
     end
   end
