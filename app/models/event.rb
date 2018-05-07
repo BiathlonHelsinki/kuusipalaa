@@ -8,7 +8,7 @@ class Event < ApplicationRecord
   translates :name, :description, :fallbacks_for_empty_translations => true
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['name'].blank? && x['description'].blank? }
   accepts_nested_attributes_for :instances, :reject_if => proc {|x| x['start_at'].blank? || x['end_at'].blank? }
-  has_many :notifications, as: :items
+  has_many :notifications, as: :item
   has_many :ideas, as: :parent
   belongs_to :parent, class_name: 'Event', optional: true
   has_one :child, class_name: 'Event', foreign_key: :parent_id
