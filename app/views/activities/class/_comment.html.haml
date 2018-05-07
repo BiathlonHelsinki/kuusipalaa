@@ -9,4 +9,5 @@
   = link_to activity.item.name, activity.item.item
 - elsif activity.item.item.class == Post
   = link_to t(:stakeholder_only_discussion), new_season_stake_path(@next_season)
-
+- else
+  = activity.item.item.name

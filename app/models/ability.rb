@@ -5,6 +5,11 @@ class Ability
     # user ||= User.new
     can :read, Page, only_stakeholders: false
     can :read, Post, only_stakeholders: false
+    can :read, Event, published: true
+    can :read, Instance, published: true
+    can :read, Comment do |c|
+      can :read, c.root_comment
+    end
     can :read, Idea
     cannot :read, Bankstatement
     return unless user.present?

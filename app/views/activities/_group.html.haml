@@ -94,7 +94,7 @@
                   - if activity.last['activities'].map{|x| x.item.root_comment}.uniq.size == 1
                     = link_to activity.last['activities'].first.item.item.name, activity.last['activities'].first.item.item, target: :_blank, target: :_blank
                   - else
-                    
+                    = t :various_topics
                 - if activity.last['activities'].first.item.class == Instance
                   - if activity.last['activities'].map{|x| x.item}.uniq.size == 1
                     = link_to activity.last['activities'].first.item.get_sequence_name, event_instance_path(activity.last['activities'].first.item.event, activity.last['activities'].first.item), target: :_blank
@@ -141,4 +141,5 @@
           = link_to image_tag('activities/down_icon.png', width: 23), '#', onClick: 'javascript:toggle_collapsed("#collapsed_' + activity.first.to_s + '");return false;'
   .collapsed{id: 'collapsed_' + activity.first.to_s}
     - activity.last['activities'].each do |activity|
+
       = render partial: 'activities/activity', locals: {activity: activity}
