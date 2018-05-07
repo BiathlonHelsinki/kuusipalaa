@@ -6,7 +6,7 @@ function calculatePoints(idstart) {
   // get time difference in hour and validate as well
   var duration = moment.duration(endtime.diff(start));
   // figure out how much of each time belongs to the three prices
-  let base = calcSpan(start, endtime)
+  var base = calcSpan(start, endtime)
   //  get any additional times for new total
   if ($('#' + idstart + '_room_needed').val() == "2") {
     base *= 0.6;
@@ -18,8 +18,8 @@ function calculatePoints(idstart) {
   if ($('#' + idstart + '_allow_others').is(":checked") && $('#' + idstart + '_room_needed').val() != "2") {
     base *= 0.75;
   }
-  let returned = check_additionals();
-  let base_totaled = parseInt(base) + parseInt(returned.reduce((a, b) => a + b, 0))
+  var returned = check_additionals();
+  var base_totaled = parseInt(base) + parseInt(returned.reduce((a, b) => a + b, 0))
   // discount for room needed
 
 

@@ -105,7 +105,7 @@
                     = number_to_currency(@idea.price_stakeholders, unit: raw("&euro;"), format: "%n %u")
                     - if user_signed_in?
                       - if !current_user.is_stakeholder?
-                        = link_to t(:become_a_stakeholder), season_new_stake_path(@next_season)
+                        = link_to t(:become_a_stakeholder), new_season_stake_path(@next_season)
           %td
             .heading= t :special_notes
             .value= @idea.special_notes.blank? ? t(:negative) : @idea.special_notes

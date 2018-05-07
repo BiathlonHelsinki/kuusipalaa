@@ -54,10 +54,10 @@ function calculateThing() {
   var endtime = moment($('#idea_end_at_date').val() + ' ' + $('#idea_end_at').val(), 'YYYY-MM-DD HH:mm');
   // start date must be in the future
 
-  let now = moment()
+  var now = moment()
 
   if (start.isBefore(now)) {
-    let tomorrow  = moment(new Date()).add(1,'days');
+    var tomorrow  = moment(new Date()).add(1,'days');
 
     array_of_functions.push(
         () => { $('#idea_start_at_date').val(now.format('YYYY-MM-DD')); }
@@ -70,9 +70,9 @@ function calculateThing() {
   }
 
   // calculate points for this in one function
-  let object_size = parseInt($('#idea_thing_size').val())
-  let duration = endtime.diff(start, 'days') + 1
-  let points_needed = 0
+  var object_size = parseInt($('#idea_thing_size').val())
+  var duration = endtime.diff(start, 'days') + 1
+  var points_needed = 0
   if (object_size == 1) {
     points_needed = duration * 10
   }
@@ -112,7 +112,7 @@ function check_additionals() {
       // TODO fix for split fields
       $('input[name="idea[additionaltimes_attributes][' + eyed + '][end_at_date]"]').val($('input[name="idea[additionaltimes_attributes][' + eyed + '][start_at_date]"]').val());
     } else {
-      let base = calcSpan(start, endtime);
+      var base = calcSpan(start, endtime);
       if ($('#idea_room_needed').val() == "2") {
         base *= 0.6;
       } else if ($('#idea_room_needed').val() == "3") {
@@ -134,7 +134,7 @@ function check_additionals() {
 }
 
 function calcSpan(start, endtime) {
-  let base = 0
+  var base = 0
   for (var m = moment(start); m.isBefore(endtime); m.add(1, 'hours')) {
     if (m.format('HH') <= 7) {
       base += 50;
@@ -155,8 +155,8 @@ function checkNested() {
   $('.fields').each(function(index) {
     $(this).find('.subtimes').each(function(ids) { idarray.push($(this).attr('id')) });
   });
-  let now = moment()
-  let tomorrow  = moment(new Date()).add(1,'days')
+  var now = moment()
+  var tomorrow  = moment(new Date()).add(1,'days')
 
   idarray.forEach(function(eyed) {
     // calculatePoints('idea_additionaltimes_attributes_' + eyed)
@@ -198,10 +198,10 @@ function checkLogic() {
   var endtime = moment($('#idea_end_at_date').val() + ' ' + $('#idea_end_at').val(), 'YYYY-MM-DD HH:mm');
   // start date must be in the future
 
-  let now = moment()
+  var now = moment()
 
   if (start.isBefore(now)) {
-    let tomorrow  = moment(new Date()).add(1,'days');
+    var tomorrow  = moment(new Date()).add(1,'days');
 
     array_of_functions.push(
         () => { $('#idea_start_at_date').val(tomorrow.format('YYYY-MM-DD')); }
@@ -227,7 +227,7 @@ function checkLogic() {
 }
 
 function correctHour(hour) {
-  let h = parseInt(hour)
+  var h = parseInt(hour)
   if (h < 23) {
     return h + 1
   } else {
@@ -250,7 +250,7 @@ function calculatePrivate() {
       () => {  $('#roombooking_end_at').val(correctHour($('#roombooking_start_at').val().match(/\d\d/)[0]) + ':00');  }
     )
   }
-  let rate = parseInt((duration / 60) * 15)
+  var rate = parseInt((duration / 60) * 15)
   if (rate <= 0) {
     rate = 15
   }
@@ -275,7 +275,7 @@ function calculateCost() {
   // get time difference in hour and validate as well
   var duration = moment.duration(endtime.diff(start));
   // figure out how much of each time belongs to the three prices
-  let base = calcSpan(start, endtime)
+  var base = calcSpan(start, endtime)
   //  get any additional times for new total
     // discount for room needed
   if ($('#idea_room_needed').val() == "2") {
@@ -289,8 +289,8 @@ function calculateCost() {
     base_totaled *= 0.75;
   }
 
-  let returned = check_additionals();
-  let base_totaled = base + returned.reduce((a, b) => a + b, 0)
+  var returned = check_additionals();
+  var base_totaled = base + returned.reduce((a, b) => a + b, 0)
 
 
 
