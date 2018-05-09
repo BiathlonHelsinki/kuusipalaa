@@ -19,7 +19,7 @@
       .dropdown-pane{id:"dropdown_#{viewpoint.id.to_s}_like", :"data-dropdown" => '', :'data-auto-focus' => "true"}
         .tip_blurb
           = t(:how_many_temps_to_tip, user: viewpoint.user.display_name)
-          = form_tag post_temps_user_transfers_path(viewpoint.user), remote: true, method: :post do
+          = form_tag post_points_user_transfers_path(viewpoint.user), remote: true, method: :post do
             = text_field_tag :temps_to_send, 1, size: 3, maxlength: 3
             
             = hidden_field_tag :userphoto_id, viewpoint.id.to_s
