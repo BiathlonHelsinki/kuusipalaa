@@ -22,7 +22,7 @@ class Idea < ApplicationRecord
   has_many :notifications, as: :item
   
   extend FriendlyId
-  friendly_id :name, use: [:slugged, :finders]
+  friendly_id :name, use: [:slugged, :history, :finders]
 
   mount_uploader :image, ImageUploader
   before_save :announce_cancellation, if: :cancelled?
