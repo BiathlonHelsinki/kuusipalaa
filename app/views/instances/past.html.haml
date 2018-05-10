@@ -62,7 +62,7 @@
                     = number_to_currency(@sequence.first.price_stakeholders, unit: raw("&euro;"), format: "%n %u")
                     - if user_signed_in?
                       - if !current_user.is_stakeholder?
-                        = link_to t(:become_a_stakeholder), season_new_stake_path(@next_season)      
+                        = link_to t(:become_a_stakeholder), new_season_stake_path(@next_season)      
           %td.half
             .heading= t :venue
             .value

@@ -149,22 +149,23 @@
     @idea = Idea.friendly.find(params[:id])
     if @idea.converted?
       redirect_to @idea.converted
-    end
-    if user_signed_in?
-      fill_collection
-      @pledger = current_user
-      if current_user.pledges.unconverted.where(item: @idea).empty?
-        @pledge = @idea.pledges.build
-      else
-        # flash[:notice] = 'You already have an unspent pledge towards this proposal. You can edit or delete it but you cannot create a new one.'
-        @pledge = current_user.pledges.unconverted.find_by(item: @idea)
+    else
+      if user_signed_in?
+        fill_collection
+        @pledger = current_user
+        if current_user.pledges.unconverted.where(item: @idea).empty?
+          @pledge = @idea.pledges.build
+        else
+          # flash[:notice] = 'You already have an unspent pledge towards this proposal. You can edit or delete it but you cannot create a new one.'
+          @pledge = current_user.pledges.unconverted.find_by(item: @idea)
+        end 
       end 
-    end 
 
-    set_meta_tags title: @idea.name
-    if @idea.status != 'active' && @idea.status != 'converted' && @idea.status != 'cancelled'
-      flash[:error] = t(:idea_not_published_yet)
-      redirect_to ideas_path
+      set_meta_tags title: @idea.name
+      if @idea.status != 'active' && @idea.status != 'converted' && @idea.status != 'cancelled'
+        flash[:error] = t(:idea_not_published_yet)
+        redirect_to ideas_path and return
+      end
     end
   end
 
