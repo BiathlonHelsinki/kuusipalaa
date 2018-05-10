@@ -32,7 +32,7 @@
                       = raw t(:via_user, user: link_to(activity.last['activities'].first.user.display_name, activity.last['activities'].first.user, target: :_blank))
                     - else
                       = link_to(activity.last['activities'].first.user.display_name, activity.last['activities'].first.user, target: :_blank)
-                    = t activity.last['activities'].first.description, numerical_value:  activity.last['activities'].sum(&:numerical_value)
+                    = t activity.last['activities'].first.description, numerical_value:  activity.last['activities'].sum{|x| x.numerical_value.to_i }
                     = t(:x_different_proposals, count: activity.last['activities'].map{|x| x.item.item}.uniq.size)
                 - else
                   - if activity.last['activities'].uniq(&:item).size == 1
@@ -50,13 +50,13 @@
 
                 - if activity.last['description'] == 'received_from'
                   .adjacent.columns
-                    - if activity.last.first.extra
-                      - if activity.last.first.extra.class == Userphoto
+                    - if activity.last['activities'].first.extra
+                      - if activity.last['activities'].first.extra.class == Userphoto
                         .middle_image
                           = fa_icon('arrow-right')
-                          = image_tag activity.last.first.extra.image.url(:thumb)
+                          = image_tag activity.last['activities'].first.extra.image.url(:thumb)
                     = fa_icon('arrow-right')
-                    = link_to image_tag(activity.last[activity.last.keys.first].first.item.avatar.url(:thumb)), activity.last[activity.last.keys.first].first.item, target: :_blank
+                    = link_to image_tag(activity.last['activities'].first.item.avatar.url(:thumb)), activity.last['activities'].first.item, target: :_blank
 
                 - elsif activity.last['description'] == 'was_added_to_the_group'
                   .adjacent.columns

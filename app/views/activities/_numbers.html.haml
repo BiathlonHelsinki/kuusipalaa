@@ -30,7 +30,7 @@
       %small= " +2ᵽ"
 
     - else
-      = activity.value.to_s + "ᵽ"
+      = activity.value.to_s + (activity.created_at < '2018-02-01'.to_date ? 'Ŧ' : "ᵽ" )
 - else
   %br/
   &nbsp;

@@ -10,7 +10,8 @@
     - if @idea.converted?
       .has_enough.columns.text-center
         .has_enough_banner= t :this_proposal_was_scheduled
-        = link_to t(:please_see) + @idea.events.first.name, @idea.events.first
+        - unless @idea.events.empty?
+          = link_to t(:please_see) + @idea.events.first.name, @idea.events.first
     - elsif @idea.cancelled?
       .has_enough.columns.text-center
         .has_enough_banner

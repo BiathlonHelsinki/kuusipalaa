@@ -36,7 +36,7 @@ class Roombooking < ApplicationRecord
   end
 
   def name
-    I18n.t(:private_event_in_back_room, user: booker.username)
+    I18n.t(:private_event_in_back_room, user: booker.display_name)
   end
 
   def start_at_date

@@ -28,7 +28,7 @@
         = event.name
         .dates= date_range(event.start_at, event.end_at)
         
-      .blurb{style: event.event_image? ? "background: url(#{event.event_image.url(:box).gsub(/development/, 'production')}) center top; min-height: 250px;" : "min-height: 250px"}
+      .blurb{style: event.event.image? ? "background: url(#{event.event.image.url(:box).gsub(/development/, 'production')}) center top; min-height: 250px;" : "min-height: 250px"}
         .overlay{class: event.event_image? ? false : :visible}
           .description= raw truncate_html(simple_format(event.description), length: 250)
       .under.text-center
