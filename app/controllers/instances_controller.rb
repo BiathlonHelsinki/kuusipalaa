@@ -44,6 +44,9 @@ class InstancesController < ApplicationController
     set_meta_tags title: @event.name
     @instance = @event.instances.published.first
     @sequences = @event.instances.order(:start_at).group_by(&:sequence)
+    if @instance.nil?
+      @instance = @event.instances.first
+    end
     @sequence = @sequences[@instance.sequence]
     if @sequences.size == 1 && @instance.already_happened? && @event.ideas.empty?
       @archive = true
@@ -132,7 +135,9 @@ class InstancesController < ApplicationController
 
       @event = Event.friendly.find(params[:event_id])
       @instance = @event.instances.friendly.find(params[:id])
-
+      if @instance.start_at < "2018-02-01"  
+        redirect_to "https://temporary.fi/events/" + @event.slug + "/#{@instance.slug}" and return
+      end
       # if @instance.slug == @event.slug && @event.keep_going != true
       #   redirect_to event_path(@event.slug)
       # else

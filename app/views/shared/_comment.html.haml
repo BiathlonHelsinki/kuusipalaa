@@ -74,8 +74,8 @@
                   - else
                     = raw t(:meeting_was_scheduled, user: link_to(comment.scheduler.display_name, comment.scheduler, target: :_blank), when: l(comment.created_at, format: :long), name: link_to(raw("<em>#{comment.name}</em>"), comment.item, target: :_blank))
                     %br/
-                    - if comment.event_image?
-                      = image_tag comment.event_image.url.gsub(/development/, 'production')
+                    - if comment.event.image?
+                      = image_tag comment.event.image.url
               - if comment.class == Comment    
                 .comment_content
                   - if comment.systemflag == true
