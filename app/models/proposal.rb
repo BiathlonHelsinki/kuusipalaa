@@ -17,6 +17,10 @@ class Proposal < ApplicationRecord
     user
   end
 
+  def root_comment
+    self
+  end
+
 
   def item
     self 

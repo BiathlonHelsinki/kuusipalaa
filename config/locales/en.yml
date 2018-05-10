@@ -1464,3 +1464,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   rsvp_2p_explanation: 'You must have at least 2ᵽ to RSVP. If you have RSVPd and heck in to the event, you will receive a bonus 2ᵽ on top of the regular event participation points. If you do not show up after saying you will, you will lose this 2ᵽ.'
   tagging_events: "Events: type '#' followed by the name of the event [eg: #Trashlab]"
   various_topics: 'various topics'
+  edited_grouped: ' edited '
