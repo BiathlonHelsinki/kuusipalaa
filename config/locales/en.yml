@@ -1421,7 +1421,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
     one: 'project'
     other: 'projects'    
   # time meaning 'occasion' ,used to say how many times an event has met
-  time:
+  occurance:
     zero: 'times'
     one: 'time'
     other: 'times'

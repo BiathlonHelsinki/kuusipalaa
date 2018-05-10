@@ -21,7 +21,7 @@
             - if @project.instances.past.size == 0
               = t :has_not_yet_met
             - else
-              = t :x_times, count: @project.instances.past.size, time: t(:time, count: @project.instances.past.size)
+              = t :x_times, count: @project.instances.past.size, time: t(:occurance, count: @project.instances.past.size)
               .heading= t :participation
               - attended =  @project.instances.past.map(&:instances_users).each{|x| x.map(&:user)}.flatten.size
               - guesttickets = @project.instances.past.map{|x| x.onetimers.unclaimed}.flatten.size
