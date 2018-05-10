@@ -49,13 +49,15 @@ gem 'uglifier', '>= 1.3.0'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "database_cleaner"
-  gem "rspec-rails"
+  gem "rspec-rails", '~> 3.5'
 end
+
 group :test do
-  gem "capybara"
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', '~> 4.0'
+  gem 'shoulda-matchers', '~> 3.1'
   gem 'faker'
-  gem "selenium-webdriver"
+  gem 'database_cleaner'
+  gem 'simplecov', require: false
 end
 
 

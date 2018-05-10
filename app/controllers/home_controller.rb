@@ -55,6 +55,9 @@ class HomeController < ApplicationController
 
   def funders_update
     @season = Season.find(params[:season_id])
+    unless request.xhr?
+      head :ok, content_type: "text/html"
+    end
   end
 
 end
