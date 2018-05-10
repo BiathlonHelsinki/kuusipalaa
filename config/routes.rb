@@ -233,6 +233,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/instances/:id', to: redirect("/events/%{id}")
   match '/redeem' => 'onetimers#link', via: :get
   match '/calendar' => 'events#calendar', via: :get
   match '/users/auth/:provider/callback' => 'authentications#create', :via => :get
