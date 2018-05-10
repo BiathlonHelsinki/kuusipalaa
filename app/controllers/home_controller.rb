@@ -43,13 +43,17 @@ class HomeController < ApplicationController
   end
 
   def front_calendar
-    @events = [Instance.on_day(params[:day]), Roombooking.between(params[:day],params[:day])].flatten
-    @today = params[:day]
-    if params[:day] == '2018-04-25'
-      closed = Instance.new(start_at: '2018-04-25 00:00:00', end_at: '2018-04-25 23:59:00')
-      closed.name = 'Kuusi Palaa is closed for renovations'
-      closed.slug = 'closed'
-      @events = [ closed ]
+    if !params[:day].blank?
+      @events = [Instance.on_day(params[:day]), Roombooking.between(params[:day],params[:day])].flatten
+      @today = params[:day]
+      if params[:day] == '2018-04-25'
+        closed = Instance.new(start_at: '2018-04-25 00:00:00', end_at: '2018-04-25 23:59:00')
+        closed.name = 'Kuusi Palaa is closed for renovations'
+        closed.slug = 'closed'
+        @events = [ closed ]
+      end
+    else
+      head :ok,  content_type: "text/html"
     end
   end
 

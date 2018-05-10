@@ -45,6 +45,10 @@ class Post < ApplicationRecord
     all_comments.flatten.uniq.size
   end
 
+  def item
+    self
+  end
+  
   def name
     title
   end

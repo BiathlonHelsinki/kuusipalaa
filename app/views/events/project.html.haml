@@ -33,7 +33,7 @@
           .value
             = link_to @project.primary_sponsor.display_name,  @project.primary_sponsor, target: :_blank
             - unless @project.instances.map(&:organisers).flatten.empty?
-              = @project.instances.map(&:organisers).map(&:display_name).join(', ')
+              = @project.instances.map(&:organisers).flatten.map(&:display_name).join(', ')
         %td
           .heading= t :status
           .value
