@@ -1468,3 +1468,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   received_from_grouped: 'received points from others'
   is_no_longer_planning_to_attend_grouped: ' are no longer planning to attend '
   edited_their_pledge_to_grouped: 'edited their pledges to '
+  proposer: 'Event proposer'
