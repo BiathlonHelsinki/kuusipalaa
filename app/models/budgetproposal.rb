@@ -21,6 +21,10 @@ class Budgetproposal < ApplicationRecord
     self
   end
 
+  def item
+    self
+  end
+
   def update_activity_feed
     if created_at == updated_at
       # assume it's new
