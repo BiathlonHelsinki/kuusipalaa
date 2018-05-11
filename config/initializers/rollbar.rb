@@ -39,7 +39,9 @@ Rollbar.configure do |config|
   # config.async_handler = Proc.new { |payload|
   #  Thread.new { Rollbar.process_from_async_handler(payload) }
   # }
-
+  config.exception_level_filters.merge!({
+    'ActionController::RoutingError' => 'ignore'
+  })
   # Enable asynchronous reporting (using sucker_punch)
   # config.use_sucker_punch
 
