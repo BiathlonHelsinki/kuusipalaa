@@ -10,7 +10,6 @@ class Budgetproposal < ApplicationRecord
   has_many :notifications, as: :item
   before_validation :smart_add_url_protocol
 
-
   after_create :update_activity_feed
 
   def discussion
