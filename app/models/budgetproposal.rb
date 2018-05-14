@@ -37,8 +37,10 @@ class Budgetproposal < ApplicationRecord
   protected
 
   def smart_add_url_protocol
-    unless self.link[/\Ahttp:\/\//] || self.link[/\Ahttps:\/\//]
-      self.link = "http://#{self.link}"
+    unless self.link.blank?
+      unless self.link[/\Ahttp:\/\//] || self.link[/\Ahttps:\/\//]
+        self.link = "http://#{self.link}"
+      end
     end
   end
 end
