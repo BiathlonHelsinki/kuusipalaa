@@ -1473,3 +1473,6 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   attended_with_rsvp: 'attended after RSVPing'
   bought_grouped: 'bought '
   created_the_group_grouped: 'created groups'
+  had_blockchain_balance_adjusted_by_grouped: 'had their blockchain balances adjusted by a total of '
+  withdrew_a_pledge_grouped: 'withdrew pledges from '
+  is_no_longer_registered_for_grouped: 'un-registered from '
