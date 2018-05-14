@@ -1470,3 +1470,6 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   edited_their_pledge_to_grouped: 'edited their pledges to '
   proposer: 'Event proposer'
   attended_with_rsvp_grouped: 'attended after RSVPing to '
+  attended_with_rsvp: 'attended after RSVPing'
+  bought_grouped: 'bought '
+  created_the_group_grouped: 'created groups'
