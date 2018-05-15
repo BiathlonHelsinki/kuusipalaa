@@ -23,8 +23,12 @@
             - if event.open_time == true
               = t :open_24_7
             - else
+              - if event.end_at.to_date != event.start_at.to_date
+                = I18n.t('date.day_names')[event.start_at.localtime.strftime("%w").to_i]
               = event.start_at.localtime.strftime("%H:%M")
               = " - "
+              - if event.end_at.to_date != event.start_at.to_date
+                = I18n.t('date.day_names')[event.end_at.localtime.strftime("%w").to_i]
               = event.end_at.localtime.strftime("%H:%M")
               = ": "
               = event.name

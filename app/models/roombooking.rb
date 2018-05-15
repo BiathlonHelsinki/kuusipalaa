@@ -17,16 +17,16 @@ class Roombooking < ApplicationRecord
   def as_json(options = {})
     {
       :id => self.id,
-      :title => self.booker.display_name + "\n" + (self.purpose || '') + (self.purpose.blank? ? '' : "\n") + start_at.localtime.strftime("%H:%M") + ' - ' + end_at.localtime.strftime("%H:%M"),
+      :title => self.booker.nil? ? 'Kuusi Palaa is closed' : self.booker.display_name + "\n" + (self.purpose || '') + (self.purpose.blank? ? '' : "\n") + start_at.localtime.strftime("%H:%M") + ' - ' + end_at.localtime.strftime("%H:%M"),
       :description => self.purpose || "",
-      icon_url: self.user.avatar.url(:thumb).gsub(/development/, 'production'),
+      icon_url: self.user.nil? ? '' : self.user.avatar.url(:thumb).gsub(/development/, 'production'),
       :start => start_at.localtime, #.strftime('%Y-%m-%d 00:00:01'),
       :end =>  end_at.localtime, #.strftime('%Y-%m-%d 23:59:59'),
       :allDay => true, 
       :recurring => false,
       :temps => self.points_needed,
       class: 'booking',
-      :url => Rails.application.routes.url_helpers.user_path(self.user)
+      :url => self.user.nil? ? '/posts/more-courtyard-closings-21-22-may' : Rails.application.routes.url_helpers.user_path(self.user)
     }
     
   end
