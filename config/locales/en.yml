@@ -58,7 +58,7 @@ en:
   where_is_it: 'Where is it?'
   when_is_it_open: 'When is it open?'
   whats_the_t_mean: "What's the %{tsign} mean?"
-  how_do_i_get_temps: 'How do I get Temps?'
+  how_do_i_get_temps: 'How do I get points?'
   news: 'News'
   experiments: 'Experiments'
   activity_feed: 'Activity'
