@@ -14,3 +14,5 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 Rails.application.config.assets.precompile += %w( admin.css admin.js pdf.css email.css)
 Rails.application.config.assets.precompile += %w( ckeditor/* )
+Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
+
