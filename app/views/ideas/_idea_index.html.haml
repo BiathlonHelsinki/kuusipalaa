@@ -9,6 +9,7 @@
     
   .blurb{style: idea.image? ? "background: url(#{idea.image.url(:box)}) center top; min-height: 250px;" : "min-height: 250px"}
   .under
+
     .needed
       = t((idea.ideatype.slug + '_category').to_sym)
 
@@ -22,11 +23,17 @@
       -# = t(:x_comments, count: idea.comments.count, comment: t(:comment, count: idea.comments.count))
     .pledge_corner
       = link_to t(:pledge_p), idea
+    - if idea.parent
+      .project.text-center
+        = t :project, count: 1
+        = ": "
+        = link_to idea.parent.name, idea.parent      
   - unless idea.active? || idea.converted? || idea.cancelled?
     .draught.text-center
       = t :draught_mode
       - if can? :edit, idea
         = link_to t(:click_to_resume), edit_idea_path(idea)
+        
   - if idea.has_enough?
     .ready.text-center
       = t :ready_to_be_published

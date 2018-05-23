@@ -72,7 +72,8 @@
             .value
               - if @event.description.nil?
                 %em= t :no_project_summary_see_events
-
+                - if can? :edit, @event
+                  .smaller= render partial: 'shared/translate_link', locals: {item: @event, attribute: :description}
               - else
                 = simple_format(@event.description)
                 .smaller= render partial: 'shared/translate_link', locals: {item: @event, attribute: :description}
@@ -95,7 +96,9 @@
           .row.small-up-1.large-up-3.medium-up-2.nopadding
             - @project.sequences.sort_by(&:first).each do |sequence|
               .columns= render partial: 'events/event_index', locals: {event: sequence.last.first}
-
+            - @project.ideas.active.order(:start_at).each do |idea|
+              .columns.proposal=render partial: 'events/pending_proposal_box', locals: {idea: idea}
+                  
       .tabs-content{:'data-tabs-content' => 'project_tabs'}
         .tabs-panel.is-active#history_tab
           #history_list

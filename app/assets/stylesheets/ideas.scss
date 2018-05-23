@@ -76,6 +76,13 @@ article.ideas_index {
       font-size: 0.8rem;
       font-family: $sourcecode;
       font-weight: bold;
+      .project {
+        clear: both;
+        font-weight: bold;
+        background-color: #999;
+        padding: 0.5rem;        
+        border-top: 1px solid black;
+      }      
       .needed {
         padding: 10px;
         max-width: 33%;

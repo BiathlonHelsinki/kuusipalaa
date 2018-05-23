@@ -1,0 +1,54 @@
+= link_to idea do
+  .event.project_proposal
+    .above.text-center
+      = t(:proposal) + ": "
+    .title
+      = idea.name
+      .dates
+        - if idea.timeslot_undetermined == true
+          = t(:proposed_length_short, hours: idea.hours_estimate)
+        - else
+          = date_range(idea.start_at.localtime, idea.end_at.localtime)
+          - unless idea.additionaltimes.empty?
+            - idea.additionaltimes.each do |t|
+              .additional
+                = " + "
+                = date_range(t.start_at.localtime, t.end_at.localtime)        
+      
+    .blurb{style: idea.image? ? "background: url(#{idea.image.url(:box)}) center top; min-height: 250px;" : "min-height: 250px"}
+      .overlay{class: idea.image? ? false : :visible}
+        .description= raw truncate_html(simple_format(idea.proposal_text), length: 250)
+    .under.text-center
+      .needed
+        = t((idea.ideatype.slug + '_category').to_sym)
+
+      .so_far.text-center
+        - if idea.ideatype_id != KuusiPalaa::Ideas::Request
+          - if idea.points_needed.nil?
+            = t :no_times_proposed_yet
+          - else
+            = t :x_of_x_so_far, has: idea.pledged, needs: idea.points_needed
+        -# - if idea.ideatype_id == KuusiPalaa::Ideas::Request
+        -# = t(:x_comments, count: idea.comments.count, comment: t(:comment, count: idea.comments.count))
+      .pledge_corner
+        = link_to t(:pledge_p), idea
+    - if can? :edit, idea
+      - unless idea.active? || idea.converted? || idea.cancelled?
+        .draught.text-center
+          = t :draught_mode
+          = link_to t(:click_to_resume), edit_idea_path(idea)
+    - if idea.has_enough?
+      .ready.text-center
+        = t :ready_to_be_published
+    - if idea.converted?
+      .ready.text-center
+        = t :scheduled_as
+        %br/
+        = link_to idea.events.first.name, idea.events.first
+    - if idea.cancelled?
+      .ready.text-center
+        = t :cancelled
+        %br/
+
+
+ 

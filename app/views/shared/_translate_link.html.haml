@@ -7,5 +7,5 @@
       - buttontext = t(:edit) + " " + attribute.to_s
     .translate
       
-      %p= link_to buttontext, '#', onClick: "$('##{item.class.to_s.downcase}_#{item.id.to_s}').slideToggle();return false;", class: [:button, :tiny, :bordered]
+      %p= link_to buttontext, '#', onClick: "$('##{item.class.to_s.downcase}_#{attribute}_#{item.id.to_s}').slideToggle();return false;", class: [:button, :tiny, :bordered]
     = render partial: 'shared/translate_field', locals: {object: item, field: attribute}

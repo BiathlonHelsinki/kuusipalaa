@@ -1498,7 +1498,17 @@ form.hidden_form {
     border: 1px solid $black;
     position: relative;
     background-color: white;
-
+    &.project_proposal {
+      .blurb, .above, .under {
+        background-color: #CCC;
+        color: black;
+        .overlay {
+          background-color: #CCC;
+          color: black;
+          font-weight: bold;
+        }
+      }
+    }
     &:after {
       content: '';
       position: absolute;
@@ -1567,9 +1577,16 @@ form.hidden_form {
         }
       } 
     }
+    .above {
+      border-bottom: 1px solid black;
+      background-color: #CCC;
+      font-weight: bold;
+      color: black;
+      padding: 0.4rem 0;
+    }
     .under {
       border: none;
-      min-height: 2rem;
+      min-height: 2.4rem;
       font-size: 0.8rem;
 
       font-family: $montserrat;
@@ -1589,6 +1606,25 @@ form.hidden_form {
         padding: 0.5rem;        
         border-top: 1px solid black;
       }
+      .needed {
+        padding: 10px;
+        max-width: 33%;
+        float: left;
+        border-right: 1px solid black;
+      }
+      .so_far {
+        padding: 10px;
+        max-width: 100%;
+        float: left;
+      }
+      .pledge_corner {
+        max-width: 33%;
+        background-color: black;
+        a { color: white; }
+        padding: 10px;
+        float: right;
+      }
+
     }
     .meta {
       font-family: $sourcecode;

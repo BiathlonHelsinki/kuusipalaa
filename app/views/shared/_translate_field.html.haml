@@ -1,4 +1,4 @@
-.translate_small_form[object]
+.translate_small_form{id: "#{object.class.to_s.downcase}_#{field}_#{object.id.to_s}"}
   = semantic_nested_form_for object, html: {:'data-abide' => ''} do |f|
     - I18n.available_locales.each_with_index do |locale, i|
       = f.globalize_fields_for locale do |ff|
