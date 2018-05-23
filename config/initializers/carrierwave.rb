@@ -8,7 +8,8 @@ CarrierWave.configure do |config|
       :secret_access_key  => ENV.fetch('amazon_secret'),
       region: 'eu-central-1'
     }
-    config.asset_host = "https://biathlon-#{Rails.env}.s3.eu-central-1.amazonaws.com"
+    # config.asset_host = Rails.env.development? ? "https://biathlon-#{Rails.env}.s3.eu-central-1.amazonaws.com" : "https://media.kuusipalaa.fi"
+    config.asset_host =  "https://biathlon-#{Rails.env}.s3.eu-central-1.amazonaws.com"
     config.aws_acl    = 'public-read'
 
     config.aws_bucket  = "biathlon-#{Rails.env}"
