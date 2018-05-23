@@ -2,6 +2,7 @@
 %html{ :lang => "en"}
   %head
     %meta{ :charset => "utf-8" }
+    %meta{name: 'referrer', content: 'no-referrer'}
     = display_meta_tags site: 'Kuusi Palaa'
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
     %link{:href => "https://fonts.googleapis.com/css?family=Montserrat|Source+Code+Pro", :rel => "stylesheet"}/
@@ -16,7 +17,7 @@
     = javascript_include_tag "application"
     = stylesheet_link_tag "application"
     = csrf_meta_tag
-    = render partial: 'layouts/piwik'
+    -#= render partial: 'layouts/piwik'
   %body{class: @archive.nil? ? false : 'archive'}
     - if flash
       - flash.each do |key, value|

@@ -2,9 +2,9 @@
 %html{ :lang => "en"}
   %head
     %meta{ :charset => "utf-8" }
-
+    %meta{name: 'referrer', content: 'no-referrer'}
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
-    %link{:href => "https://fonts.googleapis.com/css?family=Montserrat|Source+Code+Pro", :rel => "stylesheet"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Source+Code+Pro", :rel => "stylesheet"}/
     %title= content_for?(:title) ? yield(:title) : "Kuusi Palaa"
     %link{:href => "/icons/apple-touch-icon.png", :rel => "apple-touch-icon", :sizes => "180x180"}/
     %link{:href => "/icons/favicon-32x32.png", :rel => "icon", :sizes => "32x32", :type => "image/png"}/
@@ -15,7 +15,7 @@
     = javascript_include_tag "application"
     = stylesheet_link_tag "application"
     = csrf_meta_tag
-    = render partial: 'layouts/piwik'
+    -#= render partial: 'layouts/piwik'
   %body.frontpage
     - if flash.empty?
       - unless Meeting.upcoming.empty?
