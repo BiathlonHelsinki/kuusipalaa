@@ -1,0 +1,49 @@
+%article.post_single.page_single
+  .row
+    .small-12.columns.lessmargins.lessright
+      = semantic_form_for current_user, html: {'data-abide' => ''} do |f|
+        .lifted_box
+
+          .title= t :terms_conditions_privacy
+          .blurb.toc
+            = raw @toc.body
+
+          .agree_to_toc
+            = f.input :accepted_tos, as: :boolean, label: t(:agree_to_toc), input_html: {'required' => ''}
+            = f.input :read_privacy_policy, as: :boolean, label: t(:have_read_privacy_policy), input_html: {'required' => ''}
+            .policy_link= link_to t(:see_privacy_policy), page_path('privacy-policy'), target: :_blank
+
+        .lifted_box
+          .title= t :newsletter_and_notifications
+          .blurb.notifications
+            %strong= t :newsletter_info
+            = f.input :opt_in_weekly_newsletter, as: :radio, label: t(:these_settings_can_be_changed), input_html: {'required' => ''}
+            %u= t :other_email_notifications
+            = f.input :opt_in_ready, label: t(:consent_to_publish_events), as: :boolean
+            = f.input :opt_in_points, label: t(:consent_to_points), as: :boolean
+            = f.input :opt_in_mentions, label: t(:consent_to_mentions), as: :boolean
+            %p.small= t :additional_notifications
+            %strong= f.input :opt_out_everything, label: t(:opt_out_of_everything), as: :boolean
+            .hidden= t :stakeholder_emails
+        = f.submit t(:continue_to_kp_site), class: [:button, :bordered]
+
+= content_for :jquery do
+  :plain
+    $('#user_opt_out_everything').on('click', function() {
+      if ($(this).is(':checked')) {
+        $('#user_opt_in_weekly_newsletter_false').prop("checked", true);
+        $('#user_opt_in_ready').attr('checked', false);
+        $('#user_opt_in_mentions').attr('checked', false);
+        $('#user_opt_in_points').attr('checked', false);
+        $('.hidden').show();
+      } else {
+        $('#user_opt_in_weekly_newsletter_true').prop("checked", true);
+      }
+    });
+    $('#user_opt_in_ready, #user_opt_in_points, #user_opt_in_weekly_newsletter_true, #user_opt_in_mentions').on('click', function() {
+      if ($(this).is(':checked')) {
+        $('#user_opt_out_everything').prop("checked", false);
+      }
+    })
+  
+  

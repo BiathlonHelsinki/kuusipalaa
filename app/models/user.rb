@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable, :confirmable,
           :omniauthable, :validatable, :authentication_keys => [:login]
-
+  attr_accessor :read_privacy_policy
   has_many :accounts, as: :holder
   has_many :authentications, :dependent => :destroy
   # accepts_nested_attributes_for :authentications, :reject_if => proc { |attr| attr['username'].blank? }

@@ -214,6 +214,7 @@ Rails.application.routes.draw do
       get :members_agreement
     end
     member do
+      get :consent
       get :buy_photoslot
     end
     resources :nfcs

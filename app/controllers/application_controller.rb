@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, prepend: true
   include CanCan::ControllerAdditions
   before_action :check_service_status
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :fill_collection, if: :user_signed_in?
   before_action :are_we_open?
   before_action :check_pin, if: :user_signed_in?
+  before_action :check_consents, if: :user_signed_in?
 
   protected
 
@@ -22,6 +23,15 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     
     stored_location_for(resource) || request.env['omniauth.origin'] ||  root_path
+  end
+
+  def check_consents
+    # unless controller_path == 'users' || action_name == 'sign_out'
+    #   if current_user.opt_in_weekly_newsletter.nil? || current_user.accepted_tos.nil?      
+    #     save_location
+    #     redirect_to consent_user_path(current_user)
+    #   end
+    # end
   end
 
   def check_service_status

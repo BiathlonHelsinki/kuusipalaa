@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:mentions, :check_unique, :get_avatar]
-
+  skip_before_action :check_consents, only: :consent
 
   def buy_photoslot
     @user = User.friendly.find(params[:id])
@@ -29,6 +29,10 @@ class UsersController < ApplicationController
     else
       render plain: 'This is not you.'
     end
+  end
+
+  def consent
+    @toc = Page.friendly.find('kp-terms-and-conditions')
   end
 
   def set_pin
@@ -146,7 +150,8 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :name, :username, :phone, :show_name, :pin, :avatar,  :opt_in, :website, :twitter_name,
-    :address, :postcode, :city, :country, :accepted_agreement, :show_twitter_link, :contact_phone, :show_facebook_link, :buy_stakes_after_edit,
+    :address, :postcode, :city, :country, :accepted_agreement, :opt_in_ready, :opt_in_points, :opt_in_mentions, :opt_out_everything,
+    :opt_in_weekly_newsletter, :accepted_tos, :show_twitter_link, :contact_phone, :show_facebook_link, :buy_stakes_after_edit,
                       accounts_attributes: [:address, :primary_account, :external])
   end
 end
