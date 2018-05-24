@@ -193,10 +193,14 @@ class Idea < ApplicationRecord
         begin
           if proposer_type == 'Group'
             proposer.members.each do |user|
-              IdeaMailer.proposal_for_review(user.user.email, self).deliver_now
+              unless user.opt_out_everything == true || user.opt_in_ready != true
+                IdeaMailer.proposal_for_review(user.user.email, self).deliver_now
+              end
             end
           else
-            IdeaMailer.proposal_for_review(proposer.email, self).deliver_now
+            unless proposer.opt_out_everything == true || proposer.opt_in_ready != true
+              IdeaMailer.proposal_for_review(proposer.email, self).deliver_now
+            end
           end
           update_attribute(:notified, true)
         rescue

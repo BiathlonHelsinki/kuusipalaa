@@ -134,7 +134,7 @@ class UsersController < ApplicationController
         if params[:user][:buy_stakes_after_edit]
           redirect_to for_self_season_stakes_path(@current_season.id, accepted_agreement: true)
         else
-          redirect_to @user
+          redirect_to session[:return_to].nil? ? @user : session[:return_to]
         end
       else
         flash[:error] = @user.errors.full_messages.join('. ')

@@ -26,12 +26,13 @@ class ApplicationController < ActionController::Base
   end
 
   def check_consents
-    # unless controller_path == 'users' || action_name == 'sign_out'
-    #   if current_user.opt_in_weekly_newsletter.nil? || current_user.accepted_tos.nil?      
-    #     save_location
-    #     redirect_to consent_user_path(current_user)
-    #   end
-    # end
+
+    unless controller_path == 'users' || controller_path == 'devise/sessions'
+      if current_user.opt_in_weekly_newsletter.nil? || current_user.accepted_tos.nil?      
+        save_location
+        redirect_to consent_user_path(current_user)
+      end
+    end
   end
 
   def check_service_status
@@ -43,7 +44,9 @@ class ApplicationController < ActionController::Base
   end
 
   def check_pin
-    @needs_pin = current_user.pin.blank?
+    unless action_name == 'consent'
+      @needs_pin = current_user.pin.blank?
+    end
   end
   
   def configure_permitted_parameters

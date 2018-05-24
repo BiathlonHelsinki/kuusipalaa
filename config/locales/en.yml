@@ -1461,7 +1461,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   see_x_project: 'See entire "%{x}" project'
   cannot_cancel_rsvp_12hr: 'You cannot cancel an RSVP within 12 hours before the event starts.'
   cancel_rsvp_thanks: 'Your RSVP has been cancelled.'
-  rsvp_2p_explanation: 'You must have at least 2ᵽ to RSVP. If you have RSVPd and heck in to the event, you will receive a bonus 2ᵽ on top of the regular event participation points. If you do not show up after saying you will, you will lose this 2ᵽ.'
+  rsvp_2p_explanation: 'You must have at least 2ᵽ to RSVP. If you have RSVPd and check in to the event, you will receive a bonus 2ᵽ on top of the regular event participation points. If you do not show up after saying you will, you will lose this 2ᵽ.'
   tagging_events: "Events: type '#' followed by the name of the event [eg: #Trashlab]"
   various_topics: 'various topics'
   edited_grouped: ' edited '
@@ -1494,3 +1494,4 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   these_settings_can_be_changed: 'You can at any time adjust these notifications by editing your profile.'
   additional_notifications: 'You can control additional notifications, such as updates when proposals/events are updated, on the individual '
   please_whitelist: 'Please whitelist info@kuusipalaa.fi in your email client settings to ensure these announcements do not end up in your spam folder.'
+  please_see_privacy_policy: 'Please read our %{policy_link} to understand how and why Kuusi Palaa may process personal information.'

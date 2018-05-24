@@ -17,7 +17,7 @@
           .title= t :newsletter_and_notifications
           .blurb.notifications
             %strong= t :newsletter_info
-            = f.input :opt_in_weekly_newsletter, as: :radio, label: t(:these_settings_can_be_changed), input_html: {'required' => ''}
+            = f.input :opt_in_weekly_newsletter, as: :radio, label: t(:these_settings_can_be_changed), hint: t(:please_whitelist), input_html: {'required' => ''}
             %u= t :other_email_notifications
             = f.input :opt_in_ready, label: t(:consent_to_publish_events), as: :boolean
             = f.input :opt_in_points, label: t(:consent_to_points), as: :boolean
