@@ -1,6 +1,6 @@
 .edit_profile
   .row
-    .small-10.columns.small-centered
+    .small-12.columns.small-centered
       .lifted_box
         .title
           = t :your_profile
@@ -13,6 +13,7 @@
           = semantic_nested_form_for @user, html: {multipart: true, :'data-abide' => '', id: "user_form"} do |f|
             .row
               .small-10.medium-8.columns
+                %p= raw t(:please_see_privacy_policy, policy_link: link_to(t(:privacy_policy), page_path('privacy_policy'), target: :_blank))
                 = f.input :email, label: t(:email)
                 = f.input :username
                 = f.input :name, label: t(:your_name), input_html: {:required => ''}
@@ -29,7 +30,7 @@
                 .subsection
                   .subtitle= t :contact_details
                   .info
-                    = f.input :opt_in, label: t(:opt_in), hint:  t(:we_wont_do_this)
+                    = f.input :opt_in_weekly_newsletter, label: t(:opt_in), hint:  t(:we_wont_do_this)
                     .row
                       .small-12.columns= f.input :address, label: t(:postal_address), input_html: {required: @user.is_member? ? 'required' : false}
                     .row

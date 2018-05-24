@@ -6,7 +6,7 @@ class NotificationMailer < ActionMailer::Base
     @item = item
     @comment = comment
     @user = recipient
-    unless recipient.email =~ /^change@me/ || recipient.opt_in != true
+    unless recipient.email =~ /^change@me/ || recipient.opt_out_everything == true
       mail(to: recipient.email,  subject: "New comment on: #{@item.name}")
     end
 
@@ -16,7 +16,7 @@ class NotificationMailer < ActionMailer::Base
     @item = item
     @pledge = pledge
     @user = recipient
-    unless recipient =~ /^change@me/ || recipient.opt_in != true
+    unless recipient =~ /^change@me/ || recipient.opt_out_everything == true
       mail(to: recipient.email,  subject: "New pledge to proposal: #{@item.name}")
     end
   end
@@ -25,7 +25,7 @@ class NotificationMailer < ActionMailer::Base
   def new_scheduling(item, recipient)
     @item = item
     @user = recipient
-    unless recipient =~ /^change@me/ || recipient.opt_in != true
+    unless recipient =~ /^change@me/ || recipient.opt_out_everything == true
       mail(to: recipient.email,  subject: "A new meeting of #{@item.event.name} has been scheduled")
     end
 

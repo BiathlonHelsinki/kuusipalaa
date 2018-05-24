@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, prepend: true
   include CanCan::ControllerAdditions
   before_action :check_service_status
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :fill_collection, if: :user_signed_in?
   before_action :are_we_open?
   before_action :check_pin, if: :user_signed_in?
+  before_action :check_consents, if: :user_signed_in?
 
   protected
 
@@ -24,6 +25,16 @@ class ApplicationController < ActionController::Base
     stored_location_for(resource) || request.env['omniauth.origin'] ||  root_path
   end
 
+  def check_consents
+
+    unless controller_path == 'users' || controller_path == 'devise/sessions'
+      if current_user.opt_in_weekly_newsletter.nil? || current_user.accepted_tos.nil?      
+        save_location
+        redirect_to consent_user_path(current_user)
+      end
+    end
+  end
+
   def check_service_status
     @parity_status = Net::Ping::TCP.new(ENV['parity_server'],  ENV['parity_port'], 1).ping?
     @geth_status = Net::Ping::TCP.new(ENV['geth_server'],  ENV['geth_port'], 1).ping?
@@ -33,7 +44,9 @@ class ApplicationController < ActionController::Base
   end
 
   def check_pin
-    @needs_pin = current_user.pin.blank?
+    unless action_name == 'consent'
+      @needs_pin = current_user.pin.blank?
+    end
   end
   
   def configure_permitted_parameters

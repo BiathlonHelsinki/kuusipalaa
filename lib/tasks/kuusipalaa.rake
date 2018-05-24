@@ -33,7 +33,7 @@ namespace :kuusipalaa do
     @future_events = Instance.calendered.published.between((@email.send_at + 1.week).end_of_day, '2099-01-31 10:00:00')
     @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     @is_email = true
-    mailing_list = User.where(opt_in: true).where("email not like 'change@me%'")
+    mailing_list = User.where(opt_in_weekly_newsletter: true).where("email not like 'change@me%'").where(opt_out_everything: [false, nil])
     if Rails.env.development?
       mailing_list[3..7].each do |recipient|
         @user = recipient

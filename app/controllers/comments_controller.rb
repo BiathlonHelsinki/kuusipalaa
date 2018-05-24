@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
     @master.comments << c
     unless @master.root_comment.notifications.empty?
       @master.root_comment.notifications.each do |n|
-        next unless n.comments == true
+        next unless n.comments == true || n.user.opt_out_everything != true
         NotificationMailer.new_comment(@master.root_comment, c, n.user).deliver_later
       end
     end

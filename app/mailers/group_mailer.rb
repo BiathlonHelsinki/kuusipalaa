@@ -6,7 +6,7 @@ class GroupMailer < ActionMailer::Base
     recipient = member.user
     @group = group
     @user = recipient
-    unless recipient.email =~ /^change@me/ || recipient.opt_in != true
+    unless recipient.email =~ /^change@me/ || recipient.opt_out_everything == true
       mail(to: recipient.email,  subject: "You have been added to the group #{@group.display_name}")
     end
 

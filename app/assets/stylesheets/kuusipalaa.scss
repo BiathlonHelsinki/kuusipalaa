@@ -1360,7 +1360,47 @@ table.small_stakeholder_posts {
       }
     }
   }
+  .agree_to_toc {
+    border-top: 1px solid black;
+    padding: 0 1rem 1rem 1rem;
+    label {
+      font-size: 1.1rem;
+      font-family: $sourcecode;
+      font-weight: bold;
+    }
+    .policy_link {
+      font-size: 0.9rem;
+      a {
+        text-decoration: underline;
+      }
+      margin-left: 2.5rem;
+    }
+  }
   .blurb {
+    &.notifications {
+      .hidden {
+        display: none;
+      }
+      fieldset.choices {
+        legend.label {
+          margin: 0;
+          padding: 0;
+          label {
+            font-family: $montserrat;
+          }
+        }
+      }
+      ol.choices-group {
+        li.choice {
+          margin-top: 0;
+        }
+      }
+    }
+    &.toc {
+      max-height: 300px;
+      overflow-y: scroll;
+      font-size: 0.85rem;
+    }
     h3 {
       font-family: $sourcecode;
       font-weight: bold;

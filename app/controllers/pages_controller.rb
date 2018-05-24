@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   # load_and_authorize_resource find_by: :slug
-
+  skip_before_action :check_consents, only: :show
   def show
     @page = Page.friendly.find(params[:id])
     authorize! :read, @page, :message => "Unable to read this page."

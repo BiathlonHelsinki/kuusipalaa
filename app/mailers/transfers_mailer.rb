@@ -8,12 +8,12 @@ class TransfersMailer < ActionMailer::Base
     @amount = amount
     @reason = reason
     if recipient.class == User
-      unless recipient.email =~ /change@me/
+      unless recipient.email =~ /change@me/ || recipient.opt_out_everything == true || recipient.opt_in_points != true
         mail(to: recipient.email,  subject: "You've got points! (from #{@sender.display_name})")
       end    
     elsif recipient.class == Group
       recipient.owners.each do |owner|
-        unless owner.email =~ /change@me/
+        unless owner.email =~ /change@me/ || owner.opt_out_everything == true || owner.opt_in_points != true
           mail(to: owner.email,  subject: "#{recipient.name} has received points! (from #{@sender.display_name})")
         end 
       end
