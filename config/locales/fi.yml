@@ -1482,7 +1482,7 @@ fi:
   past_events: 'Edelliset tapahtumat'
   had_their_blockchain_balance_adjusted_by: 'lohkoketjun saldoa muutti käyttäjä' # This needs to be %{adjuster} modified the balance of %{user}
   archived_event: 'Arkistoitu tapahtuma'
-  others_are_allowed_past: 'Kuusi Palaa oli auki muille tämän tapahtuman aikana, vaikka he eivät osallisuneet siihen.'
+  others_are_allowed_past: 'Kuusi Palaa oli auki muille tämän tapahtuman aikana, vaikka he eivät osallistuneet siihen.'
   your_viewpoint_has_been_saved: 'Näkökulmasi on tallennettu.'
   your_viewpoint_has_been_removed: 'Näkökulmasi on poistettu.'
   sorry_need_1p: 'Valitettavasti tarvitset vähintään 1 ᵽisteen tehdäksesi tämän.'
@@ -1572,28 +1572,28 @@ fi:
   resources_and_documentation: 'Resurssit ja dokumentaatio'
   latest_discussion: 'Uusimmat keskustelut'
   full_history: 'Täysi historia'
-  evolved_from: 'Evolved from' # ???
-  evolved_into: 'Evolved into' # ???
+  evolved_from: 'Kehittyi ' # ???
+  evolved_into: 'Kehittyi ' # ???
   number_earned_temporary: 'tienasi %{number}Ŧ'
-  you_have_rsvpd: 'Olet vastannut vastauspyyntöön'
-  after_rsvp: 'kuten vastauksessa vastauspyyntöön on luvattu'
-  rsvpd_on: 'Vastaus vastauspyyntöön tapahtumalle %{event} annettu %{when}.'
+  you_have_rsvpd: 'Olet ilmoittautunut'
+  after_rsvp: 'kuten ilmoittautumisjärjestelmässä lupasi'
+  rsvpd_on: 'Ilmoittautui tapahtumaan %{event} tapahtui %{when}.'
   the_event_is_scheduled_for:  "Tapahtuma '%{event}' on määrä alkaa %{when}."
-  didnt_show_after_rsvp: "Vastasi vastauspyyntöön, mutta ei ilmestynyt paikalle"
+  didnt_show_after_rsvp: "Ilmoittautui, mutta ei ilmestynyt paikalle"
   event_instigator_brackets: '(& tapahtuman järjestäjä)'
   see_x_project: 'Katso koko "%{x}" projekti'
   cannot_cancel_rsvp_12hr: 'Et voi perua vastaustasi vastauspyyntöön 12 tunnin sisällä tapahtuman alkamisesta.'
   cancel_rsvp_thanks: 'Vastauksesi vastauspyyntöön on peruttu.'
-  rsvp_2p_explanation: 'Sinulla tulee olla ainakin 2ᵽ vastataksesi vastauspyyntöön. Jos olet vastannut ja saavut tapahtumaan, saat lisäksi bokusena 2ᵽ tapahtuman ᵽisteiden lisäksi. Jos et luvattuasi saavu paikalle, menetät antamasi 2ᵽ.'
-  tagging_events: "Tapahtumat: kirjoita '#' followed by the name of the event [eg: #Trashlab]"
+  rsvp_2p_explanation: 'Sinulla tulee olla ainakin 2ᵽ ilmoittautuaksesi. Jos olet vastannut ja saavut tapahtumaan, saat lisäksi bonuksena 2ᵽ tapahtuman ᵽisteiden lisäksi. Jos ilmoittautumisesta huolimatta et saavu paikalle, menetät antamasi 2ᵽ.'
+  tagging_events: "Tapahtumat: kirjoita '#' ja tapahtuman nimi [esim: #Trashlab]"
   various_topics: 'useita aiheita'
   edited_grouped: ' muokkasi '
   received_from_grouped: 'vastaanotti pisteitä muilta'
   is_no_longer_planning_to_attend_grouped: ' ei enää aio osallistua tapahtumaan '
   edited_their_pledge_to_grouped: 'muokkasi tukeaan tapahtumaan '
   proposer: 'Event proposer'
-  attended_with_rsvp_grouped: 'attended after RSVPing to '
-  attended_with_rsvp: 'attended after RSVPing'
+  attended_with_rsvp_grouped: 'osallistuivat ilmoittauduttuaan '
+  attended_with_rsvp: 'osallistui ilmoittauduttuaan'
   bought_grouped: 'bought '
   created_the_group_grouped: 'created groups'
   had_blockchain_balance_adjusted_by_grouped: 'had their blockchain balances adjusted by a total of '
