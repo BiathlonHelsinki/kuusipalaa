@@ -36,22 +36,7 @@
   .row
     .small-12.columns &nbsp;
 
-%article
-  .row.front_box
-    .small-12.columns.small-centered.text-center
-      = link_to new_season_stake_path(@next_season) do
-        .banner_blurb
-          = t :upcoming_season_front_box, number: @next_season.number.to_s, range: date_range(@next_season.start_at, @next_season.end_at)
-          .smaller= t(:so_far_next_season, has: @next_season.stakes.paid.sum(&:price).to_i, needs: @next_season.amount_needed, paid_stakes: @next_season.stakes.paid.sum(&:amount), needed_stakes: @next_season.stake_count)
-          .smaller
-            %small= t :next_season_asterisk
-     
-%article#stakeholder_banner
-  .row
-    .small-12.columns.lessmargins.right_adjust
-      = link_to new_season_stake_path(@next_season) do
-        .front_button.text-center
-          = t(:support_kp_and_become_stakeholder)
+
 
 %article#supporters_banner
   .row
