@@ -802,7 +802,7 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   door_open_blurb: "If there's nothing booked on the calendar, Kuusi Palaa is open as a general meeting/working place. And you still get points for showing up. Stakeholders get a keycard and can use the space 24/7."
   what_is_a_stake: 'What is a stake?'
   out_of_x_for_season: 'out of %{x} stakes for Season %{season_num} sold.'
-  each_stake_costs_50: 'Each stake costs 50€.'
+  each_stake_costs_50: 'Each stake costs min. 50€.'
   x_members_of_cooperative: 'members of the Kuusi Palaa cooperative'
   days_to_go: 'days to go.'
   will_launch_if: 'Kuusi Palaa will open in March if all 100 required stakes are sold in time.'
@@ -1119,11 +1119,13 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   see_original_proposal: 'See original proposal'
   currently_at_kuusi_palaa: 'Currently at Kuusi Palaa'
   kp_is_currently_open: 'Kuusi Palaa is currently open'
-  all_are_welcome: 'All are welcome'
+  is_currently_open: 'is currently open.'
+  all_are_welcome: 'All are welcome.'
   kp_is_currently_closed: 'Kuusi Palaa is currently closed.'
-  not_a_stakeholder_come_some_other_time: 'If you are not a stakeholder, please come some other time.'
+  is_currently_closed: 'is currently closed.'
+  not_a_stakeholder_come_some_other_time: 'If you are not a stakeholder, please check another time or see the public %{calendar_link}.'
   visitors_so_far: 'visitors so far today'
-  events_today: '%{event} today'
+  events_today: 'scheduled %{event} today'
   main_room_events_from: 'The main room has %{event}: '
   kp_for_general_use: 'Kuusi Palaa is available for general use'
   back_room_booked_from: 'back room: booked from '
@@ -1495,3 +1497,10 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   additional_notifications: 'You can control additional notifications, such as updates when proposals/events are updated, on the individual '
   please_whitelist: 'Please whitelist info@kuusipalaa.fi in your email client settings to ensure these announcements do not end up in your spam folder.'
   please_see_privacy_policy: 'Please read our %{policy_link} to understand how and why Kuusi Palaa may process personal information.'
+  menu: 'Menu'
+  event_calendar: 'Event calendar'
+  what_is_happening: "What's happening"
+  you_must_be_signed_in: "You must be signed in to do this!"
+  sign_in_or_create: "Please sign in to your Kuusi Palaa account, or create one."
+  joining_is_not_stakeholder: "Having an account on the website is free and enables you to interact with the many features of the Kuusi Palaa platform. You can choose to become a stakeholder to join the cooperative and support Kuusi Palaa financially, but you do not need to be a stakeholder in order to visit Kuusi Palaa, attend events, have an ID card, propose activities, earn Kuusi Palaa points or book the back room. Try it out!"
+  all_other_times_open: 'At all other times not on this calendar, you may visit, make an ID card, and use the space freely if it is open at that moment. At this exact moment, '  

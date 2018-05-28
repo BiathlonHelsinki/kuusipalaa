@@ -7,7 +7,7 @@
           .smaller= t :all_are_welcome
         - else
           = t :kp_is_currently_closed
-          .smaller= t :not_a_stakeholder_come_some_other_time
+          .smaller= raw t(:not_a_stakeholder_come_some_other_time, calendar_link: link_to(t(:calendar).downcase, calendar_events_path))
 .row
   .small-12.columns
     .lifted_box

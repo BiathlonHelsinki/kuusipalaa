@@ -1,17 +1,17 @@
 
 
 .activities_index
-  %article
-    .row.front_box{class: @kp_is_open.to_s}
-      .small-12.columns.small-centered.text-center
-        = link_to event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1') do
-          .banner_blurb
-            - if @kp_is_open
-              = t :kp_is_currently_open
-              .smaller= t :all_are_welcome
-            - else
-              = t :kp_is_currently_closed
-              .smaller= t :not_a_stakeholder_come_some_other_time
+  -# %article
+  -#   .row.front_box{class: @kp_is_open.to_s}
+  -#     .small-12.columns.small-centered.text-center
+  -#       = link_to event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1') do
+  -#         .banner_blurb
+  -#           - if @kp_is_open
+  -#             = t :kp_is_currently_open
+  -#             .smaller= t :all_are_welcome
+  -#           - else
+  -#             = t :kp_is_currently_closed
+  -#             .smaller= t :not_a_stakeholder_come_some_other_time
   
   = render partial: 'activities/filters'         
 

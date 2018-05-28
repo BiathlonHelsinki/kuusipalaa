@@ -154,6 +154,17 @@ li.ui-menu-item {
     line-height: 1;
     font-family: $sourcecode;
     font-weight: bold;
+    color: black;
+    &.false {
+      color: #999;
+      .banner_blurb {
+        color: #999;
+        a { color: #999; }
+      }
+    }
+    .banner_blurb {
+      text-align: center;
+    }
   }
 }
 header {
@@ -177,7 +188,9 @@ header {
   .top-bar {
     margin-top: 0rem;
     border-top: 2px solid black;
-
+    .top-bar-left.false {
+      a {color: #999; }
+    }
     .top-bar-right {
       .name {
         font-size: 0.8em;
@@ -226,7 +239,27 @@ header {
       padding: 0.4rem;
       margin-right: 0.1rem;
       text-transform: uppercase;
+      float: left;
+    }
+    ul {
+      float: left;
+      li {
+        a {
+          padding: 0.4rem !important;
+          text-transform: uppercase;
+          line-height: 24px;
+        }
+        ul {
+          li {
+            a {
+              border: none !important;
+              padding: 0;
+              text-transform: none !important;
+            }
+          }
+        }
 
+      }
     }
   }
 }
@@ -280,6 +313,14 @@ article.divider {
   padding: 1rem 3rem;
   margin-top: 1.5rem; 
   margin-bottom: 1.5rem;
+  &.promo_image {
+    background: url('https://s3.eu-central-1.amazonaws.com/biathlon-production/images/site/pict5.jpg') center center;
+    background-size: cover; 
+    filter: grayscale(78%) contrast(1) brightness(1);
+    color: white;
+    padding: 6rem 0;
+
+  }
   &.alert {
     background-color: $pink;
     a {color: white; }
@@ -496,11 +537,11 @@ article.divider {
 }
 
 .lifted_box {
-   &.feed { transition: background-image 1s linear;
+   &.feed { 
+      transition: background 2.5s ease;
       &:hover {
-        background-image: none;
         background-color: white;
-
+        background: none !important;
       }
     }
   &.invert { 
@@ -558,6 +599,19 @@ article.divider {
 
   }
   .banner2_blurb, .blurb {
+    .overlay {
+      opacity: 0;
+    }
+    &:hover {
+
+      .overlay {
+        opacity: 1;
+        transition: opacity 1s ease-out;
+        -moz-transition: opacity 1s ease-out;
+        -webkit-transition: opacity 1s ease-out;
+        -o-transition: opacity 1s ease-out;
+      }
+    }
     .meta {
       font-family: $sourcecode;
       padding: 0.8rem 1rem;
@@ -629,6 +683,10 @@ article.divider {
   &:hover {
     background-color: #AAA;
     color: black;
+  }
+  &.small {
+    padding: 0.65rem;
+    font-size: 0.8rem;
   }
   &.thin {
     margin: 0;
@@ -702,7 +760,7 @@ article.divider {
     padding: 1rem;
 
     .big_num, a .big_num {
-      font-size: 3rem;
+      font-size: 5rem;
       font-weight: bold;
       font-family: $sourcecode;
     }

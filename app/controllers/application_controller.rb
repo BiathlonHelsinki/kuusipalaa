@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    
+    session[:return_to] = nil
     stored_location_for(resource) || request.env['omniauth.origin'] ||  root_path
   end
 

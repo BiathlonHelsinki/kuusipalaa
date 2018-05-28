@@ -573,7 +573,13 @@ header {
       }
       p {
         font-family: $montserrat;
-        font-weight: bold;
+
+      }
+      .option {
+        p {
+          font-family: $sourcecode;
+          font-weight: bold;
+        }
       }
       #manual_login {
         margin: 2rem 0;

@@ -59,7 +59,9 @@
 
 
             - else
-              .buttons= link_to t(:sign_in), '/users/sign_in'
+              .buttons
+                = link_to t(:sign_in), '/users/sign_in'
+                = render partial: 'shared/generic_menu'
             %br{clear: :all}
     - unless @kuusipalaa_pending.empty?
       %article.pending
@@ -73,27 +75,55 @@
                   = t pending.first
     %article.headline
       .row
-        .small-12.columns.title
+        .small-12.columns.title{class: @kp_is_open.to_s}
           #kp_headline.text-center KUUSI PALAA
+          
+          .banner_blurb
+            - if @kp_is_open
+              = link_to event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1') do
+                = t :is_currently_open
+              = t :all_are_welcome
+            - else
+              = link_to event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1') do
+                = t :is_currently_closed
+              = raw t(:not_a_stakeholder_come_some_other_time, calendar_link: link_to(t(:calendar).downcase, calendar_events_path))
 
     - unless user_signed_in?
       %article
-        .row.front_box
+        .row.front_box.promo_image
           .small-12.columns.small-centered.text-center
             .banner_blurb= t :will_be_collectively_operated
-            .row
-              .small-12.columns.medium-6
-                = link_to '/users/sign_in' do
+
+    - unless @sticky.empty?
+      - @sticky.each do |sticky|
+        - next unless sticky.slug =~ /deadline-for-funding-season/
+        %article
+          .row.front_box
+            = link_to sticky, target: :_blank do
+              .small-12.columns.small-centered.text-center
+                .banner_blurb
+                  = sticky.name
+                .smaller= raw sticky.body.split(/\r/)[0..2].join rescue sticky.body
+
+            .small-12.columns.medium-6
+              - if user_signed_in? && current_user&.is_stakeholder?
+                = link_to new_season_stake_path(@next_season) do
                   .front_button.text-center
-                    = t(:log_in_join)
-              .small-12.columns.medium-6
+                    = t :buy_another_stake
+              - else
+                = link_to (user_signed_in? ? new_season_stake_path(@next_season) : '/users/sign_in') do
+                  .front_button.text-center
+                    = t(:join_cooperative)
+            .small-12.columns.medium-6
+              - if user_signed_in? && current_user&.is_stakeholder?
+                = link_to season_budgetproposals_path(@next_season)  do
+                  .front_button.text-center
+                    = t :budget_proposals_for_season_x, season: @next_season.number
+              - else
                 = link_to page_path('questions-and-answers') do
                   .front_button.text-center
                     = t(:more_info)               
 
-      -# %article
-      -#   .row
-      -#     .front_images= image_tag 'kp_front_jazz.jpg'
 
     - else
       - if @needs_pin
@@ -104,17 +134,6 @@
                 .banner_blurb= t :you_must_enter_a_pin
                 .smaller= t :enter_pin_for_id
 
-    %article
-      .row.front_box{class: @kp_is_open.to_s}
-        .small-12.columns.small-centered.text-center
-          = link_to event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1') do
-            .banner_blurb
-              - if @kp_is_open
-                = t :kp_is_currently_open
-                .smaller= t :all_are_welcome
-              - else
-                = t :kp_is_currently_closed
-                .smaller= t :not_a_stakeholder_come_some_other_time
 
     %article
       .row.front_box
@@ -122,70 +141,138 @@
           = link_to new_season_stake_path(@next_season) do
             .banner_blurb
               = t :upcoming_season_front_box, number: @next_season.number.to_s, range: date_range(@next_season.start_at, @next_season.end_at)
-              .smaller= t(:so_far_next_season, has: @next_season.stakes.paid.sum(&:price).to_i, needs: @next_season.amount_needed, paid_stakes: @next_season.stakes.paid.sum(&:amount), needed_stakes: @next_season.stake_count)
-              .smaller
-                %small= t :next_season_asterisk
-         
-    %article#stakeholder_banner
-      .row
-        .small-12.columns.lessmargins.right_adjust
-          = link_to new_season_stake_path(@next_season) do
-            .front_button.text-center
-              = t(:support_kp_and_become_stakeholder)
+
+              
 
     %article
-      .row.stats_boxes{:'data-equalizer' => '', :'data-equalize-on' => "medium", id: :stats_boxes}
-        .small-12.medium-4
-          .box{:'data-equalizer-watch' => ''}
-            = link_to activities_path do 
-              .big_num= @visitors_so_far.to_s
-              .info
-                %strong= t :visitors_so_far
+      .row#progress_bar
+        .progress{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" =>  ((@next_season.stakes.paid.sum{|x| x.amount * x.price} - @current_season.stakes.booked_unpaid.sum{|x| x.amount * x.price}).to_f / 6000.to_f * 100), "aria-valuetext" =>  sprintf("%0.2f", (((@next_season.stakes.paid.sum{|x| x.amount * x.price} - @current_season.stakes.booked_unpaid.sum{|x| x.amount * x.price}).to_f / 6000.to_f * 100))) + " percent", :role => "progressbar", :tabindex => "0"}
 
+          .progress-meter{:style => "width: #{[(((@next_season.stakes.paid.sum{|x| x.amount * x.price}.to_f - @current_season.stakes.booked_unpaid.sum{|x| x.amount * x.price}.to_f) /6000.to_f)*100), 100].min}%;"}
+        .row
+          .small-12.columns.text-center
+            %p.progress-meterbar-text.text-center
+              = t(:so_far_next_season, has: @next_season.stakes.paid.sum{|x| x.amount * x.price}.to_i - @current_season.stakes.booked_unpaid.sum{|x| x.amount * x.price}.to_i, needs: @next_season.amount_needed, paid_stakes: @next_season.stakes.paid.sum(&:amount) - @current_season.stakes.booked_unpaid.sum(&:amount), needed_stakes: "~" + @next_season.stake_count.to_s)
+              .smaller
+                %small= t :next_season_asterisk
+            -#= raw t(:euros_out_of_total, amount: @next_season.stakes.paid.sum{|x| x.amount * x.price}.to_i - @current_season.stakes.booked_unpaid.sum{|x| x.amount * x.price}.to_i, total: 5000) + '! Kiitos!'
 
-        .small-12.medium-4
-          .box{:'data-equalizer-watch' => ''}
-            = link_to '/events/calendar' do 
-              .big_num= @event_count.to_s
-              .info
-                %strong= t :events_today, event: t(:event, count: @event_count)
-            .info
-              %br/
-              - if @main_room.empty?
-                = link_to  t(:main_room_free_all_day), event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1')
-              - else
-                = t :main_room_events_from, event: @main_room.size.to_s + ' '  + t(:event, count: @main_room.size)
-                = @main_room.order(:start_at).map{|rb| [rb.start_at.strftime("%H:%M") + ' - ' + rb.end_at.strftime("%H:%M")]}.join('; ')
-                - if @main_room.map(&:allow_others).include?(true)
+      %article
+        .row.stats_boxes{:'data-equalizer' => '', :'data-equalize-on' => "medium", id: :stats_boxes}
+          .small-12.medium-4
+            .box{:'data-equalizer-watch' => ''}
+              = link_to new_season_stake_path(@next_season)  do 
+                .big_num= @next_season.stakes.paid.sum{|x| x.amount }.to_i - @current_season.stakes.booked_unpaid.sum{|x| x.amount }.to_i
+                .info
+                  = t :out_of_x_for_season, x: "~" + @next_season.stake_count.to_s, season_num: @next_season.number.to_s
+                  = t :each_stake_costs_50
+
+          .small-12.last.medium-4
+            .box{:'data-equalizer-watch' => ''}
+              = link_to  new_season_stake_path(@current_season.complete? ? @next_season : @current_season)  do
+                .big_num= Stake.paid.map(&:owner).uniq.count
+                .info
+                  = t :x_members_of_cooperative
                   %br/
-                  = t :allow_others_explanation
-
-              %br/
-              - unless @back_room.empty?
-                = t :back_room_booked_from
-                = @back_room.map{|rb| [rb.start_at.strftime("%H:%M") + ' - ' + rb.end_at.strftime("%H:%M")]}.join('; ')
-                %br/
-              = link_to t(:you_can_always_book_the_back_room) + '!', '/roombookings'                
-              - if @event_count == 0
-                %br/
-                = t :kp_for_general_use
-
-        .small-12.last.medium-4
-          .box{:'data-equalizer-watch' => ''}
-            = link_to  new_season_stake_path(@current_season.complete? ? @next_season : @current_season)  do
-              .big_num= Stake.paid.map(&:owner).uniq.count
+                  - unless user_signed_in? && current_user&.is_stakeholder?
+                    =  t(:join_cooperative) + "!"
+          .small-12.medium-4
+            .box{:'data-equalizer-watch' => ''}
+              = link_to '/events/calendar' do 
+                .big_num= @event_count.to_s
+                .info
+                  %strong= t :events_today, event: t(:event, count: @event_count)
               .info
-                %strong= t :x_members_of_cooperative
                 %br/
-                %br/
-                =  t(:get_your_stake)
-    %article.divider
-      .row
-        .small-12.columns &nbsp;
+                - if @main_room.empty?
+                  = link_to  t(:main_room_free_all_day), event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1')
+                - else
+                  = t :main_room_events_from, event: @main_room.size.to_s + ' '  + t(:event, count: @main_room.size)
+                  = @main_room.order(:start_at).map{|rb| [rb.start_at.strftime("%H:%M") + ' - ' + rb.end_at.strftime("%H:%M")]}.join('; ')
+                  - if @main_room.map(&:allow_others).include?(true)
+                    %br/
+                    = t :allow_others_explanation                    
+        -# %article#stakeholder_banner
+        -#   .row
+        -#     .small-12.columns.lessmargins.right_adjust
+        -#       = link_to new_idea_path do
+        -#         .front_button.text-center
+        -#           = t(:organise_an_event)
 
+        -#   %article
+        -#     .small-12.medium-6.large-4.columns.left_adjust
+        -#       .lifted_box.invert{:'data-equalizer-watch' => ''}
+        -#         .banner2_title= t :season_1_funded
+        -#         .banner2_blurb
+        -#           %p= t :enough_stakes_for_season_1
+        -#           %p= t :stakes_for_season_2
+
+                  
+
+
+        -# .row
+        -#   .small-12.medium-6.columns.lessmargins
+        -#     = link_to new_season_stake_path(@current_season.complete? ? @next_season : @current_season) do
+        -#       .front_button.text-center
+        -#         = t(:buy_a_stake)
+
+        -#   .small-12.medium-6.columns.lessright
+        -#     = link_to page_path('questions-and-answers') do
+        -#       .front_button.text-center
+        -#         =  t(:more_info)
+        -# %article
+        -#   .row.front_box
+        -#     .small-12.columns.text-center
+        -#       = t :a_stake_is
+        -#       .smaller= t :a_stake_is_longer
+
+    - unless user_signed_in? && current_user&.is_stakeholder?
+      %article#stakeholder_banner
+        .row
+          .small-12.columns.lessmargins.right_adjust
+            = link_to new_season_stake_path(@next_season) do
+              .front_button.text-center
+                = t(:support_kp_and_become_stakeholder)
+      %article
+        .row.front_box
+          .small-12.columns.small-centered.text-center
+            .banner_blurb= t :as_a_stakeholder
+        .row{:'data-equalizer' => '', :'data-equalize-on' => "medium"}
+          .small-12.medium-4.columns.left_adjust
+            .lifted_box{:'data-equalizer-watch' => ''}
+              .banner2_title= t :everyone_creates_and_produces
+              .banner2_blurb= t :everyone_creates_blurb
+          .small-12.medium-4.columns
+            .lifted_box{:'data-equalizer-watch' => ''}
+              .banner2_title= t :participation_rules
+              .banner2_blurb= t :participation_front_blurb
+          .small-12.medium-4.columns.right_adjust
+            .lifted_box{:'data-equalizer-watch' => ''}
+              .banner2_title= t :the_door_is_always_open
+              .banner2_blurb= t :door_open_blurb
+
+
+    -# %article
+    -#   .row.stats_boxes{:'data-equalizer' => '', :'data-equalize-on' => "medium", id: :stats_boxes}
+    -#     .small-12.medium-4
+    -#       .box{:'data-equalizer-watch' => ''}
+    -#         = link_to activities_path do 
+    -#           .big_num= @visitors_so_far.to_s
+    -#           .info
+    -#             %strong= t :visitors_so_far
+    -#             %br/
+    -#             - unless @back_room.empty?
+    -#               = t :back_room_booked_from
+    -#               = @back_room.map{|rb| [rb.start_at.strftime("%H:%M") + ' - ' + rb.end_at.strftime("%H:%M")]}.join('; ')
+    -#               %br/
+    -#             = link_to t(:you_can_always_book_the_back_room) + '!', '/roombookings'                
+    -#             - if @event_count == 0
+    -#               %br/
+    -#               = t :kp_for_general_use
 
     - unless @sticky.empty?
       - @sticky.each do |sticky|
+        - next if sticky.slug =~ /deadline-for-funding/
         %article
           .row.front_box
             = link_to sticky, target: :_blank do
@@ -214,7 +301,7 @@
       - @feed.shuffle.each do |feeditem|
         .columns.small-12.medium-6.large-4.left_adjust
           = link_to feeditem.class == Instance ? event_path(feeditem.event) : feeditem  do
-            .lifted_box.feed{:'data-equalizer-watch' => '', style: feeditem.event_image? ?  "background: url(#{feeditem.event_image.url(:box).gsub(/development/, 'production')}) no-repeat center top; background-size: cover;" : false}
+            .lifted_box.feed{:'data-equalizer-watch' => '', style: feeditem.event_image? ?  "background: url(#{feeditem.event_image.url(:box).gsub(/development/, 'production')}) no-repeat center top; background-size: cover;" : "background: url('/assets/kp_front_jazz.jpg') #{cycle("left", "center", "right")} top;"}
               .banner2_title
                 = t feeditem.class.to_s.downcase.to_sym, count: 1
                 = ": "
@@ -241,9 +328,7 @@
                       = date_range(instance.start_at, instance.end_at)
                       %br/
               .banner2_blurb  
-                - if feeditem.event_image?
-                  &nbsp;
-                - else                  
+                .overlay
                   = raw truncate_html(simple_format(feeditem.description), length: 350)
 
  
@@ -256,68 +341,12 @@
               = t :organise_event_front
     = yield
     
-    -# %article#stakeholder_banner
-    -#   .row
-    -#     .small-12.columns.lessmargins.right_adjust
-    -#       = link_to new_idea_path do
-    -#         .front_button.text-center
-    -#           = t(:organise_an_event)
 
-    -#   %article
-    -#     .small-12.medium-6.large-4.columns.left_adjust
-    -#       .lifted_box.invert{:'data-equalizer-watch' => ''}
-    -#         .banner2_title= t :season_1_funded
-    -#         .banner2_blurb
-    -#           %p= t :enough_stakes_for_season_1
-    -#           %p= t :stakes_for_season_2
-
-              
-
-
-    -# .row
-    -#   .small-12.medium-6.columns.lessmargins
-    -#     = link_to new_season_stake_path(@current_season.complete? ? @next_season : @current_season) do
-    -#       .front_button.text-center
-    -#         = t(:buy_a_stake)
-
-    -#   .small-12.medium-6.columns.lessright
-    -#     = link_to page_path('questions-and-answers') do
-    -#       .front_button.text-center
-    -#         =  t(:more_info)
-    -# %article
-    -#   .row.front_box
-    -#     .small-12.columns.text-center
-    -#       = t :a_stake_is
-    -#       .smaller= t :a_stake_is_longer
-
-    -# %article
-    -#   .row#progress_bar
-    -#     -# .progress{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{@current_season.stakes.paid.sum(&:amount)}", "aria-valuetext" => "#{@current_season.stakes.sum(&:amount)} percent", :role => "progressbar", :tabindex => "0"}
-    -#     -#   .progress-meter{:style => "width: #{[((@current_season.stakes.paid.sum{|x| x.amount * x.price}/5000)*100), 100].min}%;"}
-    -#     -# .row
-    -#     .small-12.columns.text-center
-    -#       %p.progress-meterbar-text.text-center= raw t(:euros_out_of_total, amount: @current_season.stakes.paid.sum{|x| x.amount * x.price}.to_i, total: 5000) + '! Kiitos!'
 
 
     
 
-    -# %article
-    -#   .row.front_box
-    -#     .small-12.columns.small-centered.text-center
-    -#       .banner_blurb= t :as_a_stakeholder
-    -#   .row{:'data-equalizer' => '', :'data-equalize-on' => "medium"}
-    -#     .small-12.medium-4.columns.left_adjust
-    -#       .lifted_box{:'data-equalizer-watch' => ''}
-    -#         .banner2_title= t :everyone_creates_and_produces
-    -#         .banner2_blurb= t :everyone_creates_blurb
-    -#     .small-12.medium-4.columns
-    -#       .lifted_box{:'data-equalizer-watch' => ''}
-    -#         .banner2_title= t :participation_rules
-    -#         .banner2_blurb= t :participation_front_blurb
-    -#     .small-12.medium-4.columns.right_adjust
-    -#       .lifted_box{:'data-equalizer-watch' => ''}
-    -#         .banner2_title= t :the_door_is_always_open
-    -#         .banner2_blurb= t :door_open_blurb
+
 
     -# %article#stakeholder_banner
     -#   .row

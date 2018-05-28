@@ -3,9 +3,9 @@
     .small-6.columns
       #day_of_week= I18n.l(@today.to_date, format: '%A')
       #date_in_question= I18n.l(@today.to_date, format:  "%-d.%-m.%Y")
-    .small-6.columns
+    .small-4.columns
       = link_to '/events/calendar' do
-        .front_button.text-center.white.thin
+        .front_button.text-center.white.thin.small
           = t(:full_calendar)
 .body
   - if @events.empty?

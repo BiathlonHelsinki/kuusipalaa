@@ -43,17 +43,25 @@
       .row
 
         .top-bar.small-12.columns.lessmargins
-          .top-bar-left
+          .top-bar-left{class: @kp_is_open.to_s}
 
 
-            = link_to image_tag('kuusi_palaa_logo.png', width: 163), '/'
-
+            = link_to image_tag(@kp_is_open ? 'kuusi_palaa_logo.png' : 'kuusi_palaa_logo_false.png', width: 163), '/'
+            %br/
+            - if @kp_is_open
+              = link_to event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1') do
+                = t :is_currently_open
+            - else
+              = link_to event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1') do
+                = t :is_currently_closed
           .top-bar-right.user_menu
             - if user_signed_in?
               = render partial: 'shared/user_top_menu'
               
             - else
-              .buttons= link_to t(:sign_in), '/users/sign_in'
+              .buttons
+                = link_to t(:sign_in), '/users/sign_in'
+                = render partial: 'shared/generic_menu'
             %br{clear: :all}
             -# = link_to fa_icon('envelope'), "mailto:admin at temporary.fi"
             -# = link_to fa_icon('twitter'), 'https://twitter.com/search?q=%23KuusiPalaa&src=typd'

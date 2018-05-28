@@ -15,6 +15,14 @@
                   
                   %small= t :not_confirmed
                 %span.booking= t :back_room_legend
+            .small-12.large-6.columns.right
+              %p
+                = t :all_other_times_open
+                - if @kp_is_open
+                  %strong= t(:kp_is_currently_open) + "!"
+                - else 
+                  = t :kp_is_currently_closed
+
           .row
 
             #calendar.clickable.small-centered
