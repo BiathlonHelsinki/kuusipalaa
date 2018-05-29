@@ -7,7 +7,7 @@ class RoombookingsController < ApplicationController
       head :ok, status: :no_content
     else
       @roombookings = Roombooking.between([params['start'].to_date, '2018-03-01'.to_date].max, params['end']) if (params['start'] && params['end'])
-      closed = Roombooking.new(start_at: '2018-05-21 07:00:00', end_at: '2018-05-22 16:00:00')
+      closed = Roombooking.new(start_at: '2018-05-31 06:00:00', end_at: '2018-05-31 23:50:50')
       closed.purpose = 'Kuusi Palaa is closed for courtyard renovations'
 
 
@@ -50,16 +50,14 @@ class RoombookingsController < ApplicationController
         #                       end: d.strftime('%Y-%m-%d 23:59:59'), allDay: true, day: d}
         #   end
         # else
-        next if d == '2018-05-21'.to_date || d == '2018-05-22'.to_date
+        next if d == '2018-05-31'.to_date 
         @roombookings << {id: nil, title: I18n.t(:book_this_day), start: d.strftime('%Y-%m-%d 00:00:01'),
                             end: d.strftime('%Y-%m-%d 23:59:59'), allDay: true, day: d, url: new_roombooking_path(day: d)}
         # end
       end
       @roombookings +=  Idea.active.timed.unconverted.back_room.between(params['start'], params['end'])  if (params['start'] && params['end'])
       @roombookings << closed
-      closed2 = closed.dup
-      closed2.start_at = '2018-05-22 00:00:00'
-      @roombookings << closed2
+
       additionaltimes = Additionaltime.between(params['start'], params['end']).to_a.delete_if{|x| !x.item.converted_id.nil?}.delete_if{|x| x.item.room_needed == 1}
       additionaltimes.each do |i|
         newinstance = i

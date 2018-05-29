@@ -35,7 +35,7 @@ class EventsController < ApplicationController
         @events = Instance.kuusi_palaa.calendered.published.not_cancelled
 
       end
-      closed = Instance.new(start_at: '2018-05-21 07:00:00', end_at: '2018-05-22 16:00:00')
+      closed = Instance.new(start_at: '2018-05-31 06:00:00', end_at: '2018-05-31 23:59:59')
       closed.name = 'Kuusi Palaa is closed for courtyard renovations'
       closed.description = 'Kuusi Palaa is closed for courtyard renovations'
       closed.slug = 'closed'
@@ -53,7 +53,7 @@ class EventsController < ApplicationController
           e.description = ActionController::Base.helpers.strip_tags( event.description )
           e.ip_class = 'PUBLIC'
           if event.slug =='closed'
-            e.url = e.uid = 'https://kuusipalaa.fi/posts/more-courtyard-closings-21-22-may'
+            e.url = e.uid = 'https://kuusipalaa.fi/posts/courtyard-closed-thursday-31-may'
           else
             e.url = e.uid = 'https://kuusipalaa.fi/events/' + event.event.slug + '/' + event.slug
           end
@@ -109,7 +109,7 @@ class EventsController < ApplicationController
     @events += Roombooking.between(params['start'], params['end']) if (params['start'] && params['end'])
     @events.uniq!
     @events.flatten!
-    closed = Instance.new(start_at: '2018-05-21 07:00:00', end_at: '2018-05-22 16:00:00')
+    closed = Instance.new(start_at: '2018-05-31 06:00:00', end_at: '2018-05-31 23:59:59')
     closed.name = 'Kuusi Palaa is closed for courtyard renovations'
     closed.slug = 'closed'
     @events << closed

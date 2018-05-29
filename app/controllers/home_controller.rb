@@ -46,11 +46,12 @@ class HomeController < ApplicationController
     if !params[:day].blank?
       @events = [Instance.on_day(params[:day]), Roombooking.between(params[:day],params[:day])].flatten
       @today = params[:day]
-      if params[:day] == '2018-05-21' || params[:day] == '2018-05-22'
-        closed = Instance.new(start_at: '2018-05-21 07:00:00', end_at: '2018-05-22 16:00:00')
+      if params[:day] == '2018-05-31'
+        closed = Instance.new(start_at: '2018-05-31 06:00:00', end_at: '2018-05-31 23:59:59')
         closed.name = 'Kuusi Palaa is closed for courtyard renovations'
         closed.slug = 'closed'
-        @events = [ closed ]
+        @events << closed
+        @events.delete_if{|x| x.open_time}
       end
     else
       head :ok,  content_type: "text/html"

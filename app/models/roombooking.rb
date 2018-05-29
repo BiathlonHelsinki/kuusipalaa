@@ -26,7 +26,7 @@ class Roombooking < ApplicationRecord
       :recurring => false,
       :temps => self.points_needed,
       class: 'booking',
-      :url => self.user.nil? ? '/posts/more-courtyard-closings-21-22-may' : Rails.application.routes.url_helpers.user_path(self.user)
+      :url => self.user.nil? ? '/posts/courtyard-closed-thursday-31-may' : Rails.application.routes.url_helpers.user_path(self.user)
     }
     
   end
