@@ -4,7 +4,12 @@
       - if user_signed_in?
         - if current_user.registered?(@instance)
           #cancel_link
-            %h5= t(:you_have_registered_see_you)
+            %h5
+              - if current_user.registrations.find_by(instance: @instance).waiting_list == true
+                = t(:you_are_on_the_waiting_list)
+                %p= t :waiting_list_info
+              - else
+                = t(:you_have_registered_see_you)
     
 
             - if @instance.start_at - Time.current >= 86400

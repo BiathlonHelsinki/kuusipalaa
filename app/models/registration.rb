@@ -6,6 +6,6 @@ class Registration < ApplicationRecord
   
   scope :by_event, -> (instance) { where(:instance_id => instance)}
   scope :not_waiting, -> () { where("waiting_list is not true")}
-
+  scope :waiting_list, -> () { where(waiting_list: true) }
     
 end

@@ -141,43 +141,13 @@
               %td.registration_list{:colspan => 2}
                 .heading= t :registrations
                 .value.row.small-up-2.medium-up-4.large-up-6
-                  - @instance.registrations.each do |reg|
-                    .reveal[reg]{:'data-reveal' => ''}
-                      = reg.user.display_name
-                      %br/
-                      - [:question1, :question2, :question3, :question4, :boolean1, :boolean2].each do |q|
-                        - next if reg[q].nil?  
-                        %strong
-                          = reg.instance[q.to_s + '_text']
-                        %br/
-                        %em
-                          = reg[q]
-                        %br/
-                        %br/
-                      %strong= t :phone_number
-                      = reg.phone
-                    .column
-                      = image_tag reg.user.avatar.url(:thumb)
-                      %br/
-                      = link_to reg.user.display_name, reg.user, target: :_blank
-                      %br/
-                      %small= reg.user.email
-                      = link_to t(:see_registration), '#', onClick: 'return false;', :'data-open' => "registration_#{reg.id.to_s}", class: [:button, :secondary]
-                      %div{id: "organiser_info_#{reg.user.id.to_s}"}
-                        - if @instance.responsible_people.include?(reg.user)
-                          %br/
-                          = t(:organiser)
-                          - if @instance.event.primary_sponsor == reg.user 
-                            %br/
-                            = link_to t(:proposer), @instance.event.idea
-                          - else
-                            - if user_signed_in?
-                              - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin)
-                                = link_to t(:remove_organiser), event_user_remove_organiser_path(@instance.event, @instance, reg.user), remote: true,  class: [:button, :alert, :tiny]
-                        - else
-                          - if user_signed_in?
-                            - if @instance.responsible_people.include?(current_user) || current_user.has_role?(:admin)
-                              = link_to t(:make_organiser), event_user_make_organiser_path(@instance.event, @instance, reg.user), remote: true,  class: [:button, :secondary, :tiny]
+                  - @instance.registrations.not_waiting.each do |reg|
+                    = render partial: 'instances/registration', locals: {reg: reg }
+                - unless @instance.registrations.waiting_list.empty?
+                  .heading= t :waiting_list
+                  .value.row.small-up-2.medium-up-4.large-up-6
+                    - @instance.registrations.waiting_list.each do |reg|
+                      = render partial: 'instances/registration', locals: {reg: reg }                  
 
         %tr
           %td{colspan: 2}

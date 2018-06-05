@@ -1506,3 +1506,5 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   all_other_times_open: 'At all other times not on this calendar, you may visit, make an ID card, and use the space freely if it is open at that moment. At this exact moment, '  
   do_you_want_an_id_card: 'Welcome to Kuusi Palaa. Perhaps you would like to get a Kuusi Palaa ID card?'
   how_do_i_do_this: 'How do I do this?'
+  you_are_on_the_waiting_list: 'You are on the waiting list for this event.'
+  waiting_list_info: 'If someone else cancels, you will be moved forward. The event organiser should contact you if this happens.'
