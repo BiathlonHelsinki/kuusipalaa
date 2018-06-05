@@ -12,6 +12,13 @@ class ApplicationController < ActionController::Base
   before_action :are_we_open?
   before_action :check_pin, if: :user_signed_in?
   before_action :check_consents, if: :user_signed_in?
+  before_action :check_alerts, if: :user_signed_in?
+
+  def clear_idcard_info
+    authenticate_user!
+    current_user.update_column(:saw_idcard_info, true)
+    render js: '$("#idcard_info").fadeOut();'   
+  end
 
   protected
 
@@ -25,8 +32,13 @@ class ApplicationController < ActionController::Base
     stored_location_for(resource) || request.env['omniauth.origin'] ||  root_path
   end
 
+  def check_alerts
+    unless current_user.saw_idcard_info == true
+      @show_idcard_info = true
+    end
+  end
+  
   def check_consents
-
     unless controller_path == 'users' || controller_path == 'devise/sessions'
       if current_user.opt_in_weekly_newsletter.nil? || current_user.accepted_tos.nil?      
         save_location
@@ -45,7 +57,9 @@ class ApplicationController < ActionController::Base
 
   def check_pin
     unless action_name == 'consent'
-      @needs_pin = current_user.pin.blank?
+      if current_user.saw_idcard_info == true
+        @needs_pin = current_user.pin.blank?
+      end
     end
   end
   

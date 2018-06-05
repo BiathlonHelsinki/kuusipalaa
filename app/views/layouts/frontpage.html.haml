@@ -73,6 +73,16 @@
                 = link_to pending.last do
                   = "'#{pending.last.name}'"
                   = t pending.first
+    - if @show_idcard_info
+      %article#idcard_info
+
+        .row
+          .close_box= link_to fa_icon('times'), '/clear_idcard_info', method: :post, remote: true
+          .front_box.notice.closeable        
+            .small-12.columns.small-centered.text-center
+              .smaller= t :do_you_want_an_id_card
+              .smaller= link_to t(:how_do_i_do_this), page_path('how-to-get-a-kuusi-palaa-id-card')
+
     %article.headline
       .row
         .small-12.columns.title{class: @kp_is_open.to_s}
@@ -133,7 +143,6 @@
               .small-12.columns.small-centered.text-center
                 .banner_blurb= t :you_must_enter_a_pin
                 .smaller= t :enter_pin_for_id
-
 
     %article
       .row.front_box

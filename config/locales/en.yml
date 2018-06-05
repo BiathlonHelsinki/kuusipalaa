@@ -1504,3 +1504,5 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   sign_in_or_create: "Please sign in to your Kuusi Palaa account, or create one."
   joining_is_not_stakeholder: "Having an account on the website is free and enables you to interact with the many features of the Kuusi Palaa platform. You can choose to become a stakeholder to join the cooperative and support Kuusi Palaa financially, but you do not need to be a stakeholder in order to visit Kuusi Palaa, attend events, have an ID card, propose activities, earn Kuusi Palaa points or book the back room. Try it out!"
   all_other_times_open: 'At all other times not on this calendar, you may visit, make an ID card, and use the space freely if it is open at that moment. At this exact moment, '  
+  do_you_want_an_id_card: 'Welcome to Kuusi Palaa. Perhaps you would like to get a Kuusi Palaa ID card?'
+  how_do_i_do_this: 'How do I do this?'

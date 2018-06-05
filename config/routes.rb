@@ -234,6 +234,7 @@ Rails.application.routes.draw do
     end
   end
 
+  post '/clear_idcard_info', to: 'application#clear_idcard_info'
   get '/instances/:id', to: redirect("/events/%{id}")
   match '/redeem' => 'onetimers#link', via: :get
   match '/calendar' => 'events#calendar', via: :get
