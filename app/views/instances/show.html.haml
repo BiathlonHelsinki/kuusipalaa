@@ -58,7 +58,8 @@
               .who
                 = link_to(@event.primary_sponsor.display_name, @event.primary_sponsor, target: :_blank)
                 %br/
-                %small= link_to t(:see_original_proposal), original_proposal_idea_path(@event.idea), target: :_blank, class: [:button, :tiny, :bordered]
+                - if @event.idea
+                  %small= link_to t(:see_original_proposal), original_proposal_idea_path(@event.idea), target: :_blank, class: [:button, :tiny, :bordered]
         %tr
           %td{colspan: 2 }
             .heading= t :where

@@ -36,7 +36,7 @@ class InstancesController < ApplicationController
       @event = Event.friendly.find(params[:event_id])
       redirect_to action: action_name, event_id: @event.friendly_id, status: 301 and return unless @event.friendly_id == params[:event_id] 
       @future = @event.instances.current.or(@event.instances.future).order(:start_at).uniq
-      @past = @event.instances.past.order(:start_at).uniq.reverse  
+      @past = @event.instances.past.order(:start_at).uniq.reverse
     end
     if @event.start_at < "2018-02-01"  && @event.sequences.size == 1
       redirect_to "https://temporary.fi/events/" + @event.slug and return
@@ -48,7 +48,9 @@ class InstancesController < ApplicationController
       @instance = @event.instances.first
     end
     @sequence = @sequences[@instance.sequence]
-    if @sequences.size == 1 && @instance.already_happened? && @event.ideas.empty?
+    if @instance.open_time == true
+      redirect_to event_instance_path(@event, @instance)
+    elsif @sequences.size == 1 && @instance.already_happened? && @event.ideas.empty?
       @archive = true
       render template: 'instances/past'
     elsif @event.sequences.size > 1 || !@event.ideas.empty?

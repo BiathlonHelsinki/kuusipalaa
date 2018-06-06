@@ -27,6 +27,7 @@ a.fc-event {
   color: white;
   &.closed {
     background-color: $pink;
+    pointer-events: none; 
   }
   &.event {
     background-color: black;

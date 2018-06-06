@@ -35,11 +35,6 @@ class EventsController < ApplicationController
         @events = Instance.kuusi_palaa.calendered.published.not_cancelled
 
       end
-      closed = Instance.new(start_at: '2018-05-31 06:00:00', end_at: '2018-05-31 23:59:59')
-      closed.name = 'Kuusi Palaa is closed for courtyard renovations'
-      closed.description = 'Kuusi Palaa is closed for courtyard renovations'
-      closed.slug = 'closed'
-      closed.event = Event.new(slug: 'closed')
       @events = @events.to_a
       @events.flatten!
       @events <<  closed
@@ -109,8 +104,8 @@ class EventsController < ApplicationController
     @events += Roombooking.between(params['start'], params['end']) if (params['start'] && params['end'])
     @events.uniq!
     @events.flatten!
-    closed = Instance.new(start_at: '2018-05-31 06:00:00', end_at: '2018-05-31 23:59:59')
-    closed.name = 'Kuusi Palaa is closed for courtyard renovations'
+    closed = Instance.new(start_at: '2018-07-01 00:00:01', end_at: '2018-12-31 23:59:59')
+    closed.name = 'Kuusi Palaa will close permanently without enough stakeholders to support it!'
     closed.slug = 'closed'
     @events << closed
     # @events += events.reject{|x| !x.one_day? }

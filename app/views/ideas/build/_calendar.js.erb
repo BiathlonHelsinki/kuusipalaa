@@ -38,6 +38,10 @@ var options = {
         e.preventDefault();
         $(this).css({'pointer-events' : 'none'});
       })
+      $('a.closed').on('click', function(e) {
+        e.preventDefault();
+        $(this).css({'pointer-events' : 'none'});
+      })      
       $('a.proposal').on('click', function(e) {
         e.preventDefault();
         $(this).css({'pointer-events' : 'none'});
