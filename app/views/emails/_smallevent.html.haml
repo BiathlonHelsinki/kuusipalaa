@@ -8,6 +8,7 @@
   - unless event.other_instances.empty?
     - event.other_instances.each do |t|
       - next unless t.in_future?
+
       .additional
         = " + "
         = date_range(t.start_at.localtime, t.end_at.localtime)

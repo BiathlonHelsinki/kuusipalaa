@@ -14,7 +14,7 @@ class EmailsController < ApplicationController
     @email = Email.sent.where("send_at is not null").order(send_at: :asc).last
     @is_email = false
     @user = current_user
-    @upcoming_events = Instance.calendered.published.between(@email.send_at, (@email.send_at + 1.week).end_of_day)
+    @upcoming_events = Instance.calendered.published.between(@email.send_at, (@email.send_at + 1.week).end_of_day).group_by{|x| [x.event_id, x.sequence]}
     @open_time = Instance.where(open_time: true).between(@email.send_at, (@email.send_at + 1.week).end_of_day)
     @body = ERB.new(@email.body).result(binding).html_safe
     @new_proposals = Idea.active.unconverted.where(["created_at >= ? ", @email.send_at - 1.week])
@@ -28,7 +28,7 @@ class EmailsController < ApplicationController
     else
       @emailannouncements = @email.emailannouncements.reject(&:only_stakeholders)
     end
-    @future_events = Instance.calendered.published.between((@email.send_at + 1.week).end_of_day, '2099-01-31 10:00:00')
+    @future_events = Instance.calendered.published.between((@email.send_at + 1.week).end_of_day, '2099-01-31 10:00:00').group_by{|x| [x.event_id, x.sequence]}.to_a.delete_if{|x| @upcoming_events.map(&:first).include?(x.first) }
     @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     set_meta_tags title: @email.subject
     render template: 'emails/show'
@@ -52,7 +52,7 @@ class EmailsController < ApplicationController
         @email = Email.unsent.order(send_at: :asc).last
       end
       @user = current_user
-      @upcoming_events = Instance.calendered.published.between(@email.send_at, (@email.send_at + 1.week).end_of_day)
+      @upcoming_events = Instance.calendered.published.between(@email.send_at, (@email.send_at + 1.week).end_of_day).group_by{|x| [x.event_id, x.sequence]}
       @open_time = Instance.where(open_time: true).between(@email.send_at, (@email.send_at + 1.week).end_of_day)
       @body = ERB.new(@email.body).result(binding).html_safe
       @new_proposals = Idea.active.unconverted.where(["created_at >= ? ", @email.send_at - 1.week])
@@ -66,7 +66,7 @@ class EmailsController < ApplicationController
       else
         @emailannouncements = @email.emailannouncements.reject(&:only_stakeholders)
       end
-      @future_events = Instance.calendered.published.between((@email.send_at + 1.week).end_of_day, '2099-01-31 10:00:00')
+      @future_events = Instance.calendered.published.between((@email.send_at + 1.week).end_of_day, '2099-01-31 10:00:00').group_by{|x| [x.event_id, x.sequence]}.to_a.delete_if{|x| @upcoming_events.map(&:first).include?(x.first) }
       @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
       set_meta_tags title: @email.subject
     end

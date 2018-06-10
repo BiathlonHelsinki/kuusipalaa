@@ -13,14 +13,14 @@ namespace :kuusipalaa do
 
     @email = Email.unsent.order(send_at: :asc).last
     if @email['send_at'] > Time.current.localtime
-      abort("needs to send at " + @email['send_at'].to_s + " but it is " + Time.current.localtime.to_s)
+      puts("needs to send at " + @email['send_at'].to_s + " but it is " + Time.current.localtime.to_s)
     end
     if @email.nil?
 
       abort("email not found")
 
     end
-    @upcoming_events = Instance.calendered.published.between(@email.send_at, (@email.send_at + 1.week).end_of_day)
+    @upcoming_events = Instance.calendered.published.between(@email.send_at, (@email.send_at + 1.week).end_of_day).group_by{|x| [x.event_id, x.sequence]}
     if @upcoming_events.empty?
       @email.destroy
       newemail = Email.create(send_at: @email.send_at + 1.week, body: 'test', subject: 'This week at Kuusi Palaa - ' + (@email.send_at + 1.week).strftime('%d %B %Y'))
@@ -30,7 +30,7 @@ namespace :kuusipalaa do
     @body = ERB.new(@email.body).result(binding).html_safe
     @new_proposals = Idea.active.unconverted.where(["created_at >= ? ", @email.send_at - 1.week])
     @still_needing_pledges = Idea.active.unconverted.except(@new_proposals).reject(&:has_enough?)
-    @future_events = Instance.calendered.published.between((@email.send_at + 1.week).end_of_day, '2099-01-31 10:00:00')
+    @future_events = Instance.calendered.published.between((@email.send_at + 1.week).end_of_day, '2099-01-31 10:00:00').group_by{|x| [x.event_id, x.sequence]}.to_a.delete_if{|x| @upcoming_events.map(&:first).include?(x.first) }
     @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     @is_email = true
     mailing_list = User.where(opt_in_weekly_newsletter: true).where("email not like 'change@me%'").where(opt_out_everything: [false, nil])
@@ -42,7 +42,7 @@ namespace :kuusipalaa do
         else
           @emailannouncements = @email.emailannouncements.reject(&:only_stakeholders)
         end
-        # EmailsMailer.announcement(recipient, @email, @user, @emailannouncements, @upcoming_events, @future_events, @open_time, @new_proposals, @still_needing_pledges, @markdown).deliver_now
+        EmailsMailer.announcement(recipient, @email, @user, @emailannouncements, @upcoming_events, @future_events, @open_time, @new_proposals, @still_needing_pledges, @markdown).deliver_now
       end
       @email.sent = true
       @user = nil
