@@ -1508,3 +1508,6 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   how_do_i_do_this: 'How do I do this?'
   you_are_on_the_waiting_list: 'You are on the waiting list for this event.'
   waiting_list_info: 'If someone else cancels, you will be moved forward. The event organiser should contact you if this happens.'
+  failed_season_2: '#2 (which did not happen)'
+  kuusi_palaa_failed: 'The Kuusi Palaa project failed to survive beyond a first season.'
+  no_stakes_season_2: 'The Kuusi Palaa project ends here; no further stakes can be bought. If you purchased a stake towards the second season, your money (after deducting the costs for dissolving the cooperative) will be returned.'

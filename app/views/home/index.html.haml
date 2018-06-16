@@ -45,7 +45,10 @@
       %br/
       %ul.horizontal.text-center
         - Season.all.order(:number).each_with_index do |season, index|
-          %li.supporter_selector{class: season == @season ? :active : false}[season]= link_to t(:season_x, number: season.number), '/home/funders_update?season_id=' + season.number.to_s, remote: true
+          - if season.number == 2
+            %li.supporter_selector{class: season == @season ? :active : false}[season]= link_to t(:failed_season_2), '/home/funders_update?season_id=' + season.number.to_s, remote: true
+          - else
+            %li.supporter_selector{class: season == @season ? :active : false}[season]= link_to t(:season_x, number: season.number), '/home/funders_update?season_id=' + season.number.to_s, remote: true
   .row
     .small-12.columns.lessmargins.right_adjust.funders_and_supporters= render partial: 'home/funders_and_supporters'
 
