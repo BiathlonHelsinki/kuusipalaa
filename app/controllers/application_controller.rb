@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   before_action :check_pin, if: :user_signed_in?
   before_action :check_consents, if: :user_signed_in?
   before_action :check_alerts, if: :user_signed_in?
+  before_action :check_refund, if: :user_signed_in?
 
   def clear_idcard_info
     authenticate_user!
@@ -60,6 +61,12 @@ class ApplicationController < ActionController::Base
       if current_user.saw_idcard_info == true
         @needs_pin = current_user.pin.blank?
       end
+    end
+  end
+  
+  def check_refund
+    if current_user.refund_pending?
+      @refund_pending = true
     end
   end
   

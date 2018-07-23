@@ -207,6 +207,7 @@ Rails.application.routes.draw do
   resources :hardware
 
   resources :users do
+    get :stakeholder_refund
     collection do
       get :check_unique
       get :mentions

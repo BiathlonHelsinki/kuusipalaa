@@ -10,7 +10,6 @@
       %tr
         %td 
           Share/osuus in Kuusi Palaa osk 
-          %small [VAT-exempt]
         %td= number_to_currency(10, unit: raw('&euro;'), format: "%n %u")
         %td.text-center 1
         %td.text-center= number_to_currency(10, unit: raw('&euro;'), format: "%n %u")
@@ -19,10 +18,10 @@
       %tr
         %td
           Membership fee for #{stake.created_at.strftime("%Y")}
-        %td= number_to_currency(32.26, unit: raw('&euro;'), format: "%n %u")
+        %td= number_to_currency(40, unit: raw('&euro;'), format: "%n %u")
         %td.text-center 1
-        %td.text-center= number_to_currency(32.26, unit: raw('&euro;'), format: "%n %u")
-        - totaldue += 32.26
+        %td.text-center= number_to_currency(40, unit: raw('&euro;'), format: "%n %u")
+        - totaldue += 40
     %tr
       %td
         Kuusi Palaa 'stake' service for season ##{stake.season.number.to_s}
@@ -33,55 +32,51 @@
       - if stake.amount == 1 || stake.includes_membership_fee
         - if stake.includes_share && stake.includes_membership_fee
           - sa = stake.price - 50
-          - if sa > 0
-            - sa = (sa / 1.24).to_f
           %td= number_to_currency(sa, unit: raw('&euro;'), format: "%n %u")
         - elsif !stake.includes_share && stake.includes_membership_fee
           - sa = stake.price - 40
-          - if sa > 0
-            - sa = (sa / 1.24).to_f
           %td= number_to_currency(sa, unit: raw('&euro;'), format: "%n %u")
         - else
-          - sa = (stake.price / 1.24).to_f
+          - sa = (stake.price).to_f
           %td= number_to_currency(sa, unit: raw('&euro;'), format: "%n %u")
 
         %td.text-center 1
         %td.text-center= number_to_currency(sa, unit: raw('&euro;'), format: "%n %u")
         - totaldue += sa
       - else
-        %td= number_to_currency((stake.price / 1.24).to_f, unit: raw('&euro;'), format: "%n %u")
+        %td= number_to_currency((stake.price).to_f, unit: raw('&euro;'), format: "%n %u")
         %td.text-center= stake.amount.to_s
-        %td.text-center= number_to_currency(stake.amount * (stake.price / 1.24).to_f, unit: raw('&euro;'), format: "%n %u")
-        - totaldue += stake.amount * (stake.price / 1.24).to_f
+        %td.text-center= number_to_currency(stake.amount * (stake.price).to_f, unit: raw('&euro;'), format: "%n %u")
+        - totaldue += stake.amount * (stake.price ).to_f
     - if stake.amount > 1 && stake.includes_membership_fee
       %tr
         %td
           Kuusi Palaa 'stake' service for season ##{stake.season.number.to_s}
-        %td= number_to_currency((stake.price / 1.24).to_f, unit: raw('&euro;'), format: "%n %u")
+        %td= number_to_currency((stake.price ).to_f, unit: raw('&euro;'), format: "%n %u")
         %td.text-center= (stake.amount - 1).to_s
-        %td.text-center= number_to_currency((stake.amount - 1) * (stake.price / 1.24).to_f, unit: raw('&euro;'), format: "%n %u")
-        - totaldue += (stake.amount - 1) * (stake.price / 1.24).to_f
+        %td.text-center= number_to_currency((stake.amount - 1) * (stake.price ).to_f, unit: raw('&euro;'), format: "%n %u")
+        - totaldue += (stake.amount - 1) * (stake.price).to_f
     %tfoot
       -# - if stake.owner.class == Group
       -#   - unless stake.owner.taxid.blank?
       -#     - unless stake.owner.is_member
-      %tr
-        %th{colspan: 2} &nbsp;
-        - if stake.owner.valid_vat_number && stake.owner.country != 'FI'
-          %th
-            VAT 0%
-            = "(#{stake.owner.taxid})"
-          %th 0€
-        - else
-          %th VAT 24%
+      -# %tr
+      -#   %th{colspan: 2} &nbsp;
+      -#   - if stake.owner.valid_vat_number && stake.owner.country != 'FI'
+      -#     %th
+      -#       VAT 0%
+      -#       = "(#{stake.owner.taxid})"
+      -#     %th 0€
+      -#   - else
+      -#     %th VAT 24%
 
-          %th
-            - if stake.includes_share
-              - totaldue -= 10
-            = number_to_currency((totaldue * 0.24), unit: raw('&euro;'), format: "%n %u")
-          - totaldue *= 1.24
-          - if stake.includes_share
-            - totaldue += 10
+      -#     %th
+      -#       - if stake.includes_share
+      -#         - totaldue -= 10
+      -#       = number_to_currency((totaldue * 0.24), unit: raw('&euro;'), format: "%n %u")
+      -#     - totaldue *= 1.24
+      -#     - if stake.includes_share
+      -#       - totaldue += 10
       %tr
         %th{colspan: 2} &nbsp;
         %th Total due:

@@ -1,0 +1,21 @@
+.edit_profile
+  .row
+    .small-12.columns.small-centered
+      .lifted_box
+        .title
+          = t :stakeholder_refund
+
+        .blurb
+          %p
+            = t :kuusi_palaa_is_dissolving
+          %p
+            = t :your_refund_details
+            = t :refund_details
+          - if current_user.stakes.paid.map(&:season_id).uniq.flatten.include?(2)
+            %p= t :season_2_stakeholder_refund
+          %p
+            %small= t :iban_gdpr
+          = semantic_nested_form_for @user, html: {multipart: true, :'data-abide' => '', id: "user_form"} do |f|
+            = f.input :iban, label: 'Your IBAN #', input_html: {"required": ''}
+            = f.input :other_bank_details, as: :text, label: 'Other bank transfer details', hint: 'Please enter any additional information that may be needed, such as the name on your account (if it is not the name you bought the stake from), or SWIFT/BIC of the account (if a non-Finnish bank).'
+            = f.submit 'Save'

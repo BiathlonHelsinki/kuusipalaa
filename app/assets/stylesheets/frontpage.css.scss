@@ -1,6 +1,26 @@
 @import 'variables';
 @import 'settings';
 
+article.pending {
+  background-color: $pink;
+  color: white;
+  padding: 0.8rem 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  li {
+    list-style-type: none;
+  }
+  .attention {
+    font-weight: bold;
+    font-family: $sourcecode;
+    font-size: 1.4rem;
+  }
+  a {
+    color: white;
+    font-weight: bold;
+  }
+}
+
 body.frontpage {
 
   #banner2 {
@@ -42,25 +62,7 @@ body.frontpage {
   }
 
  
-  article.pending {
-    background-color: $pink;
-    color: white;
-    padding: 0.8rem 1rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-    li {
-      list-style-type: none;
-    }
-    .attention {
-      font-weight: bold;
-      font-family: $sourcecode;
-      font-size: 1.4rem;
-    }
-    a {
-      color: white;
-      font-weight: bold;
-    }
-  }
+
 
 
   .article_slider { 

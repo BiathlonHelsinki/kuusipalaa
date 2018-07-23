@@ -60,6 +60,10 @@ class User < ActiveRecord::Base
   
   before_save :hash_pin
 
+  def refund_pending?
+    is_stakeholder? && (iban.blank? && other_bank_details.blank?) && Time.current.to_date <= Date.parse('2018-08-16')
+  end
+    
   def hash_pin
     if pin_changed?
       self.pin = Digest::MD5.hexdigest(self['pin']) unless self.pin.blank?

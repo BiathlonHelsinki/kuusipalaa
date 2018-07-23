@@ -125,6 +125,10 @@ class UsersController < ApplicationController
     set_meta_tags title: @user.display_name
   end
 
+  def stakeholder_refund
+    @user = current_user 
+  end
+
   def update
     @user = User.friendly.find(params[:id])
     if can? :update, @user
@@ -151,7 +155,8 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :name, :username, :phone, :show_name, :pin, :avatar,  :opt_in, :website, :twitter_name,
     :address, :postcode, :city, :country, :accepted_agreement, :opt_in_ready, :opt_in_points, :opt_in_mentions, :opt_out_everything,
-    :opt_in_weekly_newsletter, :accepted_tos, :show_twitter_link, :contact_phone, :show_facebook_link, :buy_stakes_after_edit,
+    :opt_in_weekly_newsletter, :accepted_tos, :show_twitter_link, :contact_phone, :iban, :other_bank_details,
+     :show_facebook_link, :buy_stakes_after_edit,
                       accounts_attributes: [:address, :primary_account, :external])
   end
 end

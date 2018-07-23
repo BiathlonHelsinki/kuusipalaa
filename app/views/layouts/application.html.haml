@@ -78,6 +78,16 @@
             -#   %strong ENG
             -# %br/
             -# = link_to t(:sign_in), '/users/sign_in'
+    - if user_signed_in?
+      - if @refund_pending
+        %article.pending
+          .row
+            .small-12.columns.title.text-center
+              .attention= t :kuusi_palaa_is_dissolving
+              %p= t :your_refund_details
+              - if current_user.stakes.paid.map(&:season_id).uniq.flatten.include?(2)
+                %p= t :season_2_stakeholder_refund
+              = link_to t(:enter_bank_details), user_stakeholder_refund_path(current_user)            
     - if @needs_pin
       %article
         .row.front_box.alert

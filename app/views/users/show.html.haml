@@ -76,7 +76,16 @@
                     %strong= t :authentications
                     - @user.authentications.each do |auth|
                       %p= "provider: #{auth.provider}, username: #{auth.username}, uid: #{auth.uid}"
-
+                - if current_user.is_stakeholder?
+                  %strong KP refund info
+                  %br/
+                  - if current_user.refund_pending?
+                    Bank details needed!
+                    %br/
+                    = link_to 'Enter bank details', user_stakeholder_refund_path(current_user),class: [:button, :small]
+                  - else
+                    submitted, kiitos!
+                    = link_to 'Edit', user_stakeholder_refund_path(current_user), class: [:button, :small, :secondary]
 
 - if @user == current_user
   = content_for :jquery do
