@@ -8,6 +8,28 @@ namespace :kuusipalaa do
     end
   end
 
+  desc 'make accounting spreadhseet'
+  task make_spreadsheet: :environment do
+    require 'csv'
+    CSV.open('invoices.csv', 'w') do |writer|
+      Stake.paid.order(:paid_at).each do |stake|
+        writer << [stake.paid_at.to_date, sprintf('%04d', stake.id), stake.owner.name, stake.invoice_amount.to_i, stake.paymenttype.name]
+      end
+    end
+  end
+
+  desc 'download all invoices to local files'
+  task download_invoices: :environment do
+    require 'open-uri'
+    Stake.paid.each do |stake|
+      File.open("./invoices/#{sprintf('%04d', stake.id)}.pdf", "wb") do |saved_file|
+        open(stake.invoice.url, "rb") do |read_file|
+          saved_file.write(read_file.read)
+        end
+      end
+    end
+  end
+
   desc 'send weekly email'
   task weekly_email: :environment  do
 
