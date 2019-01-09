@@ -17,9 +17,9 @@ class Question < ApplicationRecord
     Activity.create(user: user, contributor: contributor, item: self, description: "asked_the_question",  addition: 0, extra: page)
   end
 
-  def read_translated_attribute(name, locale)
-    globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name)
-  end
+  # def read_translated_attribute(name, locale)
+  #   globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name)
+  # end
 
   private
 

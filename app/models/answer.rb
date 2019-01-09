@@ -12,9 +12,9 @@ class Answer < ApplicationRecord
   end
 
 
-  def read_translated_attribute(name, locale)
-    globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name)
-  end
+  # def read_translated_attribute(name, locale)
+  #   globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name)
+  # end
 
   def contributor
     contributor_type.nil? ? nil : contributor_type.constantize.find(contributor_id)
