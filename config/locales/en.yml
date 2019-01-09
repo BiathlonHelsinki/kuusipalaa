@@ -1520,3 +1520,5 @@ If you suggest an exact date, we will do our best when scheduling to co-exist wi
   enter_bank_details: 'Please securely provide your bank details!'
   iban_gdpr: 'We are asking for your bank details here simply to facilitate refund payments to members, a legitimate interest of Kuusi Palaa osk on legal grounds. After the transfer is made, your details will be deleted from the database.'
   to_be_refunded_upon_ending: 'To be returned to members, if possible, when Kuusi Palaa ends'
+  is_permanently_closed: 'is permanently closed.'
+  permanent_closed_disclaimer: 'KP operated in spring 2018 and this site remains as an archive of the activities.'

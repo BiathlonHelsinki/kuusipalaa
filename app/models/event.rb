@@ -98,9 +98,9 @@ class Event < ApplicationRecord
     self.start_at >= Date.parse(Time.now.strftime('%Y/%m/%d'))
   end
   
-  def read_translated_attribute(name, locale)
-    globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name)
-  end
+  # def read_translated_attribute(name, locale)
+  #   globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name) 
+  # end
 
   def item
     self

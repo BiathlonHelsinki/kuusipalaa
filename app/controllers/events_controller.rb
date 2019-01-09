@@ -37,10 +37,10 @@ class EventsController < ApplicationController
       end
       @events = @events.to_a
       @events.flatten!
-      @events <<  closed
       @events.each do |event|
 
         @cal.event do |e|
+          next if event.start_at.blank?
           e.dtstart     = Icalendar::Values::DateTime.new(event.start_at, 'tzid' => tzid)
           e.dtend       = Icalendar::Values::DateTime.new(event.end_at, 'tzid' => tzid)
           e.summary     = event.name

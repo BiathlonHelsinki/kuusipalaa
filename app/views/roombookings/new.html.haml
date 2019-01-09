@@ -56,7 +56,7 @@
             .row
               .small-10.large-8.columns
                 = f.input :purpose, label: t("private_room.purpose"), hint: t("private_room.purpose_hint")
-                = f.submit 'Book the room!', class: [:button, :bordered], data: { confirm: t("private_room.are_you_sure")}
+                = f.submit 'Book the room!', disabled: :disabled, class: [:button, :bordered], data: { confirm: t("private_room.are_you_sure")}
 - if @existing.empty?
   = content_for :jquery do
     :plain

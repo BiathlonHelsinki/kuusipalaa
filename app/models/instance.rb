@@ -102,9 +102,9 @@ class Instance < ApplicationRecord
     image? ? true : event.image?
   end
   
-  def read_translated_attribute(name, locale)
-    globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name)
-  end
+  # def read_translated_attribute(name, locale)
+  #   globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name) rescue ''
+  # end
 
 
   def responsible_people

@@ -20,7 +20,7 @@
               .row
                 .small-12.columns
                   -#%button{type: :submit, class: [:button, :bordered], rel: :previous}= raw("<i class='fa fa-caret-left icon-large'></i> ") + t(:back)
-                  %button{type: :submit, class: [:button, :bordered]}= raw(t(:next) + " <i class='fa fa-caret-right icon-large'></i> ")
+                  %button{type: :submit, disabled: :disabled, class: [:button, :bordered]}= raw(t(:next) + " <i class='fa fa-caret-right icon-large'></i> ")
 
 = content_for :jquery do
   :plain

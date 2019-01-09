@@ -120,9 +120,9 @@ if (screenWidth < 700) {
 }
 var today = new Date();
 var d = today.getFullYear()+'-0'+(today.getMonth()+1)+'-'+today.getDate();
-if (d < '2018-03-01') {
+// if (d < '2018-03-01') {
   $fc.fullCalendar('gotoDate', '2018-03-01');
-}
+// }
 
 
 var updateEvent = function(the_event) {
@@ -147,8 +147,8 @@ $(window).resize(function() {
   }
   var today = new Date();
   var d = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  if (d < '2018-03-01') {
+  // if (d < '2018-03-01') {
     $fc.fullCalendar('gotoDate', '2018-03-01');
-  }
+  // }
   
 });

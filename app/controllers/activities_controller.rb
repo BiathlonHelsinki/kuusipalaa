@@ -24,8 +24,7 @@ class ActivitiesController < ApplicationController
       end
     end
     aaa =  Hash[hash_activities.sort_by{|k,v| k.to_i }.reverse]
-    keys = aaa.keys 
-    logger.warn('AAa before loop is ' + aaa.size.to_s)
+    keys = aaa.keys
     aaa.each_with_index do |timestamped, i|
       next if i == 0
       d = aaa[keys[i]]['description']
@@ -34,7 +33,7 @@ class ActivitiesController < ApplicationController
         while aaa[keys[counter]]['description'] == d
           unless aaa[keys[counter]]['deleted']
             aaa[keys[counter]]['activities'].push(aaa[keys[i]]['activities'])
-            aaa[keys[counter]]['activities'].flatten!
+            aaa[keys[counter]]['activities'].flatten! rescue next
             aaa[keys[counter]]['activities'].sort!{|x, y| y.created_at <=> x.created_at }.uniq!
           end
           counter -= 1

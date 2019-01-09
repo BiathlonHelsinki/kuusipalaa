@@ -105,8 +105,10 @@
               = t :all_are_welcome
             - else
               = link_to event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1') do
-                = t :is_currently_closed
-              = raw t(:not_a_stakeholder_come_some_other_time, calendar_link: link_to(t(:calendar).downcase, calendar_events_path))
+                -#= t :is_currently_closed
+                = t :is_permanently_closed
+              -#= raw t(:not_a_stakeholder_come_some_other_time, calendar_link: link_to(t(:calendar).downcase, calendar_events_path))
+              = t :permanent_closed_disclaimer
 
     - unless user_signed_in?
       %article

@@ -53,7 +53,8 @@
                 = t :is_currently_open
             - else
               = link_to event_instance_path('kuusi-palaa', 'kuusi-palaa-season-1') do
-                = t :is_currently_closed
+                -#= t :is_currently_closed
+                = t :is_permanently_closed
           .top-bar-right.user_menu
             - if user_signed_in?
               = render partial: 'shared/user_top_menu'
@@ -88,13 +89,15 @@
               - if current_user.stakes.paid.map(&:season_id).uniq.flatten.include?(2)
                 %p= t :season_2_stakeholder_refund
               = link_to t(:enter_bank_details), user_stakeholder_refund_path(current_user)            
-    - if @needs_pin
+
       %article
         .row.front_box.alert
-          = link_to set_pin_user_path(current_user) do
-            .small-12.columns.small-centered.text-center
-              .banner_blurb= t :you_must_enter_a_pin
-              .smaller= t :enter_pin_for_id
+          
+          .small-12.columns.small-centered.text-center
+            .banner_blurb
+              Kuusi Palaa
+              = t :is_permanently_closed
+            .smaller= t :permanent_closed_disclaimer
     - if @show_idcard_info
       %article#idcard_info
 
