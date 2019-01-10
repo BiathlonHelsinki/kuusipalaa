@@ -42,7 +42,7 @@
                               - if user_signed_in?  
                                 
                                 = link_to t(:add_a_comment_to_this_answer), new_page_question_answer_comment_path(@page, q, a), remote: true
-                          - if a.read_translated_attribute(:body, session[:locale]).blank?
+                          - if a.body.blank?
 
                             .translate
                               = link_to t(:no_translation_in_lang, obj: '', lang: t(:locale_name))
