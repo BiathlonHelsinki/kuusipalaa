@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
   def get_locale
 
     if params[:locale]
-      session[:locale] = params[:locale]
+      session[:locale] = params[:locale]  if ['en', 'fi'].include?(params[:locale])
     end
 
     if session[:locale].blank?
