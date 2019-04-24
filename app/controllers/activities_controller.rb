@@ -6,10 +6,11 @@ class ActivitiesController < ApplicationController
   
   def index
     load_filters
-
-
- 
-    page = params[:page] ||= 1
+    if params[:page] =~ /^\d+/ 
+      page = params[:page]
+    else
+      page = 1
+    end
     a = Activity.includes(:user, :onetimer, :ethtransaction).order(created_at: :desc).offset((100 * page.to_i) - 100).limit(100)
     array = a.group_by(&:description)
     activities = array.each{|y| array[y.first] = y.last.group_by(&:item)}

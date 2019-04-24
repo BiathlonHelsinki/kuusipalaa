@@ -131,10 +131,10 @@
                     = t(:x_different_proposals, count: activity.last['activities'].map{|x| x.item.item}.uniq.size)
 
                 - if activity.last['activities'].first.item.class == Group
-                  = link_to activity.last['activities'].first.item.name, activity.last['activities'].first.item, target: :_blank, target: :_blank
+                  = link_to activity.last['activities'].first.item.name, activity.last['activities'].first.item, target: :_blank
                 - if activity.last['activities'].first.item.class == Event
                   - if activity.last['activities'].map{|x| x.item}.uniq.size == 1                  
-                    = link_to activity.last['activities'].first.item.name, activity.last['activities'].first.item, target: :_blank, target: :_blank 
+                    = link_to activity.last['activities'].first.item.name, activity.last['activities'].first.item, target: :_blank
                   - else
                     = t :things
 

@@ -11,7 +11,7 @@ if defined?(RUBY_DESCRIPTION) && RUBY_DESCRIPTION.start_with?("ruby 2.4")
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.2.2'
+gem 'rails', '5.2.3'
 # Use sqlite3 as the database for Active Record
 gem 'pg', '0.21.0'
 # Use Puma as the app server
@@ -56,7 +56,6 @@ group :test do
   gem 'factory_bot_rails', '~> 4.0'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'faker'
-  gem 'database_cleaner'
   gem 'simplecov', require: false
 end
 
@@ -98,7 +97,7 @@ gem 'carrierwave_backgrounder', :git => 'https://github.com/lardawge/carrierwave
 gem 'carrierwave-aws'
 
 gem 'chosen-rails'
-gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'ckeditor'
 gem 'cookies_eu'
 gem 'country_select'
 gem 'delayed_job_active_record'
