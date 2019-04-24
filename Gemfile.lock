@@ -8,15 +8,6 @@ GIT
       activesupport (>= 4.0.0, < 6.0.0)
 
 GIT
-  remote: https://github.com/globalize/globalize
-  revision: fa0406dae349b566f1c7413e1743106e4284465a
-  specs:
-    globalize (5.2.0)
-      activemodel (>= 4.2, < 6.1)
-      activerecord (>= 4.2, < 6.1)
-      request_store (~> 1.0)
-
-GIT
   remote: https://github.com/gonzalo-bulnes/simple_token_authentication.git
   revision: 2ea7d13e155bf7d7da22a69e3e884e94d05a8dae
   branch: master
@@ -235,7 +226,7 @@ GEM
       railties (>= 3.1.0)
       sass (>= 3.3.0, < 3.5)
       sprockets-es6 (>= 0.9.0)
-    friendly_id (5.1.0)
+    friendly_id (5.2.5)
       activerecord (>= 4.0.0)
     fullcalendar-rails (3.9.0.0)
       jquery-rails (>= 4.0.5, < 5.0.0)
@@ -245,6 +236,10 @@ GEM
     geocoder (1.5.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    globalize (5.2.0)
+      activemodel (>= 4.2, < 5.3)
+      activerecord (>= 4.2, < 5.3)
+      request_store (~> 1.0)
     gyoku (1.3.1)
       builder (>= 2.1.2)
     haml (5.0.4)
@@ -589,10 +584,10 @@ DEPENDENCIES
   formtastic
   foundation-datetimepicker-rails (= 0.2.4)
   foundation-rails (= 6.3.1.0)
-  friendly_id (~> 5.1.0)
+  friendly_id (~> 5.2.4)
   fullcalendar-rails
   geocoder
-  globalize!
+  globalize (~> 5.2.0)
   haml
   haml-rails
   has_scope

@@ -18,7 +18,7 @@ class Instance < ApplicationRecord
      day.to_date.at_midnight.to_s(:db), day.to_date.end_of_day.to_s(:db), 
     day.to_date.at_midnight.to_s(:db), day.to_date.end_of_day.to_s(:db)])
   }
-
+  public :read_translated_attribute
   scope :kuusi_palaa, -> () { where("start_at >= '2018-03-01'")}
   scope :between, -> (start_time, end_time) { 
     where( [ "(start_at >= ?  AND  end_at <= ?) OR ( start_at >= ? AND end_at <= ? ) OR (start_at >= ? AND start_at <= ?)  OR (start_at < ? AND end_at > ? )",
@@ -39,8 +39,7 @@ class Instance < ApplicationRecord
   has_many :userthoughts
   has_many :userlinks
   extend FriendlyId
-  friendly_id :name_en , :use => [ :slugged, :finders, :history]
-  
+  friendly_id :name_en, :use => [ :slugged, :finders, :history]
 
   def scheduler
     activities.where(description: 'published_event').empty? ? event.primary_sponsor : activities.find_by(description: 'published_event').contributor
@@ -89,7 +88,7 @@ class Instance < ApplicationRecord
   def sequence_size
     get_sequence.size
   end
-    
+
   def get_sequence
     event.instances.where(sequence: sequence).order(:start_at)
   end
@@ -101,11 +100,12 @@ class Instance < ApplicationRecord
   def event_image?
     image? ? true : event.image?
   end
-  
-  # def read_translated_attribute(name, locale)
-  #   globalize.stash.contains?(locale, name) ? globalize.stash.read(locale, name) : translation_for(locale).send(name) rescue ''
-  # end
 
+  # def read_translated_attribute(name, options)
+  #   # logger.warn('name is ' + name.inspect)
+  #   # logger.warn('locale is ' + Globalize.locale.inspect)
+  #   globalize.stash.contains?(Globalize.locale, name) ? globalize.stash.read(Globalize.locale, name) : translation_for(Globalize.locale).send(name)
+  # end
 
   def responsible_people
     [event.primary_sponsor_type == 'Group' ? event.primary_sponsor.privileged : event.primary_sponsor, organisers].flatten.compact.uniq
