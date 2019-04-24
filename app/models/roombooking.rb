@@ -20,15 +20,14 @@ class Roombooking < ApplicationRecord
       :title => self.booker.nil? ? 'Kuusi Palaa is closed' : self.booker.display_name + "\n" + (self.purpose || '') + (self.purpose.blank? ? '' : "\n") + start_at.localtime.strftime("%H:%M") + ' - ' + end_at.localtime.strftime("%H:%M"),
       :description => self.purpose || "",
       icon_url: self.user.nil? ? '' : self.user.avatar.url(:thumb).gsub(/development/, 'production'),
-      :start => start_at.localtime, #.strftime('%Y-%m-%d 00:00:01'),
-      :end =>  end_at.localtime, #.strftime('%Y-%m-%d 23:59:59'),
+      :start => start_at.nil? ? day.to_time : start_at.localtime, #.strftime('%Y-%m-%d 00:00:01'),
+      :end =>  end_at.nil? ? day.to_time.end_of_day : end_at.localtime, #.strftime('%Y-%m-%d 23:59:59'),
       :allDay => true, 
       :recurring => false,
       :temps => self.points_needed,
       class: 'booking',
       :url => Rails.application.routes.url_helpers.user_path(self.user)
     }
-    
   end
 
   def open_time
@@ -46,6 +45,6 @@ class Roombooking < ApplicationRecord
   def end_at_date
     end_at.nil? ? nil : end_at.strftime('%Y-%m-%d')
   end
-  
-  
+
+
 end
