@@ -321,7 +321,7 @@ article.divider {
   margin-top: 1.5rem; 
   margin-bottom: 1.5rem;
   &.promo_image {
-    background: url('https://s3.eu-central-1.amazonaws.com/biathlon-production/images/site/pict5.jpg') center center;
+    background: url('https://biathlon-production.s3.wasabisys.com/images/site/pict5.jpg') center center;
     background-size: cover; 
     filter: grayscale(78%) contrast(1) brightness(1);
     color: white;
