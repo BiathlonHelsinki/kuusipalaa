@@ -386,7 +386,7 @@ GEM
       activerecord (>= 4.2)
       activesupport (>= 4.2)
     public_suffix (3.0.3)
-    puma (3.12.1)
+    puma (3.12.6)
     rack (2.0.7)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -619,7 +619,7 @@ DEPENDENCIES
   paranoia (~> 2.4.0)
   pg (= 0.21.0)
   pg_search
-  puma (~> 3.7)
+  puma (~> 3.12)
   rack-utf8_sanitizer
   rails (= 5.2.3)
   rails-jquery-autocomplete
