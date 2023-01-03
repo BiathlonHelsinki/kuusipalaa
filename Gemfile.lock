@@ -267,7 +267,8 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_accept_language (2.1.1)
-    httparty (0.16.2)
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
     httpi (2.4.4)
       rack
@@ -328,7 +329,9 @@ GEM
     method_source (0.9.2)
     migration_data (0.3.1)
     mime-types (2.99.3)
-    mimemagic (0.3.3)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_magick (4.9.3)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
