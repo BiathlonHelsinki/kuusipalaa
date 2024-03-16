@@ -72,12 +72,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 #gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'capistrano'
-gem 'capistrano3-puma'
-gem 'capistrano-bundler' #, '1.1.4'
-gem 'capistrano-rails' #, '1.1.3'
-gem 'capistrano-rvm'
-
 gem 'activemodel-serializers-xml'
 gem 'activerecord-session_store'
 gem "audited"
@@ -86,6 +80,12 @@ gem 'awesome_nested_set'
 gem 'bcrypt_pbkdf'
 gem "best_in_place", git: "https://github.com/mmotherwell/best_in_place"
 gem 'cancancan'
+gem 'capistrano' #, '3.10.1'
+gem 'capistrano3-nginx', '~> 3.0.4'
+gem 'capistrano3-puma', github: "seuros/capistrano-puma"
+gem 'capistrano-bundler' #, '1.1.4'
+gem 'capistrano-rails' #, '1.1.3'
+gem 'capistrano-rvm'
 gem 'carrierwave'
 gem 'carrierwave-aws'
 gem 'carrierwave_backgrounder', git: 'https://github.com/lardawge/carrierwave_backgrounder.git'
