@@ -9,11 +9,14 @@ Bundler.require(*Rails.groups)
 module Experiment2
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
+    config.load_defaults(5.1)
     config.time_zone = 'Helsinki'
     config.assets.precompile += %w[404.html 422.html 500.html]
-    config.action_view.sanitized_allowed_tags = ['strong', 'em', 'a', 'br', 'iframe']
-    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.action_view.sanitized_allowed_tags = %w[strong em a br iframe]
+    config.assets.paths << Rails.root.join("app/assets/fonts")
+    config.load_defaults(7.0)
+    config.hosts << 'www.kuusipalaa.fi'
+    config.hosts << 'kuusipalaa.fi'
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

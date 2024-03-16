@@ -198,7 +198,7 @@
           'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
         }
       })
-      jQuery(".best_in_place").best_in_place();
+
       $('#pledge_pledger_select').on('change', function() {
         $.ajax({
             url: "/ideas/#{@event.id.to_s}/pledges/find_pledge?pledger_type=" + $('#pledge_pledger_select option').filter(":selected").attr('rel') + "&pledger_id=" + $('#pledge_pledger_id').val(),

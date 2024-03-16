@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
-  devise_for :users, :controllers => { registrations: "registrations", omniauth_callbacks: 'omniauth_callbacks' } do
+  devise_for :users, controllers: { registrations: "registrations", omniauth_callbacks: 'omniauth_callbacks' } do
     get "logout", to: "devise/sessions#destroy"
   end
-
-
 
   namespace :admin do
     root to: 'base#home'
@@ -29,18 +27,17 @@ Rails.application.routes.draw do
       get :chronological
     end
   end
-  
-  
+
   resources :bankstatements
 
   resources :charges
-  
+
   resources :comments do
     resources :comments
   end
 
   resources :emailannouncements
-  
+
   resources :events do
     collection do
       get :calendar
@@ -48,7 +45,7 @@ Rails.application.routes.draw do
       get :archive
     end
     resources :comments
-    resources :instances , path: '' do
+    resources :instances, path: '' do
       resources :registrations, controller: :event_registrations
       resources :userphotos, controller: :viewpoints
       resources :userthoughts, controller: :viewpoints
@@ -68,7 +65,7 @@ Rails.application.routes.draw do
   end
 
   resources :instances, only: :update
-  
+
   resources :groups do
     collection do
       get :check_vat
@@ -91,7 +88,7 @@ Rails.application.routes.draw do
         post :remove
       end
     end
-    resources :transfers  do
+    resources :transfers do
       collection do
         get :send_points
         post :post_points
@@ -103,6 +100,7 @@ Rails.application.routes.draw do
     resources :comments
     collection do
       get :calendar
+      get :archive
     end
     member do
       get :publish_event
@@ -129,7 +127,6 @@ Rails.application.routes.draw do
       resources :notifications
     end
   end
-
 
   resources :members do
     get :autocomplete_user_username, on: :collection
@@ -159,31 +156,30 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :nfcs, only: [:index, :destroy]
+  resources :nfcs, only: %i[index destroy]
 
   resources :roombookings do
     collection do
       get :calendar
     end
   end
-  
+
   resources :questions do
     member do
       get :contribute_translation
     end
   end
-  
+
   resources :budgetproposals do
     resources :comments
     member do
       get :find_vote
     end
   end
-  
+
   resources :seasons do
     resources :groups do
       resources :stakes
-
     end
 
     resources :budgetproposals do
@@ -192,7 +188,6 @@ Rails.application.routes.draw do
         post :vote
         get :discuss
         resources :comments
-
       end
     end
 
@@ -219,7 +214,7 @@ Rails.application.routes.draw do
       get :buy_photoslot
     end
     resources :nfcs
-    resources :transfers  do
+    resources :transfers do
       collection do
         get :send_points
         post :post_points

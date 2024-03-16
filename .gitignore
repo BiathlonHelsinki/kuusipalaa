@@ -1,0 +1,46 @@
+*.rbc
+*.sassc
+.sass-cache
+capybara-*.html
+.rspec
+/.bundle
+/vendor/bundle
+/log/*
+/tmp/*
+/db/*.sqlite3
+/public/system/*
+/coverage/
+/spec/tmp/*
+**.orig
+rerun.txt
+pickle-email-*.html
+/config/database.yml
+/config/initializers/ptarmigan.rb
+/config/deploy.rb
+/public/ckeditor_assets
+/public/fonts
+/public/images/*
+/public/downloads
+/public/wikiattachments
+/db/sphinx
+.svn
+
+.DS_Store
+et.txt
+et2.txt
+ptarmigan.sql
+sync_db
+Capfile
+
+config/deploy/*
+# Ignore application configuration
+/config/application.yml
+
+# special fonts
+app/assets/themes/creativeterritories/fonts/*.woff
+app/assets/themes/creativeterritories/fonts/*.ttf
+app/assets/themes/creativeterritories/fonts/*.woff2
+app/assets/themes/creativeterritories/fonts/*.eot
+test/*
+# Ignore encrypted secrets key file.
+config/secrets.yml.key

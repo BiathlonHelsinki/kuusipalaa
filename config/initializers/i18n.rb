@@ -1,7 +1,6 @@
-I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
+I18n::Backend::Simple.include(I18n::Backend::Fallbacks)
 I18n.default_locale = :en
-I18n.available_locales = [:en, :fi]
-I18n.fallbacks[:en] = [:en, :fi]
+I18n.available_locales = %i[en fi]
+I18n.fallbacks[:en] = %i[en fi]
 
-I18n.fallbacks[:fi] = [:fi, :en]
-Globalize.fallbacks = {:en => [:en], :fi => [:fi] }
+I18n.fallbacks[:fi] = %i[fi en]

@@ -41,7 +41,10 @@
     .ready.text-center
       = t :scheduled_as
       %br/
-      = link_to idea.events.first.name, idea.events.first
+      - if idea.events.empty?
+        No events were actually scheduled
+      - else
+        = link_to idea.events.first.name, idea.events.first
   - if idea.cancelled?
     .ready.text-center
       = t :cancelled

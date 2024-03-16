@@ -1,27 +1,24 @@
-
 source 'https://rubygems.org'
 
-ruby '2.6.2'
+ruby '3.3.0'
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
-if defined?(RUBY_DESCRIPTION) && RUBY_DESCRIPTION.start_with?("ruby 2.4")
-  gem "openssl"
-end
+gem "openssl" if defined?(RUBY_DESCRIPTION) && RUBY_DESCRIPTION.start_with?("ruby 2.4")
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.2.3'
+gem 'rails', '7.1.3.2'
 # Use sqlite3 as the database for Active Record
-gem 'pg', '0.21.0'
+gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 6'
 # Use SCSS for stylesheets
 gem 'formtastic'
-gem 'foundation-rails', "6.3.1.0"
 gem 'foundation-datetimepicker-rails', '0.2.4'
+gem 'foundation-rails', "6.3.1.0"
 gem 'haml'
-gem "haml-rails"#, "~> 0.9"
+gem "haml-rails" #, "~> 0.9"
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'sass-rails', '~> 5.0'
@@ -44,77 +41,74 @@ gem 'uglifier', '>= 1.3.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-
-
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem "database_cleaner"
+  gem 'pry', '~> 0.14.2'
   gem "rspec-rails", '~> 3.5'
 end
 
 group :test do
   gem 'factory_bot_rails', '~> 4.0'
-  gem 'shoulda-matchers', '~> 3.1'
   gem 'faker'
+  gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
 end
 
-
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'listen' #, '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'better_errors' #, github: 'workingnotworking/better_errors'
   gem 'binding_of_caller'
   gem 'letter_opener'
   gem 'ruby_parser', '>= 3.0.1'
+  gem 'spring'
+
   gem 'thin'
-
-
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 #gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'best_in_place', '~> 3.0.1'
-
 gem 'capistrano'
-gem 'capistrano-rails'#, '1.1.3'
-gem 'capistrano-rvm'
-gem 'capistrano-bundler'#, '1.1.4'
 gem 'capistrano3-puma'
+gem 'capistrano-bundler' #, '1.1.4'
+gem 'capistrano-rails' #, '1.1.3'
+gem 'capistrano-rvm'
 
+gem 'activemodel-serializers-xml'
 gem 'activerecord-session_store'
-gem "audited", "~> 4.5"
+gem "audited"
 gem 'auto_html'
 gem 'awesome_nested_set'
+gem 'bcrypt_pbkdf'
+gem "best_in_place", git: "https://github.com/mmotherwell/best_in_place"
 gem 'cancancan'
 gem 'carrierwave'
-gem 'carrierwave_backgrounder', :git => 'https://github.com/lardawge/carrierwave_backgrounder.git'
 gem 'carrierwave-aws'
-
+gem 'carrierwave_backgrounder', git: 'https://github.com/lardawge/carrierwave_backgrounder.git'
 gem 'chosen-rails'
 gem 'ckeditor'
 gem 'cookies_eu'
 gem 'country_select'
+gem 'csv'
 gem 'delayed_job_active_record'
 gem 'devise'
+gem 'ed25519'
 gem 'error_page_assets'
 gem 'figaro'
 gem 'fittextjs_rails'
 gem 'font-awesome-rails'
-gem 'friendly_id', '~> 5.2.4'
+gem 'friendly_id'
 gem 'fullcalendar-rails'
 gem 'geocoder'
-gem 'globalize' , '~> 5.2.0' #, git: 'https://github.com/globalize/globalize'
-gem 'activemodel-serializers-xml'
+# gem 'globalize', '~> 5.2.0' #, git: 'https://github.com/globalize/globalize'
 gem 'has_scope'
-gem 'httparty'
-gem 'http_accept_language'
 gem 'httmultiparty'
+gem 'http_accept_language'
+gem 'httparty'
 gem 'icalendar'
 gem "jquery-slick-rails"
 gem 'kaminari'
@@ -124,6 +118,7 @@ gem 'meta-tags'
 gem 'migration_data'
 gem 'mimemagic'
 gem 'mini_magick'
+gem 'mobility'
 gem 'momentjs-rails'
 gem 'multipart-post'
 gem 'nested_form'
@@ -131,9 +126,9 @@ gem 'net-ping'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
-gem 'omniauth-twitter'
 gem "omniauth-google-oauth2"
-gem "paranoia", '~> 2.4.0'
+gem 'omniauth-twitter'
+# gem "paranoia", '~> 2.4.0'
 gem 'pg_search'
 gem 'rack-utf8_sanitizer'
 gem 'rails-jquery-autocomplete'

@@ -12,10 +12,10 @@
   - if viewpoint.user == current_user
     = form_for [@event, @instance, viewpoint] do |bip|
       = link_to fa_icon('pencil') , '#',  onClick: 'return false;', id: "bip_userphoto_caption_#{viewpoint.id.to_s}"
-      = best_in_place [@event, @instance, viewpoint], :caption, as: :input, activator: "#bip_userphoto_caption_#{viewpoint.id.to_s}", place_holder: t(:no_caption)
+      = text_field_tag [@event, @instance, viewpoint], :caption, as: :input, activator: "#bip_userphoto_caption_#{viewpoint.id.to_s}", place_holder: t(:no_caption)
       %br/
       = link_to fa_icon('pencil') , '#', onClick: 'return false;',  id: "bip_userphoto_credit_#{viewpoint.id.to_s}"
-      %em= best_in_place [@event, @instance, viewpoint], :credit, as: :input, activator: "#bip_userphoto_credit_#{viewpoint.id.to_s}", place_holder: t(:no_photo_credit)
+      %em= text_field_tag [@event, @instance, viewpoint], :credit, as: :input, activator: "#bip_userphoto_credit_#{viewpoint.id.to_s}", place_holder: t(:no_photo_credit)
   - else
     - if viewpoint.caption
       %br/

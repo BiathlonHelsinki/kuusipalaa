@@ -79,7 +79,7 @@ class EventsController < ApplicationController
     #     params[:event][:remote_image_url] = idea.image.url.gsub(/development/, 'production')
     #   end
     # end
-    #  now, grab image on the server side and let them change it afterwards
+    #  now, grab image on the server side and lethem change it afterwards
     api = BiathlonApi.new
     success = api.api_post("/events", {user_email: current_user.email,   
       user_token: current_user.authentication_token, event: params[:event].permit!.to_hash} 
@@ -100,6 +100,7 @@ class EventsController < ApplicationController
     @events = []
     # @events += events.map{|x| x.instances.published}.flatten
     @events += Instance.calendered.published.between(params['start'], params['end']) if (params['start'] && params['end'])
+
     @events += Idea.active.timed.unconverted.between(params['start'], params['end']) if (params['start'] && params['end'])
     @events += Roombooking.between(params['start'], params['end']) if (params['start'] && params['end'])
     @events.uniq!

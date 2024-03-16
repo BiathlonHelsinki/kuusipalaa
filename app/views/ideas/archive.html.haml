@@ -1,0 +1,10 @@
+%article.ideas_index
+  - unless @ideas.select(&:active?).empty?
+    .row
+
+      .small-12.discussions
+        .header.text-center
+          = t :proposal_archive
+    .row.small-up-1.large-up-3.medium-up-2
+      - @ideas.each do |idea|
+        .columns= render partial: 'ideas/idea_index', locals: {idea: idea}

@@ -1,22 +1,22 @@
 class Post < ApplicationRecord
   belongs_to :user
-  translates :title, :body, :fallbacks_for_empty_translations => true
+  translates :title, :body
   extend FriendlyId
-  friendly_id :title_en , :use => [:slugged, :finders]
-  accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['title'].blank? || x['body'].blank? }
+  friendly_id :title_en, use: %i[slugged finders]
+  accepts_nested_attributes_for :translations, reject_if: proc { |x| x['title'].blank? || x['body'].blank? }
   before_save :update_image_attributes
   belongs_to :era
   before_save :check_published
   mount_uploader :image, ImageUploader
   has_many :activities, as: :item, dependent: :destroy
-  scope :published, -> () { where(published: true) }
-  scope :sticky, -> () { where(sticky: true) }
-  scope :stakeholders, -> () { where(only_stakeholders: true) }
-  scope :not_stakeholders, ->() { where(only_stakeholders: false)}
-  scope :not_sticky, -> () { where("sticky is not true") }
-  scope :front, -> () { where("hide_from_front is not true")}
+  scope :published, -> { where(published: true) }
+  scope :sticky, -> { where(sticky: true) }
+  scope :stakeholders, -> { where(only_stakeholders: true) }
+  scope :not_stakeholders, -> { where(only_stakeholders: false) }
+  scope :not_sticky, -> { where("sticky is not true") }
+  scope :front, -> { where("hide_from_front is not true") }
   after_create :update_activity_feed
-  scope :by_era, ->(era_id) { where(era_id: era_id)}
+  scope :by_era, ->(era_id) { where(era_id:) }
   validates_presence_of :era_id
 
   belongs_to :postcategory, optional: true
@@ -27,13 +27,13 @@ class Post < ApplicationRecord
 
   def as_mentionable
     {
-      created_at: self.created_at,
-      id: self.id,
-      slug: self.slug,
+      created_at: created_at,
+      id: id,
+      slug: slug,
       route: 'posts',
       image_url: '',
-      name:  self.title,
-      updated_at: self.updated_at
+      name: title,
+      updated_at: updated_at
     }
   end
 
@@ -48,7 +48,7 @@ class Post < ApplicationRecord
   def item
     self
   end
-  
+
   def name
     title
   end
@@ -60,6 +60,7 @@ class Post < ApplicationRecord
   def root_comment
     self
   end
+
   def discussion
     comments
   end
@@ -69,16 +70,16 @@ class Post < ApplicationRecord
   end
 
   def title_en
-    self.title(:en)
+    title_en
   end
 
   def category_text
     'news'
   end
+
   def check_published
-    if self.published == true
-      self.published_at ||= Time.now
-    end
+    return unless published == true
+    self.published_at ||= Time.now
   end
 
   def feed_date
@@ -86,19 +87,15 @@ class Post < ApplicationRecord
   end
 
   def update_activity_feed
-
-    Activity.create(user: user, contributor: user, item: self, description: "posted",  addition: 0)
-
-  end  
+    Activity.create(user: user, contributor: user, item: self, description: "posted", addition: 0)
+  end
 
   def update_image_attributes
-    if image.present? && image_changed?
-      if image.file.exists?
-        self.image_content_type = image.file.content_type
-        self.image_size = image.file.size
-        self.image_width, self.image_height = `identify -format "%wx%h" #{image.file.path}`.split(/x/)
-      end
-    end
+    return unless image.present? && image_changed?
+    return unless image.file.exists?
+    self.image_content_type = image.file.content_type
+    self.image_size = image.file.size
+    self.image_width, self.image_height = %x(identify -format "%wx%h" #{image.file.path}).split(/x/)
   end
 
   private
@@ -106,5 +103,4 @@ class Post < ApplicationRecord
   def should_generate_new_friendly_id?
     changed?
   end
-
 end

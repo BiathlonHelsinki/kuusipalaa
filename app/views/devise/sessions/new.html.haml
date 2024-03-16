@@ -10,40 +10,6 @@
         .form_stuff
           %p= t :existing_temporary_logins_work
 
-          = semantic_form_for(resource, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f|
-            .row
-              .small-6.medium-4.large-3.columns.text-center.option
-                = link_to '/users/auth/facebook' do
-                  = fa_icon 'facebook'
-                  %p Facebook
-              .small-6.medium-4.large-3.columns.text-center.option
-                = link_to '/users/auth/google_oauth2' do
-                  = fa_icon 'google'
-                  %p Google
-              .small-6.medium-4.large-3.columns.text-center.option
-                = link_to '/users/auth/twitter' do
-                  = fa_icon 'twitter'
-                  %p Twitter
-              .small-6.medium-4.large-3.columns.text-center.option
-                = link_to '/users/auth/github' do
-                  = fa_icon 'github'
-                  %p GitHub
-            .row#manual_login
-              .small-10.large-9.columns
-                %p
-                  = t(:sign_in_with_none)
-                  %br/
-                  = link_to t(:sign_up_with_email), '/users/sign_up',class:[:button, :tiny, :bordered]
-                #local_signin_form
-                  = semantic_form_for(resource, :url => session_path(resource_name), :html => {:class => 'form-vertical'}) do |f|
-                    = f.input :login, :label => t(:your_email)
-                    %label.label= t :password
-                    = f.password_field :password, autocomplete: "off"
-                    - if devise_mapping.rememberable?
-                      .field
-                        = f.check_box :remember_me
-                        = f.label :remember_me
-                    = f.submit t(:sign_in), :class => [:button, :radius]
-                    = link_to t(:forgot_your_password), '/users/password/new', class: [:button, :small, :forgot]
-                  %br/
-                  = link_to t(:didnt_receive_confirmation_email), '/users/confirmation/new', class: [:button, :small, :forgot, :bordered]
+
+          #local_signin_form
+            %em (Sign-in is disabled as Kuusi Palaa closed in 2018 and this site remains purely as an archive of these activities.)
