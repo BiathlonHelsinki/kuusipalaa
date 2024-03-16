@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :check_consents, if: :user_signed_in?
   before_action :check_alerts, if: :user_signed_in?
   before_action :check_refund, if: :user_signed_in?
+  self.page_cache_directory = :locale_cache_directory
 
   def clear_idcard_info
     authenticate_user!
@@ -185,5 +186,10 @@ class ApplicationController < ActionController::Base
     end
     return if last.blank?
     @collection_options.unshift(last)
+  end
+
+  def locale_cache_directory
+    page = params[:page]&.to_s || "1"
+    Rails.public_path.join('cache', I18n.locale.to_s, page)
   end
 end

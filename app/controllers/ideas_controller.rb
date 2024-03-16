@@ -1,5 +1,6 @@
 class IdeasController < ApplicationController
   before_action :authenticate_user!, except: %i[index show original_proposal archive]
+  caches_page :archive
 
   def calendar
     #  build month

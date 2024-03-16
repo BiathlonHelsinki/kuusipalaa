@@ -1,10 +1,10 @@
 class EventsController < ApplicationController
-
+  caches_page :show, :archive, :index
   before_action :authenticate_user!, except: [:calendar, :index, :archive, :fullcalendar]
 
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   
-  def index
+  def indexg
     @events = Instance.published.future.order(:start_at)
   end
 

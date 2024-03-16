@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   before_action :authenticate_stakeholder!, only: %i[stakeholders raha]
-
+  caches_page :index
   def raha
     @expenses = Expense.all.order(date_spent: :asc)
     @paid_stakes = Stake.paid

@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<meta content='origin-when-cross-origin' name='referrer'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<title>Kuusi Palaa</title>
+<link href='/icons/apple-touch-icon.png' rel='apple-touch-icon' sizes='180x180'>
+<link href='/icons/favicon-32x32.png' rel='icon' sizes='32x32' type='image/png'>
+<link href='/icons/favicon-16x16.png' rel='icon' sizes='16x16' type='image/png'>
+<link href='/icons/manifest.json' rel='manifest'>
+<link color='#5bbad5' href='/icons/safari-pinned-tab.svg' rel='mask-icon'>
+<meta content='#ffffff' name='theme-color'>
+<script src="/assets/jquery2.self-25ca496239ae8641a09627c8aace5863e7676e465fbb4ce81bc7eb78c4d15627.js?body=1"></script>
+<script src="/assets/jquery_ujs.self-a6375ab2b275439c922ac52b02a475d288976458aa11a6e8103c925ef2961f66.js?body=1"></script>
+<script src="/assets/foundation.core.self-4f457971ba9c2597b09f6a22a24331c38e7279daa591bd61b5bbf28876aa8fc3.js?body=1"></script>
+<script src="/assets/foundation.abide.self-679179bf3ee1902bc3fe7da64bbb2b731fa4df4a75901538ba55e7d25286313e.js?body=1"></script>
+<script src="/assets/foundation.accordion.self-8d244ceae0d451fcc15789a5e9e36ebed60650c8a9abbf5f9a126b6f327b6154.js?body=1"></script>
+<script src="/assets/foundation.accordionMenu.self-d9a7c97eb11b52fe305e71d2becbdfaf772722f9da6bd56ad24121919d5e43ca.js?body=1"></script>
+<script src="/assets/foundation.drilldown.self-1197ab1398f5a6e188d25902ca65cb079c5c769583801244c456e39aeb484876.js?body=1"></script>
+<script src="/assets/foundation.dropdown.self-c0e613ea4f5cf333f28aa6e97d54dcf6f739b7b95beed9175870525fbb190200.js?body=1"></script>
+<script src="/assets/foundation.dropdownMenu.self-386455a3346e601e0a524f9de7e5146e73ef63055ba5394290f5f9a3a2cb74d7.js?body=1"></script>
+<script src="/assets/foundation.equalizer.self-7221ea2a8fba1b3495851e00b58ade3f76ce11a8230ab5cf9ca81a39e7eadd4e.js?body=1"></script>
+<script src="/assets/foundation.interchange.self-be09943d6d46443136cd84ffda8b5b8a008db8355c144097949fcaf7d5289a56.js?body=1"></script>
+<script src="/assets/foundation.magellan.self-789eaceb55bd54bd0ed8fea6adf2b18c21464581b0e95eaa8a5aff1130208b2d.js?body=1"></script>
+<script src="/assets/foundation.offcanvas.self-9ce0609e0e4404d19bde3425bf63955c74836aa9f0772d9b7e26ab731c1f2e8c.js?body=1"></script>
+<script src="/assets/foundation.orbit.self-a127e190c8224d789844ee10a7c4123fe5aef28bc5bf75e9e185b3e098651078.js?body=1"></script>
+<script src="/assets/foundation.responsiveMenu.self-c16f1dc4c3fa8e4881e116d1072642a8f0d53db8725994fd5a32f5cab1a30991.js?body=1"></script>
+<script src="/assets/foundation.responsiveToggle.self-e997867128d1cc2b0268d6d8a0b3d1d4acdd8b18481dbcc50e8c41b06dea77d1.js?body=1"></script>
+<script src="/assets/foundation.reveal.self-958c10cf13f0fa316d5753a6c03b7e1c6c76819b5978cefa85df960856744a98.js?body=1"></script>
+<script src="/assets/foundation.slider.self-130c3657134bb131ceec80b3553bfe98731d170c5b6b89506f7aeca0934bf3ab.js?body=1"></script>
+<script src="/assets/foundation.sticky.self-6132d9675d96d8eb9d6426a329ba49a9c70756620079fcf1e9dc0509d710ff3b.js?body=1"></script>
+<script src="/assets/foundation.tabs.self-76b83dbeb1a526b713949431c11539c4f15ea95620a32b357452afb4e969778d.js?body=1"></script>
+<script src="/assets/foundation.toggler.self-32c8ba5ef7c4612d3cf417a6fb5ff296ee2fc8a1778995f4571c5ca3aed7c1a5.js?body=1"></script>
+<script src="/assets/foundation.tooltip.self-34253627e75f9473117d9e2f269e29eb8871e50679a25ee82736fb52acf0f65a.js?body=1"></script>
+<script src="/assets/foundation.util.box.self-29f7cbc36d64afedbf3295384f579c067ee4a6107059d25041cf9c2ffbdac287.js?body=1"></script>
+<script src="/assets/foundation.util.keyboard.self-4a273ab1fd2edf1b86d3e772465bff74a28c721021c719eb48de76cf9a220d9c.js?body=1"></script>
+<script src="/assets/foundation.util.mediaQuery.self-f587619a109ff8be49d8eacb95b733d75cbdcc9819a19ce8c2af1be48e65524b.js?body=1"></script>
+<script src="/assets/foundation.util.motion.self-65f3e3cc6f7990ae5a0d964eb90d626e0a5486508a11487145ba14aa4b2a2e78.js?body=1"></script>
+<script src="/assets/foundation.util.nest.self-10050c8cffe586f45b7cb4570a5aa0d498e566ac981f4e494bd42246b4daafc7.js?body=1"></script>
+<script src="/assets/foundation.util.timerAndImageLoader.self-0cb4d35725065a9a79f69d241210298190b5f1e134522d565a872f984e1e26b8.js?body=1"></script>
+<script src="/assets/foundation.util.touch.self-95e098450fe69653246bdfa7f1e7fe7dba15348524771d7b2c54c7c4298fccb5.js?body=1"></script>
+<script src="/assets/foundation.util.triggers.self-4fef1a2bcee50931073341abc76d0747ace3559d818342a079c07c54e27f8add.js?body=1"></script>
+<script src="/assets/foundation.zf.responsiveAccordionTabs.self-1cd003cd23ec70291aa4b3ee3c46097d1fddb74afe524d057af1339b0251bdc9.js?body=1"></script>
+<script src="/assets/foundation.self-5ecf2f4d83e6260dabd6ec48e76d8ddebccf956563f34072221bf960d3b8c255.js?body=1"></script>
+<script src="/assets/foundation-datetimepicker.self-8fd842ec728ed28e73861ba47ec7b65307812758007221881d18efe477ac0c40.js?body=1"></script>
+<script src="/assets/jquery-ui/version.self-c8e3d1203da26ea7efdf83c1eabb3f0ba55cb68e463f5ccf0d77bd15ce6a8e61.js?body=1"></script>
+<script src="/assets/jquery-ui/keycode.self-ad63cd20acf49dd333bbbc537454d7d475bd610eb5b88de0dca009f0c3d314b1.js?body=1"></script>
+<script src="/assets/jquery-ui/position.self-1b49c8c521e67a4a88bfdad6b4d944d33686d25009a0e40a1e170acdd7b6962a.js?body=1"></script>
+<script src="/assets/jquery-ui/safe-active-element.self-a1f1a1a7dae3269ce03f6fffb2dcc9b4a7490f5d546c65d54417bec3be24b668.js?body=1"></script>
+<script src="/assets/jquery-ui/unique-id.self-66e85ac85cd0b6b8b1bb89369fc65f608f716869dc0930862a8d421a57a9580a.js?body=1"></script>
+<script src="/assets/jquery-ui/widget.self-fca20bcec06d192f97cffa6e734e24360e227237b8ae7d7e7e60754df7d5444f.js?body=1"></script>
+<script src="/assets/jquery-ui/widgets/menu.self-0730fe713007bd93e6db569352a20ed92448299505ff6f525bc0dc6dd488254e.js?body=1"></script>
+<script src="/assets/jquery-ui/widgets/autocomplete.self-6a89d7a43741ec810ef95de143a7c0297e2e4368ebecff64493ebb7a9ac3a524.js?body=1"></script>
+<script src="/assets/autocomplete-rails.self-57838fdcf57f8cf839c242cb5b0748ecabf77d98afc714f336b6f68d5f7051e7.js?body=1"></script>
+<script src="/assets/jquery.mentionable.self-45195a73c9ae0ac335652b928f6a37e5f52b88d272daa378ba54e4394af75a63.js?body=1"></script>
+<script src="/assets/jquery.scrollTo.min.self-785b57931395045cf4c8cad5c625fb0977c8ebaddc29c74c172a3136b18cb36e.js?body=1"></script>
+<script src="/assets/jquery.timepicker.min.self-b6a9954fd4c1b0fb2f8f79c8799eb77680887bde2bb1fd2194c3967a9abee193.js?body=1"></script>
+<script src="/assets/readmore.min.self-17be06b0b29e351cb774898afbe3c731d126a6e8c7be7db6f69b25796eccb252.js?body=1"></script>
+<script src="/assets/fittext.self-abe5071b8f0af1501250f665a40d72159f2cf9f5ca252b02d845d97a617c1e77.js?body=1"></script>
+<script src="/assets/jquery.slick.self-d7649569c1d2fabc729e5e594fe12962859610d937af9a8d53815238ddf2ecd3.js?body=1"></script>
+<script src="/assets/js.cookie.self-d998fdf85439dfbfa4de9b5249751ff576922278cd1892d8c82e863246481950.js?body=1"></script>
+<script src="/assets/cookies_eu.self-e637cff5f790cfff14a9ad779dddd4a8ae20d92aac9af0d2c3fda36b18a55617.js?body=1"></script>
+<script src="/assets/moment.self-c33f09a4e1230f3075be8d2a94081108d52f62d3c30b9a238941fe80790267c6.js?body=1"></script>
+<script src="/assets/moment-precise-range.self-48a6a29acfa5a3582d51e87437ac6b1fb60cbf28e907ca4f49deac67315d5e88.js?body=1"></script>
+<script src="/assets/fullcalendar.self-e9ae1b2c551f2f852ffbb704ecc1e434ee9bbc2cda72ea67fa3631cdace57650.js?body=1"></script>
+<script src="/assets/jquery.idle.min.self-70569b7b520d05512bf300d299149aff4d611dc3e6b3a3791be4fce572bd34a9.js?body=1"></script>
+<script src="/assets/points.self-09859c41a27874c637e9eb2e225c084947cb6b710388014a28924b8d4d6b3d1f.js?body=1"></script>
+<script src="/assets/magnific-popup.self-bdc5c9e27ec325cfb8a4f1a864f747ecbd9ea78f2cca1d25295bbfea5e4baa0c.js?body=1"></script>
+<script src="/assets/lib/abstract-chosen.self-ff43f2db4e91fea824844eb4d37566bc7248e435c3ea7050d7a252c1c14e4d9a.js?body=1"></script>
+<script src="/assets/lib/select-parser.self-16f32cef24f1cae19e8b5f5dab3ac72e6fb35ce24fe5ae41d354d60f9bb53491.js?body=1"></script>
+<script src="/assets/chosen.jquery.self-c1b0ad79c75d520f72310f2594a76189b7c6e407c035a9a4c9022dff262b49a5.js?body=1"></script>
+<script src="/assets/chosen-jquery.self-6a3cf5192354f71615ac51034b3e97c20eda99643fcaf5bbe6d41ad59bd12167.js?body=1"></script>
+<script src="/assets/jquery_nested_form.self-d38045d10ebdd28aac44152cb451796232091957b86b47bedad1ab171a3a12cd.js?body=1"></script>
+<script src="/assets/admin.self-545c38b0922de19734fbffde62792c37c2aef6a3216cfa472449173165220f7d.js?body=1"></script>
+<script src="/assets/action_cable.self-1babf87a5e189915e19d8b5dfb5127e6d0cdf8dda62f1435fa9e7a3eb7272a0b.js?body=1"></script>
+<script src="/assets/cable.self-8484513823f404ed0c0f039f75243bfdede7af7919dda65f2e66391252443ce9.js?body=1"></script>
+<script src="/assets/charges.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1"></script>
+<script src="/assets/imagesloaded.pkgd.min.self-c1e2fc3a9c836dfbd521b34d4fb53b43124e1c30d58fa30af57bb6e04188a932.js?body=1"></script>
+<script src="/assets/masonry.pkgd.min.self-777bbf82c04e4c7d7ab9c5f50affd7eade5aa10470e686ba78e67ee82ee0fb4f.js?body=1"></script>
+<script src="/assets/application.self-abc9b2f334dc7ff37c26ad42d22badca7488028c26fcec47fa089a7da00f3f69.js?body=1"></script>
+<link rel="stylesheet" href="/assets/application.self-3232389041bd870e7352cb5ece8a6d918cb970a68da56d175d6f8d99c18126d2.css?body=1" />
+<link rel="stylesheet" href="/assets/experiment2.self-21df4410deb1a4525bf738c4589182fef94620fe5e0a91850a0c6d9a1f121487.css?body=1" />
+<link rel="stylesheet" href="/assets/kuusipalaa.self-24f408bb5e11b02d170ed876b399357bdc2c6cda93d04a1308a574f78e152818.css?body=1" />
+<link rel="stylesheet" href="/assets/frontpage.self-628d532da318e12e1f390702226c7de5fb2c336efe85a0cc225630acc1125a23.css?body=1" />
+<link rel="stylesheet" href="/assets/jquery.mentionable.self-caa5e614fc3f7dcfbd561f68e1a27e04c1b28837be72baae508bd0da353ea058.css?body=1" />
+<link rel="stylesheet" href="/assets/font-awesome.self-81b5ee5187f62f891cbaad0f9368cd410c665ce19bdbd0025d70b0c5a2010105.css?body=1" />
+<link rel="stylesheet" href="/assets/jquery-ui/theme.self-830c3407ba1359ea36eee978235be14de5b78dacfa658a31226fe4f2b0faa7e7.css?body=1" />
+<link rel="stylesheet" href="/assets/jquery-ui/autocomplete.self-f0b810a4a7bb8c90994675d7c5bfe636d615a5785cf81cae3340aa5e6adc55ca.css?body=1" />
+<link rel="stylesheet" href="/assets/mobile.self-cd500e626be853aa85d19dca0b3b140157eb84b69aaf510b98750ad54ceb6345.css?body=1" />
+<link rel="stylesheet" href="/assets/fullcalendar.self-1c0cfdf0ee24166bfa81ecf1de593822dc0423fe77a68c045fa02cfe57b8ab8b.css?body=1" />
+<link rel="stylesheet" href="/assets/calendar_overrides.self-3b7a2ee90c68410879babe6823228351abbbde7f4c64bfed6b44e747d30d622d.css?body=1" />
+<link rel="stylesheet" href="/assets/jquery.timepicker.self-2d385da55b86dff0c7514007841a085f9623f644ad2aae6b6149caaf5f2898cd.css?body=1" />
+<link rel="stylesheet" href="/assets/ideas.self-fbe32bb5f5be0b8a895c97dadf1b481f25b02423de376f8e47e0a6d77c5c829e.css?body=1" />
+<link rel="stylesheet" href="/assets/event.self-a9d32dce5b224549c45e73b38230f7be6944b6bbba6cfe37ee03cd32eaeeaf94.css?body=1" />
+<link rel="stylesheet" href="/assets/magnific-popup.self-88ca22f427eb036ac1bf328a84a297e15c0c43e0e7ee9f922b7b5da09bb69583.css?body=1" />
+<link rel="stylesheet" href="/assets/activities.self-5019f725c632635a0769d4a1de7014b3d5176d1e9e09c39455d49f91aec75807.css?body=1" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="HfrtA5-49DShWYqcs_k8RD7m7boR9m_EuJKJOAK0EgHLm41QTH9sa1kUnio3Ukc2fQOgbcCF4ohHHNOfnzjbZw" />
+</head>
+<body class='frontpage'>
+<header>
+<div class='row'>
+<div class='small-12 columns icons text-right'>
+<a href="mailto:info at kuusipalaa.fi"><i class="fa fa-envelope"></i></a>
+<a href="https://twitter.com/search?q=%23KuusiPalaa&amp;src=typd"><i class="fa fa-twitter"></i></a>
+<a href="https://www.facebook.com/groups/375784559552164/"><i class="fa fa-facebook"></i></a>
+|
+<a href="/?locale=fi">FIN</a>
+ENG
+</div>
+</div>
+<div class='row'>
+<div class='top-bar small-12 columns lessmargins'>
+<div class='top-bar-left'>
+<div class='tagline'>a decentralised cultural venue in Helsinki</div>
+</div>
+<div class='top-bar-right user_menu'>
+<div class='buttons'>
+<a href="/users/sign_in">Sign in</a>
+<ul class='dropdown drilldown menu' data-alignment='left' data-dropdown-menu='' id='generic_dropdown_menu'>
+<li>
+<a href="#">Menu</a>
+<ul class='vertical menu'>
+<li><a href="/events/kuusi-palaa/kuusi-palaa-season-1">Visit Kuusi Palaa</a></li>
+<li><a href="/events/calendar">Event calendar</a></li>
+<li><a href="/activities">What&#39;s happening</a></li>
+<li><a href="/pages/questions-and-answers">Questions &amp; Answers</a></li>
+<li><a href="/ideas/archive">All proposals</a></li>
+<li><a href="/roombookings">Book the back room</a></li>
+<li><a href="/seasons/2/stakes/new">Join the cooperative</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+<br clear='all'>
+</div>
+</div>
+</div>
+</header>
+<article class='headline'>
+<div class='row'>
+<div class='small-12 columns title false'>
+<div class='text-center' id='kp_headline'>KUUSI PALAA</div>
+<div class='banner_blurb'>
+<a href="/events/kuusi-palaa/kuusi-palaa-season-1">is permanently closed.
+</a>KP operated in spring 2018 and this site remains as an archive of the activities.
+</div>
+</div>
+</div>
+</article>
+<article>
+<div class='row front_box promo_image'>
+<div class='small-12 columns small-centered text-center'>
+<div class='banner_blurb'>is a 24/7 space for events and free use, collectively operated</div>
+</div>
+</div>
+</article>
+<article>
+<div class='row front_box'>
+<a target="_blank" href="/posts/kuusi-palaa-closes-on-30-june"><div class='small-12 columns small-centered text-center'>
+<div class='banner_blurb'>
+Kuusi Palaa closes on 30 June
+</div>
+<div class='smaller'><p>The Kuusi Palaa project will end after only one season. The space will remain open for events &amp;&nbsp;free use as normal, until the end of June. A cooperative annual/final meeting will be announced soon and held in July, during which time the cooperative will be dissolved and leftover money (after closing costs) returned.</p>
+</div>
+</div>
+</a></div>
+</article>
+<article>
+<div class='row front_box'>
+<div class='small-12 columns small-centered text-center'>
+<div class='banner_blurb'>
+Season #1
+: 
+1 March — 30 June 2018
+</div>
+</div>
+</div>
+</article>
+<div class='row article_slider' data-equalize-on='medium' data-equalizer=''>
+<div class='columns small-12 medium-6 large-4 left_adjust'>
+<a href="/announcements/this_week"><div class='lifted_box feed' data-equalizer-watch=''>
+<div class='banner2_title'>
+This week at Kuusi Palaa
+</div>
+<div class='banner2_blurb'>
+Here is what is happening this week at Kuusi Palaa.
+Kuusi Palaa is located at Kolmas linja 7, in Kallio. You can visit and use Kuusi Palaa any time it is open - please check www.kuusipalaa.fi to see if it&#39;s open at any given moment.
+...
+</div>
+</div>
+</a></div>
+<div class='columns small-12 medium-6 large-4 left_adjust'>
+<a href="/ideas/eastern-somatics-tao-of-the-body"><div class='lifted_box feed' data-equalizer-watch='' style='background: url(&#39;/assets/kp_front_jazz.jpg&#39;) left top;'>
+<div class='banner2_title'>
+proposal
+: 
+EASTERN SOMATICS: Tao of the body
+<div class='description'>Viikonloppu kurssi, jossa yhdistetään meditaatiota ja kehotietoista liikettä (somatiikkaa), ja huomioidaan liikkeen suhde ympäristöön sekä muihin kehoihin.</div>
+<div class='proposed_by_front'>
+Proposed by Ilmari Kortelainen
+ for 24 Nov
+&mdash;
+2050ᵽ still needed
+</div>
+</div>
+<div class='banner2_blurb'>
+<div class='overlay'>
+<p>EASTERN SOMATICS <br />Tao of the body</p> <p>Everything is moving all the time. Wind is blowing, trees and plants are growing, blowing wind moves the leaves of a tree. Somebody lives in that leaf. Newly built architectures change the structure of a city. Microbes live in our body, new families, tribes, societies are born. What is the nature of human? What...</p>
+</div>
+</div>
+</div>
+</a></div>
+<div class='small-12 medium-6 large-4 columns left_adjust'>
+<a href="/ideas/new"><div class='lifted_box invert' data-equalizer-watch=''>
+<div class='banner2_title'>Organise an event</div>
+<div class='banner2_blurb'>
+You can propose a public event for the Kuusi Palaa programme, or book the back room for a private meeting or small event.
+</div>
+</div>
+</a></div>
+</div>
+<div class='row calendar_container' data-equalizer='upper'>
+<div class='small-12 large-8 columns calendar_list' data-equalizer-watch='upper'><div class='heading'>
+<div class='row'>
+<div class='small-6 columns'>
+<div id='day_of_week'>Saturday</div>
+<div id='date_in_question'>16.3.2024</div>
+</div>
+<div class='small-4 columns'>
+<a href="/events/calendar"><div class='front_button text-center white thin small'>
+See full calendar
+</div>
+</a></div>
+</div>
+</div>
+<div class='body'>
+No events
+<div class='button_row'>
+<div class='row'>
+<div class='small-5 columns'>
+<a href="/ideas/new"><div class='front_button text-center'>
+Propose a public event
+</div>
+</a></div>
+<div class='small-5 columns end'>
+<a href="/roombookings"><div class='front_button text-center'>
+Book the private room
+</div>
+</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class='small-12 columns large-4 minicalendar' data-equalizer-watch='upper'>
+<div id='calendar_grid'></div>
+</div>
+</div>
+<div class='proposal_activity_box row'>
+<div class='small-12 large-6 columns proposal_list'>
+<div class='title'><a href="/ideas">Recent proposals</a></div>
+<div class='body'>
+<div class='proposal_row'>
+<a href="/ideas/eastern-somatics-tao-of-the-body"><div class='icon'>
+<i class="fa fa-clipboard"></i>
+</div>
+<div class='name'>EASTERN SOMATICS: Tao of the body</div>
+</a></div>
+<br>
+<br>&nbsp;</br>
+<div class='button_row'>
+<div class='row'>
+<div class='small-7 columns'>
+<a href="/ideas"><div class='front_button text-center'>
+See all proposals
+</div>
+</a></div>
+</div>
+</div>
+</div>
+</div>
+<div class='small-12 large-6 columns activity_feed'>
+<div class='title activities'><a href="/activities">Latest activities at Kuusi Palaa</a></div>
+<div class='activities_index'>
+<div class='row activity_row user activity' data-equalize-on='small' data-equalizer='activity' id='activity_8640'>
+<div class='small-2 medium-1 column icon_class' data-equalizer-watch='activity'>
+<img width="32" src="/assets/activities/icon-profile-902440c706f5aa6f0db731992f3d1c0171589666c1eb9bca7c49db0352d3d56b.png" />
+</div>
+<div class='small-10 medium-11 columns activity_box_wrapper' data-equalizer-watch='activity'>
+<div class='activity_box'>
+<div class='row flex'>
+<div class='columns icon'><img src="/icons/user_missing.png" />
+</div>
+<div class='columns content'>
+<div class='inner_wrapper'><a target="_blank" href="/users/silpol-1">silpol-1</a>
+joined!
+</div>
+</div>
+<div class='columns tally text-right'><div class='clock'>
+<img width="20" src="/assets/activities/icon-clock-a992387f64643eee324c8e5f0bc004abf3a8f76703f807bf305f4c5603aa6aed.png" />
+14 December 2022 13:39
+</div>
+<br>
+&nbsp;
+<br>
+<br>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='row activity_row user activity' data-equalize-on='small' data-equalizer='activity' id='activity_8639'>
+<div class='small-2 medium-1 column icon_class' data-equalizer-watch='activity'>
+<img width="32" src="/assets/activities/icon-profile-902440c706f5aa6f0db731992f3d1c0171589666c1eb9bca7c49db0352d3d56b.png" />
+</div>
+<div class='small-10 medium-11 columns activity_box_wrapper' data-equalizer-watch='activity'>
+<div class='activity_box'>
+<div class='row flex'>
+<div class='columns icon'><img src="/icons/user_missing.png" />
+</div>
+<div class='columns content'>
+<div class='inner_wrapper'><a target="_blank" href="/users/nancyyy">nancyyy</a>
+joined!
+</div>
+</div>
+<div class='columns tally text-right'><div class='clock'>
+<img width="20" src="/assets/activities/icon-clock-a992387f64643eee324c8e5f0bc004abf3a8f76703f807bf305f4c5603aa6aed.png" />
+14 April 2021 12:00
+</div>
+<br>
+&nbsp;
+<br>
+<br>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='row activity_row user activity' data-equalize-on='small' data-equalizer='activity' id='activity_8638'>
+<div class='small-2 medium-1 column icon_class' data-equalizer-watch='activity'>
+<img width="32" src="/assets/activities/icon-profile-902440c706f5aa6f0db731992f3d1c0171589666c1eb9bca7c49db0352d3d56b.png" />
+</div>
+<div class='small-10 medium-11 columns activity_box_wrapper' data-equalizer-watch='activity'>
+<div class='activity_box'>
+<div class='row flex'>
+<div class='columns icon'><img src="/icons/user_missing.png" />
+</div>
+<div class='columns content'>
+<div class='inner_wrapper'><a target="_blank" href="/users/deadman">Deadman</a>
+joined!
+</div>
+</div>
+<div class='columns tally text-right'><div class='clock'>
+<img width="20" src="/assets/activities/icon-clock-a992387f64643eee324c8e5f0bc004abf3a8f76703f807bf305f4c5603aa6aed.png" />
+14 April 2021 11:42
+</div>
+<br>
+&nbsp;
+<br>
+<br>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='row activity_row user activity' data-equalize-on='small' data-equalizer='activity' id='activity_8635'>
+<div class='small-2 medium-1 column icon_class' data-equalizer-watch='activity'>
+<img width="32" src="/assets/activities/icon-profile-902440c706f5aa6f0db731992f3d1c0171589666c1eb9bca7c49db0352d3d56b.png" />
+</div>
+<div class='small-10 medium-11 columns activity_box_wrapper' data-equalizer-watch='activity'>
+<div class='activity_box'>
+<div class='row flex'>
+<div class='columns icon'><img src="/icons/user_missing.png" />
+</div>
+<div class='columns content'>
+<div class='inner_wrapper'><a target="_blank" href="/users/aukia">aukia</a>
+joined!
+</div>
+</div>
+<div class='columns tally text-right'><div class='clock'>
+<img width="20" src="/assets/activities/icon-clock-a992387f64643eee324c8e5f0bc004abf3a8f76703f807bf305f4c5603aa6aed.png" />
+28 September 2018 16:44
+</div>
+<br>
+&nbsp;
+<br>
+<br>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<article class='divider'>
+<div class='row'>
+<div class='small-12 columns'>&nbsp;</div>
+</div>
+</article>
+<article id='supporters_banner'>
+<div class='row'>
+<div class='small-12 columns lessmargins right_adjust bordered text-center'>
+Kuusi Palaa funders and supporters
+<br>
+<ul class='horizontal text-center'>
+<li class='supporter_selector active season' id='season_1'><a data-remote="true" href="/home/funders_update?season_id=1">Season #1</a></li>
+<li class='supporter_selector season' id='season_2'><a data-remote="true" href="/home/funders_update?season_id=2">#2 (which did not happen)</a></li>
+</ul>
+</div>
+</div>
+<div class='row'>
+<div class='small-12 columns lessmargins right_adjust funders_and_supporters'><div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/32/thumb_IMG_8650.PNG) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/andreuchis">Andrea Botero (andreuchis)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/5/thumb_foto_juan.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/juanca">JuanCa</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/matti-luokkanen">Matti Luokkanen</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/pjvdamme">pjvdamme</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/574/thumb_34728_470514269812_2699268_n.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/teemu-leinonen">Teemu Leinonen</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/sami-keto">sami.keto</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/264/thumb_11017167_10153104230000804_8572472440469038031_n.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/matti">Matti Niinimäki (Matti)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/581/thumb_Screen_Shot_2018-01-25_at_19.03.41.png) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/amv-1">amv-1</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/58/thumb_13336133_1726025084337002_7830886817317700043_n.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/derek-holzer-1">Derek Holzer</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/tanja-tiekso-1">Tanja Tiekso</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/4/thumb_bruce_dusjagr_bird.png) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/dusjagr">Dusjagr</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/600/thumb_seal_tuuli.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/tuuli">tuuli</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/2/thumb_406322dc3fd3baf7539d73faafe8_w899_h1165_g1a3ffd4c89c411e4833a0025900fea04.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/agnes_pockels-1">Agnieszka Pokrywka (agnes_pockels)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/203/thumb_sample-out.png) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/kimmoal">kimmoal</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/203/thumb_sample-out.png) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/kimmoal">kimmoal</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/kalhama-max">kalhama.max</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/204/thumb_10256087_10152440267965569_3896383531222927612_o.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/ava-grayson">Ava Grayson</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/204/thumb_10256087_10152440267965569_3896383531222927612_o.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/ava-grayson">Ava Grayson</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/annastinajungerstam">Anna-Stina Jungerstam (annastinajungerstam)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/280/thumb_Foto_mariana_web.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/mariana-salgado-1">mariana.salgado</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/487/thumb_06-flip.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/yanka">yanka</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/tuukka_s">Tuukka_S</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/mika-le-gall">Mika Le Gall</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/235/thumb_894db7cc233f2535c1c427022fd70e5f.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/jonald-dunn">jonald dunn</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/84/thumb_IMG_1013.JPG) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/guttula">Juha Kivekäs (Guttula)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/84/thumb_IMG_1013.JPG) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/guttula">Juha Kivekäs (Guttula)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/84/thumb_IMG_1013.JPG) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/guttula">Juha Kivekäs (Guttula)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/84/thumb_IMG_1013.JPG) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/guttula">Juha Kivekäs (Guttula)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/aaltonen">aaltonen</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/146/thumb_faces7.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/violetpiascik">Wioletta Anna Piascik (violetpiascik)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/342/thumb_mySign.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/lfsaw">LFSaw</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/15/thumb_am241_icon.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/erich-berger">Erich Berger</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/13/thumb_IMG_1334.JPG) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/kata_meister">Katarina Meister (Kata_Meister)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/46/thumb_IMG_7996.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/untitledbodies">Kira O&#39;Reilly (Untitledbodies)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/jlu">jlu</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/buxe-1">buxe</a>
+</div>
+</div>
+<div class='stake_box paid organisation' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/3/thumb_logo_new.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/bioartsociety">Bioartsociety</a>
+</div>
+</div>
+<div class='stake_box paid organisation' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/3/thumb_logo_new.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/bioartsociety">Bioartsociety</a>
+</div>
+</div>
+<div class='stake_box paid organisation' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/3/thumb_logo_new.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/bioartsociety">Bioartsociety</a>
+</div>
+</div>
+<div class='stake_box paid organisation' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/3/thumb_logo_new.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/bioartsociety">Bioartsociety</a>
+</div>
+</div>
+<div class='stake_box paid organisation' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/3/thumb_logo_new.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/bioartsociety">Bioartsociety</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/hector">hector</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/1/thumb_9dd739cd32cfeaa1bcecd42ecaa49e1c--silhouette-design-silhouette-cameo.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/biathlon">Biathlon dev team</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/1/thumb_9dd739cd32cfeaa1bcecd42ecaa49e1c--silhouette-design-silhouette-cameo.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/biathlon">Biathlon dev team</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/1/thumb_9dd739cd32cfeaa1bcecd42ecaa49e1c--silhouette-design-silhouette-cameo.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/biathlon">Biathlon dev team</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/1/thumb_9dd739cd32cfeaa1bcecd42ecaa49e1c--silhouette-design-silhouette-cameo.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/biathlon">Biathlon dev team</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/donny">Donny</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/4/thumb_scceye.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/secret-comedy">Secret Comedy</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/4/thumb_scceye.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/secret-comedy">Secret Comedy</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/anuella">anuella</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/599/thumb_14908335_676673375844083_5382294560003573879_n.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/luis-celomundo">Luis Celomundo</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/579/thumb_MIR_1253-2.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/kristiina-ullgren">Kristiina Ullgrén (kristiina.ullgren)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/628/thumb_Helsinki_9__1_.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/kevin-pollard">Kevin Pollard</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/bleadof">bleadof</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/55/thumb_Scott_Elliott.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/scottandreweliott">scottandreweliott</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/55/thumb_Scott_Elliott.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/scottandreweliott">scottandreweliott</a>
+</div>
+</div>
+<div class='stake_box paid organisation' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/14/thumb_pf_twitter_logo.png) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/pareconfinland">Parecon Finland</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/bea">bea</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/1/thumb_TOMASELLI_Starling_2010_JCG4694.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/hyksos">hyksos</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/olli">Olli Leppanen (olli)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/liisa-risu">Liisa Korpiniitty (Liisa Risu)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/katariinapie">katariinapie</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/thomas-office">thomas.office</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/40/thumb_owen_90x120.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/owen">Owen</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/40/thumb_owen_90x120.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/owen">Owen</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/eevabee">eevabee</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/eevabee">eevabee</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/297/thumb_89.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/sasha-k-1">Sasha K</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/viljarautio">viljarautio</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/katie-lenanton">katie.lenanton</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/341/thumb_2014_insta_sonne.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/laura3000">Laura3000</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/617/thumb_ftaiyo_logouus_musta.png) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/fiktiivinen-taideyliopisto">Fiktiivinen Taideyliopisto</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/39/thumb_bio.jpeg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/bhowmik-samir-r">Samir Bhowmik (bhowmik.samir.r)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-informal_group-2a16fabf83400ae5635f7361fb613cd408a2570129e6358d95b31c7674345e22.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/ak-ap">Anna Kholina + Andrew Paterson.</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/olga-zamurovic">Olga Zamurovic</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/edina-bilajac">Edina Bilajac</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/nicolette-slagle">nicolette.slagle</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/68/thumb_01cuteoff.ngsversion.1463421953353.adapt.1900.1.jpg) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/firstcoffee">firstCoffee</a>
+</div>
+</div>
+<div class='stake_box paid organisation' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/11/thumb_pixelache-x_150x150.png) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/pixelache">Piknik Frequency ry (Pixelache Helsinki)</a>
+</div>
+</div>
+<div class='stake_box paid organisation' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/11/thumb_pixelache-x_150x150.png) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/pixelache">Piknik Frequency ry (Pixelache Helsinki)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/588/thumb_6palaa.PNG) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/olli-laine">Olli Laine</a>
+</div>
+</div>
+<div class='stake_box paid organisation' style='background: url(/assets/front/icon-formal_group-c73e942be3b2190b2c47d7603fae6a1e1bf0e3f304da22f4534edbc71e6fba4d.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/aanen-lumo">Äänen Lumo ry</a>
+</div>
+</div>
+<div class='stake_box paid organisation' style='background: url(/assets/front/icon-formal_group-c73e942be3b2190b2c47d7603fae6a1e1bf0e3f304da22f4534edbc71e6fba4d.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/aanen-lumo">Äänen Lumo ry</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/miga">miga</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(https://biathlon-production.s3.wasabisys.com/images/user/avatar/26/thumb_IMG_2850.JPG) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/users/http-boomedan-tumblr-com">http://boomedan.tumblr.com</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/tuomo-tammenpaa">Tuomo Tammenpää (tuomo.tammenpaa)</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/cadetblue">cadetblue</a>
+</div>
+</div>
+<div class='stake_box paid organisation' style='background: url(https://biathlon-production.s3.wasabisys.com/images/group/avatar/13/thumb_Copy_of_tsb_new_logo.png) center center no-repeat;'>
+<div class='overlay'>
+<a target="_blank" href="/groups/tsb">The Science Basement Ry</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/aahonen-1">aahonen</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/tlindi">tlindi</a>
+</div>
+</div>
+<div class='stake_box paid' style='background: url(/assets/front/icon-single_person-89c1a11d240ad2d46379eacec86de3588f23a39c74ff0756e498da2e4ca276cd.jpg) center center no-repeat; background-size: contain;'>
+<div class='overlay'>
+<a target="_blank" href="/users/haasalmi">haasalmi</a>
+</div>
+</div>
+<a href="/seasons/1/stakes/new"><div class='stake_box grey'>
+<div class='overlay'>Book a stake!</div>
+</div>
+</a><a href="/seasons/1/stakes/new"><div class='stake_box grey'>
+<div class='overlay'>Book a stake!</div>
+</div>
+</a><a href="/seasons/1/stakes/new"><div class='stake_box grey'>
+<div class='overlay'>Book a stake!</div>
+</div>
+</a><a href="/seasons/1/stakes/new"><div class='stake_box grey'>
+<div class='overlay'>Book a stake!</div>
+</div>
+</a><a href="/seasons/1/stakes/new"><div class='stake_box grey'>
+<div class='overlay'>Book a stake!</div>
+</div>
+</a><a href="/seasons/1/stakes/new"><div class='stake_box grey'>
+<div class='overlay'>Book a stake!</div>
+</div>
+</a><a href="/seasons/1/stakes/new"><div class='stake_box grey'>
+<div class='overlay'>Book a stake!</div>
+</div>
+</a><a href="/seasons/1/stakes/new"><div class='stake_box grey'>
+<div class='overlay'>Book a stake!</div>
+</div>
+</a><a href="/seasons/1/stakes/new"><div class='stake_box grey'>
+<div class='overlay'>Book a stake!</div>
+</div>
+</a></div>
+</div>
+</article>
+
+
+<footer>
+<div class='row'>
+Kuusi Palaa is powered by Biathlon.
+<span class='divider'></span>
+<a href="https://github.com/BiathlonHelsinki/"><i class="fa fa-github"></i></a>
+<br>
+<small>
+<a href="/pages/questions-and-answers">Questions &amp; Answers</a>
+|
+<a href="/pages/membership-agreement">Membership agreement</a>
+|
+<a href="/pages/privacy-policy">Privacy policy</a>
+</small>
+<div class='address'>
+Kuusi Palaa osk, Kolmas linja 7, 00530 Helsinki, Finland
+<br>
+info {at} kuusipalaa dotfi
+<br>
+y-tunnus 2880614-5
+</div>
+</div>
+</footer>
+
+<script>
+  $(document).ready(function() {
+    $("#kp_headline").fitText(0.7);
+    $('.article_slider').slick({
+      responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+        },
+        {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+          }
+        },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          } 
+        ],
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,  
+        autoplay: true,
+        autoplaySpeed: 3000
+    })
+  
+    $('#calendar_grid').fullCalendar({
+      contentHeight: 110,
+      locale: '#{I18n.locale.to_s}',
+      firstDay: 1,
+      customButtons: {
+        prev: {
+            text: '<'
+        },
+        next: {
+          text: '>'
+        }
+      },
+      header: {
+        left: 'prev',
+        right: 'title',
+        center: 'next'
+      },
+      columnHeaderFormat: 'd',
+      fixedWeekCount: false,
+      titleFormat: "MMMM",
+      eventAfterAllRender: function() {
+        // $('#minicalendar .fc-scroller').css('height', 'initial');
+        $('#minicalendar td.fc-day-top').css('background', 'transparent');
+        $('#minicalendar .fc-content-skeleton tr').click(function() {
+          $('#calendar').fullCalendar('gotoDate', $(this).find('td').eq(0).attr('data-date'));
+        });
+        $('#calendar td.fc-day').each(function() {
+          $('#minicalendar td.fc-day-top[data-date=' + $(this).attr('data-date') + ']').css('background-color', 'white');
+        });
+
+        
+        // $('#minicalendar td.fc-day-top.fc-today').siblings().css('background-color', 'white');
+      }
+      
+    });
+$('#calendar_grid .fc-next-button').click(function(){
+  $('#calendar_grid').fullCalendar('next')
+})
+$('#calendar_grid .fc-prev-button').click(function() {
+  $('#calendar_grid').fullCalendar('prev')
+})
+
+$('#calendar_grid td.fc-day-top').on('click', function() {
+  $.ajax({
+    url: '/home/front_calendar?day=' + $(this).attr('data-date'),
+    success : function(data) {
+      console.log(data)
+
+    },
+    error: function(data, errorThrown) {
+      console.log(data)
+      console.log(errorThrown)
+    }
+  })
+ 
+})
+$('.proposal_activity_box .body').height($('.activities_index').height() - 30)
+$(window).on('resize', function(){
+  $('.proposal_activity_box .body').height($('.activities_index').height() - 31)
+})
+
+  })
+</script>
+</body>
+</html>
