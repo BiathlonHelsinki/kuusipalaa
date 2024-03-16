@@ -44,3 +44,4 @@ app/assets/themes/creativeterritories/fonts/*.eot
 test/*
 # Ignore encrypted secrets key file.
 config/secrets.yml.key
+public/cache/*
