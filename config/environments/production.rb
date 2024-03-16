@@ -24,9 +24,10 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = Uglifier.new(harmony: true)
-  config.assets.css_compressor = :sass
-
+  config.assets.configure do |env|
+    env.js_compressor  = :uglifier # or :closure, :yui
+    env.css_compressor = :sass # or :yui
+  end
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
@@ -52,7 +53,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -67,9 +68,9 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: 'admin@temporary.fi' , host: 'kuusipalaa.fi'}
+  config.action_mailer.default_options = { from: 'admin@temporary.fi', host: 'kuusipalaa.fi' }
 
-  config.action_mailer.default_url_options = { :host => 'kuusipalaa.fi' , from: 'info@kuusipalaa.fi'}
+  config.action_mailer.default_url_options = { host: 'kuusipalaa.fi', from: 'info@kuusipalaa.fi' }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -79,7 +80,7 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = Logger::Formatter.new
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
@@ -95,15 +96,14 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
-      api_key: ENV['mailgun_apikey'],
-      domain: 'kuusipalaa.fi'
+    api_key: ENV['mailgun_apikey'],
+    domain: 'kuusipalaa.fi'
   }
 end
 # ActionMailer::Base.sendmail_settings = {
 #         location: "/usr/sbin/sendmail",
 #         arguments: '-i -t'
 # }
-
 
 # ActionMailer::Base.perform_deliveries = true
 # ActionMailer::Base.raise_delivery_errors = true
